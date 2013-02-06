@@ -20,6 +20,15 @@
 
 <!-- Not needed during runtime: -->
 	<dependency>
+	<!--  This is needed for generating the Java parser from the PEG file.
+	  It can be run as a normal Java application like:
+	  java mouse.Generate -G src/main/peg/flowdsl.peg \
+        -D "src/main/java/org/flowdev/flowparser" \
+        -p org.flowdev.flowparser \
+        -P FlowParser -S FlowParserSemantics
+
+	  In eclipse you have to check the box 'Include system libraries when searching for a main class'.
+	 -->
 	    <groupId>se.romanredz.mouse</groupId>
 	    <artifactId>mouse</artifactId>
 	    <version>1.5.1</version>
