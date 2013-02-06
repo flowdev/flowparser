@@ -1,0 +1,113 @@
+start = SpcCom Version Flow+ EOF										{flowFile} ;
+Version = "version" ASpc Natural "." Natural SpcCom						{version};
+Flow = FlowStart "{" SpcCom Ports Connections Operations "}" SpcCom		{flow} ;
+FlowStart = "flow" ASpc BigIdent SpcCom									{flowStart} ;
+
+
+//
+// Rules for the ports section of a flow:
+//
+Ports			= "ports" SpcCom "{" SpcCom Port+ "}" SpcCom			{ports} ;
+Port			= PortType ASpc PortNameColon? SpcCom DataType StmtEnd	{port} ;
+PortType		= ( "in" / "out" )										{portType} ;
+PortNameColon	= PortName ":"											{portNameColon} ;
+
+
+//
+// Rules for the connections section of a flow:
+//
+Connections			= "connections" SpcCom "{" SpcCom ConnectionChain+ "}" SpcCom			{connections} ;
+ConnectionChain		= ConnectionChainBeg ConnectionChainMid* ConnectionChainEnd? StmtEnd	{connectionChain} ;
+ConnectionChainBeg	= OperationNameParens OpOutPort						{connectionChainBegMax}
+					/ InPort?											{connectionChainBegMin};
+ConnectionChainMid	= "->" Spc OpInPort OperationNameParens OpOutPort	{connectionChainMid} ;
+ConnectionChainEnd	= "->" Spc OutPort?									{connectionChainEnd} ;
+OperationNameParens	= "(" Spc OperationName ")" Spc						{operationNameParens} ;
+OpInPort			= InPort?				{opInPort} ;
+OpOutPort			= OutPort?				{opOutPort} ;
+InPort				= PortName "." Spc		{inPort} ;
+OutPort				= "." Spc PortName		{outPort} ;
+PortName			= SmallIdent Spc		{portName} ;
+
+
+//
+// Rules for the operations section of a flow:
+//
+Operations			= "operations" SpcCom "{" SpcCom Operation+ "}" SpcCom		{operations} ;
+Operation			= OperationDecl "{" SpcCom OperationPart* "}" SpcCom		{operation} ;
+OperationDecl		= OperationNameColon SpcCom DataType SpcCom					{operationDecl} ;
+OperationNameColon	= OperationName ":"											{operationNameColon} ;
+OperationName		= SmallIdent Spc											{operationName} ;
+
+OperationPart		= OperationGetter  / OperationSetter
+					/ OperationCreator / OperationConfig;
+
+OperationGetter		= "getter" OperationPartName OperationGetterImpl StmtEnd	{operationGetter} ;
+OperationGetterImpl	= "getFrom" Spc "(" OperationDataPath "," ConstExpr ")"	{operationGetterGetFrom}
+					/ DataPath													{operationGetterData}
+					/ ConstExpr													{operationGetterConst} ;
+
+OperationSetter		= "setter" OperationPartName OperationSetterImpl StmtEnd	{operationSetter} ;
+OperationSetterImpl	= "addTo" Spc "(" OperationDataPath ")"					{operationSetterAddTo}
+					/ "setTo" Spc "(" OperationDataPath "," ConstExpr ")"		{operationSetterSetTo}
+					/ DataPath													{operationSetterData} ;
+
+OperationCreator	= "create" OperationPartName OperationCreatorImpl StmtEnd	{operationCreator} ;
+OperationCreatorImpl= "typeOf" Spc "(" SpcCom DataType SpcCom ")"	{operationCreatorType}
+					/ DataType										{operationCreatorData} ;
+
+OperationConfig		= "config" OperationPartName ConstExpr StmtEnd	{operationConfig} ;
+
+OperationDataPath	= SpcCom DataPath SpcCom						{operationDataPath} ;
+OperationPartName	= Spc SmallIdent Spc ":" SpcCom				{operationPartName} ;
+
+
+//
+// Generic reusable rules:
+//
+StmtEnd			= SpcCom ";" SpcCom ;
+DataPath		= SmallIdent ( Spc "." Spc SmallIdent )*	{dataPath} ;
+DataType		= DataModule? BigIdent						{dataType} ;
+DataModule		= FilePath "/"								{dataModule} ;
+FilePath		= StartFilePath RestFilePath
+				/ RestFilePath ;
+StartFilePath	= "../"+
+				/ "./"
+				/ "/" ;		// path from start of project
+RestFilePath	= SmallIdent ( "/" SmallIdent )* ;
+
+BigIdent		= [A-Z] WordChar+ ;
+SmallIdent		= [a-z] WordChar* ;
+WordChar		= [A-Z] / [a-z] / [0-9] ;
+
+ConstExpr		= SpcCom ( String / Int / Bool ) SpcCom	{constExpr} ;
+
+String			= ["] Char*+ ["]					{unescapeString} ;
+Char			= EscapeChar
+				/ ^[\r\n\\] ;
+EscapeChar		= "\\u" Hex Hex Hex Hex				{unicodeChar}
+				/ "\\t"								{tabChar}
+				/ "\\n"								{newlineChar}
+				/ "\\r"								{carriagereturnChar}
+				/ !"\\u" "\\"_						{backslashChar} ;
+
+Int				= [-+]? Natural						{integer} ;
+Natural			= "0x" Hex+ ( "_"+ Hex+ )*			{hexInt}
+				/ "0b" Binary+ ( "_"+ Binary+ )*	{binaryInt}
+				/ "0c" Octal+ ( "_"+ Octal+ )*		{octalInt}
+				/ Decimal+ ( "_"+ Decimal+ )*		{decimalInt} ;
+Decimal			= [0-9] ;
+Hex				= [0-9] / [a-f] / [A-F] ;
+Binary			= [0-1] ;
+Octal			= [0-7] ;
+
+Bool			= ( "true" / "false" )				{bool} ;
+
+SpcCom			= ( AnySpace / Comment )* ;
+AnySpace		= [ \t\r\n]+ ;
+Comment			= "//" _*+ EOL
+				/ "/*" _*+ "*/" ;
+Spc				= ASpc? ;
+ASpc			= [ \t]+ ;
+EOL				= [\r]? [\n] / EOF ;
+EOF				= !_ ;
