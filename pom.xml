@@ -17,6 +17,14 @@
 	    <artifactId>mouse-runtime</artifactId>
 	    <version>1.5.1</version>
 	</dependency>
+
+<!-- Not needed during runtime: -->
+	<dependency>
+	    <groupId>se.romanredz.mouse</groupId>
+	    <artifactId>mouse</artifactId>
+	    <version>1.5.1</version>
+		<scope>provided</scope>
+	</dependency>
     <dependency>
 		<groupId>junit</groupId>
 		<artifactId>junit</artifactId>
