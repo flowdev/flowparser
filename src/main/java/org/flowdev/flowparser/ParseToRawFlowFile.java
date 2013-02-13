@@ -37,8 +37,7 @@ public class ParseToRawFlowFile<T> extends Filter<T, EmptyConfig> {
 
 		if (ok) {
 			FlowParserSemantics sem = parser.semantics();
-			RawFlowFile flowFile = sem.getFlowFile();
-			params.setFlowFile.set(data, flowFile);
+			params.setFlowFile.set(data, sem.getFlowFile());
 		}
 
 		return data;
