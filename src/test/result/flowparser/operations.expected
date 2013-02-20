@@ -45,8 +45,7 @@ RawFlowFile {
                             } ;
                             dataPath : NULL ;
                             name : "getBla" ;
-                            sourcePosition : "After '... : Data {
-      '" ;
+                            sourcePosition : "After '... : Data {\n      '" ;
                             type : CONST ;
                         } ;
                         1 : RawGetter {
@@ -56,40 +55,34 @@ RawFlowFile {
                             } ;
                             dataPath : NULL ;
                             name : "getBlue" ;
-                            sourcePosition : "After '...  "bla" ;
-      '" ;
+                            sourcePosition : "After '...  \"bla\" ;\n      '" ;
                             type : CONST ;
                         } ;
                         2 : RawGetter {
                             constValue : RawStr {
                                 sourcePosition : "After '... tter getBlues: '" ;
-                                value : "blu
-e" ;
+                                value : "blu\r\ne" ;
                             } ;
                             dataPath : NULL ;
                             name : "getBlues" ;
-                            sourcePosition : "After '... blu e" ;
-      '" ;
+                            sourcePosition : "After '... blu e\" ;\n      '" ;
                             type : CONST ;
                         } ;
                         3 : RawGetter {
                             constValue : RawStr {
                                 sourcePosition : "After '... er getEscapes: '" ;
-                                value : "ab
-c	dሴe;f" ;
+                                value : "a\rb\nc\tdሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getEscapes" ;
-                            sourcePosition : "After '... \r\ne" ;
-      '" ;
+                            sourcePosition : "After '... \\r\\ne\" ;\n      '" ;
                             type : CONST ;
                         } ;
                     ] ;
                     name : "doStrings" ;
                     setters : List [
                     ] ;
-                    sourcePosition : "After '... erations {
-    '" ;
+                    sourcePosition : "After '... erations {\n    '" ;
                     type : RawDataType {
                         path : "" ;
                         sourcePosition : "After '...     doStrings: '" ;
@@ -109,8 +102,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getDec1" ;
-                            sourcePosition : "After '... : Data {
-      '" ;
+                            sourcePosition : "After '... : Data {\n      '" ;
                             type : CONST ;
                         } ;
                         1 : RawGetter {
@@ -120,8 +112,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getDec2" ;
-                            sourcePosition : "After '... 1: 1234;
-      '" ;
+                            sourcePosition : "After '... 1: 1234;\n      '" ;
                             type : CONST ;
                         } ;
                         2 : RawGetter {
@@ -131,8 +122,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getDec3" ;
-                            sourcePosition : "After '...  12__34;
-      '" ;
+                            sourcePosition : "After '...  12__34;\n      '" ;
                             type : CONST ;
                         } ;
                         3 : RawGetter {
@@ -142,8 +132,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getDec4" ;
-                            sourcePosition : "After '...  +12_34;
-      '" ;
+                            sourcePosition : "After '...  +12_34;\n      '" ;
                             type : CONST ;
                         } ;
                         4 : RawGetter {
@@ -153,9 +142,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getHex1" ;
-                            sourcePosition : "After '... 23___4;
-
-      '" ;
+                            sourcePosition : "After '... 23___4;\n\n      '" ;
                             type : CONST ;
                         } ;
                         5 : RawGetter {
@@ -165,8 +152,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getHex2" ;
-                            sourcePosition : "After '... x1234aF;
-      '" ;
+                            sourcePosition : "After '... x1234aF;\n      '" ;
                             type : CONST ;
                         } ;
                         6 : RawGetter {
@@ -176,8 +162,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getHex3" ;
-                            sourcePosition : "After '... C2__3b4;
-      '" ;
+                            sourcePosition : "After '... C2__3b4;\n      '" ;
                             type : CONST ;
                         } ;
                         7 : RawGetter {
@@ -187,8 +172,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getHex4" ;
-                            sourcePosition : "After '... 1d2_3E4;
-      '" ;
+                            sourcePosition : "After '... 1d2_3E4;\n      '" ;
                             type : CONST ;
                         } ;
                         8 : RawGetter {
@@ -198,9 +182,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getBin1" ;
-                            sourcePosition : "After '... 23___4;
-
-      '" ;
+                            sourcePosition : "After '... 23___4;\n\n      '" ;
                             type : CONST ;
                         } ;
                         9 : RawGetter {
@@ -210,8 +192,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getBin2" ;
-                            sourcePosition : "After '... b101001;
-      '" ;
+                            sourcePosition : "After '... b101001;\n      '" ;
                             type : CONST ;
                         } ;
                         10 : RawGetter {
@@ -221,8 +202,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getBin3" ;
-                            sourcePosition : "After '... 01__111;
-      '" ;
+                            sourcePosition : "After '... 01__111;\n      '" ;
                             type : CONST ;
                         } ;
                         11 : RawGetter {
@@ -232,8 +212,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getBin4" ;
-                            sourcePosition : "After '... 010_111;
-      '" ;
+                            sourcePosition : "After '... 010_111;\n      '" ;
                             type : CONST ;
                         } ;
                         12 : RawGetter {
@@ -243,9 +222,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getOct1" ;
-                            sourcePosition : "After '... 0___01;
-
-      '" ;
+                            sourcePosition : "After '... 0___01;\n\n      '" ;
                             type : CONST ;
                         } ;
                         13 : RawGetter {
@@ -255,8 +232,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getOct2" ;
-                            sourcePosition : "After '... 6543210;
-      '" ;
+                            sourcePosition : "After '... 6543210;\n      '" ;
                             type : CONST ;
                         } ;
                         14 : RawGetter {
@@ -266,8 +242,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getOct3" ;
-                            sourcePosition : "After '... 41__237;
-      '" ;
+                            sourcePosition : "After '... 41__237;\n      '" ;
                             type : CONST ;
                         } ;
                         15 : RawGetter {
@@ -277,21 +252,17 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getOct4" ;
-                            sourcePosition : "After '... 237_012;
-      '" ;
+                            sourcePosition : "After '... 237_012;\n      '" ;
                             type : CONST ;
                         } ;
                     ] ;
                     name : "doInts" ;
                     setters : List [
                     ] ;
-                    sourcePosition : "After '... f" ;
-    }
-    '" ;
+                    sourcePosition : "After '... f\" ;\n    }\n    '" ;
                     type : RawDataType {
                         path : "" ;
-                        sourcePosition : "After '...  }
-    doInts: '" ;
+                        sourcePosition : "After '...  }\n    doInts: '" ;
                         type : "Data" ;
                     } ;
                 } ;
@@ -308,8 +279,7 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getTrue" ;
-                            sourcePosition : "After '... : Data {
-      '" ;
+                            sourcePosition : "After '... : Data {\n      '" ;
                             type : CONST ;
                         } ;
                         1 : RawGetter {
@@ -319,21 +289,17 @@ c	dሴe;f" ;
                             } ;
                             dataPath : NULL ;
                             name : "getFalse" ;
-                            sourcePosition : "After '... : true ;
-      '" ;
+                            sourcePosition : "After '... : true ;\n      '" ;
                             type : CONST ;
                         } ;
                     ] ;
                     name : "doBools" ;
                     setters : List [
                     ] ;
-                    sourcePosition : "After '... _12;
-    }
-    '" ;
+                    sourcePosition : "After '... _12;\n    }\n    '" ;
                     type : RawDataType {
                         path : "" ;
-                        sourcePosition : "After '... }
-    doBools: '" ;
+                        sourcePosition : "After '... }\n    doBools: '" ;
                         type : "Data" ;
                     } ;
                 } ;
@@ -352,8 +318,7 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... getter getDat: '" ;
                             } ;
                             name : "getDat" ;
-                            sourcePosition : "After '... : Data {
-      '" ;
+                            sourcePosition : "After '... : Data {\n      '" ;
                             type : PLAIN ;
                         } ;
                         1 : RawGetter {
@@ -366,8 +331,7 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... etter getData: '" ;
                             } ;
                             name : "getData" ;
-                            sourcePosition : "After '... : data ;
-      '" ;
+                            sourcePosition : "After '... : data ;\n      '" ;
                             type : PLAIN ;
                         } ;
                         2 : RawGetter {
@@ -381,21 +345,17 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... tter getDatas: '" ;
                             } ;
                             name : "getDatas" ;
-                            sourcePosition : "After '... ubdata ;
-      '" ;
+                            sourcePosition : "After '... ubdata ;\n      '" ;
                             type : PLAIN ;
                         } ;
                     ] ;
                     name : "doData" ;
                     setters : List [
                     ] ;
-                    sourcePosition : "After '... se ;
-    }
-    '" ;
+                    sourcePosition : "After '... se ;\n    }\n    '" ;
                     type : RawDataType {
                         path : "" ;
-                        sourcePosition : "After '...  }
-    doData: '" ;
+                        sourcePosition : "After '...  }\n    doData: '" ;
                         type : "Data" ;
                     } ;
                 } ;
@@ -418,8 +378,7 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... omArr: getFrom('" ;
                             } ;
                             name : "getFromArr" ;
-                            sourcePosition : "After '... : Data {
-      '" ;
+                            sourcePosition : "After '... : Data {\n      '" ;
                             type : COLLECTION ;
                         } ;
                         1 : RawGetter {
@@ -435,8 +394,7 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... :  getFrom  (  '" ;
                             } ;
                             name : "getFromMap" ;
-                            sourcePosition : "After '... rr, 0) ;
-      '" ;
+                            sourcePosition : "After '... rr, 0) ;\n      '" ;
                             type : COLLECTION ;
                         } ;
                         2 : RawGetter {
@@ -452,17 +410,14 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... :  getFrom  (  '" ;
                             } ;
                             name : "getFromMad" ;
-                            sourcePosition : "After '... a"  )  ;
-      '" ;
+                            sourcePosition : "After '... a\"  )  ;\n      '" ;
                             type : COLLECTION ;
                         } ;
                     ] ;
                     name : "doGetFrom" ;
                     setters : List [
                     ] ;
-                    sourcePosition : "After '... 49 ;
-    }
-    '" ;
+                    sourcePosition : "After '... 49 ;\n    }\n    '" ;
                     type : RawDataType {
                         path : "" ;
                         sourcePosition : "After '...     doGetFrom: '" ;
@@ -474,19 +429,15 @@ c	dሴe;f" ;
                 0 : RawPort {
                     dataType : RawDataType {
                         path : "" ;
-                        sourcePosition : "After '... {
-  ports { in '" ;
+                        sourcePosition : "After '... {\n  ports { in '" ;
                         type : "Data" ;
                     } ;
                     name : "in" ;
-                    sourcePosition : "After '... er {
-  ports { '" ;
+                    sourcePosition : "After '... er {\n  ports { '" ;
                     type : in ;
                 } ;
             ] ;
-            sourcePosition : "After 'version 0.1
-
-'" ;
+            sourcePosition : "After 'version 0.1\n\n'" ;
         } ;
         1 : RawFlow {
             connections : List [
@@ -538,8 +489,7 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... setter setDat: '" ;
                             } ;
                             name : "setDat" ;
-                            sourcePosition : "After '... : Data {
-      '" ;
+                            sourcePosition : "After '... : Data {\n      '" ;
                             type : PLAIN ;
                         } ;
                         1 : RawSetter {
@@ -552,8 +502,7 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... etter setData: '" ;
                             } ;
                             name : "setData" ;
-                            sourcePosition : "After '... : data ;
-      '" ;
+                            sourcePosition : "After '... : data ;\n      '" ;
                             type : PLAIN ;
                         } ;
                         2 : RawSetter {
@@ -567,17 +516,14 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... tter setDatas: '" ;
                             } ;
                             name : "setDatas" ;
-                            sourcePosition : "After '... ubdata ;
-      '" ;
+                            sourcePosition : "After '... ubdata ;\n      '" ;
                             type : PLAIN ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... erations {
-    '" ;
+                    sourcePosition : "After '... erations {\n    '" ;
                     type : RawDataType {
                         path : "" ;
-                        sourcePosition : "After '...  {
-    doData: '" ;
+                        sourcePosition : "After '...  {\n    doData: '" ;
                         type : "Data" ;
                     } ;
                 } ;
@@ -600,8 +546,7 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... ddToArr: addTo('" ;
                             } ;
                             name : "addToArr" ;
-                            sourcePosition : "After '... : Data {
-      '" ;
+                            sourcePosition : "After '... : Data {\n      '" ;
                             type : APPEND ;
                         } ;
                         1 : RawSetter {
@@ -614,8 +559,7 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... st:  addTo  (  '" ;
                             } ;
                             name : "addToList" ;
-                            sourcePosition : "After '... a.arr) ;
-      '" ;
+                            sourcePosition : "After '... a.arr) ;\n      '" ;
                             type : APPEND ;
                         } ;
                         2 : RawSetter {
@@ -628,18 +572,14 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... ad:  addTo  (  '" ;
                             } ;
                             name : "addToMad" ;
-                            sourcePosition : "After '... ist )  ;
-      '" ;
+                            sourcePosition : "After '... ist )  ;\n      '" ;
                             type : APPEND ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... 49 ;
-    }
-    '" ;
+                    sourcePosition : "After '... 49 ;\n    }\n    '" ;
                     type : RawDataType {
                         path : "" ;
-                        sourcePosition : "After '... }
-    doAddTo: '" ;
+                        sourcePosition : "After '... }\n    doAddTo: '" ;
                         type : "Data" ;
                     } ;
                 } ;
@@ -665,8 +605,7 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... tToList: setTo('" ;
                             } ;
                             name : "setToList" ;
-                            sourcePosition : "After '... : Data {
-      '" ;
+                            sourcePosition : "After '... : Data {\n      '" ;
                             type : COLLECTION ;
                         } ;
                         1 : RawSetter {
@@ -682,8 +621,7 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... ap:  setTo  (  '" ;
                             } ;
                             name : "setToMap" ;
-                            sourcePosition : "After '... rr, 0) ;
-      '" ;
+                            sourcePosition : "After '... rr, 0) ;\n      '" ;
                             type : COLLECTION ;
                         } ;
                         2 : RawSetter {
@@ -699,18 +637,14 @@ c	dሴe;f" ;
                                 sourcePosition : "After '... ad:  setTo  (  '" ;
                             } ;
                             name : "setToMad" ;
-                            sourcePosition : "After '... a"  )  ;
-      '" ;
+                            sourcePosition : "After '... a\"  )  ;\n      '" ;
                             type : COLLECTION ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... )  ;
-    }
-    '" ;
+                    sourcePosition : "After '... )  ;\n    }\n    '" ;
                     type : RawDataType {
                         path : "" ;
-                        sourcePosition : "After '... }
-    doSetTo: '" ;
+                        sourcePosition : "After '... }\n    doSetTo: '" ;
                         type : "Data" ;
                     } ;
                 } ;
@@ -719,22 +653,15 @@ c	dሴe;f" ;
                 0 : RawPort {
                     dataType : RawDataType {
                         path : "" ;
-                        sourcePosition : "After '... {
-  ports { in '" ;
+                        sourcePosition : "After '... {\n  ports { in '" ;
                         type : "Data" ;
                     } ;
                     name : "in" ;
-                    sourcePosition : "After '... er {
-  ports { '" ;
+                    sourcePosition : "After '... er {\n  ports { '" ;
                     type : in ;
                 } ;
             ] ;
-            sourcePosition : "After '... ;
-    }
-  }
-}
-
-'" ;
+            sourcePosition : "After '... ;\n    }\n  }\n}\n\n'" ;
         } ;
     ] ;
     version : RawVersion {
