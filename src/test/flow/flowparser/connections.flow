@@ -1,0 +1,44 @@
+version 0.1
+
+flow Connections0 {
+  ports {
+    in Data;
+    out Data;
+  }
+  connections {
+    ;
+    in.;
+    in.->;
+    ->;
+    ->.out;
+  }
+  operations {
+    doIt:Data{}
+  }
+}
+
+flow Connections1 {
+  ports {
+    in  in:  Data;
+    out out: Data;
+    out err: Data;
+  }
+  connections {
+    ->(doIt);
+    in.->(doIt);
+    (doIt)->;
+    (doIt)->.out;
+    ->(doIt)->;
+    in.->in.(doIt).out->.out;
+    ->(doIt)->(doThis)->(doThat);
+    in.->(doIt).out->(doThis)->in.(doThat)->.out;
+    ->in.(doIt)->in.(doThat).out->(doThis).out->;
+    (doThis).err->.err;
+    in.->in2.(doThis);
+  }
+  operations {
+    doIt:Data{}
+    doThis:Data{}
+    doThat:Data{}
+  }
+}

@@ -13,13 +13,7 @@ RawFlowFile {
                                 type : in ;
                             } ;
                             operationName : NULL ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : in ;
-                                sourcePosition : After '... 
-  connections{' ;
-                                type : in ;
-                            } ;
+                            outPort : NULL ;
                             sourcePosition : After '... 
   connections{' ;
                         } ;
