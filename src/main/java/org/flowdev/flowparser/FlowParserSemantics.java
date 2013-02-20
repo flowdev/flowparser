@@ -383,7 +383,6 @@ class FlowParserSemantics extends SemanticsBase {
 
 	int n = rhsSize() - 2;
 	for (int i = 3; i < n; i++) {
-	    rhs(i).errMsg();
 	    putOperationPart(rhs(i), data);
 	}
 
@@ -477,7 +476,6 @@ class FlowParserSemantics extends SemanticsBase {
     void operationGetterConst() {
 	RawGetter data = new RawGetter();
 	data.type = RawGetterType.CONST;
-	data.sourcePosition = lhs().where(0);
 	data.constValue = rhs(0).get();
 
 	lhs().put(data);
