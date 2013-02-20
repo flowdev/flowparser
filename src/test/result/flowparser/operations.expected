@@ -1,0 +1,497 @@
+RawFlowFile {
+    flows : List [
+        0 : RawFlow {
+            connections : List [
+                0 : RawConnectionChain {
+                    parts : List [
+                        0 : RawConnectionPart {
+                            inPort : RawPort {
+                                dataType : NULL ;
+                                name : "in" ;
+                                sourcePosition : "After '...  connections { '" ;
+                                type : in ;
+                            } ;
+                            operationName : NULL ;
+                            outPort : NULL ;
+                            sourcePosition : "After '...  connections { '" ;
+                        } ;
+                        1 : RawConnectionPart {
+                            inPort : RawPort {
+                                dataType : NULL ;
+                                name : "in" ;
+                                sourcePosition : "After '... onnections { ->'" ;
+                                type : in ;
+                            } ;
+                            operationName : "doIt" ;
+                            outPort : NULL ;
+                            sourcePosition : "After '...  connections { '" ;
+                        } ;
+                    ] ;
+                    sourcePosition : "After '...  connections { '" ;
+                } ;
+            ] ;
+            name : "Getter" ;
+            operations : List [
+                0 : RawOperation {
+                    configs : List [
+                    ] ;
+                    creators : List [
+                    ] ;
+                    getters : List [
+                        0 : RawGetter {
+                            constValue : RawStr {
+                                sourcePosition : "After '... getter getBla: '" ;
+                                value : "bla" ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getBla" ;
+                            sourcePosition : "After '... : Data {
+      '" ;
+                            type : CONST ;
+                        } ;
+                        1 : RawGetter {
+                            constValue : RawStr {
+                                sourcePosition : "After '... etter getBlue: '" ;
+                                value : "blu e" ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getBlue" ;
+                            sourcePosition : "After '...  "bla" ;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        2 : RawGetter {
+                            constValue : RawStr {
+                                sourcePosition : "After '... tter getBlues: '" ;
+                                value : "blu
+e" ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getBlues" ;
+                            sourcePosition : "After '... blu e" ;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        3 : RawGetter {
+                            constValue : RawStr {
+                                sourcePosition : "After '... er getEscapes: '" ;
+                                value : "ab
+c	dሴe;f" ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getEscapes" ;
+                            sourcePosition : "After '... \r\ne" ;
+      '" ;
+                            type : CONST ;
+                        } ;
+                    ] ;
+                    name : "doStrings" ;
+                    setters : List [
+                    ] ;
+                    sourcePosition : "After '... erations {
+    '" ;
+                    type : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '...     doStrings: '" ;
+                        type : "Data" ;
+                    } ;
+                } ;
+                1 : RawOperation {
+                    configs : List [
+                    ] ;
+                    creators : List [
+                    ] ;
+                    getters : List [
+                        0 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getDec1: '" ;
+                                value : 1234 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getDec1" ;
+                            sourcePosition : "After '... : Data {
+      '" ;
+                            type : CONST ;
+                        } ;
+                        1 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getDec2: '" ;
+                                value : 1234 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getDec2" ;
+                            sourcePosition : "After '... 1: 1234;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        2 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getDec3: '" ;
+                                value : 1234 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getDec3" ;
+                            sourcePosition : "After '...  12__34;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        3 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getDec4: '" ;
+                                value : -1234 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getDec4" ;
+                            sourcePosition : "After '...  +12_34;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        4 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getHex1: '" ;
+                                value : 1193135 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getHex1" ;
+                            sourcePosition : "After '... 23___4;
+
+      '" ;
+                            type : CONST ;
+                        } ;
+                        5 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getHex2: '" ;
+                                value : 1844148 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getHex2" ;
+                            sourcePosition : "After '... x1234aF;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        6 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getHex3: '" ;
+                                value : 1909732 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getHex3" ;
+                            sourcePosition : "After '... C2__3b4;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        7 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getHex4: '" ;
+                                value : -987700 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getHex4" ;
+                            sourcePosition : "After '... 1d2_3E4;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        8 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getBin1: '" ;
+                                value : 41 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getBin1" ;
+                            sourcePosition : "After '... 23___4;
+
+      '" ;
+                            type : CONST ;
+                        } ;
+                        9 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getBin2: '" ;
+                                value : 47 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getBin2" ;
+                            sourcePosition : "After '... b101001;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        10 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getBin3: '" ;
+                                value : 23 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getBin3" ;
+                            sourcePosition : "After '... 01__111;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        11 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getBin4: '" ;
+                                value : -9 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getBin4" ;
+                            sourcePosition : "After '... 010_111;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        12 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getOct1: '" ;
+                                value : 16434824 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getOct1" ;
+                            sourcePosition : "After '... 0___01;
+
+      '" ;
+                            type : CONST ;
+                        } ;
+                        13 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getOct2: '" ;
+                                value : 17055 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getOct2" ;
+                            sourcePosition : "After '... 6543210;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        14 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getOct3: '" ;
+                                value : 81418 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getOct3" ;
+                            sourcePosition : "After '... 41__237;
+      '" ;
+                            type : CONST ;
+                        } ;
+                        15 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etter getOct4: '" ;
+                                value : -155082 ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getOct4" ;
+                            sourcePosition : "After '... 237_012;
+      '" ;
+                            type : CONST ;
+                        } ;
+                    ] ;
+                    name : "doInts" ;
+                    setters : List [
+                    ] ;
+                    sourcePosition : "After '... f" ;
+    }
+    '" ;
+                    type : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '...  }
+    doInts: '" ;
+                        type : "Data" ;
+                    } ;
+                } ;
+                2 : RawOperation {
+                    configs : List [
+                    ] ;
+                    creators : List [
+                    ] ;
+                    getters : List [
+                        0 : RawGetter {
+                            constValue : RawBool {
+                                sourcePosition : "After '... etter getTrue: '" ;
+                                value : true ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getTrue" ;
+                            sourcePosition : "After '... : Data {
+      '" ;
+                            type : CONST ;
+                        } ;
+                        1 : RawGetter {
+                            constValue : RawBool {
+                                sourcePosition : "After '... tter getFalse: '" ;
+                                value : false ;
+                            } ;
+                            dataPath : NULL ;
+                            name : "getFalse" ;
+                            sourcePosition : "After '... : true ;
+      '" ;
+                            type : CONST ;
+                        } ;
+                    ] ;
+                    name : "doBools" ;
+                    setters : List [
+                    ] ;
+                    sourcePosition : "After '... _12;
+    }
+    '" ;
+                    type : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '... }
+    doBools: '" ;
+                        type : "Data" ;
+                    } ;
+                } ;
+                3 : RawOperation {
+                    configs : List [
+                    ] ;
+                    creators : List [
+                    ] ;
+                    getters : List [
+                        0 : RawGetter {
+                            constValue : NULL ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                ] ;
+                                sourcePosition : "After '... getter getDat: '" ;
+                            } ;
+                            name : "getDat" ;
+                            sourcePosition : "After '... : Data {
+      '" ;
+                            type : PLAIN ;
+                        } ;
+                        1 : RawGetter {
+                            constValue : NULL ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                    1 : "subdata" ;
+                                ] ;
+                                sourcePosition : "After '... etter getData: '" ;
+                            } ;
+                            name : "getData" ;
+                            sourcePosition : "After '... : data ;
+      '" ;
+                            type : PLAIN ;
+                        } ;
+                        2 : RawGetter {
+                            constValue : NULL ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "daTa0" ;
+                                    1 : "subData1" ;
+                                    2 : "subsubsubbyDiDumpty12349" ;
+                                ] ;
+                                sourcePosition : "After '... tter getDatas: '" ;
+                            } ;
+                            name : "getDatas" ;
+                            sourcePosition : "After '... ubdata ;
+      '" ;
+                            type : PLAIN ;
+                        } ;
+                    ] ;
+                    name : "doData" ;
+                    setters : List [
+                    ] ;
+                    sourcePosition : "After '... se ;
+    }
+    '" ;
+                    type : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '...  }
+    doData: '" ;
+                        type : "Data" ;
+                    } ;
+                } ;
+                4 : RawOperation {
+                    configs : List [
+                    ] ;
+                    creators : List [
+                    ] ;
+                    getters : List [
+                        0 : RawGetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... From(data.arr, '" ;
+                                value : 0 ;
+                            } ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                    1 : "arr" ;
+                                ] ;
+                                sourcePosition : "After '... omArr: getFrom('" ;
+                            } ;
+                            name : "getFromArr" ;
+                            sourcePosition : "After '... : Data {
+      '" ;
+                            type : COLLECTION ;
+                        } ;
+                        1 : RawGetter {
+                            constValue : RawStr {
+                                sourcePosition : "After '... (  data.map ,  '" ;
+                                value : "bla" ;
+                            } ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                    1 : "map" ;
+                                ] ;
+                                sourcePosition : "After '... :  getFrom  (  '" ;
+                            } ;
+                            name : "getFromMap" ;
+                            sourcePosition : "After '... rr, 0) ;
+      '" ;
+                            type : COLLECTION ;
+                        } ;
+                        2 : RawGetter {
+                            constValue : RawBool {
+                                sourcePosition : "After '... (  data.mad ,  '" ;
+                                value : true ;
+                            } ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                    1 : "mad" ;
+                                ] ;
+                                sourcePosition : "After '... :  getFrom  (  '" ;
+                            } ;
+                            name : "getFromMad" ;
+                            sourcePosition : "After '... a"  )  ;
+      '" ;
+                            type : COLLECTION ;
+                        } ;
+                    ] ;
+                    name : "doGetFrom" ;
+                    setters : List [
+                    ] ;
+                    sourcePosition : "After '... 49 ;
+    }
+    '" ;
+                    type : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '...     doGetFrom: '" ;
+                        type : "Data" ;
+                    } ;
+                } ;
+            ] ;
+            ports : List [
+                0 : RawPort {
+                    dataType : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '... {
+  ports { in '" ;
+                        type : "Data" ;
+                    } ;
+                    name : "in" ;
+                    sourcePosition : "After '... er {
+  ports { '" ;
+                    type : in ;
+                } ;
+            ] ;
+            sourcePosition : "After 'version 0.1
+
+'" ;
+        } ;
+    ] ;
+    version : RawVersion {
+        major : 1 ;
+        political : 0 ;
+        sourcePosition : "At start" ;
+    } ;
+}

@@ -39,27 +39,24 @@ OperationDecl		= OperationNameColon SpcCom DataType SpcCom					{operationDecl} ;
 OperationNameColon	= OperationName ":"											{operationNameColon} ;
 OperationName		= SmallIdent Spc											{operationName} ;
 
-OperationPart		= OperationGetter  / OperationSetter
-					/ OperationCreator / OperationConfig;
+OperationPart		= "getter" OperationPartName OperationGetterImpl StmtEnd	{operationGetter}
+					/ "setter" OperationPartName OperationSetterImpl StmtEnd	{operationSetter}
+					/ "create" OperationPartName OperationCreatorImpl StmtEnd	{operationCreator}
+					/ "config" OperationPartName ConstExpr StmtEnd				{operationConfig} ;
 
-OperationGetter		= "getter" OperationPartName OperationGetterImpl StmtEnd	{operationGetter} ;
-OperationGetterImpl	= "getFrom" Spc "(" OperationDataPath "," ConstExpr ")"	{operationGetterGetFrom}
-					/ DataPath													{operationGetterData}
-					/ ConstExpr													{operationGetterConst} ;
+OperationGetterImpl	= "getFrom" Spc "(" OperationDataPath "," ConstExpr ")"		{operationGetterGetFrom}
+					/ ConstExpr													{operationGetterConst}
+					/ DataPath													{operationGetterData} ;
 
-OperationSetter		= "setter" OperationPartName OperationSetterImpl StmtEnd	{operationSetter} ;
-OperationSetterImpl	= "addTo" Spc "(" OperationDataPath ")"					{operationSetterAddTo}
+OperationSetterImpl	= "addTo" Spc "(" OperationDataPath ")"						{operationSetterAddTo}
 					/ "setTo" Spc "(" OperationDataPath "," ConstExpr ")"		{operationSetterSetTo}
 					/ DataPath													{operationSetterData} ;
 
-OperationCreator	= "create" OperationPartName OperationCreatorImpl StmtEnd	{operationCreator} ;
 OperationCreatorImpl= "typeOf" Spc "(" SpcCom DataType SpcCom ")"	{operationCreatorType}
 					/ DataType										{operationCreatorData} ;
 
-OperationConfig		= "config" OperationPartName ConstExpr StmtEnd	{operationConfig} ;
-
 OperationDataPath	= SpcCom DataPath SpcCom						{operationDataPath} ;
-OperationPartName	= Spc SmallIdent Spc ":" SpcCom				{operationPartName} ;
+OperationPartName	= ASpc SmallIdent Spc ":" SpcCom				{operationPartName} ;
 
 
 //
@@ -82,14 +79,13 @@ WordChar		= [A-Z] / [a-z] / [0-9] ;
 
 ConstExpr		= SpcCom ( String / Int / Bool ) SpcCom	{constExpr} ;
 
-String			= ["] Char*+ ["]					{unescapeString} ;
-Char			= EscapeChar
-				/ ^[\r\n\\] ;
-EscapeChar		= "\\u" Hex Hex Hex Hex				{unicodeChar}
+String			= ["] Char* ["]						{unescapeString} ;
+Char			= "\\u" Hex Hex Hex Hex				{unicodeChar}
 				/ "\\t"								{tabChar}
 				/ "\\n"								{newlineChar}
 				/ "\\r"								{carriagereturnChar}
-				/ !"\\u" "\\"_						{backslashChar} ;
+				/ !"\\u" "\\"_						{backslashChar}
+				/ ^[\r\n\\"]						{simpleChar} ;
 
 Int				= [-+]? Natural						{integer} ;
 Natural			= "0x" Hex+ ( "_"+ Hex+ )*			{hexInt}

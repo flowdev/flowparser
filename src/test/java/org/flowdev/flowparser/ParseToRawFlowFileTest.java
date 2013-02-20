@@ -60,7 +60,8 @@ public class ParseToRawFlowFileTest {
     public static Collection<?> checkPorts() {
 	return Arrays.asList(new Object[][] { //
 		{ "mini" }, //
-			{ "connections" } //
+			{ "connections" }, //
+			{ "operations" } //
 		});
     }
 

@@ -376,16 +376,22 @@ class FlowParserSemantics extends SemanticsBase {
 	data.sourcePosition = lhs().where(0);
 	data.name = (String) decl[0];
 	data.type = (RawDataType) decl[1];
+	data.configs = new ArrayList<>();
+	data.creators = new ArrayList<>();
+	data.getters = new ArrayList<>();
+	data.setters = new ArrayList<>();
 
 	int n = rhsSize() - 2;
 	for (int i = 3; i < n; i++) {
-	    putOperationPart(rhs(i).get(), data);
+	    rhs(i).errMsg();
+	    putOperationPart(rhs(i), data);
 	}
 
 	lhs().put(data);
     }
 
-    private void putOperationPart(Object part, RawOperation op) {
+    private void putOperationPart(Phrase partPhrase, RawOperation op) {
+	Object part = partPhrase.get();
 	if (part instanceof RawGetter) {
 	    op.getters.add((RawGetter) part);
 	} else if (part instanceof RawSetter) {
@@ -394,6 +400,13 @@ class FlowParserSemantics extends SemanticsBase {
 	    op.creators.add((RawCreator) part);
 	} else if (part instanceof RawConfig) {
 	    op.configs.add((RawConfig) part);
+	} else {
+	    String errMsg = partPhrase.errMsg();
+	    if (errMsg == null || errMsg.isEmpty()) {
+		errMsg = "ERROR: Unable to save operation part: " + part
+			+ "; from: " + partPhrase.where(0);
+	    }
+	    System.err.println(errMsg);
 	}
     }
 
@@ -464,6 +477,7 @@ class FlowParserSemantics extends SemanticsBase {
     void operationGetterConst() {
 	RawGetter data = new RawGetter();
 	data.type = RawGetterType.CONST;
+	data.sourcePosition = lhs().where(0);
 	data.constValue = rhs(0).get();
 
 	lhs().put(data);
@@ -621,18 +635,18 @@ class FlowParserSemantics extends SemanticsBase {
     // ConstExpr = SpcCom (String / Int / Bool) SpcCom
     // -------------------------------------------------------------------
     void constExpr() {
-	lhs().put(rhs(1));
+	lhs().put(rhs(1).get());
     }
 
     // -------------------------------------------------------------------
-    // String = ["] Char*+ ["]
+    // String = ["] Char* ["]
     // -------------------------------------------------------------------
     void unescapeString() {
 	int N = rhsSize() - 1;
-	StringBuilder sb = new StringBuilder(128);
+	StringBuilder sb = new StringBuilder(N);
 
 	for (int i = 1; i < N; i++) {
-	    appendChar(rhs(i), sb);
+	    sb.append(rhs(i).get());
 	}
 
 	RawStr data = new RawStr();
@@ -642,17 +656,8 @@ class FlowParserSemantics extends SemanticsBase {
 	lhs().put(data);
     }
 
-    private void appendChar(Phrase rhs, StringBuilder buf) {
-	Object obj = rhs.get();
-	if (obj instanceof String) {
-	    buf.append(obj);
-	} else {
-	    buf.append(rhs.text());
-	}
-    }
-
     // -------------------------------------------------------------------
-    // EscapeChar = "\ u" Hex Hex Hex Hex
+    // Char = "\ u" Hex Hex Hex Hex
     // -------------------------------------------------------------------
     void unicodeChar() {
 	try {
@@ -665,31 +670,38 @@ class FlowParserSemantics extends SemanticsBase {
     }
 
     // -------------------------------------------------------------------
-    // EscapeChar = "\t"
+    // Char = "\t"
     // -------------------------------------------------------------------
     void tabChar() {
 	lhs().put("\t");
     }
 
     // -------------------------------------------------------------------
-    // EscapeChar = "\n"
+    // Char = "\n"
     // -------------------------------------------------------------------
     void newlineChar() {
 	lhs().put("\n");
     }
 
     // -------------------------------------------------------------------
-    // EscapeChar = "\r"
+    // Char = "\r"
     // -------------------------------------------------------------------
     void carriagereturnChar() {
 	lhs().put("\r");
     }
 
     // -------------------------------------------------------------------
-    // EscapeChar = !"\ u" "\" _
+    // Char = !"\ u" "\" _
     // -------------------------------------------------------------------
     void backslashChar() {
 	lhs().put(rhs(1).text());
+    }
+
+    // -------------------------------------------------------------------
+    // Char = ^[\r\n\\"]
+    // -------------------------------------------------------------------
+    void simpleChar() {
+	lhs().put(rhs(0).text());
     }
 
     // -------------------------------------------------------------------

@@ -1,0 +1,49 @@
+version 0.1
+
+flow Getter {
+  ports { in Data; }
+  connections { ->(doIt); }
+  operations {
+    doStrings: Data {
+      getter getBla: "bla" ;
+      getter getBlue: "blu e" ;
+      getter getBlues: "blu\r\ne" ;
+      getter getEscapes: "a\rb\nc\td\u1234e\;f" ;
+    }
+    doInts: Data {
+      getter getDec1: 1234;
+      getter getDec2: 12__34;
+      getter getDec3: +12_34;
+      getter getDec4: -123___4;
+
+      getter getHex1: 0x1234aF;
+      getter getHex2: 0x1C2__3b4;
+      getter getHex3: +0x1d2_3E4;
+      getter getHex4: -0xf123___4;
+
+      getter getBin1: 0b101001;
+      getter getBin2: 0b101__111;
+      getter getBin3: +0b010_111;
+      getter getBin4: -0b0010___01;
+
+      getter getOct1: 0c76543210;
+      getter getOct2: 0c041__237;
+      getter getOct3: +0c237_012;
+      getter getOct4: -0c4567___12;
+    }
+    doBools: Data {
+      getter getTrue: true ;
+      getter getFalse: false ;
+    }
+    doData: Data {
+      getter getDat: data ;
+      getter getData: data.subdata ;
+      getter getDatas: daTa0.subData1.subsubsubbyDiDumpty12349 ;
+    }
+    doGetFrom: Data {
+      getter getFromArr: getFrom(data.arr, 0) ;
+      getter getFromMap:  getFrom  (  data.map ,  "bla"  )  ;
+      getter getFromMad:  getFrom  (  data.mad ,  true  )  ;
+    }
+  }
+}
