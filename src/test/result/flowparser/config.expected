@@ -1,0 +1,283 @@
+RawFlowFile {
+    flows : List [
+        0 : RawFlow {
+            connections : List [
+                0 : RawConnectionChain {
+                    parts : List [
+                        0 : RawConnectionPart {
+                            inPort : RawPort {
+                                dataType : NULL ;
+                                name : "in" ;
+                                sourcePosition : "After '...  connections { '" ;
+                                type : in ;
+                            } ;
+                            operationName : NULL ;
+                            outPort : NULL ;
+                            sourcePosition : "After '...  connections { '" ;
+                        } ;
+                        1 : RawConnectionPart {
+                            inPort : RawPort {
+                                dataType : NULL ;
+                                name : "in" ;
+                                sourcePosition : "After '... onnections { ->'" ;
+                                type : in ;
+                            } ;
+                            operationName : "doIt" ;
+                            outPort : NULL ;
+                            sourcePosition : "After '...  connections { '" ;
+                        } ;
+                    ] ;
+                    sourcePosition : "After '...  connections { '" ;
+                } ;
+            ] ;
+            name : "Config" ;
+            operations : List [
+                0 : RawOperation {
+                    configs : List [
+                        0 : RawConfig {
+                            constValue : RawStr {
+                                sourcePosition : "After '... config cfgBla: '" ;
+                                value : "bla" ;
+                            } ;
+                            name : "cfgBla" ;
+                            sourcePosition : "After '...  {\n      config'" ;
+                        } ;
+                        1 : RawConfig {
+                            constValue : RawStr {
+                                sourcePosition : "After '... onfig cfgBlue: '" ;
+                                value : "blu e" ;
+                            } ;
+                            name : "cfgBlue" ;
+                            sourcePosition : "After '...  ;\n      config'" ;
+                        } ;
+                        2 : RawConfig {
+                            constValue : RawStr {
+                                sourcePosition : "After '... nfig cfgBlues: '" ;
+                                value : "blu\r\ne" ;
+                            } ;
+                            name : "cfgBlues" ;
+                            sourcePosition : "After '...  ;\n      config'" ;
+                        } ;
+                        3 : RawConfig {
+                            constValue : RawStr {
+                                sourcePosition : "After '... ig cfgEscapes: '" ;
+                                value : "a\rb\nc\tdሴe;f" ;
+                            } ;
+                            name : "cfgEscapes" ;
+                            sourcePosition : "After '...  ;\n      config'" ;
+                        } ;
+                    ] ;
+                    creators : List [
+                    ] ;
+                    getters : List [
+                    ] ;
+                    name : "doStrings" ;
+                    setters : List [
+                    ] ;
+                    sourcePosition : "After '... erations {\n    '" ;
+                    type : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '...     doStrings: '" ;
+                        type : "OpType" ;
+                    } ;
+                } ;
+                1 : RawOperation {
+                    configs : List [
+                        0 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgDec1: '" ;
+                                value : 1234 ;
+                            } ;
+                            name : "cfgDec1" ;
+                            sourcePosition : "After '...  {\n      config'" ;
+                        } ;
+                        1 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgDec2: '" ;
+                                value : 1234 ;
+                            } ;
+                            name : "cfgDec2" ;
+                            sourcePosition : "After '... 4;\n      config'" ;
+                        } ;
+                        2 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgDec3: '" ;
+                                value : 1234 ;
+                            } ;
+                            name : "cfgDec3" ;
+                            sourcePosition : "After '... 4;\n      config'" ;
+                        } ;
+                        3 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgDec4: '" ;
+                                value : -1234 ;
+                            } ;
+                            name : "cfgDec4" ;
+                            sourcePosition : "After '... 4;\n      config'" ;
+                        } ;
+                        4 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgHex1: '" ;
+                                value : 1193135 ;
+                            } ;
+                            name : "cfgHex1" ;
+                            sourcePosition : "After '... ;\n\n      config'" ;
+                        } ;
+                        5 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgHex2: '" ;
+                                value : 1844148 ;
+                            } ;
+                            name : "cfgHex2" ;
+                            sourcePosition : "After '... F;\n      config'" ;
+                        } ;
+                        6 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgHex3: '" ;
+                                value : 1909732 ;
+                            } ;
+                            name : "cfgHex3" ;
+                            sourcePosition : "After '... 4;\n      config'" ;
+                        } ;
+                        7 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgHex4: '" ;
+                                value : -987700 ;
+                            } ;
+                            name : "cfgHex4" ;
+                            sourcePosition : "After '... 4;\n      config'" ;
+                        } ;
+                        8 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgBin1: '" ;
+                                value : 41 ;
+                            } ;
+                            name : "cfgBin1" ;
+                            sourcePosition : "After '... ;\n\n      config'" ;
+                        } ;
+                        9 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgBin2: '" ;
+                                value : 47 ;
+                            } ;
+                            name : "cfgBin2" ;
+                            sourcePosition : "After '... 1;\n      config'" ;
+                        } ;
+                        10 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgBin3: '" ;
+                                value : 23 ;
+                            } ;
+                            name : "cfgBin3" ;
+                            sourcePosition : "After '... 1;\n      config'" ;
+                        } ;
+                        11 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgBin4: '" ;
+                                value : -9 ;
+                            } ;
+                            name : "cfgBin4" ;
+                            sourcePosition : "After '... 1;\n      config'" ;
+                        } ;
+                        12 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgOct1: '" ;
+                                value : 16434824 ;
+                            } ;
+                            name : "cfgOct1" ;
+                            sourcePosition : "After '... ;\n\n      config'" ;
+                        } ;
+                        13 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgOct2: '" ;
+                                value : 17055 ;
+                            } ;
+                            name : "cfgOct2" ;
+                            sourcePosition : "After '... 0;\n      config'" ;
+                        } ;
+                        14 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgOct3: '" ;
+                                value : 81418 ;
+                            } ;
+                            name : "cfgOct3" ;
+                            sourcePosition : "After '... 7;\n      config'" ;
+                        } ;
+                        15 : RawConfig {
+                            constValue : RawInt {
+                                sourcePosition : "After '... onfig cfgOct4: '" ;
+                                value : -155082 ;
+                            } ;
+                            name : "cfgOct4" ;
+                            sourcePosition : "After '... 2;\n      config'" ;
+                        } ;
+                    ] ;
+                    creators : List [
+                    ] ;
+                    getters : List [
+                    ] ;
+                    name : "doInts" ;
+                    setters : List [
+                    ] ;
+                    sourcePosition : "After '... f\" ;\n    }\n    '" ;
+                    type : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '...  }\n    doInts: '" ;
+                        type : "OpType" ;
+                    } ;
+                } ;
+                2 : RawOperation {
+                    configs : List [
+                        0 : RawConfig {
+                            constValue : RawBool {
+                                sourcePosition : "After '... onfig cfgTrue: '" ;
+                                value : true ;
+                            } ;
+                            name : "cfgTrue" ;
+                            sourcePosition : "After '...  {\n      config'" ;
+                        } ;
+                        1 : RawConfig {
+                            constValue : RawBool {
+                                sourcePosition : "After '... nfig cfgFalse: '" ;
+                                value : false ;
+                            } ;
+                            name : "cfgFalse" ;
+                            sourcePosition : "After '...  ;\n      config'" ;
+                        } ;
+                    ] ;
+                    creators : List [
+                    ] ;
+                    getters : List [
+                    ] ;
+                    name : "doBools" ;
+                    setters : List [
+                    ] ;
+                    sourcePosition : "After '... _12;\n    }\n    '" ;
+                    type : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '... }\n    doBools: '" ;
+                        type : "OpType" ;
+                    } ;
+                } ;
+            ] ;
+            ports : List [
+                0 : RawPort {
+                    dataType : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '... {\n  ports { in '" ;
+                        type : "Data" ;
+                    } ;
+                    name : "in" ;
+                    sourcePosition : "After '... ig {\n  ports { '" ;
+                    type : in ;
+                } ;
+            ] ;
+            sourcePosition : "After 'version 0.1\n\n\n'" ;
+        } ;
+    ] ;
+    version : RawVersion {
+        major : 1 ;
+        political : 0 ;
+        sourcePosition : "At start" ;
+    } ;
+}

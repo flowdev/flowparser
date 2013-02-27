@@ -61,7 +61,10 @@ public class ParseToRawFlowFileTest {
 	return Arrays.asList(new Object[][] { //
 		{ "mini" }, //
 			{ "connections" }, //
-			{ "operations" } //
+			{ "config" }, //
+			{ "create" }, //
+			{ "getter" }, //
+			{ "setter" } //
 		});
     }
 

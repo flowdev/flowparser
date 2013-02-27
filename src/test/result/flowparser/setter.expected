@@ -1,0 +1,233 @@
+RawFlowFile {
+    flows : List [
+        0 : RawFlow {
+            connections : List [
+                0 : RawConnectionChain {
+                    parts : List [
+                        0 : RawConnectionPart {
+                            inPort : RawPort {
+                                dataType : NULL ;
+                                name : "in" ;
+                                sourcePosition : "After '...  connections { '" ;
+                                type : in ;
+                            } ;
+                            operationName : NULL ;
+                            outPort : NULL ;
+                            sourcePosition : "After '...  connections { '" ;
+                        } ;
+                        1 : RawConnectionPart {
+                            inPort : RawPort {
+                                dataType : NULL ;
+                                name : "in" ;
+                                sourcePosition : "After '... onnections { ->'" ;
+                                type : in ;
+                            } ;
+                            operationName : "doIt" ;
+                            outPort : NULL ;
+                            sourcePosition : "After '...  connections { '" ;
+                        } ;
+                    ] ;
+                    sourcePosition : "After '...  connections { '" ;
+                } ;
+            ] ;
+            name : "Setter" ;
+            operations : List [
+                0 : RawOperation {
+                    configs : List [
+                    ] ;
+                    creators : List [
+                    ] ;
+                    getters : List [
+                    ] ;
+                    name : "doData" ;
+                    setters : List [
+                        0 : RawSetter {
+                            constValue : NULL ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                ] ;
+                                sourcePosition : "After '... setter setDat: '" ;
+                            } ;
+                            name : "setDat" ;
+                            sourcePosition : "After '... : Data {\n      '" ;
+                            type : PLAIN ;
+                        } ;
+                        1 : RawSetter {
+                            constValue : NULL ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                    1 : "subdata" ;
+                                ] ;
+                                sourcePosition : "After '... etter setData: '" ;
+                            } ;
+                            name : "setData" ;
+                            sourcePosition : "After '... : data ;\n      '" ;
+                            type : PLAIN ;
+                        } ;
+                        2 : RawSetter {
+                            constValue : NULL ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "daTa0" ;
+                                    1 : "subData1" ;
+                                    2 : "subsubsubbyDiDumpty12349" ;
+                                ] ;
+                                sourcePosition : "After '... tter setDatas: '" ;
+                            } ;
+                            name : "setDatas" ;
+                            sourcePosition : "After '... ubdata ;\n      '" ;
+                            type : PLAIN ;
+                        } ;
+                    ] ;
+                    sourcePosition : "After '... erations {\n    '" ;
+                    type : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '...  {\n    doData: '" ;
+                        type : "Data" ;
+                    } ;
+                } ;
+                1 : RawOperation {
+                    configs : List [
+                    ] ;
+                    creators : List [
+                    ] ;
+                    getters : List [
+                    ] ;
+                    name : "doAddTo" ;
+                    setters : List [
+                        0 : RawSetter {
+                            constValue : NULL ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                    1 : "arr" ;
+                                ] ;
+                                sourcePosition : "After '... ddToArr: addTo('" ;
+                            } ;
+                            name : "addToArr" ;
+                            sourcePosition : "After '... : Data {\n      '" ;
+                            type : APPEND ;
+                        } ;
+                        1 : RawSetter {
+                            constValue : NULL ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                    1 : "list" ;
+                                ] ;
+                                sourcePosition : "After '... st:  addTo  (  '" ;
+                            } ;
+                            name : "addToList" ;
+                            sourcePosition : "After '... a.arr) ;\n      '" ;
+                            type : APPEND ;
+                        } ;
+                        2 : RawSetter {
+                            constValue : NULL ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                    1 : "mad" ;
+                                ] ;
+                                sourcePosition : "After '... ad:  addTo  (  '" ;
+                            } ;
+                            name : "addToMad" ;
+                            sourcePosition : "After '... ist )  ;\n      '" ;
+                            type : APPEND ;
+                        } ;
+                    ] ;
+                    sourcePosition : "After '... 49 ;\n    }\n    '" ;
+                    type : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '... }\n    doAddTo: '" ;
+                        type : "Data" ;
+                    } ;
+                } ;
+                2 : RawOperation {
+                    configs : List [
+                    ] ;
+                    creators : List [
+                    ] ;
+                    getters : List [
+                    ] ;
+                    name : "doSetTo" ;
+                    setters : List [
+                        0 : RawSetter {
+                            constValue : RawInt {
+                                sourcePosition : "After '... etTo(data.arr, '" ;
+                                value : 0 ;
+                            } ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                    1 : "arr" ;
+                                ] ;
+                                sourcePosition : "After '... tToList: setTo('" ;
+                            } ;
+                            name : "setToList" ;
+                            sourcePosition : "After '... : Data {\n      '" ;
+                            type : COLLECTION ;
+                        } ;
+                        1 : RawSetter {
+                            constValue : RawStr {
+                                sourcePosition : "After '... (  data.map ,  '" ;
+                                value : "bla" ;
+                            } ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                    1 : "map" ;
+                                ] ;
+                                sourcePosition : "After '... ap:  setTo  (  '" ;
+                            } ;
+                            name : "setToMap" ;
+                            sourcePosition : "After '... rr, 0) ;\n      '" ;
+                            type : COLLECTION ;
+                        } ;
+                        2 : RawSetter {
+                            constValue : RawBool {
+                                sourcePosition : "After '... (  data.mad ,  '" ;
+                                value : true ;
+                            } ;
+                            dataPath : RawDataPath {
+                                path : List [
+                                    0 : "data" ;
+                                    1 : "mad" ;
+                                ] ;
+                                sourcePosition : "After '... ad:  setTo  (  '" ;
+                            } ;
+                            name : "setToMad" ;
+                            sourcePosition : "After '... a\"  )  ;\n      '" ;
+                            type : COLLECTION ;
+                        } ;
+                    ] ;
+                    sourcePosition : "After '... )  ;\n    }\n    '" ;
+                    type : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '... }\n    doSetTo: '" ;
+                        type : "Data" ;
+                    } ;
+                } ;
+            ] ;
+            ports : List [
+                0 : RawPort {
+                    dataType : RawDataType {
+                        path : "" ;
+                        sourcePosition : "After '... {\n  ports { in '" ;
+                        type : "Data" ;
+                    } ;
+                    name : "in" ;
+                    sourcePosition : "After '... er {\n  ports { '" ;
+                    type : in ;
+                } ;
+            ] ;
+            sourcePosition : "After 'version 0.1\n\n\n'" ;
+        } ;
+    ] ;
+    version : RawVersion {
+        major : 1 ;
+        political : 0 ;
+        sourcePosition : "At start" ;
+    } ;
+}
