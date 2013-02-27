@@ -20,8 +20,8 @@ import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
 public class ParseToRawFlowFileTest {
-    private static final String UTF8 = "UTF8";
-    private static final String FLOW_DIR = "./src/test/flow/flowparser/";
+    public static final String UTF8 = "UTF8";
+    public static final String FLOW_DIR = "./src/test/flow/flowparser/";
     private static final String RESULT_DIR = "./src/test/result/flowparser/";
     private static final ParseToRawFlowFile.Params<TestData> PARAMS = new ParseToRawFlowFile.Params<>();
     static {
@@ -100,17 +100,17 @@ public class ParseToRawFlowFileTest {
 	return PrettyPrinter.prettyPrint(data.result);
     }
 
-    private static String readFile(String path) throws IOException {
+    public static String readFile(String path) throws IOException {
 	byte[] bytes = Files.readAllBytes(getPath(path));
 	return new String(bytes, UTF8);
     }
 
-    private static void writeFile(String path, String content)
+    public static void writeFile(String path, String content)
 	    throws IOException {
 	Files.write(getPath(path), content.getBytes(UTF8));
     }
 
-    private static void deleteFile(String path) throws IOException {
+    public static void deleteFile(String path) throws IOException {
 	Files.deleteIfExists(getPath(path));
     }
 

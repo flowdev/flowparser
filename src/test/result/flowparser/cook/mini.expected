@@ -1,0 +1,39 @@
+FlowFile {
+    flows : List [
+        0 : Flow {
+            connections : List [
+            ] ;
+            imports : List [
+                0 : "org.flowdev.Port" ;
+            ] ;
+            inPorts : List [
+                0 : Port {
+                    name : "in" ;
+                    oparationPort : "in" ;
+                    operationName : "doIt" ;
+                    type : "Data" ;
+                } ;
+            ] ;
+            module : "mini.flow" ;
+            name : "Mini" ;
+            operations : List [
+                0 : Operation {
+                    creators : NULL ;
+                    getters : List [
+                    ] ;
+                    hasParams : false ;
+                    operationGenerics : NULL ;
+                    operationName : "doIt" ;
+                    operationType : "Data" ;
+                    setters : NULL ;
+                } ;
+            ] ;
+            outPorts : List [
+            ] ;
+        } ;
+    ] ;
+    version : Version {
+        major : 1 ;
+        political : 0 ;
+    } ;
+}
