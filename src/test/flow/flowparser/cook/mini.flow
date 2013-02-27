@@ -1,0 +1,7 @@
+version 0.1
+
+flow Mini{
+  ports{in Data;}
+  connections{->(doIt);}
+  operations{doIt:Data{}}
+}

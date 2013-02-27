@@ -1,0 +1,144 @@
+FlowFile {
+    flows : List [
+        0 : Flow {
+            connections : List [
+            ] ;
+            imports : List [
+                0 : "org.flowdev.Port" ;
+            ] ;
+            inPorts : List [
+                0 : Port {
+                    name : "in" ;
+                    oparationPort : NULL ;
+                    operationName : NULL ;
+                    type : "Data" ;
+                } ;
+            ] ;
+            module : "connections.flow" ;
+            name : "Connections0" ;
+            operations : List [
+                0 : Operation {
+                    creators : NULL ;
+                    getters : List [
+                    ] ;
+                    hasParams : false ;
+                    operationGenerics : NULL ;
+                    operationName : "doIt" ;
+                    operationType : "Data" ;
+                    setters : NULL ;
+                } ;
+            ] ;
+            outPorts : List [
+                0 : Port {
+                    name : "out" ;
+                    oparationPort : NULL ;
+                    operationName : NULL ;
+                    type : "Data" ;
+                } ;
+            ] ;
+        } ;
+        1 : Flow {
+            connections : List [
+                0 : Connection {
+                    fromOperation : "doIt" ;
+                    fromPort : "out" ;
+                    toOperation : "doThis" ;
+                    toPort : "in" ;
+                } ;
+                1 : Connection {
+                    fromOperation : "doThis" ;
+                    fromPort : "out" ;
+                    toOperation : "doThat" ;
+                    toPort : "in" ;
+                } ;
+                2 : Connection {
+                    fromOperation : "doIt" ;
+                    fromPort : "out" ;
+                    toOperation : "doThis" ;
+                    toPort : "in" ;
+                } ;
+                3 : Connection {
+                    fromOperation : "doThis" ;
+                    fromPort : "out" ;
+                    toOperation : "doThat" ;
+                    toPort : "in" ;
+                } ;
+                4 : Connection {
+                    fromOperation : "doIt" ;
+                    fromPort : "out" ;
+                    toOperation : "doThat" ;
+                    toPort : "in" ;
+                } ;
+                5 : Connection {
+                    fromOperation : "doThat" ;
+                    fromPort : "out" ;
+                    toOperation : "doThis" ;
+                    toPort : "in" ;
+                } ;
+            ] ;
+            imports : List [
+                0 : "org.flowdev.Port" ;
+            ] ;
+            inPorts : List [
+                0 : Port {
+                    name : "in" ;
+                    oparationPort : "in" ;
+                    operationName : "doIt" ;
+                    type : "Data" ;
+                } ;
+            ] ;
+            module : "connections.flow" ;
+            name : "Connections1" ;
+            operations : List [
+                0 : Operation {
+                    creators : NULL ;
+                    getters : List [
+                    ] ;
+                    hasParams : false ;
+                    operationGenerics : NULL ;
+                    operationName : "doIt" ;
+                    operationType : "Data" ;
+                    setters : NULL ;
+                } ;
+                1 : Operation {
+                    creators : NULL ;
+                    getters : List [
+                    ] ;
+                    hasParams : false ;
+                    operationGenerics : NULL ;
+                    operationName : "doThis" ;
+                    operationType : "Data" ;
+                    setters : NULL ;
+                } ;
+                2 : Operation {
+                    creators : NULL ;
+                    getters : List [
+                    ] ;
+                    hasParams : false ;
+                    operationGenerics : NULL ;
+                    operationName : "doThat" ;
+                    operationType : "Data" ;
+                    setters : NULL ;
+                } ;
+            ] ;
+            outPorts : List [
+                0 : Port {
+                    name : "out" ;
+                    oparationPort : "out" ;
+                    operationName : "doIt" ;
+                    type : "Data" ;
+                } ;
+                1 : Port {
+                    name : "err" ;
+                    oparationPort : "err" ;
+                    operationName : "doThis" ;
+                    type : "Data" ;
+                } ;
+            ] ;
+        } ;
+    ] ;
+    version : Version {
+        major : 1 ;
+        political : 0 ;
+    } ;
+}

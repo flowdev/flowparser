@@ -79,10 +79,22 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
 	flow.imports.add(IMPORT_PORT);
 	flow.name = rflow.name;
 	flow.module = file2package(fileName);
+	checkConnections(rflow);
 	cookPorts(rflow, flow);
 	cookConnections(rflow, flow);
 	cookOperations(rflow, flow);
 	return flow;
+    }
+
+    private void checkConnections(RawFlow rflow) {
+	for (RawConnectionChain connectionChain : rflow.connections) {
+	    if (connectionChain.parts.size() < 2) {
+		throw new RuntimeException(
+			"ERROR: Found connection chain with less than two parts."
+				+ connectionChain.sourcePosition + ": "
+				+ PrettyPrinter.prettyPrint(connectionChain));
+	    }
+	}
     }
 
     private void cookPorts(RawFlow rflow, Flow flow) {
@@ -105,7 +117,8 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
 
 	RawConnectionPart connPart = findInConnectionPart(port.name, rflow);
 	port.operationName = connPart.operationName;
-	port.oparationPort = connPart.inPort.name;
+	port.oparationPort = (connPart.inPort == null) ? null
+		: connPart.inPort.name;
 
 	flow.inPorts.add(port);
     }
@@ -130,7 +143,8 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
 
 	RawConnectionPart connPart = findOutConnectionPart(port.name, rflow);
 	port.operationName = connPart.operationName;
-	port.oparationPort = connPart.outPort.name;
+	port.oparationPort = (connPart.outPort == null) ? null
+		: connPart.outPort.name;
 
 	flow.outPorts.add(port);
     }

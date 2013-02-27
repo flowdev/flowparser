@@ -1,6 +1,5 @@
 package org.flowdev.flowparser.cook;
 
-import static org.flowdev.flowparser.ParseToRawFlowFileTest.FLOW_DIR;
 import static org.flowdev.flowparser.ParseToRawFlowFileTest.deleteFile;
 import static org.flowdev.flowparser.ParseToRawFlowFileTest.readFile;
 import static org.flowdev.flowparser.ParseToRawFlowFileTest.writeFile;
@@ -23,6 +22,7 @@ import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
 public class CookFlowFileTest {
+    private static final String FLOW_DIR = "./src/test/flow/flowparser/cook/";
     private static final String RESULT_DIR = "./src/test/result/flowparser/cook/";
     private static final ParseToRawFlowFile.Params<TestData> RAW_PARAMS = new ParseToRawFlowFile.Params<>();
     private static final CookFlowFile.Params<TestData> COOK_PARAMS = new CookFlowFile.Params<>();
@@ -82,8 +82,8 @@ public class CookFlowFileTest {
     @Parameterized.Parameters
     public static Collection<?> checkPorts() {
 	return Arrays.asList(new Object[][] { //
-		{ "mini" } //
-		// { "connections" }, //
+		{ "mini" }, //
+			{ "connections" } //
 		// { "config" }, //
 		// { "create" }, //
 		// { "getter" }, //
