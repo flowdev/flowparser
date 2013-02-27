@@ -69,7 +69,6 @@ DataModule		= FilePath "/"								{dataModule} ;
 FilePath		= StartFilePath RestFilePath
 				/ RestFilePath ;
 StartFilePath	= "../"+
-				/ "./"
 				/ "/" ;		// path from start of project
 RestFilePath	= SmallIdent ( "/" SmallIdent )* ;
 
