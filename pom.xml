@@ -17,6 +17,12 @@
 	    <artifactId>mouse-runtime</artifactId>
 	    <version>1.5.1</version>
 	</dependency>
+	<dependency>
+		<groupId>com.github.spullara.mustache.java</groupId>
+		<artifactId>compiler</artifactId>
+		<version>0.8.10</version>
+	</dependency>
+
 
 <!-- Not needed during runtime: -->
 	<dependency>
