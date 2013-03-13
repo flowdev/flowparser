@@ -16,11 +16,14 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 
+import org.flowdev.flowparser.mustache.OutputFlowFileConfig;
+
 public class Main {
 
     private final static String fSep = File.separator;
 
     private static OptionParser optParser;
+    private static IMainFlow mainFlow = new MainFlow();
 
     /**
      * @param args
@@ -32,8 +35,8 @@ public class Main {
 	optParser = new OptionParser();
 	optParser.posixlyCorrect(true);
 	try {
-	    OptionSpec<Void> help = optParser.acceptsAll(asList("h", "?"),
-		    "show this help page").forHelp();
+	    OptionSpec<Void> help = optParser.acceptsAll(
+		    asList("h", "?", "help"), "show this help page").forHelp();
 	    OptionSpec<String> outFormats = optParser
 		    .acceptsAll(asList("f", "format"), "output formats")
 		    .withRequiredArg().describedAs("java, json")
@@ -58,17 +61,29 @@ public class Main {
 		    outFormats.values(options), outRoots.values(options),
 		    inNames);
 	    System.out.println("FormatMap: " + formatMap.toString());
-	    for (String inName : inNames) {
-		compileFlow(inName, formatMap);
-	    }
+
+	    compileFlows(inNames, formatMap);
 	} catch (OptionException oe) {
 	    fatal(oe.getLocalizedMessage());
 	}
     }
 
-    private static void compileFlow(String inName, Map<String, String> formatMap) {
-	// TODO Auto-generated method stub
-	System.out.println("Compiling flow: " + inName);
+    static void setMainFlow(IMainFlow flow) {
+	mainFlow = flow;
+    }
+
+    private static void compileFlows(List<String> inNames,
+	    Map<String, String> formatMap) {
+	MainConfig mainConfig = new MainConfig();
+	mainConfig.outputFlowFile = new OutputFlowFileConfig();
+	mainConfig.outputFlowFile.roots = formatMap;
+	mainFlow.getConfig().send(mainConfig);
+
+	for (String inName : inNames) {
+	    MainData mainData = new MainData();
+	    mainData.fileName = inName;
+	    mainFlow.getIn().send(mainData);
+	}
     }
 
     private static Map<String, String> convertFormats(List<String> formats,
@@ -76,6 +91,7 @@ public class Main {
 	if (formats.isEmpty()) {
 	    fatal("No output format selected!");
 	}
+	System.out.println("Formats: " + formats.toString());
 	if (!roots.isEmpty() && formats.size() != roots.size()) {
 	    fatal("The number of output root directories (" + join(", ", roots)
 		    + ") must match the number of formats ("
