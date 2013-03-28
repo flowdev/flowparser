@@ -39,14 +39,13 @@ public class Main {
 		    asList("h", "?", "help"), "show this help page").forHelp();
 	    OptionSpec<String> outFormats = optParser
 		    .acceptsAll(asList("f", "format"), "output formats")
-		    .withRequiredArg().describedAs("java, json")
+		    .withRequiredArg().describedAs("java,json")
 		    .withValuesSeparatedBy(",").defaultsTo("json");
 	    OptionSpec<String> outRoots = optParser
 		    .acceptsAll(
 			    asList("r", "root"),
 			    "root directories for output formats (must be the same number and order as the formats)")
-		    .withRequiredArg()
-		    .withValuesSeparatedBy(File.pathSeparatorChar);
+		    .withRequiredArg().withValuesSeparatedBy(",");
 	    OptionSet options = optParser.parse(args);
 
 	    if (options.has(help)) {
@@ -120,7 +119,7 @@ public class Main {
 	}
     }
 
-    private static String getOutputRoot(String format, List<String> inNames) {
+    static String getOutputRoot(String format, List<String> inNames) {
 	for (String inName : inNames) {
 	    String inPath = getRealPath(inName);
 	    String searchPattern = fSep + "src" + fSep + "([^" + fSep + "]+)"
@@ -161,7 +160,7 @@ public class Main {
     }
 
     private static void help() {
-	abort("flow compiler usage:", System.out, 0);
+	abort("flow parser usage:", System.out, 0);
     }
 
     private static void fatal(String message) {
