@@ -39,11 +39,12 @@ public class ParseToRawFlowFileTest {
 		return data.fileContent;
 	    }
 	};
-	PARAMS.setFlowFile = new Setter<TestData, RawFlowFile>() {
+	PARAMS.setFlowFile = new Setter<RawFlowFile, TestData, TestData>() {
 
 	    @Override
-	    public void set(TestData data, RawFlowFile subdata) {
+	    public TestData set(TestData data, RawFlowFile subdata) {
 		data.result = subdata;
+		return data;
 	    }
 	};
     }

@@ -39,10 +39,11 @@ public class CookFlowFileTest {
 		return data.fileContent;
 	    }
 	};
-	RAW_PARAMS.setFlowFile = new Setter<TestData, RawFlowFile>() {
+	RAW_PARAMS.setFlowFile = new Setter<RawFlowFile, TestData, TestData>() {
 	    @Override
-	    public void set(TestData data, RawFlowFile subdata) {
+	    public TestData set(TestData data, RawFlowFile subdata) {
 		data.rawFlowFile = subdata;
+		return data;
 	    }
 	};
     }
@@ -60,10 +61,11 @@ public class CookFlowFileTest {
 		return data.rawFlowFile;
 	    }
 	};
-	COOK_PARAMS.setCookedFlowFile = new Setter<TestData, FlowFile>() {
+	COOK_PARAMS.setCookedFlowFile = new Setter<FlowFile, TestData, TestData>() {
 	    @Override
-	    public void set(TestData data, FlowFile subdata) {
+	    public TestData set(TestData data, FlowFile subdata) {
 		data.result = subdata;
+		return data;
 	    }
 	};
     }

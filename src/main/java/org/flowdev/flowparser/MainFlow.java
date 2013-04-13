@@ -15,7 +15,7 @@ import org.flowdev.flowparser.rawdata.RawFlowFile;
  * a raw flow file object.
  */
 public class MainFlow implements IMainFlow {
-    private final ReadTextFile<MainData> readTextFile;
+    private final ReadTextFile<MainData, MainData> readTextFile;
     private final ParseToRawFlowFile<MainData> parseToRawFlowFile;
     private final CookFlowFile<MainData> cookFlowFile;
     private final OutputFlowFile<MainData> outputFlowFile;
@@ -29,17 +29,18 @@ public class MainFlow implements IMainFlow {
     };
 
     public MainFlow() {
-	ReadTextFile.Params<MainData> readTextFileParams = new ReadTextFile.Params<>();
+	ReadTextFile.Params<MainData, MainData> readTextFileParams = new ReadTextFile.Params<>();
 	readTextFileParams.getFileName = new Getter<MainData, String>() {
 	    @Override
 	    public String get(MainData data) {
 		return data.fileName;
 	    }
 	};
-	readTextFileParams.setFileContent = new Setter<MainData, String>() {
+	readTextFileParams.setFileContent = new Setter<String, MainData, MainData>() {
 	    @Override
-	    public void set(MainData data, String subdata) {
+	    public MainData set(MainData data, String subdata) {
 		data.fileContent = subdata;
+		return data;
 	    }
 	};
 	readTextFile = new ReadTextFile<>(readTextFileParams);
@@ -57,10 +58,11 @@ public class MainFlow implements IMainFlow {
 		return data.fileContent;
 	    }
 	};
-	parseToRawFlowFileParams.setFlowFile = new Setter<MainData, RawFlowFile>() {
+	parseToRawFlowFileParams.setFlowFile = new Setter<RawFlowFile, MainData, MainData>() {
 	    @Override
-	    public void set(MainData data, RawFlowFile subdata) {
+	    public MainData set(MainData data, RawFlowFile subdata) {
 		data.rawFlowFile = subdata;
+		return data;
 	    }
 	};
 	parseToRawFlowFile = new ParseToRawFlowFile<>(parseToRawFlowFileParams);
@@ -78,10 +80,11 @@ public class MainFlow implements IMainFlow {
 		return data.rawFlowFile;
 	    }
 	};
-	cookFlowFileParams.setCookedFlowFile = new Setter<MainData, FlowFile>() {
+	cookFlowFileParams.setCookedFlowFile = new Setter<FlowFile, MainData, MainData>() {
 	    @Override
-	    public void set(MainData data, FlowFile subdata) {
+	    public MainData set(MainData data, FlowFile subdata) {
 		data.flowFile = subdata;
+		return data;
 	    }
 	};
 	cookFlowFile = new CookFlowFile<>(cookFlowFileParams);

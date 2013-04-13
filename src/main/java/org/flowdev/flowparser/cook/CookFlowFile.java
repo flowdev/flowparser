@@ -33,7 +33,7 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
     public static class Params<T> {
 	public Getter<T, String> getFileName;
 	public Getter<T, RawFlowFile> getRawFlowFile;
-	public Setter<T, FlowFile> setCookedFlowFile;
+	public Setter<FlowFile, T, T> setCookedFlowFile;
     }
 
     public static final String IMPORT_PORT = "org.flowdev.Port";
