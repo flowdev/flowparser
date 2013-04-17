@@ -14,7 +14,7 @@ public class OutputFlowFile<T> extends Configure<OutputFlowFileConfig> {
     }
 
     private final Params<T> params;
-    private Port<OutFileData> out;
+    private Port<OutFlowData> out;
     private final Port<T> in = new Port<T>() {
 	@Override
 	public void send(T data) {
@@ -40,19 +40,20 @@ public class OutputFlowFile<T> extends Configure<OutputFlowFileConfig> {
     private void outputFlowFileFormatted(String format, String root,
 	    FlowFile flowFile) {
 	for (Flow flow : flowFile.flows) {
-	    outputFlowFormatted(format, root, flow);
+	    OutFlowData outFlowData = new OutFlowData();
+	    outFlowData.format = format;
+	    outFlowData.root = root;
+	    outFlowData.flow = flow;
+
+	    out.send(outFlowData);
 	}
-    }
-
-    private void outputFlowFormatted(String format, String root, Flow flow) {
-
     }
 
     public Port<T> getIn() {
 	return in;
     }
 
-    public void setOut(Port<OutFileData> out) {
+    public void setOut(Port<OutFlowData> out) {
 	this.out = out;
     }
 }
