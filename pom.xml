@@ -18,16 +18,33 @@
 		<version>4.4</version>
 	</dependency>
 	<dependency>
-	    <groupId>se.romanredz.mouse</groupId>
-	    <artifactId>mouse-runtime</artifactId>
-	    <version>1.5.1</version>
-	</dependency>
-	<dependency>
 		<groupId>com.github.spullara.mustache.java</groupId>
 		<artifactId>compiler</artifactId>
 		<version>0.8.10</version>
 	</dependency>
 
+
+	<!-- Parser alternatives start:
+	First alternative is Mouse, a nice little PEG parser generator.
+	Negative points: It isn't modular and it has to generate Java source code.
+	 -->
+	<dependency>
+	    <groupId>se.romanredz.mouse</groupId>
+	    <artifactId>mouse-runtime</artifactId>
+	    <version>1.5.1</version>
+	</dependency>
+
+	<!--
+	Second alternative is JParsec a modular parser generator library inspired by Haskell.
+	No need to generate any source code since it is a normal library, yeah!
+	Otherwise its a quite traditional scanner/parser based animal. :-(
+	 -->
+	<dependency>
+		<groupId>jparsec</groupId>
+		<artifactId>jparsec</artifactId>
+		<version>2.0.1</version>
+	</dependency>
+	<!-- Parser alternatives end! -->
 
 <!-- Not needed during runtime: -->
 	<dependency>
