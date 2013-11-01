@@ -1,0 +1,25 @@
+GraphViz-Integration mit MediaWiki laut:
+http://www.mediawiki.org/wiki/Extension:GraphViz
+
+<graphviz type="framed" caption="Bla-Flow" format="svg" location="center">
+digraph blaName {
+  // rankdir=LR;
+  node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
+  op1 [label="Operation\nName1|{<in> in|<out> out}" URL="wiki/AAV/Entwicklung/Entwicklungsumgebung"];
+  op2 [label="Operation2|{<in> in|<out> out}"];
+  op3 [label="Op\nName3|{<in> in|<out> out}|{|<error> error}" URL="wiki/AAV/Entwicklung/Software-Depots"];
+  node [shape=point]
+  "flow_in" -> op1:in [label="AuftragsFlowData"];
+  op1:out -> op2:in [label="AuftragsFlowData"];
+  op2:out -> op3:in [label="AuftragsFlowData"];
+  node [shape=point]
+  op3:out -> "flow_out" [label="AuftragsFlowData"];
+  node [shape=point]
+  op3:error -> "flow_error" [label="AuftragsException"];
+}
+</graphviz>
+
+DSL:
+in [FlowData]-> in opName(OpType) out [FlowData]-> opName2(OpType2) out [FlowData]-> out
+[FlowData]-> opName(OpType) -> opName2(OpType2) ->
+opName2() error [FlowException]->
