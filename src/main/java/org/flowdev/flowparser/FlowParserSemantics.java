@@ -74,9 +74,7 @@ class FlowParserSemantics extends SemanticsBase {
 	RawFlow data = new RawFlow();
 	data.sourcePosition = lhs().where(0);
 	data.name = (String) rhs(0).get();
-	data.ports = (List<RawPort>) rhs(3).get();
-	data.connections = (List<RawConnectionChain>) rhs(4).get();
-	data.operations = (List<RawOperation>) rhs(5).get();
+	data.connections = (List<RawConnectionChain>) rhs(3).get();
 
 	lhs().put(data);
     }
@@ -144,14 +142,13 @@ class FlowParserSemantics extends SemanticsBase {
     }
 
     // -------------------------------------------------------------------
-    // Connections = "connections" SpcCom "{" SpcCom ConnectionChain+
-    // "}" SpcCom
+    // Connections = ConnectionChain+
     // -------------------------------------------------------------------
     void connections() {
-	int n = rhsSize() - 2;
-	List<RawConnectionChain> data = new ArrayList<>(n - 3);
+	int n = rhsSize();
+	List<RawConnectionChain> data = new ArrayList<>(n);
 
-	for (int i = 4; i < n; i++) {
+	for (int i = 0; i < n; i++) {
 	    data.add((RawConnectionChain) rhs(i).get());
 	}
 

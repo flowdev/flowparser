@@ -78,11 +78,11 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
 	flow.imports = new ArrayList<>();
 	flow.imports.add(IMPORT_PORT);
 	flow.name = rflow.name;
-	flow.module = file2package(fileName);
+//	flow.module = file2package(fileName);
 	checkConnections(rflow);
-	cookPorts(rflow, flow);
+//	cookPorts(rflow, flow);
 	cookConnections(rflow, flow);
-	cookOperations(rflow, flow);
+//	cookOperations(rflow, flow);
 	return flow;
     }
 

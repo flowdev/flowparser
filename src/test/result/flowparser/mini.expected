@@ -8,60 +8,31 @@ RawFlowFile {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : "in" ;
-                                sourcePosition : "After '... \n  connections{'" ;
+                                sourcePosition : "After '... \n\nflow Mini{\n  '" ;
                                 type : in ;
                             } ;
                             operationName : NULL ;
                             outPort : NULL ;
-                            sourcePosition : "After '... \n  connections{'" ;
+                            sourcePosition : "After '... \n\nflow Mini{\n  '" ;
                         } ;
                         1 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : "in" ;
-                                sourcePosition : "After '...  connections{->'" ;
+                                sourcePosition : "After '... flow Mini{\n  ->'" ;
                                 type : in ;
                             } ;
                             operationName : "doIt" ;
                             outPort : NULL ;
-                            sourcePosition : "After '... \n  connections{'" ;
+                            sourcePosition : "After '... \n\nflow Mini{\n  '" ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... \n  connections{'" ;
+                    sourcePosition : "After '... \n\nflow Mini{\n  '" ;
                 } ;
             ] ;
             name : "Mini" ;
-            operations : List [
-                0 : RawOperation {
-                    configs : List [
-                    ] ;
-                    creators : List [
-                    ] ;
-                    getters : List [
-                    ] ;
-                    name : "doIt" ;
-                    setters : List [
-                    ] ;
-                    sourcePosition : "After '... }\n  operations{'" ;
-                    type : RawDataType {
-                        path : "" ;
-                        sourcePosition : "After '... perations{doIt:'" ;
-                        type : "Data" ;
-                    } ;
-                } ;
-            ] ;
-            ports : List [
-                0 : RawPort {
-                    dataType : RawDataType {
-                        path : "" ;
-                        sourcePosition : "After '... ni{\n  ports{in '" ;
-                        type : "Data" ;
-                    } ;
-                    name : "in" ;
-                    sourcePosition : "After '...  Mini{\n  ports{'" ;
-                    type : in ;
-                } ;
-            ] ;
+            operations : NULL ;
+            ports : NULL ;
             sourcePosition : "After 'version 0.1\n\n'" ;
         } ;
     ] ;

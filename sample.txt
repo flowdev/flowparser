@@ -20,6 +20,7 @@ digraph blaName {
 </graphviz>
 
 DSL:
-in [FlowData]-> in opName(OpType) out [FlowData]-> opName2(OpType2) out [FlowData]-> out
-[FlowData]-> opName(OpType) -> opName2(OpType2) ->
-opName2() error [FlowException]->
+in [FlowData]-> in opName(OpType) out [FlowData]-> opName2(OpType2) out [FlowData]-> out ;
+[FlowData]-> opName(OpType) -> opName2(OpType2) -> ;
+opName2() error [FlowException]->;
+

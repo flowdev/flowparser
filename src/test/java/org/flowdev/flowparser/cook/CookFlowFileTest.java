@@ -85,11 +85,7 @@ public class CookFlowFileTest {
     public static Collection<?> checkPorts() {
 	return Arrays.asList(new Object[][] { //
 		{ "mini" }, //
-			{ "connections" } //
-		// { "config" }, //
-		// { "create" }, //
-		// { "getter" }, //
-		// { "setter" } //
+		{ "connections" } //
 		});
     }
 

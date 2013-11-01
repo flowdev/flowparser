@@ -6,36 +6,11 @@ FlowFile {
             imports : List [
                 0 : "org.flowdev.Port" ;
             ] ;
-            inPorts : List [
-                0 : Port {
-                    name : "in" ;
-                    oparationPort : NULL ;
-                    operationName : NULL ;
-                    type : "Data" ;
-                } ;
-            ] ;
-            module : "connections.flow" ;
+            inPorts : NULL ;
+            module : NULL ;
             name : "Connections0" ;
-            operations : List [
-                0 : Operation {
-                    creators : NULL ;
-                    getters : List [
-                    ] ;
-                    hasParams : false ;
-                    operationGenerics : NULL ;
-                    operationName : "doIt" ;
-                    operationType : "Data" ;
-                    setters : NULL ;
-                } ;
-            ] ;
-            outPorts : List [
-                0 : Port {
-                    name : "out" ;
-                    oparationPort : NULL ;
-                    operationName : NULL ;
-                    type : "Data" ;
-                } ;
-            ] ;
+            operations : NULL ;
+            outPorts : NULL ;
         } ;
         1 : Flow {
             connections : List [
@@ -79,62 +54,11 @@ FlowFile {
             imports : List [
                 0 : "org.flowdev.Port" ;
             ] ;
-            inPorts : List [
-                0 : Port {
-                    name : "in" ;
-                    oparationPort : "in" ;
-                    operationName : "doIt" ;
-                    type : "Data" ;
-                } ;
-            ] ;
-            module : "connections.flow" ;
+            inPorts : NULL ;
+            module : NULL ;
             name : "Connections1" ;
-            operations : List [
-                0 : Operation {
-                    creators : NULL ;
-                    getters : List [
-                    ] ;
-                    hasParams : false ;
-                    operationGenerics : NULL ;
-                    operationName : "doIt" ;
-                    operationType : "Data" ;
-                    setters : NULL ;
-                } ;
-                1 : Operation {
-                    creators : NULL ;
-                    getters : List [
-                    ] ;
-                    hasParams : false ;
-                    operationGenerics : NULL ;
-                    operationName : "doThis" ;
-                    operationType : "Data" ;
-                    setters : NULL ;
-                } ;
-                2 : Operation {
-                    creators : NULL ;
-                    getters : List [
-                    ] ;
-                    hasParams : false ;
-                    operationGenerics : NULL ;
-                    operationName : "doThat" ;
-                    operationType : "Data" ;
-                    setters : NULL ;
-                } ;
-            ] ;
-            outPorts : List [
-                0 : Port {
-                    name : "out" ;
-                    oparationPort : "out" ;
-                    operationName : "doIt" ;
-                    type : "Data" ;
-                } ;
-                1 : Port {
-                    name : "err" ;
-                    oparationPort : "err" ;
-                    operationName : "doThis" ;
-                    type : "Data" ;
-                } ;
-            ] ;
+            operations : NULL ;
+            outPorts : NULL ;
         } ;
     ] ;
     version : Version {

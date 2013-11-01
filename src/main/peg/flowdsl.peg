@@ -1,62 +1,25 @@
 start = SpcCom Version Flow+ EOF										{flowFile} ;
 Version = "version" ASpc Natural "." Natural SpcCom						{version};
-Flow = FlowStart "{" SpcCom Ports Connections Operations "}" SpcCom		{flow} ;
+Flow = FlowStart "{" SpcCom Connections "}" SpcCom		{flow} ;
 FlowStart = "flow" ASpc BigIdent SpcCom									{flowStart} ;
-
-
-//
-// Rules for the ports section of a flow:
-//
-Ports			= "ports" SpcCom "{" SpcCom Port+ "}" SpcCom			{ports} ;
-Port			= PortType ASpc PortNameColon? SpcCom DataType StmtEnd	{port} ;
-PortType		= ( "in" / "out" )										{portType} ;
-PortNameColon	= PortName ":"											{portNameColon} ;
 
 
 //
 // Rules for the connections section of a flow:
 //
-Connections			= "connections" SpcCom "{" SpcCom ConnectionChain+ "}" SpcCom			{connections} ;
+Connections			= ConnectionChain+ 			{connections} ;
 ConnectionChain		= ConnectionChainBeg ConnectionChainMid* ConnectionChainEnd? StmtEnd	{connectionChain} ;
 ConnectionChainBeg	= OperationNameParens OpOutPort						{connectionChainBegMax}
 					/ InPort?											{connectionChainBegMin};
 ConnectionChainMid	= "->" Spc OpInPort OperationNameParens OpOutPort	{connectionChainMid} ;
 ConnectionChainEnd	= "->" Spc OutPort?									{connectionChainEnd} ;
 OperationNameParens	= "(" Spc OperationName ")" Spc						{operationNameParens} ;
+OperationName		= SmallIdent Spc											{operationName} ;
 OpInPort			= InPort?				{opInPort} ;
 OpOutPort			= OutPort?				{opOutPort} ;
 InPort				= PortName "." Spc		{inPort} ;
 OutPort				= "." Spc PortName		{outPort} ;
 PortName			= SmallIdent Spc		{portName} ;
-
-
-//
-// Rules for the operations section of a flow:
-//
-Operations			= "operations" SpcCom "{" SpcCom Operation+ "}" SpcCom		{operations} ;
-Operation			= OperationDecl "{" SpcCom OperationPart* "}" SpcCom		{operation} ;
-OperationDecl		= OperationNameColon SpcCom DataType SpcCom					{operationDecl} ;
-OperationNameColon	= OperationName ":"											{operationNameColon} ;
-OperationName		= SmallIdent Spc											{operationName} ;
-
-OperationPart		= "getter" OperationPartName OperationGetterImpl StmtEnd	{operationGetter}
-					/ "setter" OperationPartName OperationSetterImpl StmtEnd	{operationSetter}
-					/ "create" OperationPartName OperationCreatorImpl StmtEnd	{operationCreator}
-					/ "config" OperationPartName ConstExpr StmtEnd				{operationConfig} ;
-
-OperationGetterImpl	= "getFrom" Spc "(" OperationDataPath "," ConstExpr ")"		{operationGetterGetFrom}
-					/ ConstExpr													{operationGetterConst}
-					/ DataPath													{operationGetterData} ;
-
-OperationSetterImpl	= "addTo" Spc "(" OperationDataPath ")"						{operationSetterAddTo}
-					/ "setTo" Spc "(" OperationDataPath "," ConstExpr ")"		{operationSetterSetTo}
-					/ DataPath													{operationSetterData} ;
-
-OperationCreatorImpl= "typeOf" Spc "(" SpcCom DataType SpcCom ")"	{operationCreatorType}
-					/ DataType										{operationCreatorData} ;
-
-OperationDataPath	= SpcCom DataPath SpcCom						{operationDataPath} ;
-OperationPartName	= ASpc SmallIdent Spc ":" SpcCom				{operationPartName} ;
 
 
 //

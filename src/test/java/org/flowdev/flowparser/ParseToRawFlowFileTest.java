@@ -60,12 +60,8 @@ public class ParseToRawFlowFileTest {
     @Parameterized.Parameters
     public static Collection<?> checkPorts() {
 	return Arrays.asList(new Object[][] { //
-		{ "mini" }, //
-			{ "connections" }, //
-			{ "config" }, //
-			{ "create" }, //
-			{ "getter" }, //
-			{ "setter" } //
+			{ "mini" }, //
+			{ "connections" } //
 		});
     }
 

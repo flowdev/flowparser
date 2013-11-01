@@ -8,15 +8,15 @@ RawFlowFile {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : NULL ;
-                                sourcePosition : "After '... nections {\n    '" ;
+                                sourcePosition : "After '... ections0 {\n    '" ;
                                 type : in ;
                             } ;
                             operationName : NULL ;
                             outPort : NULL ;
-                            sourcePosition : "After '... nections {\n    '" ;
+                            sourcePosition : "After '... ections0 {\n    '" ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... nections {\n    '" ;
+                    sourcePosition : "After '... ections0 {\n    '" ;
                 } ;
                 1 : RawConnectionChain {
                     parts : List [
@@ -24,15 +24,15 @@ RawFlowFile {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : "in" ;
-                                sourcePosition : "After '... ns {\n    ;\n    '" ;
+                                sourcePosition : "After '... s0 {\n    ;\n    '" ;
                                 type : in ;
                             } ;
                             operationName : NULL ;
                             outPort : NULL ;
-                            sourcePosition : "After '... ns {\n    ;\n    '" ;
+                            sourcePosition : "After '... s0 {\n    ;\n    '" ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... ns {\n    ;\n    '" ;
+                    sourcePosition : "After '... s0 {\n    ;\n    '" ;
                 } ;
                 2 : RawConnectionChain {
                     parts : List [
@@ -117,47 +117,8 @@ RawFlowFile {
                 } ;
             ] ;
             name : "Connections0" ;
-            operations : List [
-                0 : RawOperation {
-                    configs : List [
-                    ] ;
-                    creators : List [
-                    ] ;
-                    getters : List [
-                    ] ;
-                    name : "doIt" ;
-                    setters : List [
-                    ] ;
-                    sourcePosition : "After '... erations {\n    '" ;
-                    type : RawDataType {
-                        path : "" ;
-                        sourcePosition : "After '... ons {\n    doIt:'" ;
-                        type : "Data" ;
-                    } ;
-                } ;
-            ] ;
-            ports : List [
-                0 : RawPort {
-                    dataType : RawDataType {
-                        path : "" ;
-                        sourcePosition : "After '... ports {\n    in '" ;
-                        type : "Data" ;
-                    } ;
-                    name : "in" ;
-                    sourcePosition : "After '... \n  ports {\n    '" ;
-                    type : in ;
-                } ;
-                1 : RawPort {
-                    dataType : RawDataType {
-                        path : "" ;
-                        sourcePosition : "After '...  Data;\n    out '" ;
-                        type : "Data" ;
-                    } ;
-                    name : "out" ;
-                    sourcePosition : "After '...   in Data;\n    '" ;
-                    type : out ;
-                } ;
-            ] ;
+            operations : NULL ;
+            ports : NULL ;
             sourcePosition : "After 'version 0.1\n\n'" ;
         } ;
         1 : RawFlow {
@@ -168,26 +129,26 @@ RawFlowFile {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : "in" ;
-                                sourcePosition : "After '... nections {\n    '" ;
+                                sourcePosition : "After '... ections1 {\n    '" ;
                                 type : in ;
                             } ;
                             operationName : NULL ;
                             outPort : NULL ;
-                            sourcePosition : "After '... nections {\n    '" ;
+                            sourcePosition : "After '... ections1 {\n    '" ;
                         } ;
                         1 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : "in" ;
-                                sourcePosition : "After '... ctions {\n    ->'" ;
+                                sourcePosition : "After '... tions1 {\n    ->'" ;
                                 type : in ;
                             } ;
                             operationName : "doIt" ;
                             outPort : NULL ;
-                            sourcePosition : "After '... nections {\n    '" ;
+                            sourcePosition : "After '... ections1 {\n    '" ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... nections {\n    '" ;
+                    sourcePosition : "After '... ections1 {\n    '" ;
                 } ;
                 1 : RawConnectionChain {
                     parts : List [
@@ -621,92 +582,9 @@ RawFlowFile {
                 } ;
             ] ;
             name : "Connections1" ;
-            operations : List [
-                0 : RawOperation {
-                    configs : List [
-                    ] ;
-                    creators : List [
-                    ] ;
-                    getters : List [
-                    ] ;
-                    name : "doIt" ;
-                    setters : List [
-                    ] ;
-                    sourcePosition : "After '... erations {\n    '" ;
-                    type : RawDataType {
-                        path : "" ;
-                        sourcePosition : "After '... ons {\n    doIt:'" ;
-                        type : "Data" ;
-                    } ;
-                } ;
-                1 : RawOperation {
-                    configs : List [
-                    ] ;
-                    creators : List [
-                    ] ;
-                    getters : List [
-                    ] ;
-                    name : "doThis" ;
-                    setters : List [
-                    ] ;
-                    sourcePosition : "After '... oIt:Data{}\n    '" ;
-                    type : RawDataType {
-                        path : "" ;
-                        sourcePosition : "After '... a{}\n    doThis:'" ;
-                        type : "Data" ;
-                    } ;
-                } ;
-                2 : RawOperation {
-                    configs : List [
-                    ] ;
-                    creators : List [
-                    ] ;
-                    getters : List [
-                    ] ;
-                    name : "doThat" ;
-                    setters : List [
-                    ] ;
-                    sourcePosition : "After '... his:Data{}\n    '" ;
-                    type : RawDataType {
-                        path : "" ;
-                        sourcePosition : "After '... a{}\n    doThat:'" ;
-                        type : "Data" ;
-                    } ;
-                } ;
-            ] ;
-            ports : List [
-                0 : RawPort {
-                    dataType : RawDataType {
-                        path : "" ;
-                        sourcePosition : "After '... {\n    in  in:  '" ;
-                        type : "Data" ;
-                    } ;
-                    name : "in" ;
-                    sourcePosition : "After '... \n  ports {\n    '" ;
-                    type : in ;
-                } ;
-                1 : RawPort {
-                    dataType : RawDataType {
-                        path : "" ;
-                        sourcePosition : "After '... ;\n    out out: '" ;
-                        type : "Data" ;
-                    } ;
-                    name : "out" ;
-                    sourcePosition : "After '... in:  Data;\n    '" ;
-                    type : out ;
-                } ;
-                2 : RawPort {
-                    dataType : RawDataType {
-                        path : "" ;
-                        sourcePosition : "After '... ;\n    out err: '" ;
-                        type : "Data" ;
-                    } ;
-                    name : "err" ;
-                    sourcePosition : "After '... out: Data;\n    '" ;
-                    type : out ;
-                } ;
-            ] ;
-            sourcePosition : "After '... :Data{}\n  }\n}\n\n'" ;
+            operations : NULL ;
+            ports : NULL ;
+            sourcePosition : "After '...     ->.out;\n}\n\n'" ;
         } ;
     ] ;
     version : RawVersion {
