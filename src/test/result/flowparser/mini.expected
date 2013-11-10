@@ -3,28 +3,31 @@ RawFlowFile {
         0 : RawFlow {
             connections : List [
                 0 : RawConnectionChain {
+                    inPort : RawPort {
+                        dataType : NULL ;
+                        name : "in" ;
+                        sourcePosition : "After '... \n\nflow Mini{\n  '" ;
+                        type : in ;
+                    } ;
+                    outPort : NULL ;
                     parts : List [
                         0 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... \n\nflow Mini{\n  '" ;
-                                type : in ;
-                            } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... \n\nflow Mini{\n  '" ;
-                        } ;
-                        1 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : "in" ;
                                 sourcePosition : "After '... flow Mini{\n  ->'" ;
                                 type : in ;
                             } ;
-                            operationName : "doIt" ;
+                            operation : RawOperation {
+                                name : "doIt" ;
+                                sourcePosition : "After '... flow Mini{\n  ->'" ;
+                                type : RawDataType {
+                                    sourcePosition : "After '... Mini{\n  ->doIt('" ;
+                                    type : "DoIt" ;
+                                } ;
+                            } ;
                             outPort : NULL ;
-                            sourcePosition : "After '... \n\nflow Mini{\n  '" ;
+                            sourcePosition : "After '... flow Mini{\n  ->'" ;
                         } ;
                     ] ;
                     sourcePosition : "After '... \n\nflow Mini{\n  '" ;

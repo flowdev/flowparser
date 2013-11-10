@@ -1,23 +1,16 @@
 version 0.1
 
-flow Connections0 {
-    ;
-    in.;
-    in.->;
-    ->;
-    ->.out;
-}
-
 flow Connections1 {
-    ->(doIt);
-    in.->(doIt);
-    (doIt)->;
-    (doIt)->.out;
-    ->(doIt)->;
-    in.->in.(doIt).out->.out;
-    ->(doIt)->(doThis)->(doThat);
-    in.->(doIt).out->(doThis)->in.(doThat)->.out;
-    ->in.(doIt)->in.(doThat).out->(doThis).out->;
-    (doThis).err->.err;
-    in.->in2.(doThis);
+    ->doIt();
+    [FlowData]->doIt();
+    i1->doIt();
+    doIt()->;
+    doIt(DoIt)->o1;
+    ->doIt()->;
+    i1->i2 doIt() o1->o2;
+    ->doIt()[FlowData1]->doThis(DoThis)->doThat(DoThat);
+    i1->doIt()o1[FlowData2]->doThis()->i2 doThat(DoesThat)->o2;
+    ->i1 doIt()->i2 doThat() o1->doThis() o2->;
+    doThis() err-> err;
+    i1 ->in2 doThis(DoThis);
 }

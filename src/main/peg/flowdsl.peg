@@ -1,45 +1,41 @@
 start = SpcCom Version Flow+ EOF										{flowFile} ;
 Version = "version" ASpc Natural "." Natural SpcCom						{version};
-Flow = FlowStart "{" SpcCom Connections "}" SpcCom		{flow} ;
+Flow = FlowStart "{" SpcCom Connections "}" SpcCom		                {flow} ;
 FlowStart = "flow" ASpc BigIdent SpcCom									{flowStart} ;
 
 
 //
 // Rules for the connections section of a flow:
 //
-Connections			= ConnectionChain+ 			{connections} ;
-ConnectionChain		= ConnectionChainBeg ConnectionChainMid* ConnectionChainEnd? StmtEnd	{connectionChain} ;
-ConnectionChainBeg	= OperationNameParens OpOutPort						{connectionChainBegMax}
-					/ InPort?											{connectionChainBegMin};
-ConnectionChainMid	= "->" Spc OpInPort OperationNameParens OpOutPort	{connectionChainMid} ;
-ConnectionChainEnd	= "->" Spc OutPort?									{connectionChainEnd} ;
-OperationNameParens	= "(" Spc OperationName ")" Spc						{operationNameParens} ;
-OperationName		= SmallIdent Spc											{operationName} ;
-OpInPort			= InPort?				{opInPort} ;
-OpOutPort			= OutPort?				{opOutPort} ;
-InPort				= PortName "." Spc		{inPort} ;
-OutPort				= "." Spc PortName		{outPort} ;
-PortName			= SmallIdent Spc		{portName} ;
+Connections			= ConnectionChain+ 		       	{connections} ;
+ConnectionChain		= ConnectionChainBeg ConnectionChainMid* OpConnectionChainEnd StmtEnd	{connectionChain} ;
+ConnectionChainBeg	= OpPort ConnectionChainMid		{connectionChainBegMax}
+					/ OperationNameParens OpPort	{connectionChainBegMin} ;
+ConnectionChainMid	= Arrow ConnectionPart			{connectionChainMid} ;
+OpConnectionChainEnd= ConnectionChainEnd?			{opConnectionChainEnd} ;
+ConnectionChainEnd	= Arrow OpPort					{connectionChainEnd} ;
+
+ConnectionPart		= OpPortSpc OperationNameParens OpPort				{connectionPart} ;
+OperationNameParens	= OperationName "(" Spc OpOperationType ")" Spc		{operationNameParens} ;
+OperationName		= SmallIdent Spc				{operationName} ;
+OpOperationType		= OperationType?				{opOperationType} ;
+OperationType		= BigIdent Spc					{operationType} ;
+Arrow			= SpcCom OpDataType "->" SpcCom     {arrow} ;
+OpDataType		= DataType?							{opDataType} ;
+DataType		= "[" Spc BigIdent Spc "]"			{dataType} ;
+OpPortSpc		= PortSpc?							{opPortSpc} ;
+OpPort			= PortName?							{opPort} ;
+PortSpc			= PortName ASpc						{portSpc} ;
+PortName		= SmallIdent						{portName} ;
 
 
 //
 // Generic reusable rules:
 //
 StmtEnd			= SpcCom ";" SpcCom ;
-DataPath		= SmallIdent ( Spc "." Spc SmallIdent )*	{dataPath} ;
-DataType		= DataModule? BigIdent						{dataType} ;
-DataModule		= FilePath "/"								{dataModule} ;
-FilePath		= StartFilePath RestFilePath
-				/ RestFilePath ;
-StartFilePath	= "../"+
-				/ "/" ;		// path from start of project
-RestFilePath	= SmallIdent ( "/" SmallIdent )* ;
-
 BigIdent		= [A-Z] WordChar+ ;
 SmallIdent		= [a-z] WordChar* ;
 WordChar		= [A-Z] / [a-z] / [0-9] ;
-
-ConstExpr		= SpcCom ( String / Int / Bool ) SpcCom	{constExpr} ;
 
 String			= ["] Char* ["]						{unescapeString} ;
 Char			= "\\u" Hex Hex Hex Hex				{unicodeChar}
@@ -58,8 +54,6 @@ Decimal			= [0-9] ;
 Hex				= [0-9] / [a-f] / [A-F] ;
 Binary			= [0-1] ;
 Octal			= [0-7] ;
-
-Bool			= ( "true" / "false" )				{bool} ;
 
 SpcCom			= ( AnySpace / Comment )* ;
 AnySpace		= [ \t\r\n]+ ;

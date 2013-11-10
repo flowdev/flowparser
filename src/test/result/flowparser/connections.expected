@@ -3,588 +3,545 @@ RawFlowFile {
         0 : RawFlow {
             connections : List [
                 0 : RawConnectionChain {
+                    inPort : RawPort {
+                        dataType : NULL ;
+                        name : "in" ;
+                        sourcePosition : "After '... ections1 {\n    '" ;
+                        type : in ;
+                    } ;
+                    outPort : NULL ;
                     parts : List [
                         0 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : NULL ;
-                                sourcePosition : "After '... ections0 {\n    '" ;
-                                type : in ;
-                            } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... ections0 {\n    '" ;
-                        } ;
-                    ] ;
-                    sourcePosition : "After '... ections0 {\n    '" ;
-                } ;
-                1 : RawConnectionChain {
-                    parts : List [
-                        0 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... s0 {\n    ;\n    '" ;
-                                type : in ;
-                            } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... s0 {\n    ;\n    '" ;
-                        } ;
-                    ] ;
-                    sourcePosition : "After '... s0 {\n    ;\n    '" ;
-                } ;
-                2 : RawConnectionChain {
-                    parts : List [
-                        0 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... ;\n    in.;\n    '" ;
-                                type : in ;
-                            } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... ;\n    in.;\n    '" ;
-                        } ;
-                        1 : RawConnectionPart {
-                            inPort : NULL ;
-                            operationName : NULL ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : NULL ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '...    in.;\n    in.'" ;
-                        } ;
-                    ] ;
-                    sourcePosition : "After '... ;\n    in.;\n    '" ;
-                } ;
-                3 : RawConnectionChain {
-                    parts : List [
-                        0 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '...     in.->;\n    '" ;
-                                type : in ;
-                            } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '...     in.->;\n    '" ;
-                        } ;
-                        1 : RawConnectionPart {
-                            inPort : NULL ;
-                            operationName : NULL ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : NULL ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '...     in.->;\n    '" ;
-                        } ;
-                    ] ;
-                    sourcePosition : "After '...     in.->;\n    '" ;
-                } ;
-                4 : RawConnectionChain {
-                    parts : List [
-                        0 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... >;\n    ->;\n    '" ;
-                                type : in ;
-                            } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... >;\n    ->;\n    '" ;
-                        } ;
-                        1 : RawConnectionPart {
-                            inPort : NULL ;
-                            operationName : NULL ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '... \n    ->;\n    ->'" ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '... >;\n    ->;\n    '" ;
-                        } ;
-                    ] ;
-                    sourcePosition : "After '... >;\n    ->;\n    '" ;
-                } ;
-            ] ;
-            name : "Connections0" ;
-            operations : NULL ;
-            ports : NULL ;
-            sourcePosition : "After 'version 0.1\n\n'" ;
-        } ;
-        1 : RawFlow {
-            connections : List [
-                0 : RawConnectionChain {
-                    parts : List [
-                        0 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... ections1 {\n    '" ;
-                                type : in ;
-                            } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... ections1 {\n    '" ;
-                        } ;
-                        1 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : "in" ;
                                 sourcePosition : "After '... tions1 {\n    ->'" ;
                                 type : in ;
                             } ;
-                            operationName : "doIt" ;
+                            operation : RawOperation {
+                                name : "doIt" ;
+                                sourcePosition : "After '... tions1 {\n    ->'" ;
+                                type : NULL ;
+                            } ;
                             outPort : NULL ;
-                            sourcePosition : "After '... ections1 {\n    '" ;
+                            sourcePosition : "After '... tions1 {\n    ->'" ;
                         } ;
                     ] ;
                     sourcePosition : "After '... ections1 {\n    '" ;
                 } ;
                 1 : RawConnectionChain {
+                    inPort : RawPort {
+                        dataType : RawDataType {
+                            sourcePosition : "After '... >doIt();\n    [F'" ;
+                            type : "FlowData" ;
+                        } ;
+                        name : "in" ;
+                        sourcePosition : "After '...  ->doIt();\n    '" ;
+                        type : in ;
+                    } ;
+                    outPort : NULL ;
                     parts : List [
                         0 : RawConnectionPart {
                             inPort : RawPort {
-                                dataType : NULL ;
+                                dataType : RawDataType {
+                                    sourcePosition : "After '... >doIt();\n    [F'" ;
+                                    type : "FlowData" ;
+                                } ;
                                 name : "in" ;
-                                sourcePosition : "After '...  ->(doIt);\n    '" ;
+                                sourcePosition : "After '...    [FlowData]->'" ;
                                 type : in ;
                             } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '...  ->(doIt);\n    '" ;
-                        } ;
-                        1 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... oIt);\n    in.->'" ;
-                                type : in ;
+                            operation : RawOperation {
+                                name : "doIt" ;
+                                sourcePosition : "After '...    [FlowData]->'" ;
+                                type : NULL ;
                             } ;
-                            operationName : "doIt" ;
                             outPort : NULL ;
-                            sourcePosition : "After '... (doIt);\n    in.'" ;
+                            sourcePosition : "After '...    [FlowData]->'" ;
                         } ;
                     ] ;
-                    sourcePosition : "After '...  ->(doIt);\n    '" ;
+                    sourcePosition : "After '...  ->doIt();\n    '" ;
                 } ;
                 2 : RawConnectionChain {
+                    inPort : RawPort {
+                        dataType : NULL ;
+                        name : "i1" ;
+                        sourcePosition : "After '... ]->doIt();\n    '" ;
+                        type : in ;
+                    } ;
+                    outPort : NULL ;
                     parts : List [
                         0 : RawConnectionPart {
-                            inPort : NULL ;
-                            operationName : "doIt" ;
-                            outPort : RawPort {
+                            inPort : RawPort {
                                 dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '... It);\n    (doIt)'" ;
-                                type : out ;
+                                name : "in" ;
+                                sourcePosition : "After '... oIt();\n    i1->'" ;
+                                type : in ;
                             } ;
-                            sourcePosition : "After '... .->(doIt);\n    '" ;
-                        } ;
-                        1 : RawConnectionPart {
-                            inPort : NULL ;
-                            operationName : NULL ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : NULL ;
-                                type : out ;
+                            operation : RawOperation {
+                                name : "doIt" ;
+                                sourcePosition : "After '... oIt();\n    i1->'" ;
+                                type : NULL ;
                             } ;
-                            sourcePosition : "After '... It);\n    (doIt)'" ;
+                            outPort : NULL ;
+                            sourcePosition : "After '... oIt();\n    i1->'" ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... .->(doIt);\n    '" ;
+                    sourcePosition : "After '... ]->doIt();\n    '" ;
                 } ;
                 3 : RawConnectionChain {
+                    inPort : NULL ;
+                    outPort : RawPort {
+                        dataType : NULL ;
+                        name : "out" ;
+                        sourcePosition : "After '... );\n    doIt()->'" ;
+                        type : out ;
+                    } ;
                     parts : List [
                         0 : RawConnectionPart {
                             inPort : NULL ;
-                            operationName : "doIt" ;
+                            operation : RawOperation {
+                                name : "doIt" ;
+                                sourcePosition : "After '... 1->doIt();\n    '" ;
+                                type : NULL ;
+                            } ;
                             outPort : RawPort {
                                 dataType : NULL ;
                                 name : "out" ;
-                                sourcePosition : "After '... )->;\n    (doIt)'" ;
+                                sourcePosition : "After '... t();\n    doIt()'" ;
                                 type : out ;
                             } ;
-                            sourcePosition : "After '...  (doIt)->;\n    '" ;
-                        } ;
-                        1 : RawConnectionPart {
-                            inPort : NULL ;
-                            operationName : NULL ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '... >;\n    (doIt)->'" ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '... )->;\n    (doIt)'" ;
+                            sourcePosition : NULL ;
                         } ;
                     ] ;
-                    sourcePosition : "After '...  (doIt)->;\n    '" ;
+                    sourcePosition : "After '... 1->doIt();\n    '" ;
                 } ;
                 4 : RawConnectionChain {
+                    inPort : NULL ;
+                    outPort : RawPort {
+                        dataType : NULL ;
+                        name : "o1" ;
+                        sourcePosition : "After '...    doIt(DoIt)->'" ;
+                        type : out ;
+                    } ;
                     parts : List [
                         0 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... It)->.out;\n    '" ;
-                                type : in ;
-                            } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... It)->.out;\n    '" ;
-                        } ;
-                        1 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... )->.out;\n    ->'" ;
-                                type : in ;
-                            } ;
-                            operationName : "doIt" ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '... t;\n    ->(doIt)'" ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '... It)->.out;\n    '" ;
-                        } ;
-                        2 : RawConnectionPart {
                             inPort : NULL ;
-                            operationName : NULL ;
+                            operation : RawOperation {
+                                name : "doIt" ;
+                                sourcePosition : "After '...  doIt()->;\n    '" ;
+                                type : RawDataType {
+                                    sourcePosition : "After '... ()->;\n    doIt('" ;
+                                    type : "DoIt" ;
+                                } ;
+                            } ;
                             outPort : RawPort {
                                 dataType : NULL ;
                                 name : "out" ;
-                                sourcePosition : NULL ;
+                                sourcePosition : "After '... \n    doIt(DoIt)'" ;
                                 type : out ;
                             } ;
-                            sourcePosition : "After '... t;\n    ->(doIt)'" ;
+                            sourcePosition : NULL ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... It)->.out;\n    '" ;
+                    sourcePosition : "After '...  doIt()->;\n    '" ;
                 } ;
                 5 : RawConnectionChain {
+                    inPort : RawPort {
+                        dataType : NULL ;
+                        name : "in" ;
+                        sourcePosition : "After '... DoIt)->o1;\n    '" ;
+                        type : in ;
+                    } ;
+                    outPort : RawPort {
+                        dataType : NULL ;
+                        name : "out" ;
+                        sourcePosition : "After '... \n    ->doIt()->'" ;
+                        type : out ;
+                    } ;
                     parts : List [
                         0 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : "in" ;
-                                sourcePosition : "After '... >(doIt)->;\n    '" ;
+                                sourcePosition : "After '... It)->o1;\n    ->'" ;
                                 type : in ;
                             } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... >(doIt)->;\n    '" ;
-                        } ;
-                        1 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... t)->;\n    in.->'" ;
-                                type : in ;
+                            operation : RawOperation {
+                                name : "doIt" ;
+                                sourcePosition : "After '... It)->o1;\n    ->'" ;
+                                type : NULL ;
                             } ;
-                            operationName : "doIt" ;
                             outPort : RawPort {
                                 dataType : NULL ;
                                 name : "out" ;
-                                sourcePosition : "After '...  in.->in.(doIt)'" ;
+                                sourcePosition : "After '... 1;\n    ->doIt()'" ;
                                 type : out ;
                             } ;
-                            sourcePosition : "After '... oIt)->;\n    in.'" ;
-                        } ;
-                        2 : RawConnectionPart {
-                            inPort : NULL ;
-                            operationName : NULL ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '... in.(doIt).out->'" ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '... ->in.(doIt).out'" ;
+                            sourcePosition : "After '... It)->o1;\n    ->'" ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... >(doIt)->;\n    '" ;
+                    sourcePosition : "After '... DoIt)->o1;\n    '" ;
                 } ;
                 6 : RawConnectionChain {
+                    inPort : RawPort {
+                        dataType : NULL ;
+                        name : "i1" ;
+                        sourcePosition : "After '... >doIt()->;\n    '" ;
+                        type : in ;
+                    } ;
+                    outPort : RawPort {
+                        dataType : NULL ;
+                        name : "o2" ;
+                        sourcePosition : "After '... >i2 doIt() o1->'" ;
+                        type : out ;
+                    } ;
                     parts : List [
                         0 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... out->.out;\n    '" ;
+                                name : "i2" ;
+                                sourcePosition : "After '... t()->;\n    i1->'" ;
                                 type : in ;
                             } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... out->.out;\n    '" ;
-                        } ;
-                        1 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... t->.out;\n    ->'" ;
-                                type : in ;
+                            operation : RawOperation {
+                                name : "doIt" ;
+                                sourcePosition : "After '... ->;\n    i1->i2 '" ;
+                                type : NULL ;
                             } ;
-                            operationName : "doIt" ;
                             outPort : RawPort {
                                 dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '... t;\n    ->(doIt)'" ;
+                                name : "o1" ;
+                                sourcePosition : "After '...  i1->i2 doIt() '" ;
                                 type : out ;
                             } ;
-                            sourcePosition : "After '... out->.out;\n    '" ;
-                        } ;
-                        2 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... \n    ->(doIt)->'" ;
-                                type : in ;
-                            } ;
-                            operationName : "doThis" ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '... doIt)->(doThis)'" ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '... t;\n    ->(doIt)'" ;
-                        } ;
-                        3 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... It)->(doThis)->'" ;
-                                type : in ;
-                            } ;
-                            operationName : "doThat" ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... doIt)->(doThis)'" ;
+                            sourcePosition : "After '... t()->;\n    i1->'" ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... out->.out;\n    '" ;
+                    sourcePosition : "After '... >doIt()->;\n    '" ;
                 } ;
                 7 : RawConnectionChain {
+                    inPort : RawPort {
+                        dataType : NULL ;
+                        name : "in" ;
+                        sourcePosition : "After '... () o1->o2;\n    '" ;
+                        type : in ;
+                    } ;
+                    outPort : NULL ;
                     parts : List [
                         0 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : "in" ;
-                                sourcePosition : "After '... >(doThat);\n    '" ;
+                                sourcePosition : "After '...  o1->o2;\n    ->'" ;
                                 type : in ;
                             } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... >(doThat);\n    '" ;
+                            operation : RawOperation {
+                                name : "doIt" ;
+                                sourcePosition : "After '...  o1->o2;\n    ->'" ;
+                                type : NULL ;
+                            } ;
+                            outPort : RawPort {
+                                dataType : RawDataType {
+                                    sourcePosition : "After '... \n    ->doIt()[F'" ;
+                                    type : "FlowData1" ;
+                                } ;
+                                name : "out" ;
+                                sourcePosition : "After '... 2;\n    ->doIt()'" ;
+                                type : out ;
+                            } ;
+                            sourcePosition : "After '...  o1->o2;\n    ->'" ;
                         } ;
                         1 : RawConnectionPart {
                             inPort : RawPort {
-                                dataType : NULL ;
+                                dataType : RawDataType {
+                                    sourcePosition : "After '... \n    ->doIt()[F'" ;
+                                    type : "FlowData1" ;
+                                } ;
                                 name : "in" ;
-                                sourcePosition : "After '... hat);\n    in.->'" ;
+                                sourcePosition : "After '... ()[FlowData1]->'" ;
                                 type : in ;
                             } ;
-                            operationName : "doIt" ;
+                            operation : RawOperation {
+                                name : "doThis" ;
+                                sourcePosition : "After '... ()[FlowData1]->'" ;
+                                type : RawDataType {
+                                    sourcePosition : "After '... Data1]->doThis('" ;
+                                    type : "DoThis" ;
+                                } ;
+                            } ;
                             outPort : RawPort {
-                                dataType : NULL ;
+                                dataType : RawDataType {
+                                    sourcePosition : "After '... \n    ->doIt()[F'" ;
+                                    type : "FlowData1" ;
+                                } ;
                                 name : "out" ;
-                                sourcePosition : "After '...     in.->(doIt)'" ;
+                                sourcePosition : "After '... >doThis(DoThis)'" ;
                                 type : out ;
                             } ;
-                            sourcePosition : "After '... oThat);\n    in.'" ;
+                            sourcePosition : "After '... ()[FlowData1]->'" ;
                         } ;
                         2 : RawConnectionPart {
                             inPort : RawPort {
-                                dataType : NULL ;
+                                dataType : RawDataType {
+                                    sourcePosition : "After '... \n    ->doIt()[F'" ;
+                                    type : "FlowData1" ;
+                                } ;
                                 name : "in" ;
-                                sourcePosition : "After '... .->(doIt).out->'" ;
+                                sourcePosition : "After '... oThis(DoThis)->'" ;
                                 type : in ;
                             } ;
-                            operationName : "doThis" ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '... ).out->(doThis)'" ;
-                                type : out ;
+                            operation : RawOperation {
+                                name : "doThat" ;
+                                sourcePosition : "After '... oThis(DoThis)->'" ;
+                                type : RawDataType {
+                                    sourcePosition : "After '... oThis)->doThat('" ;
+                                    type : "DoThat" ;
+                                } ;
                             } ;
-                            sourcePosition : "After '... in.->(doIt).out'" ;
-                        } ;
-                        3 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... out->(doThis)->'" ;
-                                type : in ;
-                            } ;
-                            operationName : "doThat" ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '... s)->in.(doThat)'" ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '... ).out->(doThis)'" ;
-                        } ;
-                        4 : RawConnectionPart {
-                            inPort : NULL ;
-                            operationName : NULL ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '... ->in.(doThat)->'" ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '... s)->in.(doThat)'" ;
+                            outPort : NULL ;
+                            sourcePosition : "After '... oThis(DoThis)->'" ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... >(doThat);\n    '" ;
+                    sourcePosition : "After '... () o1->o2;\n    '" ;
                 } ;
                 8 : RawConnectionChain {
+                    inPort : RawPort {
+                        dataType : NULL ;
+                        name : "i1" ;
+                        sourcePosition : "After '... t(DoThat);\n    '" ;
+                        type : in ;
+                    } ;
+                    outPort : RawPort {
+                        dataType : RawDataType {
+                            sourcePosition : "After '...  i1->doIt()o1[F'" ;
+                            type : "FlowData2" ;
+                        } ;
+                        name : "o2" ;
+                        sourcePosition : "After '... hat(DoesThat)->'" ;
+                        type : out ;
+                    } ;
                     parts : List [
                         0 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : "in" ;
-                                sourcePosition : "After '... at)->.out;\n    '" ;
+                                sourcePosition : "After '... That);\n    i1->'" ;
                                 type : in ;
                             } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... at)->.out;\n    '" ;
+                            operation : RawOperation {
+                                name : "doIt" ;
+                                sourcePosition : "After '... That);\n    i1->'" ;
+                                type : NULL ;
+                            } ;
+                            outPort : RawPort {
+                                dataType : RawDataType {
+                                    sourcePosition : "After '...  i1->doIt()o1[F'" ;
+                                    type : "FlowData2" ;
+                                } ;
+                                name : "o1" ;
+                                sourcePosition : "After '... \n    i1->doIt()'" ;
+                                type : out ;
+                            } ;
+                            sourcePosition : "After '... That);\n    i1->'" ;
+                        } ;
+                        1 : RawConnectionPart {
+                            inPort : RawPort {
+                                dataType : RawDataType {
+                                    sourcePosition : "After '...  i1->doIt()o1[F'" ;
+                                    type : "FlowData2" ;
+                                } ;
+                                name : "in" ;
+                                sourcePosition : "After '... o1[FlowData2]->'" ;
+                                type : in ;
+                            } ;
+                            operation : RawOperation {
+                                name : "doThis" ;
+                                sourcePosition : "After '... o1[FlowData2]->'" ;
+                                type : NULL ;
+                            } ;
+                            outPort : RawPort {
+                                dataType : RawDataType {
+                                    sourcePosition : "After '...  i1->doIt()o1[F'" ;
+                                    type : "FlowData2" ;
+                                } ;
+                                name : "out" ;
+                                sourcePosition : "After '... ata2]->doThis()'" ;
+                                type : out ;
+                            } ;
+                            sourcePosition : "After '... o1[FlowData2]->'" ;
+                        } ;
+                        2 : RawConnectionPart {
+                            inPort : RawPort {
+                                dataType : RawDataType {
+                                    sourcePosition : "After '...  i1->doIt()o1[F'" ;
+                                    type : "FlowData2" ;
+                                } ;
+                                name : "i2" ;
+                                sourcePosition : "After '... a2]->doThis()->'" ;
+                                type : in ;
+                            } ;
+                            operation : RawOperation {
+                                name : "doThat" ;
+                                sourcePosition : "After '... ->doThis()->i2 '" ;
+                                type : RawDataType {
+                                    sourcePosition : "After '... s()->i2 doThat('" ;
+                                    type : "DoesThat" ;
+                                } ;
+                            } ;
+                            outPort : RawPort {
+                                dataType : RawDataType {
+                                    sourcePosition : "After '...  i1->doIt()o1[F'" ;
+                                    type : "FlowData2" ;
+                                } ;
+                                name : "out" ;
+                                sourcePosition : "After '... oThat(DoesThat)'" ;
+                                type : out ;
+                            } ;
+                            sourcePosition : "After '... a2]->doThis()->'" ;
+                        } ;
+                    ] ;
+                    sourcePosition : "After '... t(DoThat);\n    '" ;
+                } ;
+                9 : RawConnectionChain {
+                    inPort : RawPort {
+                        dataType : NULL ;
+                        name : "i1" ;
+                        sourcePosition : "After '... That)->o2;\n    '" ;
+                        type : in ;
+                    } ;
+                    outPort : RawPort {
+                        dataType : NULL ;
+                        name : "o2" ;
+                        sourcePosition : "After '... ->doThis() o2->'" ;
+                        type : out ;
+                    } ;
+                    parts : List [
+                        0 : RawConnectionPart {
+                            inPort : RawPort {
+                                dataType : NULL ;
+                                name : "i1" ;
+                                sourcePosition : "After '... at)->o2;\n    ->'" ;
+                                type : in ;
+                            } ;
+                            operation : RawOperation {
+                                name : "doIt" ;
+                                sourcePosition : "After '... ->o2;\n    ->i1 '" ;
+                                type : NULL ;
+                            } ;
+                            outPort : RawPort {
+                                dataType : NULL ;
+                                name : "out" ;
+                                sourcePosition : "After '...     ->i1 doIt()'" ;
+                                type : out ;
+                            } ;
+                            sourcePosition : "After '... at)->o2;\n    ->'" ;
                         } ;
                         1 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... )->.out;\n    ->'" ;
+                                name : "i2" ;
+                                sourcePosition : "After '...   ->i1 doIt()->'" ;
                                 type : in ;
                             } ;
-                            operationName : "doIt" ;
+                            operation : RawOperation {
+                                name : "doThat" ;
+                                sourcePosition : "After '... >i1 doIt()->i2 '" ;
+                                type : NULL ;
+                            } ;
                             outPort : RawPort {
                                 dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '...     ->in.(doIt)'" ;
+                                name : "o1" ;
+                                sourcePosition : "After '... )->i2 doThat() '" ;
                                 type : out ;
                             } ;
-                            sourcePosition : "After '... at)->.out;\n    '" ;
+                            sourcePosition : "After '...   ->i1 doIt()->'" ;
                         } ;
                         2 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : "in" ;
-                                sourcePosition : "After '...   ->in.(doIt)->'" ;
+                                sourcePosition : "After '... 2 doThat() o1->'" ;
                                 type : in ;
                             } ;
-                            operationName : "doThat" ;
+                            operation : RawOperation {
+                                name : "doThis" ;
+                                sourcePosition : "After '... 2 doThat() o1->'" ;
+                                type : NULL ;
+                            } ;
                             outPort : RawPort {
                                 dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '... t)->in.(doThat)'" ;
+                                name : "o2" ;
+                                sourcePosition : "After '... ) o1->doThis() '" ;
                                 type : out ;
                             } ;
-                            sourcePosition : "After '...     ->in.(doIt)'" ;
-                        } ;
-                        3 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... .(doThat).out->'" ;
-                                type : in ;
-                            } ;
-                            operationName : "doThis" ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : "After '... ).out->(doThis)'" ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '... in.(doThat).out'" ;
-                        } ;
-                        4 : RawConnectionPart {
-                            inPort : NULL ;
-                            operationName : NULL ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "out" ;
-                                sourcePosition : NULL ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '... t->(doThis).out'" ;
+                            sourcePosition : "After '... 2 doThat() o1->'" ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... at)->.out;\n    '" ;
-                } ;
-                9 : RawConnectionChain {
-                    parts : List [
-                        0 : RawConnectionPart {
-                            inPort : NULL ;
-                            operationName : "doThis" ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "err" ;
-                                sourcePosition : "After '... >;\n    (doThis)'" ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '... is).out->;\n    '" ;
-                        } ;
-                        1 : RawConnectionPart {
-                            inPort : NULL ;
-                            operationName : NULL ;
-                            outPort : RawPort {
-                                dataType : NULL ;
-                                name : "err" ;
-                                sourcePosition : "After '...  (doThis).err->'" ;
-                                type : out ;
-                            } ;
-                            sourcePosition : "After '...    (doThis).err'" ;
-                        } ;
-                    ] ;
-                    sourcePosition : "After '... is).out->;\n    '" ;
+                    sourcePosition : "After '... That)->o2;\n    '" ;
                 } ;
                 10 : RawConnectionChain {
+                    inPort : NULL ;
+                    outPort : RawPort {
+                        dataType : NULL ;
+                        name : "err" ;
+                        sourcePosition : "After '... doThis() err-> '" ;
+                        type : out ;
+                    } ;
                     parts : List [
                         0 : RawConnectionPart {
-                            inPort : RawPort {
-                                dataType : NULL ;
-                                name : "in" ;
-                                sourcePosition : "After '... err->.err;\n    '" ;
-                                type : in ;
+                            inPort : NULL ;
+                            operation : RawOperation {
+                                name : "doThis" ;
+                                sourcePosition : "After '... is() o2->;\n    '" ;
+                                type : NULL ;
                             } ;
-                            operationName : NULL ;
-                            outPort : NULL ;
-                            sourcePosition : "After '... err->.err;\n    '" ;
+                            outPort : RawPort {
+                                dataType : NULL ;
+                                name : "err" ;
+                                sourcePosition : "After '... ;\n    doThis() '" ;
+                                type : out ;
+                            } ;
+                            sourcePosition : NULL ;
                         } ;
-                        1 : RawConnectionPart {
+                    ] ;
+                    sourcePosition : "After '... is() o2->;\n    '" ;
+                } ;
+                11 : RawConnectionChain {
+                    inPort : RawPort {
+                        dataType : NULL ;
+                        name : "i1" ;
+                        sourcePosition : "After '... err-> err;\n    '" ;
+                        type : in ;
+                    } ;
+                    outPort : NULL ;
+                    parts : List [
+                        0 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : NULL ;
                                 name : "in2" ;
-                                sourcePosition : "After '... .err;\n    in.->'" ;
+                                sourcePosition : "After '...  err;\n    i1 ->'" ;
                                 type : in ;
                             } ;
-                            operationName : "doThis" ;
+                            operation : RawOperation {
+                                name : "doThis" ;
+                                sourcePosition : "After '... ;\n    i1 ->in2 '" ;
+                                type : RawDataType {
+                                    sourcePosition : "After '... 1 ->in2 doThis('" ;
+                                    type : "DoThis" ;
+                                } ;
+                            } ;
                             outPort : NULL ;
-                            sourcePosition : "After '... ->.err;\n    in.'" ;
+                            sourcePosition : "After '...  err;\n    i1 ->'" ;
                         } ;
                     ] ;
-                    sourcePosition : "After '... err->.err;\n    '" ;
+                    sourcePosition : "After '... err-> err;\n    '" ;
                 } ;
             ] ;
             name : "Connections1" ;
             operations : NULL ;
             ports : NULL ;
-            sourcePosition : "After '...     ->.out;\n}\n\n'" ;
+            sourcePosition : "After 'version 0.1\n\n'" ;
         } ;
     ] ;
     version : RawVersion {
