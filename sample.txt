@@ -24,3 +24,107 @@ in [FlowData]-> in opName(OpType) out [FlowData]-> opName2(OpType2) out [FlowDat
 [FlowData]-> opName(OpType) -> opName2(OpType2) -> ;
 opName2() error [FlowException]->;
 
+Graphviz-Template:
+<graphviz type="framed" caption="{{name}}" format="svg" location="center">
+digraph {{name}} {
+  // rankdir=LR;
+  node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
+  op1 [label="Operation\nName1|{<in> in|<out> out}" URL="wiki/AAV/Entwicklung/Entwicklungsumgebung"];
+  op2 [label="Operation2|{<in> in|<out> out}"];
+  op3 [label="Op\nName3|{<in> in|<out> out}|{|<error> error}" URL="wiki/AAV/Entwicklung/Software-Depots"];
+  node [shape=point]
+  "flow_in" -> op1:in [label="AuftragsFlowData"];
+  op1:out -> op2:in [label="AuftragsFlowData"];
+  op2:out -> op3:in [label="AuftragsFlowData"];
+  node [shape=point]
+  op3:out -> "flow_out" [label="AuftragsFlowData"];
+  node [shape=point]
+  op3:error -> "flow_error" [label="AuftragsException"];
+}
+</graphviz>
+
+JSON-Data (for Graphviz-Template):
+RawFlowFile {
+    flows : List [
+        0 : RawFlow {
+            operations : List [
+                0 : Operation {
+                    name : "op1" ;
+                    type : "DoIt" ;
+                    ports : List [
+                      0 : PortPair {
+                          inPort : "in" ;
+                          outPort : "out" ;
+                      }
+                    ] ;
+                } ;
+                1 : Operation {
+                    name : "op2" ;
+                    type : "DoThis" ;
+                    ports : List [
+                      0 : PortPair {
+                          inPort : "in" ;
+                          outPort : "out" ;
+                      }
+                    ] ;
+                } ;
+                2 : Operation {
+                    name : "op3" ;
+                    type : "DoThat" ;
+                    ports : List [
+                      0 : PortPair {
+                          inPort : "in" ;
+                          outPort : "out" ;
+                      }
+                      1 : PortPair {
+                          inPort : NULL ;
+                          outPort : "error" ;
+                      }
+                    ] ;
+                } ;
+            ] ;
+            connections : List [
+                0 : Connection {
+                    fromOp : NULL ;
+                    fromPort : "in" ;
+                    dataType : "AuftragsFlowData" ;
+                    showDataType : true ;
+                    toOp : "op1" ;
+                    toPort : "in" ;
+                } ;
+                1 : Connection {
+                    fromOp : "op1" ;
+                    fromPort : "out" ;
+                    dataType : "AuftragsFlowData" ;
+                    showDataType : false ;
+                    toOp : "op2" ;
+                    toPort : "in" ;
+                } ;
+                2 : Connection {
+                    fromOp : "op2" ;
+                    fromPort : "out" ;
+                    dataType : "AuftragsFlowData" ;
+                    showDataType : false ;
+                    toOp : "op3" ;
+                    toPort : "in" ;
+                } ;
+                3 : Connection {
+                    fromOp : "op3" ;
+                    fromPort : "out" ;
+                    dataType : "AuftragsFlowData" ;
+                    showDataType : false ;
+                    toOp : NULL ;
+                    toPort : "out" ;
+                } ;
+            ] ;
+            name : "SampleFlow" ;
+            ports : NULL ;
+            sourcePosition : "After 'version 0.1\n\n'" ;
+        } ;
+    ] ;
+    version : RawVersion {
+        major : 1 ;
+        political : 0 ;
+        sourcePosition : "At start" ;
+    } ;
+}
