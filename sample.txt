@@ -43,46 +43,10 @@ digraph {{name}} {
 }
 </graphviz>
 
-JSON-Data (for Graphviz-Template):
+target JSON-Data:
 RawFlowFile {
     flows : List [
         0 : RawFlow {
-            operations : List [
-                0 : Operation {
-                    name : "op1" ;
-                    type : "DoIt" ;
-                    ports : List [
-                      0 : PortPair {
-                          inPort : "in" ;
-                          outPort : "out" ;
-                      }
-                    ] ;
-                } ;
-                1 : Operation {
-                    name : "op2" ;
-                    type : "DoThis" ;
-                    ports : List [
-                      0 : PortPair {
-                          inPort : "in" ;
-                          outPort : "out" ;
-                      }
-                    ] ;
-                } ;
-                2 : Operation {
-                    name : "op3" ;
-                    type : "DoThat" ;
-                    ports : List [
-                      0 : PortPair {
-                          inPort : "in" ;
-                          outPort : "out" ;
-                      }
-                      1 : PortPair {
-                          inPort : NULL ;
-                          outPort : "error" ;
-                      }
-                    ] ;
-                } ;
-            ] ;
             connections : List [
                 0 : Connection {
                     fromOp : NULL ;
@@ -118,7 +82,46 @@ RawFlowFile {
                 } ;
             ] ;
             name : "SampleFlow" ;
-            ports : NULL ;
+            operations : List [
+                0 : Operation {
+                    name : "op1" ;
+                    type : "DoIt" ;
+                    ports : List [
+                      0 : PortPair {
+                          inPort : "in" ;
+                          outPort : "out" ;
+                          isLast : true ;
+                      }
+                    ] ;
+                } ;
+                1 : Operation {
+                    name : "op2" ;
+                    type : "DoThis" ;
+                    ports : List [
+                      0 : PortPair {
+                          inPort : "in" ;
+                          outPort : "out" ;
+                          isLast : true ;
+                      }
+                    ] ;
+                } ;
+                2 : Operation {
+                    name : "op3" ;
+                    type : "DoThat" ;
+                    ports : List [
+                      0 : PortPair {
+                          inPort : "in" ;
+                          outPort : "out" ;
+                          isLast : false ;
+                      }
+                      1 : PortPair {
+                          inPort : NULL ;
+                          outPort : "error" ;
+                          isLast : true ;
+                      }
+                    ] ;
+                } ;
+            ] ;
             sourcePosition : "After 'version 0.1\n\n'" ;
         } ;
     ] ;

@@ -68,19 +68,6 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
         }
     }
 
-    private void cookInPort(RawPort rport, RawFlow rflow, Flow flow) {
-        Port port = new Port();
-        port.name = rport.name;
-        port.type = rport.dataType.type;
-
-        RawConnectionPart connPart = findInConnectionPart(port.name, rflow);
-        port.operationName = connPart.operation.name;
-        port.oparationPort = (connPart.inPort == null) ? null
-                : connPart.inPort.name;
-
-        flow.inPorts.add(port);
-    }
-
     private RawConnectionPart findInConnectionPart(String portName,
                                                    RawFlow rflow) {
         for (RawConnectionChain connChain : rflow.connections) {
@@ -92,19 +79,6 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
         throw new RuntimeException("Unable to find input port '" + portName
                 + "' in the connections of the raw flow: "
                 + PrettyPrinter.prettyPrint(rflow));
-    }
-
-    private void cookOutPort(RawPort rport, RawFlow rflow, Flow flow) {
-        Port port = new Port();
-        port.name = rport.name;
-        port.type = rport.dataType.type;
-
-        RawConnectionPart connPart = findOutConnectionPart(port.name, rflow);
-        port.operationName = connPart.operation.name;
-        port.oparationPort = (connPart.outPort == null) ? null
-                : connPart.outPort.name;
-
-        flow.outPorts.add(port);
     }
 
     private RawConnectionPart findOutConnectionPart(String portName,
@@ -136,9 +110,9 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
                                List<Connection> conns) {
         if (!isParentPart(from) && !isParentPart(to)) {
             Connection conn = new Connection();
-            conn.fromOperation = from.operation.name;
+            conn.fromOp = from.operation.name;
             conn.fromPort = from.outPort.name;
-            conn.toOperation = to.operation.name;
+            conn.toOp = to.operation.name;
             conn.toPort = to.inPort.name;
 
             conns.add(conn);
@@ -154,8 +128,8 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
 
     private Operation cookOperation(RawOperation rawOp) {
         Operation op = new Operation();
-        op.operationName = rawOp.name;
-        op.operationType = rawOp.type.type;
+        op.name = rawOp.name;
+        op.type = rawOp.type.type;
 
         return op;
     }

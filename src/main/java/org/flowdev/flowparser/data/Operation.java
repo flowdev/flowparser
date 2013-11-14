@@ -4,11 +4,7 @@ import java.util.List;
 
 
 public class Operation {
-	public String operationName;
-	public String operationType;
-	public String operationGenerics;
-	public boolean hasParams;
-	public List<GetterData> getters;
-	public List<Setter> setters;
-	public List<Creator> creators;
+	public String name;
+	public String type;
+    public List<PortPair> ports;
 }
