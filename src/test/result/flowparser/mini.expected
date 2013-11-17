@@ -34,8 +34,6 @@ RawFlowFile {
                 } ;
             ] ;
             name : "Mini" ;
-            operations : NULL ;
-            ports : NULL ;
             sourcePosition : "After 'version 0.1\n\n'" ;
         } ;
     ] ;

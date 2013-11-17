@@ -22,7 +22,7 @@ import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
 public class CookFlowFileTest {
-    private static final String FLOW_DIR = "./src/test/flow/flowparser/cook/";
+    private static final String FLOW_DIR = "./src/test/flow/flowparser/";
     private static final String RESULT_DIR = "./src/test/result/flowparser/cook/";
     private static final ParseToRawFlowFile.Params<TestData> RAW_PARAMS = new ParseToRawFlowFile.Params<>();
     private static final CookFlowFile.Params<TestData> COOK_PARAMS = new CookFlowFile.Params<>();

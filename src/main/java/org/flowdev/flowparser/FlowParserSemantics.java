@@ -92,7 +92,7 @@ class FlowParserSemantics extends SemanticsBase {
 
         data.outPort = (RawPort) rhs(n).get();
 
-        correctDataTypes(data);
+//        correctDataTypes(data);
         correctChainEnd(data);
 
         lhs().put(data);
@@ -120,10 +120,10 @@ class FlowParserSemantics extends SemanticsBase {
             if (chain.outPort.name == null) {
                 chain.outPort.name = lastPart.outPort.name;
             }
-            if (lastPart.outPort.dataType == null && lastPart.inPort != null) {
-                lastPart.outPort.dataType = lastPart.inPort.dataType;
-                chain.outPort.dataType = lastPart.inPort.dataType;
-            }
+//            if (lastPart.outPort.dataType == null && lastPart.inPort != null) {
+//                lastPart.outPort.dataType = lastPart.inPort.dataType;
+//                chain.outPort.dataType = lastPart.inPort.dataType;
+//            }
         }
     }
 

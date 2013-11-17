@@ -1,16 +1,31 @@
 FlowFile {
+    fileName : "mini.flow" ;
     flows : List [
         0 : Flow {
             connections : List [
+                0 : Connection {
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "in" ;
+                    showDataType : false ;
+                    toOp : "doIt" ;
+                    toPort : "in" ;
+                } ;
             ] ;
-            imports : List [
-                0 : "org.flowdev.Port" ;
-            ] ;
-            inPorts : NULL ;
-            module : NULL ;
             name : "Mini" ;
-            operations : NULL ;
-            outPorts : NULL ;
+            operations : List [
+                0 : Operation {
+                    name : "doIt" ;
+                    ports : List [
+                        0 : PortPair {
+                            inPort : "in" ;
+                            isLast : true ;
+                            outPort : NULL ;
+                        } ;
+                    ] ;
+                    type : "DoIt" ;
+                } ;
+            ] ;
         } ;
     ] ;
     version : Version {

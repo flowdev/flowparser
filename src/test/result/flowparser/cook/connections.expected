@@ -1,64 +1,246 @@
 FlowFile {
+    fileName : "connections.flow" ;
     flows : List [
         0 : Flow {
             connections : List [
-            ] ;
-            imports : List [
-                0 : "org.flowdev.Port" ;
-            ] ;
-            inPorts : NULL ;
-            module : NULL ;
-            name : "Connections0" ;
-            operations : NULL ;
-            outPorts : NULL ;
-        } ;
-        1 : Flow {
-            connections : List [
                 0 : Connection {
-                    fromOperation : "doIt" ;
-                    fromPort : "out" ;
-                    toOperation : "doThis" ;
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "in" ;
+                    showDataType : false ;
+                    toOp : "doIt" ;
                     toPort : "in" ;
                 } ;
                 1 : Connection {
-                    fromOperation : "doThis" ;
-                    fromPort : "out" ;
-                    toOperation : "doThat" ;
+                    dataType : "FlowData" ;
+                    fromOp : NULL ;
+                    fromPort : "in" ;
+                    showDataType : true ;
+                    toOp : "doIt" ;
                     toPort : "in" ;
                 } ;
                 2 : Connection {
-                    fromOperation : "doIt" ;
-                    fromPort : "out" ;
-                    toOperation : "doThis" ;
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "i1" ;
+                    showDataType : false ;
+                    toOp : "doIt" ;
                     toPort : "in" ;
                 } ;
                 3 : Connection {
-                    fromOperation : "doThis" ;
+                    dataType : NULL ;
+                    fromOp : "doIt" ;
                     fromPort : "out" ;
-                    toOperation : "doThat" ;
-                    toPort : "in" ;
+                    showDataType : false ;
+                    toOp : NULL ;
+                    toPort : "out" ;
                 } ;
                 4 : Connection {
-                    fromOperation : "doIt" ;
+                    dataType : NULL ;
+                    fromOp : "doIt" ;
                     fromPort : "out" ;
-                    toOperation : "doThat" ;
-                    toPort : "in" ;
+                    showDataType : false ;
+                    toOp : NULL ;
+                    toPort : "o1" ;
                 } ;
                 5 : Connection {
-                    fromOperation : "doThat" ;
-                    fromPort : "out" ;
-                    toOperation : "doThis" ;
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "in" ;
+                    showDataType : false ;
+                    toOp : "doIt" ;
                     toPort : "in" ;
                 } ;
+                6 : Connection {
+                    dataType : NULL ;
+                    fromOp : "doIt" ;
+                    fromPort : "out" ;
+                    showDataType : false ;
+                    toOp : NULL ;
+                    toPort : "out" ;
+                } ;
+                7 : Connection {
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "i1" ;
+                    showDataType : false ;
+                    toOp : "doIt" ;
+                    toPort : "i2" ;
+                } ;
+                8 : Connection {
+                    dataType : NULL ;
+                    fromOp : "doIt" ;
+                    fromPort : "o1" ;
+                    showDataType : false ;
+                    toOp : NULL ;
+                    toPort : "o2" ;
+                } ;
+                9 : Connection {
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "in" ;
+                    showDataType : false ;
+                    toOp : "doIt" ;
+                    toPort : "in" ;
+                } ;
+                10 : Connection {
+                    dataType : "FlowData1" ;
+                    fromOp : "doIt" ;
+                    fromPort : "out" ;
+                    showDataType : true ;
+                    toOp : "doThis" ;
+                    toPort : "in" ;
+                } ;
+                11 : Connection {
+                    dataType : NULL ;
+                    fromOp : "doThis" ;
+                    fromPort : "out" ;
+                    showDataType : false ;
+                    toOp : "doThat" ;
+                    toPort : "in" ;
+                } ;
+                12 : Connection {
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "i1" ;
+                    showDataType : false ;
+                    toOp : "doIt" ;
+                    toPort : "in" ;
+                } ;
+                13 : Connection {
+                    dataType : "FlowData2" ;
+                    fromOp : "doIt" ;
+                    fromPort : "o1" ;
+                    showDataType : true ;
+                    toOp : "doThis" ;
+                    toPort : "in" ;
+                } ;
+                14 : Connection {
+                    dataType : NULL ;
+                    fromOp : "doThis" ;
+                    fromPort : "out" ;
+                    showDataType : false ;
+                    toOp : "doThat" ;
+                    toPort : "i2" ;
+                } ;
+                15 : Connection {
+                    dataType : NULL ;
+                    fromOp : "doThat" ;
+                    fromPort : "out" ;
+                    showDataType : false ;
+                    toOp : NULL ;
+                    toPort : "o2" ;
+                } ;
+                16 : Connection {
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "i1" ;
+                    showDataType : false ;
+                    toOp : "doIt" ;
+                    toPort : "i1" ;
+                } ;
+                17 : Connection {
+                    dataType : NULL ;
+                    fromOp : "doIt" ;
+                    fromPort : "out" ;
+                    showDataType : false ;
+                    toOp : "doThat" ;
+                    toPort : "i2" ;
+                } ;
+                18 : Connection {
+                    dataType : NULL ;
+                    fromOp : "doThat" ;
+                    fromPort : "o1" ;
+                    showDataType : false ;
+                    toOp : "doThis" ;
+                    toPort : "in" ;
+                } ;
+                19 : Connection {
+                    dataType : NULL ;
+                    fromOp : "doThis" ;
+                    fromPort : "o2" ;
+                    showDataType : false ;
+                    toOp : NULL ;
+                    toPort : "o2" ;
+                } ;
+                20 : Connection {
+                    dataType : NULL ;
+                    fromOp : "doThis" ;
+                    fromPort : "err" ;
+                    showDataType : false ;
+                    toOp : NULL ;
+                    toPort : "err" ;
+                } ;
+                21 : Connection {
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "i1" ;
+                    showDataType : false ;
+                    toOp : "doThis" ;
+                    toPort : "in2" ;
+                } ;
             ] ;
-            imports : List [
-                0 : "org.flowdev.Port" ;
-            ] ;
-            inPorts : NULL ;
-            module : NULL ;
             name : "Connections1" ;
-            operations : NULL ;
-            outPorts : NULL ;
+            operations : List [
+                0 : Operation {
+                    name : "doThis" ;
+                    ports : List [
+                        0 : PortPair {
+                            inPort : "in" ;
+                            isLast : false ;
+                            outPort : "out" ;
+                        } ;
+                        1 : PortPair {
+                            inPort : "in2" ;
+                            isLast : false ;
+                            outPort : "o2" ;
+                        } ;
+                        2 : PortPair {
+                            inPort : NULL ;
+                            isLast : true ;
+                            outPort : "err" ;
+                        } ;
+                    ] ;
+                    type : "DoThis" ;
+                } ;
+                1 : Operation {
+                    name : "doIt" ;
+                    ports : List [
+                        0 : PortPair {
+                            inPort : "in" ;
+                            isLast : false ;
+                            outPort : "out" ;
+                        } ;
+                        1 : PortPair {
+                            inPort : "i2" ;
+                            isLast : false ;
+                            outPort : "o1" ;
+                        } ;
+                        2 : PortPair {
+                            inPort : "i1" ;
+                            isLast : true ;
+                            outPort : NULL ;
+                        } ;
+                    ] ;
+                    type : NULL ;
+                } ;
+                2 : Operation {
+                    name : "doThat" ;
+                    ports : List [
+                        0 : PortPair {
+                            inPort : "in" ;
+                            isLast : false ;
+                            outPort : "out" ;
+                        } ;
+                        1 : PortPair {
+                            inPort : "i2" ;
+                            isLast : false ;
+                            outPort : "o1" ;
+                        } ;
+                    ] ;
+                    type : "DoThat" ;
+                } ;
+            ] ;
         } ;
     ] ;
     version : Version {

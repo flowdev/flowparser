@@ -3,13 +3,11 @@ package org.flowdev.flowparser.cook;
 import org.flowdev.base.Getter;
 import org.flowdev.base.Setter;
 import org.flowdev.base.data.EmptyConfig;
-import org.flowdev.base.data.PrettyPrinter;
 import org.flowdev.base.op.Filter;
 import org.flowdev.flowparser.data.*;
 import org.flowdev.flowparser.rawdata.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * This operation reads the content of a file as a UTF-8 text into a string.
@@ -22,18 +20,16 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
     }
 
     private final Params<T> params;
-    private final String sourceRoot = System.getProperty("source.base", ".");
-    private String fileName;
 
     public CookFlowFile(Params<T> params) {
         this.params = params;
     }
 
     protected T filter(T data) {
-        fileName = params.getFileName.get(data);
         RawFlowFile rawFlowFile = params.getRawFlowFile.get(data);
         FlowFile cookedFlowFile = new FlowFile();
 
+        cookedFlowFile.fileName = params.getFileName.get(data);
         cookedFlowFile.version = cookVersion(rawFlowFile.version);
         cookedFlowFile.flows = cookFlows(rawFlowFile.flows);
 
@@ -52,86 +48,125 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
     private Flow cookFlow(RawFlow rflow) {
         Flow flow = new Flow();
         flow.name = rflow.name;
-        checkConnections(rflow);
         cookConnections(rflow, flow);
+        cookOperations(rflow, flow);
         return flow;
-    }
-
-    private void checkConnections(RawFlow rflow) {
-        for (RawConnectionChain connectionChain : rflow.connections) {
-            if (connectionChain.parts.size() < 2) {
-                throw new RuntimeException(
-                        "ERROR: Found connection chain with less than two parts."
-                                + connectionChain.sourcePosition + ": "
-                                + PrettyPrinter.prettyPrint(connectionChain));
-            }
-        }
-    }
-
-    private RawConnectionPart findInConnectionPart(String portName,
-                                                   RawFlow rflow) {
-        for (RawConnectionChain connChain : rflow.connections) {
-            RawConnectionPart connPart = connChain.parts.get(0);
-            if (isParentPart(connPart) && portName.equals(connPart.inPort.name)) {
-                return connChain.parts.get(1);
-            }
-        }
-        throw new RuntimeException("Unable to find input port '" + portName
-                + "' in the connections of the raw flow: "
-                + PrettyPrinter.prettyPrint(rflow));
-    }
-
-    private RawConnectionPart findOutConnectionPart(String portName,
-                                                    RawFlow rflow) {
-        for (RawConnectionChain connChain : rflow.connections) {
-            int last = connChain.parts.size() - 1;
-            RawConnectionPart connPart = connChain.parts.get(last);
-            if (isParentPart(connPart)
-                    && portName.equals(connPart.outPort.name)) {
-                return connChain.parts.get(last - 1);
-            }
-        }
-        throw new RuntimeException("Unable to find output port '" + portName
-                + "in raw flow: " + PrettyPrinter.prettyPrint(rflow));
     }
 
     private void cookConnections(RawFlow rflow, Flow flow) {
         flow.connections = new ArrayList<>();
         for (RawConnectionChain connChain : rflow.connections) {
-            int last = connChain.parts.size() - 1;
-            for (int i = 0; i < last; i++) {
-                addConnection(connChain.parts.get(i),
-                        connChain.parts.get(i + 1), flow.connections);
+            cookConnectionChain(connChain, flow.connections);
+        }
+    }
+
+    private void cookConnectionChain(RawConnectionChain chain, List<Connection> connections) {
+        if (chain.inPort != null) {
+            RawConnectionPart toPart = chain.parts.get(0);
+            addConnection(chain.inPort, null, toPart.inPort, toPart.operation, connections);
+        }
+        int last = chain.parts.size() - 1;
+        int i;
+        for (i = 0; i < last; i++) {
+            RawConnectionPart fromPart = chain.parts.get(i);
+            RawConnectionPart toPart = chain.parts.get(i + 1);
+            addConnection(fromPart.outPort, fromPart.operation, toPart.inPort, toPart.operation, connections);
+        }
+        if (chain.outPort != null) {
+            RawConnectionPart fromPart = chain.parts.get(last);
+            addConnection(fromPart.outPort, fromPart.operation, chain.outPort, null, connections);
+        }
+    }
+
+    private void addConnection(RawPort fromPort, RawOperation fromOp, RawPort toPort, RawOperation toOp, List<Connection> connections) {
+        Connection conn = new Connection();
+
+        conn.fromPort = fromPort.name;
+        conn.fromOp = (fromOp == null) ? null : fromOp.name;
+        conn.toPort = toPort.name;
+        conn.toOp = (toOp == null) ? null : toOp.name;
+
+        if (fromPort.dataType != null) {
+            conn.dataType = fromPort.dataType.type;
+            conn.showDataType = true;
+        } else if (toPort.dataType != null) {
+            conn.dataType = toPort.dataType.type;
+            conn.showDataType = true;
+        }
+
+        connections.add(conn);
+    }
+
+    private static class OpData {
+        Operation op;
+        Set<String> inPorts = new HashSet<>();
+        Set<String> outPorts = new HashSet<>();
+
+        OpData(Operation op) {
+            this.op = op;
+        }
+    }
+    private void cookOperations(RawFlow rflow, Flow flow) {
+        Map<String, OpData> operationMap = new HashMap<>();
+        for (RawConnectionChain chain : rflow.connections) {
+            for (RawConnectionPart part : chain.parts) {
+                cookOperation(part, operationMap);
             }
         }
-    }
 
-    private void addConnection(RawConnectionPart from, RawConnectionPart to,
-                               List<Connection> conns) {
-        if (!isParentPart(from) && !isParentPart(to)) {
-            Connection conn = new Connection();
-            conn.fromOp = from.operation.name;
-            conn.fromPort = from.outPort.name;
-            conn.toOp = to.operation.name;
-            conn.toPort = to.inPort.name;
-
-            conns.add(conn);
+        flow.operations = new ArrayList<>(operationMap.values().size());
+        for (OpData opData : operationMap.values()) {
+            flow.operations.add(opData.op);
         }
     }
 
-    private void cookOperations(RawFlow rflow, Flow flow) {
-        flow.operations = new ArrayList<>();
-        for (RawOperation rawOp : rflow.operations) {
-            flow.operations.add(cookOperation(rawOp));
+    private void cookOperation(RawConnectionPart part, Map<String, OpData> operationMap) {
+        OpData opData = operationMap.get(part.operation.name);
+        Operation op;
+        if (opData == null) {
+            op = new Operation();
+            op.name = part.operation.name;
+            op.type = (part.operation.type == null) ? null : part.operation.type.type;
+            op.ports = new ArrayList<>();
+            opData = new OpData(op);
+            operationMap.put(op.name, opData);
+        } else {
+            op = opData.op;
+        }
+
+        addPorts(part.inPort, part.outPort, op, opData.inPorts, opData.outPorts);
+    }
+
+    private void addPorts(RawPort inPort, RawPort outPort, Operation op, Set<String> inPorts, Set<String> outPorts) {
+        if (inPort != null) {
+            addMyPort(inPort, op, inPorts, outPorts.size(), true);
+        }
+        if (outPort != null) {
+            addMyPort(outPort, op, outPorts, inPorts.size(), false);
         }
     }
 
-    private Operation cookOperation(RawOperation rawOp) {
-        Operation op = new Operation();
-        op.name = rawOp.name;
-        op.type = rawOp.type.type;
+    private void addMyPort(RawPort myPort, Operation op, Set<String> myPorts, int otherPortsCount, boolean isInPort) {
+        if (myPorts.contains(myPort.name)) {
+            return;
+        }
 
-        return op;
+        int reusePair = otherPortsCount - myPorts.size();
+        PortPair portPair;
+        if (reusePair > 0) {
+            portPair = op.ports.get(op.ports.size() - reusePair);
+            portPair.isLast = false;
+        } else {
+            portPair = new PortPair();
+            portPair.isLast = true;
+            op.ports.add(portPair);
+        }
+        myPorts.add(myPort.name);
+        if (isInPort) {
+            portPair.inPort = myPort.name;
+        } else {
+            portPair.outPort = myPort.name;
+        }
     }
 
     private Version cookVersion(RawVersion rawVers) {
@@ -139,9 +174,5 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
         vers.political = rawVers.political;
         vers.major = rawVers.major;
         return vers;
-    }
-
-    private boolean isParentPart(RawConnectionPart part) {
-        return part.operation == null;
     }
 }
