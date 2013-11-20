@@ -92,7 +92,7 @@ FlowFile {
                     toPort : "in" ;
                 } ;
                 11 : Connection {
-                    dataType : NULL ;
+                    dataType : "FlowData1" ;
                     fromOp : "doThis" ;
                     fromPort : "out" ;
                     showDataType : false ;
@@ -116,7 +116,7 @@ FlowFile {
                     toPort : "in" ;
                 } ;
                 14 : Connection {
-                    dataType : NULL ;
+                    dataType : "FlowData2" ;
                     fromOp : "doThis" ;
                     fromPort : "out" ;
                     showDataType : false ;
@@ -124,7 +124,7 @@ FlowFile {
                     toPort : "i2" ;
                 } ;
                 15 : Connection {
-                    dataType : NULL ;
+                    dataType : "FlowData2" ;
                     fromOp : "doThat" ;
                     fromPort : "out" ;
                     showDataType : false ;
@@ -222,7 +222,7 @@ FlowFile {
                             outPort : NULL ;
                         } ;
                     ] ;
-                    type : NULL ;
+                    type : "DoIt" ;
                 } ;
                 2 : Operation {
                     name : "doThat" ;
@@ -234,7 +234,7 @@ FlowFile {
                         } ;
                         1 : PortPair {
                             inPort : "i2" ;
-                            isLast : false ;
+                            isLast : true ;
                             outPort : "o1" ;
                         } ;
                     ] ;

@@ -92,19 +92,19 @@ class FlowParserSemantics extends SemanticsBase {
 
         data.outPort = (RawPort) rhs(n).get();
 
-//        correctDataTypes(data);
+        correctDataTypes(data);
         correctChainEnd(data);
 
         lhs().put(data);
     }
     private void correctDataTypes(RawConnectionChain chain) {
-        RawDataType curType = chain.inPort != null ? chain.inPort.dataType : null;
+        RawDataType curType = chain.inPort != null ? copyDataType(chain.inPort.dataType) : null;
         for (int i = 0; i < chain.parts.size() - 1; i++) {
-            RawConnectionPart nextPart = chain.parts.get(i+1);
             RawConnectionPart curPart = chain.parts.get(i);
+            RawConnectionPart nextPart = chain.parts.get(i+1);
             if (nextPart.inPort.dataType != null) {
-                curType = nextPart.inPort.dataType;
-                curPart.outPort.dataType = curType;
+                curPart.outPort.dataType = nextPart.inPort.dataType;
+                curType = copyDataType(nextPart.inPort.dataType);
             } else {
                 curPart.outPort.dataType = curType;
                 nextPart.inPort.dataType = curType;
@@ -116,15 +116,26 @@ class FlowParserSemantics extends SemanticsBase {
         if (chain.outPort == null) {
             lastPart.outPort = null;
         } else {
-            lastPart.outPort.dataType = chain.outPort.dataType;
+            lastPart.outPort.dataType = copyDataType(chain.outPort.dataType);
             if (chain.outPort.name == null) {
                 chain.outPort.name = lastPart.outPort.name;
             }
-//            if (lastPart.outPort.dataType == null && lastPart.inPort != null) {
-//                lastPart.outPort.dataType = lastPart.inPort.dataType;
-//                chain.outPort.dataType = lastPart.inPort.dataType;
-//            }
+            if (lastPart.outPort.dataType == null && lastPart.inPort != null) {
+                RawDataType dataType = copyDataType(lastPart.inPort.dataType);
+                lastPart.outPort.dataType = dataType;
+                chain.outPort.dataType = dataType;
+            }
         }
+    }
+    private RawDataType copyDataType(RawDataType dataType) {
+        if (dataType == null) {
+            return null;
+        }
+        RawDataType ret = new RawDataType();
+        ret.type = dataType.type;
+        ret.sourcePosition = dataType.sourcePosition;
+        ret.fromDsl = false;
+        return ret;
     }
 
 
@@ -256,6 +267,7 @@ class FlowParserSemantics extends SemanticsBase {
     public void dataType() {
         RawDataType data = new RawDataType();
         data.type = rhs(2).text();
+        data.fromDsl = true;
         data.sourcePosition = lhs().where(2);
         lhs().put(data);
     }
@@ -275,6 +287,7 @@ class FlowParserSemantics extends SemanticsBase {
     public void operationType() {
         RawDataType data = new RawDataType();
         data.type = rhs(0).text();
+        data.fromDsl = true;
         data.sourcePosition = lhs().where(0);
         lhs().put(data);
     }

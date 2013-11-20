@@ -19,6 +19,16 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
         public Setter<FlowFile, T, T> setCookedFlowFile;
     }
 
+    private static class OpData {
+        Operation op;
+        Set<String> inPorts = new HashSet<>();
+        Set<String> outPorts = new HashSet<>();
+
+        OpData(Operation op) {
+            this.op = op;
+        }
+    }
+
     private final Params<T> params;
 
     public CookFlowFile(Params<T> params) {
@@ -88,24 +98,15 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
 
         if (fromPort.dataType != null) {
             conn.dataType = fromPort.dataType.type;
-            conn.showDataType = true;
+            conn.showDataType = fromPort.dataType.fromDsl;
         } else if (toPort.dataType != null) {
             conn.dataType = toPort.dataType.type;
-            conn.showDataType = true;
+            conn.showDataType = toPort.dataType.fromDsl;
         }
 
         connections.add(conn);
     }
 
-    private static class OpData {
-        Operation op;
-        Set<String> inPorts = new HashSet<>();
-        Set<String> outPorts = new HashSet<>();
-
-        OpData(Operation op) {
-            this.op = op;
-        }
-    }
     private void cookOperations(RawFlow rflow, Flow flow) {
         Map<String, OpData> operationMap = new HashMap<>();
         for (RawConnectionChain chain : rflow.connections) {
@@ -132,6 +133,9 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
             operationMap.put(op.name, opData);
         } else {
             op = opData.op;
+            if (op.type == null && part.operation.type != null) {
+                op.type = part.operation.type.type;
+            }
         }
 
         addPorts(part.inPort, part.outPort, op, opData.inPorts, opData.outPorts);
@@ -155,11 +159,15 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
         PortPair portPair;
         if (reusePair > 0) {
             portPair = op.ports.get(op.ports.size() - reusePair);
-            portPair.isLast = false;
         } else {
             portPair = new PortPair();
             portPair.isLast = true;
             op.ports.add(portPair);
+
+            // old last isn't last anymore:
+            if (op.ports.size() > 1) {
+                op.ports.get(op.ports.size() - 2).isLast = false;
+            }
         }
         myPorts.add(myPort.name);
         if (isInPort) {
