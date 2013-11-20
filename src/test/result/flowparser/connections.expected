@@ -32,6 +32,7 @@ RawFlowFile {
                 1 : RawConnectionChain {
                     inPort : RawPort {
                         dataType : RawDataType {
+                            fromDsl : true ;
                             sourcePosition : "After '... >doIt();\n    [F'" ;
                             type : "FlowData" ;
                         } ;
@@ -44,6 +45,7 @@ RawFlowFile {
                         0 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : RawDataType {
+                                    fromDsl : true ;
                                     sourcePosition : "After '... >doIt();\n    [F'" ;
                                     type : "FlowData" ;
                                 } ;
@@ -131,6 +133,7 @@ RawFlowFile {
                                 name : "doIt" ;
                                 sourcePosition : "After '...  doIt()->;\n    '" ;
                                 type : RawDataType {
+                                    fromDsl : true ;
                                     sourcePosition : "After '... ()->;\n    doIt('" ;
                                     type : "DoIt" ;
                                 } ;
@@ -243,6 +246,7 @@ RawFlowFile {
                             } ;
                             outPort : RawPort {
                                 dataType : RawDataType {
+                                    fromDsl : true ;
                                     sourcePosition : "After '... \n    ->doIt()[F'" ;
                                     type : "FlowData1" ;
                                 } ;
@@ -255,6 +259,7 @@ RawFlowFile {
                         1 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : RawDataType {
+                                    fromDsl : true ;
                                     sourcePosition : "After '... \n    ->doIt()[F'" ;
                                     type : "FlowData1" ;
                                 } ;
@@ -266,12 +271,14 @@ RawFlowFile {
                                 name : "doThis" ;
                                 sourcePosition : "After '... ()[FlowData1]->'" ;
                                 type : RawDataType {
+                                    fromDsl : true ;
                                     sourcePosition : "After '... Data1]->doThis('" ;
                                     type : "DoThis" ;
                                 } ;
                             } ;
                             outPort : RawPort {
                                 dataType : RawDataType {
+                                    fromDsl : false ;
                                     sourcePosition : "After '... \n    ->doIt()[F'" ;
                                     type : "FlowData1" ;
                                 } ;
@@ -284,6 +291,7 @@ RawFlowFile {
                         2 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : RawDataType {
+                                    fromDsl : false ;
                                     sourcePosition : "After '... \n    ->doIt()[F'" ;
                                     type : "FlowData1" ;
                                 } ;
@@ -295,6 +303,7 @@ RawFlowFile {
                                 name : "doThat" ;
                                 sourcePosition : "After '... oThis(DoThis)->'" ;
                                 type : RawDataType {
+                                    fromDsl : true ;
                                     sourcePosition : "After '... oThis)->doThat('" ;
                                     type : "DoThat" ;
                                 } ;
@@ -314,6 +323,7 @@ RawFlowFile {
                     } ;
                     outPort : RawPort {
                         dataType : RawDataType {
+                            fromDsl : false ;
                             sourcePosition : "After '...  i1->doIt()o1[F'" ;
                             type : "FlowData2" ;
                         } ;
@@ -336,6 +346,7 @@ RawFlowFile {
                             } ;
                             outPort : RawPort {
                                 dataType : RawDataType {
+                                    fromDsl : true ;
                                     sourcePosition : "After '...  i1->doIt()o1[F'" ;
                                     type : "FlowData2" ;
                                 } ;
@@ -348,6 +359,7 @@ RawFlowFile {
                         1 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : RawDataType {
+                                    fromDsl : true ;
                                     sourcePosition : "After '...  i1->doIt()o1[F'" ;
                                     type : "FlowData2" ;
                                 } ;
@@ -362,6 +374,7 @@ RawFlowFile {
                             } ;
                             outPort : RawPort {
                                 dataType : RawDataType {
+                                    fromDsl : false ;
                                     sourcePosition : "After '...  i1->doIt()o1[F'" ;
                                     type : "FlowData2" ;
                                 } ;
@@ -374,6 +387,7 @@ RawFlowFile {
                         2 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : RawDataType {
+                                    fromDsl : false ;
                                     sourcePosition : "After '...  i1->doIt()o1[F'" ;
                                     type : "FlowData2" ;
                                 } ;
@@ -385,12 +399,14 @@ RawFlowFile {
                                 name : "doThat" ;
                                 sourcePosition : "After '... ->doThis()->i2 '" ;
                                 type : RawDataType {
+                                    fromDsl : true ;
                                     sourcePosition : "After '... s()->i2 doThat('" ;
                                     type : "DoesThat" ;
                                 } ;
                             } ;
                             outPort : RawPort {
                                 dataType : RawDataType {
+                                    fromDsl : false ;
                                     sourcePosition : "After '...  i1->doIt()o1[F'" ;
                                     type : "FlowData2" ;
                                 } ;
@@ -527,6 +543,7 @@ RawFlowFile {
                                 name : "doThis" ;
                                 sourcePosition : "After '... ;\n    i1 ->in2 '" ;
                                 type : RawDataType {
+                                    fromDsl : true ;
                                     sourcePosition : "After '... 1 ->in2 doThis('" ;
                                     type : "DoThis" ;
                                 } ;

@@ -5,22 +5,22 @@ http://www.mediawiki.org/wiki/Extension:GraphViz
 digraph blaName {
   // rankdir=LR;
   node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
-  op1 [label="Operation\nName1|{<in> in|<out> out}" URL="wiki/AAV/Entwicklung/Entwicklungsumgebung"];
-  op2 [label="Operation2|{<in> in|<out> out}"];
-  op3 [label="Op\nName3|{<in> in|<out> out}|{|<error> error}" URL="wiki/AAV/Entwicklung/Software-Depots"];
+  op1 [label="Operation\nName1|{<in> in|<outPort> outPort}" URL="wiki/AAV/Entwicklung/Entwicklungsumgebung"];
+  op2 [label="Operation2|{<in> in|<outPort> outPort}"];
+  op3 [label="Op\nName3|{<in> in|<outPort> outPort}|{|<error> error}" URL="wiki/AAV/Entwicklung/Software-Depots"];
   node [shape=point]
   "flow_in" -> op1:in [label="AuftragsFlowData"];
-  op1:out -> op2:in [label="AuftragsFlowData"];
-  op2:out -> op3:in [label="AuftragsFlowData"];
+  op1:outPort -> op2:in [label="AuftragsFlowData"];
+  op2:outPort -> op3:in [label="AuftragsFlowData"];
   node [shape=point]
-  op3:out -> "flow_out" [label="AuftragsFlowData"];
+  op3:outPort -> "flow_out" [label="AuftragsFlowData"];
   node [shape=point]
   op3:error -> "flow_error" [label="AuftragsException"];
 }
 </graphviz>
 
 DSL:
-in [FlowData]-> in opName(OpType) out [FlowData]-> opName2(OpType2) out [FlowData]-> out ;
+in [FlowData]-> in opName(OpType) outPort [FlowData]-> opName2(OpType2) outPort [FlowData]-> outPort ;
 [FlowData]-> opName(OpType) -> opName2(OpType2) -> ;
 opName2() error [FlowException]->;
 
@@ -29,15 +29,15 @@ Graphviz-Template:
 digraph {{name}} {
   // rankdir=LR;
   node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
-  op1 [label="Operation\nName1|{<in> in|<out> out}" URL="wiki/AAV/Entwicklung/Entwicklungsumgebung"];
-  op2 [label="Operation2|{<in> in|<out> out}"];
-  op3 [label="Op\nName3|{<in> in|<out> out}|{|<error> error}" URL="wiki/AAV/Entwicklung/Software-Depots"];
+  op1 [label="Operation\nName1|{<in> in|<outPort> outPort}" URL="wiki/AAV/Entwicklung/Entwicklungsumgebung"];
+  op2 [label="Operation2|{<in> in|<outPort> outPort}"];
+  op3 [label="Op\nName3|{<in> in|<outPort> outPort}|{|<error> error}" URL="wiki/AAV/Entwicklung/Software-Depots"];
   node [shape=point]
   "flow_in" -> op1:in [label="AuftragsFlowData"];
-  op1:out -> op2:in [label="AuftragsFlowData"];
-  op2:out -> op3:in [label="AuftragsFlowData"];
+  op1:outPort -> op2:in [label="AuftragsFlowData"];
+  op2:outPort -> op3:in [label="AuftragsFlowData"];
   node [shape=point]
-  op3:out -> "flow_out" [label="AuftragsFlowData"];
+  op3:outPort -> "flow_out" [label="AuftragsFlowData"];
   node [shape=point]
   op3:error -> "flow_error" [label="AuftragsException"];
 }
@@ -58,7 +58,7 @@ RawFlowFile {
                 } ;
                 1 : Connection {
                     fromOp : "op1" ;
-                    fromPort : "out" ;
+                    fromPort : "outPort" ;
                     dataType : "AuftragsFlowData" ;
                     showDataType : false ;
                     toOp : "op2" ;
@@ -66,7 +66,7 @@ RawFlowFile {
                 } ;
                 2 : Connection {
                     fromOp : "op2" ;
-                    fromPort : "out" ;
+                    fromPort : "outPort" ;
                     dataType : "AuftragsFlowData" ;
                     showDataType : false ;
                     toOp : "op3" ;
@@ -74,11 +74,11 @@ RawFlowFile {
                 } ;
                 3 : Connection {
                     fromOp : "op3" ;
-                    fromPort : "out" ;
+                    fromPort : "outPort" ;
                     dataType : "AuftragsFlowData" ;
                     showDataType : false ;
                     toOp : NULL ;
-                    toPort : "out" ;
+                    toPort : "outPort" ;
                 } ;
             ] ;
             name : "SampleFlow" ;
@@ -89,7 +89,7 @@ RawFlowFile {
                     ports : List [
                       0 : PortPair {
                           inPort : "in" ;
-                          outPort : "out" ;
+                          outPort : "outPort" ;
                           isLast : true ;
                       }
                     ] ;
@@ -100,7 +100,7 @@ RawFlowFile {
                     ports : List [
                       0 : PortPair {
                           inPort : "in" ;
-                          outPort : "out" ;
+                          outPort : "outPort" ;
                           isLast : true ;
                       }
                     ] ;
@@ -111,7 +111,7 @@ RawFlowFile {
                     ports : List [
                       0 : PortPair {
                           inPort : "in" ;
-                          outPort : "out" ;
+                          outPort : "outPort" ;
                           isLast : false ;
                       }
                       1 : PortPair {

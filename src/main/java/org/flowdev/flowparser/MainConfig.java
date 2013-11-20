@@ -1,7 +1,7 @@
 package org.flowdev.flowparser;
 
-import org.flowdev.flowparser.mustache.OutputFlowFileConfig;
+import org.flowdev.flowparser.output.OutputAllFormatsConfig;
 
 public class MainConfig {
-    public OutputFlowFileConfig outputFlowFile;
+    public OutputAllFormatsConfig outputAllFormats;
 }

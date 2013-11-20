@@ -22,6 +22,7 @@ RawFlowFile {
                                 name : "doIt" ;
                                 sourcePosition : "After '... flow Mini{\n  ->'" ;
                                 type : RawDataType {
+                                    fromDsl : true ;
                                     sourcePosition : "After '... Mini{\n  ->doIt('" ;
                                     type : "DoIt" ;
                                 } ;

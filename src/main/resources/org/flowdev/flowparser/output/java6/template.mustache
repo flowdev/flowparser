@@ -1,0 +1,44 @@
+{{#flows}}
+package ;
+
+
+public class {{name}} {
+{{#operations}}    private final {{type}} {{name}};
+{{/operations}}
+    private final ReadTextFile<MainData, MainData> readTextFile;
+    private final ParseToRawFlowFile<MainData> parseToRawFlowFile;
+
+    public {{name}}() {
+{{#operations}}        {{name}} = new {{type}}();
+{{/operations}}
+
+        createConnections();
+        initConfig();
+    }
+
+    private void createConnections() {
+{{#connections}}{{#fromOp}}{{#toOp}}        {{fromOp}}.set{{fromPort}}Port({{toOp}}.get{{toPort}}Port());
+{{#toOp}}{{/fromOp}}{{/connections}}
+
+        parseToRawFlowFile.setOutPort(cookFlowFile.getInPort());
+        cookFlowFile.setOutPort(outputAllFormats.getInPort());
+    }
+
+    private void initConfig() {
+    }
+
+{{#connections}}{{^fromOp}}
+    public Port<> get{{fromPort}}Port() {
+        return {{toOp}}.get{{toPort}}Port();
+    }
+
+{{/fromOp}}{{/connections}}
+{{#connections}}{{^toOp}}
+    public void set{{toPort}}Port(Port<> port) {
+        {{fromOp}}.set{{fromPort}}Port(port);
+    }
+{{/toOp}}{{/connections}}
+}
+
+{{/flows}}
+

@@ -86,14 +86,14 @@ public class ParseToRawFlowFileTest {
 	data.fileContent = flowFileContent;
 	data.fileName = fileName;
 
-	parser.setOut(new Port<TestData>() {
+	parser.setOutPort(new Port<TestData>() {
 
-	    @Override
-	    public void send(TestData data) {
-		// nothing to do!
-	    }
-	});
-	parser.getIn().send(data);
+        @Override
+        public void send(TestData data) {
+            // nothing to do!
+        }
+    });
+	parser.getInPort().send(data);
 	return PrettyPrinter.prettyPrint(data.result);
     }
 

@@ -86,16 +86,16 @@ public class TstParser {
     }
 
     private void initConnections() {
-	readFlowFile.setOut(parseToRawFlowFile.getIn());
-	parseToRawFlowFile.setOut(cookFlowFile.getIn());
+	readFlowFile.setOutPort(parseToRawFlowFile.getInPort());
+	parseToRawFlowFile.setOutPort(cookFlowFile.getInPort());
     }
 
     public Port<TstData> getIn() {
-	return readFlowFile.getIn();
+	return readFlowFile.getInPort();
     }
 
     public void setOut(Port<TstData> out) {
-	cookFlowFile.setOut(out);
+	cookFlowFile.setOutPort(out);
     }
 
     public static void main(String[] args) throws Exception {

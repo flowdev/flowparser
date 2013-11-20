@@ -8,4 +8,5 @@ public class MainData {
     public String fileContent;
     public RawFlowFile rawFlowFile;
     public FlowFile flowFile;
+    public String format;
 }

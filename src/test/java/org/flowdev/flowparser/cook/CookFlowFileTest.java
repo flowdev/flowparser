@@ -78,7 +78,7 @@ public class CookFlowFileTest {
 	this.fileName = fileName;
 	rawParser = new ParseToRawFlowFile<>(RAW_PARAMS);
 	cookParser = new CookFlowFile<>(COOK_PARAMS);
-	rawParser.setOut(cookParser.getIn());
+	rawParser.setOutPort(cookParser.getInPort());
     }
 
     @Parameterized.Parameters
@@ -110,13 +110,13 @@ public class CookFlowFileTest {
 	data.fileContent = flowFileContent;
 	data.fileName = fileName;
 
-	cookParser.setOut(new Port<TestData>() {
-	    @Override
-	    public void send(TestData data) {
-		// nothing to do!
-	    }
-	});
-	rawParser.getIn().send(data);
+	cookParser.setOutPort(new Port<TestData>() {
+        @Override
+        public void send(TestData data) {
+            // nothing to do!
+        }
+    });
+	rawParser.getInPort().send(data);
 	return PrettyPrinter.prettyPrint(data.result);
     }
 
