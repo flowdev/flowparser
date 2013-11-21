@@ -3,12 +3,15 @@
 digraph {{name}} {
   // rankdir=LR;
   node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
-{{#operations}}  {{name}} [label="{{name}}\n{{type}}{{#ports}}|{ {{#inPort}}<{{.}}> {{.}}{{/inPort}}|{{#outPort}}<{{.}}> {{.}}{{/outPort}} }{{/ports}}"] ;
+
+{{#operations}}  {{name}} [label="{{name}}\n({{type}}){{#ports}}|{ {{#inPort}}<{{.}}> {{.}}{{/inPort}}|{{#outPort}}<{{.}}> {{.}}{{/outPort}} }{{/ports}}"{{#url}} URL="{{type}}Flow"{{/url}}] ;
 {{/operations}}
+
   node [shape=plaintext,style=plain,rank=same];
-{{#connections}}  {{#fromOp}}{{fromOp}}:{{fromPort}}{{/fromOp}}{{^fromOp}}"{{fromPort}}"{{/fromOp}} -> {{#toOp}}{{toOp}}:{{toPort}}{{/toOp}}{{^toOp}}"{{toPort}}"{{/toOp}}
-          {{#showDataType}} [label="{{dataType}}"]{{/showDataType}} ;
+
+{{#connections}}  {{#fromOp}}{{fromOp}}:{{fromPort}}{{/fromOp}}{{^fromOp}}"{{fromPort}}"{{/fromOp}} -> {{#toOp}}{{toOp}}:{{toPort}}{{/toOp}}{{^toOp}}"{{toPort}}"{{/toOp}}{{#showDataType}} [label="{{dataType}}"]{{/showDataType}} ;
 {{/connections}}
 }
 </graphviz>
 {{/flows}}
+

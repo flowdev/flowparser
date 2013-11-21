@@ -1,8 +1,8 @@
 package org.flowdev.flowparser.cook;
 
 import static org.flowdev.flowparser.ParseToRawFlowFileTest.deleteFile;
-import static org.flowdev.flowparser.ParseToRawFlowFileTest.readFile;
-import static org.flowdev.flowparser.ParseToRawFlowFileTest.writeFile;
+import static org.flowdev.flowparser.TestUtils.readFile;
+import static org.flowdev.flowparser.TestUtils.writeFile;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;

@@ -1,0 +1,13 @@
+<graphviz type="framed" caption="Mini" format="svg" location="center">
+digraph Mini {
+  // rankdir=LR;
+  node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
+
+  doIt [label="doIt\n(DoIt)|{ <in> in| }"] ;
+
+  node [shape=plaintext,style=plain,rank=same];
+
+  "in" -> doIt:in ;
+}
+</graphviz>
+
