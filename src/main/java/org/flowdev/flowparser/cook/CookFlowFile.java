@@ -104,6 +104,8 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
             conn.showDataType = toPort.dataType.fromDsl;
         }
 
+        conn.capFromPort = capitalize(conn.fromPort);
+        conn.capToPort = capitalize(conn.toPort);
         connections.add(conn);
     }
 
@@ -182,5 +184,13 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
         vers.political = rawVers.political;
         vers.major = rawVers.major;
         return vers;
+    }
+
+    private static String capitalize(String s) {
+        if (s == null || s.isEmpty()) {
+            return s;
+        }
+
+        return s.substring(0, 1).toUpperCase() + s.substring(1);
     }
 }

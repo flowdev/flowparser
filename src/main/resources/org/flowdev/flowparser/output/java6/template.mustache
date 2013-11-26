@@ -17,25 +17,22 @@ public class {{name}} {
     }
 
     private void createConnections() {
-{{#connections}}{{#fromOp}}{{#toOp}}        {{fromOp}}.set{{fromPort}}Port({{toOp}}.get{{toPort}}Port());
-{{#toOp}}{{/fromOp}}{{/connections}}
-
-        parseToRawFlowFile.setOutPort(cookFlowFile.getInPort());
-        cookFlowFile.setOutPort(outputAllFormats.getInPort());
+{{#connections}}{{#fromOp}}{{#toOp}}        {{fromOp}}.set{{capFromPort}}Port({{toOp}}.get{{capToPort}}Port());
+{{/toOp}}{{/fromOp}}{{/connections}}
     }
 
     private void initConfig() {
     }
 
 {{#connections}}{{^fromOp}}
-    public Port<> get{{fromPort}}Port() {
-        return {{toOp}}.get{{toPort}}Port();
+    public Port<> get{{capFromPort}}Port() {
+        return {{toOp}}.get{{capToPort}}Port();
     }
 
 {{/fromOp}}{{/connections}}
 {{#connections}}{{^toOp}}
-    public void set{{toPort}}Port(Port<> port) {
-        {{fromOp}}.set{{fromPort}}Port(port);
+    public void set{{capToPort}}Port(Port<> port) {
+        {{fromOp}}.set{{capFromPort}}Port(port);
     }
 {{/toOp}}{{/connections}}
 }
