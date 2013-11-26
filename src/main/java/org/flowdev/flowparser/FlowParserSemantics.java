@@ -116,7 +116,7 @@ class FlowParserSemantics extends SemanticsBase {
         if (chain.outPort == null) {
             lastPart.outPort = null;
         } else {
-            lastPart.outPort.dataType = copyDataType(chain.outPort.dataType);
+            lastPart.outPort.dataType = chain.outPort.dataType;
             if (chain.outPort.name == null) {
                 chain.outPort.name = lastPart.outPort.name;
             }
@@ -233,7 +233,7 @@ class FlowParserSemantics extends SemanticsBase {
     }
 
     // -------------------------------------------------------------------
-    // OperationNameParens = OperationName "(" Spc OpOperationType ")" Spc
+    // OperationNameParens = OpOperationName "(" Spc OpOperationType ")" Spc
     // -------------------------------------------------------------------
     void operationNameParens() {
         RawOperation data = new RawOperation();
@@ -241,7 +241,21 @@ class FlowParserSemantics extends SemanticsBase {
         data.name =  (String) rhs(0).get();
         data.type = (RawDataType) rhs(3).get();
 
+        if (data.name == null || data.name.isEmpty()) {
+            if (data.type.type == null || data.type.type.isEmpty()) {
+                throw new RuntimeException("Operation name AND type are missing at: " + data.sourcePosition);
+            }
+            data.name = decapitalize(data.type.type);
+        }
+
         lhs().put(data);
+    }
+    private static String decapitalize(String s) {
+        if (s == null || s.isEmpty()) {
+            return s;
+        }
+
+        return s.substring(0, 1).toLowerCase() + s.substring(1);
     }
 
 
@@ -332,6 +346,15 @@ class FlowParserSemantics extends SemanticsBase {
     // -------------------------------------------------------------------
     void portName() {
         lhs().put(rhs(0).text());
+    }
+
+    // -------------------------------------------------------------------
+    // OpPort = PortName?
+    // -------------------------------------------------------------------
+    void opOperationName() {
+        if (rhsSize() > 0) {
+            lhs().put(rhs(0).get());
+        }
     }
 
     // -------------------------------------------------------------------

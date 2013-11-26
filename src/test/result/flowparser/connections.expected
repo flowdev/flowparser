@@ -554,6 +554,63 @@ RawFlowFile {
                     ] ;
                     sourcePosition : "After '... err-> err;\n    '" ;
                 } ;
+                12 : RawConnectionChain {
+                    inPort : RawPort {
+                        dataType : RawDataType {
+                            fromDsl : true ;
+                            sourcePosition : "After '... his);\n    i1 [F'" ;
+                            type : "FlowData" ;
+                        } ;
+                        name : "i1" ;
+                        sourcePosition : "After '... s(DoThis);\n    '" ;
+                        type : in ;
+                    } ;
+                    outPort : RawPort {
+                        dataType : RawDataType {
+                            fromDsl : true ;
+                            sourcePosition : "After '...  (DoThat) o1 [F'" ;
+                            type : "FlowData2" ;
+                        } ;
+                        name : "o2" ;
+                        sourcePosition : "After '...  [FlowData2]-> '" ;
+                        type : out ;
+                    } ;
+                    parts : List [
+                        0 : RawConnectionPart {
+                            inPort : RawPort {
+                                dataType : RawDataType {
+                                    fromDsl : true ;
+                                    sourcePosition : "After '... his);\n    i1 [F'" ;
+                                    type : "FlowData" ;
+                                } ;
+                                name : "in2" ;
+                                sourcePosition : "After '... 1 [FlowData]-> '" ;
+                                type : in ;
+                            } ;
+                            operation : RawOperation {
+                                name : "doThat" ;
+                                sourcePosition : "After '... lowData]-> in2 '" ;
+                                type : RawDataType {
+                                    fromDsl : true ;
+                                    sourcePosition : "After '... owData]-> in2 ('" ;
+                                    type : "DoThat" ;
+                                } ;
+                            } ;
+                            outPort : RawPort {
+                                dataType : RawDataType {
+                                    fromDsl : true ;
+                                    sourcePosition : "After '...  (DoThat) o1 [F'" ;
+                                    type : "FlowData2" ;
+                                } ;
+                                name : "o1" ;
+                                sourcePosition : "After '... > in2 (DoThat) '" ;
+                                type : out ;
+                            } ;
+                            sourcePosition : "After '... 1 [FlowData]-> '" ;
+                        } ;
+                    ] ;
+                    sourcePosition : "After '... s(DoThis);\n    '" ;
+                } ;
             ] ;
             name : "Connections1" ;
             sourcePosition : "After 'version 0.1\n\n'" ;

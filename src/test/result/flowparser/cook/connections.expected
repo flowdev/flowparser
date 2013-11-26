@@ -4,6 +4,8 @@ FlowFile {
         0 : Flow {
             connections : List [
                 0 : Connection {
+                    capFromPort : "In" ;
+                    capToPort : "In" ;
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "in" ;
@@ -12,6 +14,8 @@ FlowFile {
                     toPort : "in" ;
                 } ;
                 1 : Connection {
+                    capFromPort : "In" ;
+                    capToPort : "In" ;
                     dataType : "FlowData" ;
                     fromOp : NULL ;
                     fromPort : "in" ;
@@ -20,6 +24,8 @@ FlowFile {
                     toPort : "in" ;
                 } ;
                 2 : Connection {
+                    capFromPort : "I1" ;
+                    capToPort : "In" ;
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "i1" ;
@@ -28,6 +34,8 @@ FlowFile {
                     toPort : "in" ;
                 } ;
                 3 : Connection {
+                    capFromPort : "Out" ;
+                    capToPort : "Out" ;
                     dataType : NULL ;
                     fromOp : "doIt" ;
                     fromPort : "out" ;
@@ -36,6 +44,8 @@ FlowFile {
                     toPort : "out" ;
                 } ;
                 4 : Connection {
+                    capFromPort : "Out" ;
+                    capToPort : "O1" ;
                     dataType : NULL ;
                     fromOp : "doIt" ;
                     fromPort : "out" ;
@@ -44,6 +54,8 @@ FlowFile {
                     toPort : "o1" ;
                 } ;
                 5 : Connection {
+                    capFromPort : "In" ;
+                    capToPort : "In" ;
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "in" ;
@@ -52,6 +64,8 @@ FlowFile {
                     toPort : "in" ;
                 } ;
                 6 : Connection {
+                    capFromPort : "Out" ;
+                    capToPort : "Out" ;
                     dataType : NULL ;
                     fromOp : "doIt" ;
                     fromPort : "out" ;
@@ -60,6 +74,8 @@ FlowFile {
                     toPort : "out" ;
                 } ;
                 7 : Connection {
+                    capFromPort : "I1" ;
+                    capToPort : "I2" ;
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "i1" ;
@@ -68,6 +84,8 @@ FlowFile {
                     toPort : "i2" ;
                 } ;
                 8 : Connection {
+                    capFromPort : "O1" ;
+                    capToPort : "O2" ;
                     dataType : NULL ;
                     fromOp : "doIt" ;
                     fromPort : "o1" ;
@@ -76,6 +94,8 @@ FlowFile {
                     toPort : "o2" ;
                 } ;
                 9 : Connection {
+                    capFromPort : "In" ;
+                    capToPort : "In" ;
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "in" ;
@@ -84,6 +104,8 @@ FlowFile {
                     toPort : "in" ;
                 } ;
                 10 : Connection {
+                    capFromPort : "Out" ;
+                    capToPort : "In" ;
                     dataType : "FlowData1" ;
                     fromOp : "doIt" ;
                     fromPort : "out" ;
@@ -92,6 +114,8 @@ FlowFile {
                     toPort : "in" ;
                 } ;
                 11 : Connection {
+                    capFromPort : "Out" ;
+                    capToPort : "In" ;
                     dataType : "FlowData1" ;
                     fromOp : "doThis" ;
                     fromPort : "out" ;
@@ -100,6 +124,8 @@ FlowFile {
                     toPort : "in" ;
                 } ;
                 12 : Connection {
+                    capFromPort : "I1" ;
+                    capToPort : "In" ;
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "i1" ;
@@ -108,6 +134,8 @@ FlowFile {
                     toPort : "in" ;
                 } ;
                 13 : Connection {
+                    capFromPort : "O1" ;
+                    capToPort : "In" ;
                     dataType : "FlowData2" ;
                     fromOp : "doIt" ;
                     fromPort : "o1" ;
@@ -116,6 +144,8 @@ FlowFile {
                     toPort : "in" ;
                 } ;
                 14 : Connection {
+                    capFromPort : "Out" ;
+                    capToPort : "I2" ;
                     dataType : "FlowData2" ;
                     fromOp : "doThis" ;
                     fromPort : "out" ;
@@ -124,6 +154,8 @@ FlowFile {
                     toPort : "i2" ;
                 } ;
                 15 : Connection {
+                    capFromPort : "Out" ;
+                    capToPort : "O2" ;
                     dataType : "FlowData2" ;
                     fromOp : "doThat" ;
                     fromPort : "out" ;
@@ -132,6 +164,8 @@ FlowFile {
                     toPort : "o2" ;
                 } ;
                 16 : Connection {
+                    capFromPort : "I1" ;
+                    capToPort : "I1" ;
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "i1" ;
@@ -140,6 +174,8 @@ FlowFile {
                     toPort : "i1" ;
                 } ;
                 17 : Connection {
+                    capFromPort : "Out" ;
+                    capToPort : "I2" ;
                     dataType : NULL ;
                     fromOp : "doIt" ;
                     fromPort : "out" ;
@@ -148,6 +184,8 @@ FlowFile {
                     toPort : "i2" ;
                 } ;
                 18 : Connection {
+                    capFromPort : "O1" ;
+                    capToPort : "In" ;
                     dataType : NULL ;
                     fromOp : "doThat" ;
                     fromPort : "o1" ;
@@ -156,6 +194,8 @@ FlowFile {
                     toPort : "in" ;
                 } ;
                 19 : Connection {
+                    capFromPort : "O2" ;
+                    capToPort : "O2" ;
                     dataType : NULL ;
                     fromOp : "doThis" ;
                     fromPort : "o2" ;
@@ -164,6 +204,8 @@ FlowFile {
                     toPort : "o2" ;
                 } ;
                 20 : Connection {
+                    capFromPort : "Err" ;
+                    capToPort : "Err" ;
                     dataType : NULL ;
                     fromOp : "doThis" ;
                     fromPort : "err" ;
@@ -172,12 +214,34 @@ FlowFile {
                     toPort : "err" ;
                 } ;
                 21 : Connection {
+                    capFromPort : "I1" ;
+                    capToPort : "In2" ;
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "i1" ;
                     showDataType : false ;
                     toOp : "doThis" ;
                     toPort : "in2" ;
+                } ;
+                22 : Connection {
+                    capFromPort : "I1" ;
+                    capToPort : "In2" ;
+                    dataType : "FlowData" ;
+                    fromOp : NULL ;
+                    fromPort : "i1" ;
+                    showDataType : true ;
+                    toOp : "doThat" ;
+                    toPort : "in2" ;
+                } ;
+                23 : Connection {
+                    capFromPort : "O1" ;
+                    capToPort : "O2" ;
+                    dataType : "FlowData2" ;
+                    fromOp : "doThat" ;
+                    fromPort : "o1" ;
+                    showDataType : true ;
+                    toOp : NULL ;
+                    toPort : "o2" ;
                 } ;
             ] ;
             name : "Connections1" ;
@@ -234,8 +298,13 @@ FlowFile {
                         } ;
                         1 : PortPair {
                             inPort : "i2" ;
-                            isLast : true ;
+                            isLast : false ;
                             outPort : "o1" ;
+                        } ;
+                        2 : PortPair {
+                            inPort : "in2" ;
+                            isLast : true ;
+                            outPort : NULL ;
                         } ;
                     ] ;
                     type : "DoThat" ;

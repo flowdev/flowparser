@@ -13,4 +13,5 @@ flow Connections1 {
     ->i1 doIt()->i2 doThat() o1->doThis() o2->;
     doThis() err-> err;
     i1 ->in2 doThis(DoThis);
+    i1 [FlowData]-> in2 (DoThat) o1 [FlowData2]-> o2 ;
 }

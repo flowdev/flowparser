@@ -5,7 +5,7 @@ digraph Connections1 {
 
   doThis [label="doThis\n(DoThis)|{ <in> in|<out> out }|{ <in2> in2|<o2> o2 }|{ |<err> err }"] ;
   doIt [label="doIt\n(DoIt)|{ <in> in|<out> out }|{ <i2> i2|<o1> o1 }|{ <i1> i1| }"] ;
-  doThat [label="doThat\n(DoThat)|{ <in> in|<out> out }|{ <i2> i2|<o1> o1 }"] ;
+  doThat [label="doThat\n(DoThat)|{ <in> in|<out> out }|{ <i2> i2|<o1> o1 }|{ <in2> in2| }"] ;
 
   node [shape=plaintext,style=plain,rank=same];
 
@@ -31,6 +31,8 @@ digraph Connections1 {
   doThis:o2 -> "o2" ;
   doThis:err -> "err" ;
   "i1" -> doThis:in2 ;
+  "i1" -> doThat:in2 [label="FlowData"] ;
+  doThat:o1 -> "o2" [label="FlowData2"] ;
 }
 </graphviz>
 

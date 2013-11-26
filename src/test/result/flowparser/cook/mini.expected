@@ -4,6 +4,8 @@ FlowFile {
         0 : Flow {
             connections : List [
                 0 : Connection {
+                    capFromPort : "In" ;
+                    capToPort : "In" ;
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "in" ;

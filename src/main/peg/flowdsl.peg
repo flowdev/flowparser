@@ -16,7 +16,8 @@ OpConnectionChainEnd= ConnectionChainEnd?			{opConnectionChainEnd} ;
 ConnectionChainEnd	= Arrow OpPort					{connectionChainEnd} ;
 
 ConnectionPart		= OpPortSpc OperationNameParens OpPort				{connectionPart} ;
-OperationNameParens	= OperationName "(" Spc OpOperationType ")" Spc		{operationNameParens} ;
+OperationNameParens	= OpOperationName "(" Spc OpOperationType ")" Spc	{operationNameParens} ;
+OpOperationName		= OperationName?				{opOperationName} ;
 OperationName		= SmallIdent Spc				{operationName} ;
 OpOperationType		= OperationType?				{opOperationType} ;
 OperationType		= BigIdent Spc					{operationType} ;
