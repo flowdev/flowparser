@@ -1,12 +1,9 @@
-{{#flows}}
 package ;
 
 
 public class {{name}} {
 {{#operations}}    private final {{type}} {{name}};
 {{/operations}}
-    private final ReadTextFile<MainData, MainData> readTextFile;
-    private final ParseToRawFlowFile<MainData> parseToRawFlowFile;
 
     public {{name}}() {
 {{#operations}}        {{name}} = new {{type}}();
@@ -36,6 +33,4 @@ public class {{name}} {
     }
 {{/toOp}}{{/connections}}
 }
-
-{{/flows}}
 
