@@ -4,9 +4,6 @@ import org.flowdev.base.Getter;
 import org.flowdev.base.Setter;
 import org.flowdev.base.data.EmptyConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.base.op.Transform;
-import org.flowdev.flowparser.MainData;
-import org.flowdev.flowparser.data.FlowFile;
 
 public class CreateOutputFileName<T> extends Filter<T, EmptyConfig> {
     public static class Params<T> {
@@ -22,12 +19,12 @@ public class CreateOutputFileName<T> extends Filter<T, EmptyConfig> {
     }
 
     @Override
-    protected T filter(T data) {
+    protected void filter(T data) {
         String format = params.getFormat.get(data);
         String fileName = params.getFileName.get(data);
         fileName = correctFileName(fileName, format);
         params.setFileName.set(data, fileName);
-        return data;
+        outPort.send(data);
     }
 
     private String correctFileName(String fileName, String format) {

@@ -35,7 +35,7 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
         this.params = params;
     }
 
-    protected T filter(T data) {
+    protected void filter(T data) {
         RawFlowFile rawFlowFile = params.getRawFlowFile.get(data);
         FlowFile cookedFlowFile = new FlowFile();
 
@@ -44,7 +44,7 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
         cookedFlowFile.flows = cookFlows(rawFlowFile.flows);
 
         params.setCookedFlowFile.set(data, cookedFlowFile);
-        return data;
+        outPort.send(data);
     }
 
     private List<Flow> cookFlows(List<RawFlow> rawFlows) {

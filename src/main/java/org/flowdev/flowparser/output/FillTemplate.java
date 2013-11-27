@@ -32,7 +32,7 @@ public class FillTemplate<T> extends Filter<T, EmptyConfig> {
     }
 
     @Override
-    protected T filter(T data) {
+    protected void filter(T data) {
         String format = params.getFormat.get(data);
         FlowFile flowFile = params.getFlowFile.get(data);
 
@@ -61,7 +61,7 @@ public class FillTemplate<T> extends Filter<T, EmptyConfig> {
         }
 
         params.setFileContent.set(data, fileContent.toString());
-        return data;
+        outPort.send(data);
     }
 
     private static boolean isLinearFlow(Flow flow) {
