@@ -24,39 +24,13 @@ import static org.junit.Assert.fail;
 public class ParseToRawFlowFileTest {
     public static final String FLOW_DIR = "./src/test/flow/flowparser/";
     private static final String RESULT_DIR = "./src/test/result/flowparser/";
-    private static final ParseToRawFlowFile.Params<TestData> PARAMS = new ParseToRawFlowFile.Params<>();
 
-    static {
-        PARAMS.getFileName = new Getter<TestData, String>() {
-
-            @Override
-            public String get(TestData data) {
-                return data.fileName;
-            }
-        };
-        PARAMS.getFileContent = new Getter<TestData, String>() {
-
-            @Override
-            public String get(TestData data) {
-                return data.fileContent;
-            }
-        };
-        PARAMS.setFlowFile = new Setter<RawFlowFile, TestData, TestData>() {
-
-            @Override
-            public TestData set(TestData data, RawFlowFile subdata) {
-                data.result = subdata;
-                return data;
-            }
-        };
-    }
-
-    private ParseToRawFlowFile<TestData> parser;
+    private ParseToRawFlowFile parser;
     private String fileName;
 
     public ParseToRawFlowFileTest(String fileName) {
         this.fileName = fileName;
-        parser = new ParseToRawFlowFile<>(PARAMS);
+        parser = new ParseToRawFlowFile();
     }
 
     @Parameterized.Parameters
@@ -84,19 +58,13 @@ public class ParseToRawFlowFileTest {
     }
 
     private String parseFlow(String flowFileContent, String fileName) {
-        TestData data = new TestData();
+        MainData data = new MainData();
         data.fileContent = flowFileContent;
         data.fileName = fileName;
 
-        parser.setOutPort(new Port<TestData>() {
-
-            @Override
-            public void send(TestData data) {
-                // nothing to do!
-            }
-        });
+        parser.setOutPort(d -> { /* nothing to do! */ });
         parser.getInPort().send(data);
-        return PrettyPrinter.prettyPrint(data.result);
+        return PrettyPrinter.prettyPrint(data.rawFlowFile);
     }
 
     public static void deleteFile(String path) throws IOException {
@@ -105,11 +73,5 @@ public class ParseToRawFlowFileTest {
 
     private static Path getPath(String path) {
         return FileSystems.getDefault().getPath(path);
-    }
-
-    private static class TestData {
-        public String fileName;
-        public String fileContent;
-        public RawFlowFile result;
     }
 }

@@ -1,9 +1,8 @@
 package org.flowdev.flowparser.cook;
 
-import org.flowdev.base.Getter;
-import org.flowdev.base.Setter;
 import org.flowdev.base.data.EmptyConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.MainData;
 import org.flowdev.flowparser.data.*;
 import org.flowdev.flowparser.rawdata.*;
 
@@ -12,13 +11,7 @@ import java.util.*;
 /**
  * This operation reads the content of a file as a UTF-8 text into a string.
  */
-public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
-    public static class Params<T> {
-        public Getter<T, String> getFileName;
-        public Getter<T, RawFlowFile> getRawFlowFile;
-        public Setter<FlowFile, T, T> setCookedFlowFile;
-    }
-
+public class CookFlowFile extends Filter<MainData, EmptyConfig> {
     private static class OpData {
         Operation op;
         Set<String> inPorts = new HashSet<>();
@@ -29,21 +22,14 @@ public class CookFlowFile<T> extends Filter<T, EmptyConfig> {
         }
     }
 
-    private final Params<T> params;
-
-    public CookFlowFile(Params<T> params) {
-        this.params = params;
-    }
-
-    protected void filter(T data) {
-        RawFlowFile rawFlowFile = params.getRawFlowFile.get(data);
+    protected void filter(MainData data) {
         FlowFile cookedFlowFile = new FlowFile();
 
-        cookedFlowFile.fileName = params.getFileName.get(data);
-        cookedFlowFile.version = cookVersion(rawFlowFile.version);
-        cookedFlowFile.flows = cookFlows(rawFlowFile.flows);
+        cookedFlowFile.fileName = data.fileName;
+        cookedFlowFile.version = cookVersion(data.rawFlowFile.version);
+        cookedFlowFile.flows = cookFlows(data.rawFlowFile.flows);
 
-        params.setCookedFlowFile.set(data, cookedFlowFile);
+        data.flowFile = cookedFlowFile;
         outPort.send(data);
     }
 

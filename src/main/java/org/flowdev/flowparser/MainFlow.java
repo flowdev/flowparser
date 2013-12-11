@@ -1,8 +1,8 @@
 package org.flowdev.flowparser;
 
 import org.flowdev.base.Port;
-import org.flowdev.base.op.io.ReadTextFile;
-import org.flowdev.base.op.io.WriteTextFile;
+import org.flowdev.base.op.io.ReadTextFileJava6;
+import org.flowdev.base.op.io.WriteTextFileJava6;
 import org.flowdev.flowparser.cook.CookFlowFile;
 import org.flowdev.flowparser.output.CreateOutputFileName;
 import org.flowdev.flowparser.output.FillTemplate;
@@ -13,13 +13,13 @@ import org.flowdev.flowparser.output.OutputAllFormatsConfig;
  * This flow parses a flow file and creates one ore more output files.
  */
 public class MainFlow implements IMainFlow {
-    private final ReadTextFile<MainData, MainData> readTextFile;
-    private final ParseToRawFlowFile<MainData> parseToRawFlowFile;
-    private final CookFlowFile<MainData> cookFlowFile;
-    private final OutputAllFormats<MainData> outputAllFormats;
-    private final FillTemplate<MainData> fillTemplate;
+    private final ReadTextFileJava6<MainData, MainData> readTextFile;
+    private final ParseToRawFlowFile parseToRawFlowFile;
+    private final CookFlowFile cookFlowFile;
+    private final OutputAllFormats outputAllFormats;
+    private final FillTemplate fillTemplate;
     private final CreateOutputFileName<MainData> createOutputFileName;
-    private final WriteTextFile<MainData> writeTextFile;
+    private final WriteTextFileJava6<MainData> writeTextFile;
     // Getting a compiler error if replacing the anonymous inner class with a lambda expression!
     private final Port<MainConfig> configPort = new Port<MainConfig>() {
         @Override
@@ -29,47 +29,21 @@ public class MainFlow implements IMainFlow {
     };
 
     public MainFlow() {
-        ReadTextFile.Params<MainData, MainData> readTextFileParams = new ReadTextFile.Params<>();
+        ReadTextFileJava6.Params<MainData, MainData> readTextFileParams = new ReadTextFileJava6.Params<>();
         readTextFileParams.getFileName = data -> data.fileName;
         readTextFileParams.setFileContent = (data, subdata) -> {
             data.fileContent = subdata;
             return data;
         };
-        readTextFile = new ReadTextFile<>(readTextFileParams);
+        readTextFile = new ReadTextFileJava6<>(readTextFileParams);
 
-        ParseToRawFlowFile.Params<MainData> parseToRawFlowFileParams = new ParseToRawFlowFile.Params<>();
-        parseToRawFlowFileParams.getFileName = data -> data.fileName;
-        parseToRawFlowFileParams.getFileContent = data -> data.fileContent;
-        parseToRawFlowFileParams.setFlowFile = (data, subdata) -> {
-            data.rawFlowFile = subdata;
-            return data;
-        };
-        parseToRawFlowFile = new ParseToRawFlowFile<>(parseToRawFlowFileParams);
+        parseToRawFlowFile = new ParseToRawFlowFile();
 
-        CookFlowFile.Params<MainData> cookFlowFileParams = new CookFlowFile.Params<>();
-        cookFlowFileParams.getFileName = data -> data.fileName;
-        cookFlowFileParams.getRawFlowFile = data -> data.rawFlowFile;
-        cookFlowFileParams.setCookedFlowFile = (data, subdata) -> {
-            data.flowFile = subdata;
-            return data;
-        };
-        cookFlowFile = new CookFlowFile<>(cookFlowFileParams);
+        cookFlowFile = new CookFlowFile();
 
-        OutputAllFormats.Params<MainData> outputAllFormatsParams = new OutputAllFormats.Params<>();
-        outputAllFormatsParams.setFormat = (data, subdata) -> {
-            data.format = subdata;
-            return data;
-        };
-        outputAllFormats = new OutputAllFormats<>(outputAllFormatsParams);
+        outputAllFormats = new OutputAllFormats();
 
-        FillTemplate.Params<MainData> fillTemplateParams = new FillTemplate.Params<>();
-        fillTemplateParams.getFormat = data -> data.format;
-        fillTemplateParams.getFlowFile = data -> data.flowFile;
-        fillTemplateParams.setFileContent = (data, subdata) -> {
-            data.fileContent = subdata;
-            return data;
-        };
-        fillTemplate = new FillTemplate<>(fillTemplateParams);
+        fillTemplate = new FillTemplate();
 
         CreateOutputFileName.Params<MainData> createOutputFileNameParams = new CreateOutputFileName.Params<>();
         createOutputFileNameParams.getFileName = data -> data.flowFile.fileName;
@@ -80,10 +54,10 @@ public class MainFlow implements IMainFlow {
         };
         createOutputFileName = new CreateOutputFileName<>(createOutputFileNameParams);
 
-        WriteTextFile.Params<MainData> writeTextFileParams = new WriteTextFile.Params<>();
+        WriteTextFileJava6.Params<MainData> writeTextFileParams = new WriteTextFileJava6.Params<>();
         writeTextFileParams.getFileContent = data -> data.fileContent;
         writeTextFileParams.getFileName = data -> data.fileName;
-        writeTextFile = new WriteTextFile<>(writeTextFileParams);
+        writeTextFile = new WriteTextFileJava6<>(writeTextFileParams);
 
         createConnections();
         initConfig();
