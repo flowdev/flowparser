@@ -1,35 +1,16 @@
 package org.flowdev.flowparser.output;
 
-import org.flowdev.base.Getter;
-import org.flowdev.base.Setter;
 import org.flowdev.base.data.EmptyConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.MainData;
 
-public class CreateOutputFileName<T> extends Filter<T, EmptyConfig> {
-    public static class Params<T> {
-        public Getter<T, String> getFormat;
-        public Getter<T, String> getFileName;
-        public Setter<String, T, T> setFileName;
-    }
-
-    private final Params<T> params;
-
-    public CreateOutputFileName(Params<T> params) {
-        this.params = params;
-    }
-
+public class CreateOutputFileName extends Filter<MainData, EmptyConfig> {
     @Override
-    protected void filter(T data) {
-        String format = params.getFormat.get(data);
-        String fileName = params.getFileName.get(data);
-        fileName = correctFileName(fileName, format);
-        params.setFileName.set(data, fileName);
-        outPort.send(data);
-    }
-
-    private String correctFileName(String fileName, String format) {
+    protected void filter(MainData data) {
+        String fileName = data.fileName;
         fileName = deleteExtension(fileName);
-        return fileName + "." + format;
+        data.fileName = fileName + "." + data.format;
+        outPort.send(data);
     }
 
     private String deleteExtension(String fileName) {

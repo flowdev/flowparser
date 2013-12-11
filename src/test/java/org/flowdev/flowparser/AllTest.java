@@ -41,14 +41,15 @@ public class AllTest {
         deleteFile(workFlowFile);
         copyFile(FLOW_DIR + fileName + FLOW_EXT, workFlowFile);
 
-        Main.main(new String[]{"-f", "graphviz", workFlowFile});
+        Main.resetMainFlow();
+        Main.main("-f", "graphviz", workFlowFile);
 
         String actualResult = readFile(actualFile);
         if (expectedResult.equals(actualResult)) {
-            deleteFile(actualFile);
-            deleteFile(workFlowFile);
+//            deleteFile(actualFile);
+//            deleteFile(workFlowFile);
         } else {
-            fail("AllTest failed for file '" + fileName + "'. You can find the offending parser output at: " + actualFile);
+            fail("AllTest failed for file '" + fileName + "'. You can find the offending output at: " + actualFile);
         }
     }
 

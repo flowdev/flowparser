@@ -20,7 +20,7 @@ public class Main {
      * @param args command line arguments.
      * @throws IOException if something terrible happens.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String... args) throws IOException {
         optParser = new OptionParser();
         optParser.posixlyCorrect(true);
         try {
@@ -51,6 +51,10 @@ public class Main {
         mainFlow = flow;
     }
 
+    static void resetMainFlow() {
+        mainFlow = new MainFlow();
+    }
+
     private static void compileFlows(List<String> inNames,
                                      List<String> formats) {
         MainConfig mainConfig = new MainConfig();
@@ -61,6 +65,7 @@ public class Main {
         for (String inName : inNames) {
             MainData mainData = new MainData();
             mainData.fileName = inName;
+            System.out.println("Compiling file: " + inName);
             mainFlow.getInPort().send(mainData);
         }
     }

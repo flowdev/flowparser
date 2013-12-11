@@ -1,8 +1,8 @@
 package org.flowdev.flowparser;
 
 import org.flowdev.base.Port;
-import org.flowdev.base.op.io.ReadTextFileJava6;
-import org.flowdev.base.op.io.WriteTextFileJava6;
+import org.flowdev.base.op.io.ReadTextFile;
+import org.flowdev.base.op.io.WriteTextFile;
 import org.flowdev.flowparser.cook.CookFlowFile;
 import org.flowdev.flowparser.output.CreateOutputFileName;
 import org.flowdev.flowparser.output.FillTemplate;
@@ -13,13 +13,13 @@ import org.flowdev.flowparser.output.OutputAllFormatsConfig;
  * This flow parses a flow file and creates one ore more output files.
  */
 public class MainFlow implements IMainFlow {
-    private final ReadTextFileJava6<MainData, MainData> readTextFile;
+    private final ReadTextFile<MainData, MainData> readTextFile;
     private final ParseToRawFlowFile parseToRawFlowFile;
     private final CookFlowFile cookFlowFile;
     private final OutputAllFormats outputAllFormats;
     private final FillTemplate fillTemplate;
-    private final CreateOutputFileName<MainData> createOutputFileName;
-    private final WriteTextFileJava6<MainData> writeTextFile;
+    private final CreateOutputFileName createOutputFileName;
+    private final WriteTextFile<MainData> writeTextFile;
     // Getting a compiler error if replacing the anonymous inner class with a lambda expression!
     private final Port<MainConfig> configPort = new Port<MainConfig>() {
         @Override
@@ -29,13 +29,13 @@ public class MainFlow implements IMainFlow {
     };
 
     public MainFlow() {
-        ReadTextFileJava6.Params<MainData, MainData> readTextFileParams = new ReadTextFileJava6.Params<>();
+        ReadTextFile.Params<MainData, MainData> readTextFileParams = new ReadTextFile.Params<>();
         readTextFileParams.getFileName = data -> data.fileName;
         readTextFileParams.setFileContent = (data, subdata) -> {
             data.fileContent = subdata;
             return data;
         };
-        readTextFile = new ReadTextFileJava6<>(readTextFileParams);
+        readTextFile = new ReadTextFile<>(readTextFileParams);
 
         parseToRawFlowFile = new ParseToRawFlowFile();
 
@@ -45,19 +45,12 @@ public class MainFlow implements IMainFlow {
 
         fillTemplate = new FillTemplate();
 
-        CreateOutputFileName.Params<MainData> createOutputFileNameParams = new CreateOutputFileName.Params<>();
-        createOutputFileNameParams.getFileName = data -> data.flowFile.fileName;
-        createOutputFileNameParams.getFormat = data -> data.format;
-        createOutputFileNameParams.setFileName = (data, subdata) -> {
-            data.fileName = subdata;
-            return data;
-        };
-        createOutputFileName = new CreateOutputFileName<>(createOutputFileNameParams);
+        createOutputFileName = new CreateOutputFileName();
 
-        WriteTextFileJava6.Params<MainData> writeTextFileParams = new WriteTextFileJava6.Params<>();
+        WriteTextFile.Params<MainData> writeTextFileParams = new WriteTextFile.Params<>();
         writeTextFileParams.getFileContent = data -> data.fileContent;
         writeTextFileParams.getFileName = data -> data.fileName;
-        writeTextFile = new WriteTextFileJava6<>(writeTextFileParams);
+        writeTextFile = new WriteTextFile<>(writeTextFileParams);
 
         createConnections();
         initConfig();
