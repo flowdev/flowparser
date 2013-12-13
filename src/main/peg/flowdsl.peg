@@ -25,9 +25,10 @@ Arrow			= SpcCom OpDataType "->" SpcCom     {arrow} ;
 OpDataType		= DataType?							{opDataType} ;
 DataType		= "[" Spc BigIdent Spc "]"			{dataType} ;
 OpPortSpc		= PortSpc?							{opPortSpc} ;
-OpPort			= PortName?							{opPort} ;
-PortSpc			= PortName ASpc						{portSpc} ;
-PortName		= SmallIdent						{portName} ;
+OpPort			= Port?			    				{opPort} ;
+PortSpc			= Port ASpc		    				{portSpc} ;
+Port		    = SmallIdent PortNum?				{port} ;
+PortNum		    = "." Natural						{portNum} ;
 
 
 //

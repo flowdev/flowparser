@@ -82,6 +82,15 @@ public class CookFlowFile extends Filter<MainData, EmptyConfig> {
         conn.toPort = toPort.name;
         conn.toOp = (toOp == null) ? null : toOp.name;
 
+        if (fromPort.index != null) {
+            conn.hasFromPortIndex = true;
+            conn.fromPortIndex = fromPort.index;
+        }
+        if (toPort.index != null) {
+            conn.hasToPortIndex = true;
+            conn.toPortIndex = toPort.index;
+        }
+
         if (fromPort.dataType != null) {
             conn.dataType = fromPort.dataType.type;
             conn.showDataType = fromPort.dataType.fromDsl;
@@ -139,7 +148,8 @@ public class CookFlowFile extends Filter<MainData, EmptyConfig> {
     }
 
     private void addMyPort(RawPort myPort, Operation op, Set<String> myPorts, int otherPortsCount, boolean isInPort) {
-        if (myPorts.contains(myPort.name)) {
+        String portName = createPortName(myPort);
+        if (myPorts.contains(portName)) {
             return;
         }
 
@@ -157,11 +167,19 @@ public class CookFlowFile extends Filter<MainData, EmptyConfig> {
                 op.ports.get(op.ports.size() - 2).isLast = false;
             }
         }
-        myPorts.add(myPort.name);
+        myPorts.add(portName);
         if (isInPort) {
-            portPair.inPort = myPort.name;
+            portPair.inPort = portName;
         } else {
-            portPair.outPort = myPort.name;
+            portPair.outPort = portName;
+        }
+    }
+
+    private static String createPortName(RawPort port) {
+        if (port.index == null) {
+            return port.name;
+        } else {
+            return port.name + "." + port.index;
         }
     }
 

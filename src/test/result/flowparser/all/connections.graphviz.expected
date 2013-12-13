@@ -36,3 +36,33 @@ digraph Connections1 {
 }
 </graphviz>
 
+<graphviz type="framed" caption="NumberedPorts" format="svg" location="center">
+digraph NumberedPorts {
+  // rankdir=LR;
+  node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
+
+  doThis [label="doThis\n()|{ <in> in|<out> out }|{ <subIn.0> subIn.0|<subOut.0> subOut.0 }|{ <subIn.1> subIn.1|<subOut.1> subOut.1 }|{ <subIn.2> subIn.2|<subOut.2> subOut.2 }"] ;
+  doIt [label="doIt\n()|{ <in> in|<out> out }|{ <subIn.0> subIn.0|<subOut.0> subOut.0 }|{ <subIn.1> subIn.1|<subOut.1> subOut.1 }|{ <subIn.2> subIn.2|<subOut.2> subOut.2 }"] ;
+  doThat [label="doThat\n()|{ <in> in|<out> out }|{ <subIn.0> subIn.0|<subOut.0> subOut.0 }|{ <subIn.1> subIn.1|<subOut.1> subOut.1 }|{ <subIn.2> subIn.2|<subOut.2> subOut.2 }"] ;
+
+  node [shape=plaintext,style=plain,rank=same];
+
+  "in" -> doIt:in ;
+  doIt:out -> doThis:in ;
+  doThis:out -> doThat:in ;
+  doThat:out -> "out" ;
+  "subIn.0" -> doIt:subIn.0 ;
+  doIt:subOut.0 -> doThis:subIn.0 ;
+  doThis:subOut.0 -> doThat:subIn.0 ;
+  doThat:subOut.0 -> "subOut.0" ;
+  "subIn.1" -> doIt:subIn.1 ;
+  doIt:subOut.1 -> doThis:subIn.1 ;
+  doThis:subOut.1 -> doThat:subIn.1 ;
+  doThat:subOut.1 -> "subOut.1" ;
+  "subIn.2" -> doIt:subIn.2 ;
+  doIt:subOut.2 -> doThis:subIn.2 ;
+  doThis:subOut.2 -> doThat:subIn.2 ;
+  doThat:subOut.2 -> "subOut.2" ;
+}
+</graphviz>
+

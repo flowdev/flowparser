@@ -14,7 +14,7 @@ public class {{name}} {
     }
 
     private void createConnections() {
-{{#connections}}{{#fromOp}}{{#toOp}}        {{fromOp}}.set{{capFromPort}}Port({{toOp}}.get{{capToPort}}Port());
+{{#connections}}{{#fromOp}}{{#toOp}}        {{fromOp}}.set{{capFromPort}}Port({{#hasFromPortIndex}}{{fromPortIndex}}, {{/hasFromPortIndex}}{{toOp}}.get{{capToPort}}Port({{#hasToPortIndex}}{{toPortIndex}}{{/hasToPortIndex}}));
 {{/toOp}}{{/fromOp}}{{/connections}}
     }
 
@@ -22,14 +22,14 @@ public class {{name}} {
     }
 
 {{#connections}}{{^fromOp}}
-    public Port<> get{{capFromPort}}Port() {
-        return {{toOp}}.get{{capToPort}}Port();
+    public Port<> get{{capFromPort}}Port({{#hasFromPortIndex}}int i{{/hasFromPortIndex}}) {
+    return {{toOp}}.get{{capToPort}}Port({{#hasToPortIndex}}{{#hasFromPortIndex}}i{{/hasFromPortIndex}}{{^hasFromPortIndex}}{{toPortIndex}}{{/hasFromPortIndex}}{{/hasToPortIndex}});
     }
 
 {{/fromOp}}{{/connections}}
 {{#connections}}{{^toOp}}
-    public void set{{capToPort}}Port(Port<> port) {
-        {{fromOp}}.set{{capFromPort}}Port(port);
+    public void set{{capToPort}}Port({{#hasToPortIndex}}int i, {{/hasToPortIndex}}Port<> port) {
+    {{fromOp}}.set{{capFromPort}}Port({{#hasFromPortIndex}}{{#hasToPortIndex}}i{{/hasToPortIndex}}{{^hasToPortIndex}}{{fromPortIndex}}{{/hasToPortIndex}}, {{/hasFromPortIndex}}port);
     }
 {{/toOp}}{{/connections}}
 }

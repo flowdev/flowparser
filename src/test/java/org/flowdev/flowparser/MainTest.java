@@ -9,7 +9,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
@@ -38,7 +40,7 @@ public class MainTest {
         params.add(new String[]{MINI_FLOW});
 
         MainData data = createData(MINI_FLOW);
-        MainConfig  config = createConfig(FORMAT);
+        MainConfig config = createConfig(FORMAT);
         params.add(data);
         params.add(config);
         paramsList.add(params.toArray());
@@ -82,21 +84,15 @@ public class MainTest {
 
         @Override
         public Port<MainData> getInPort() {
-            return new Port<MainData>() {
-                @Override
-                public void send(MainData data) {
-                    myData = data;
-                }
+            return data -> {
+                myData = data;
             };
         }
 
         @Override
         public Port<MainConfig> getConfigPort() {
-            return new Port<MainConfig>() {
-                @Override
-                public void send(MainConfig data) {
-                    myConfig = data;
-                }
+            return data -> {
+                myConfig = data;
             };
         }
 

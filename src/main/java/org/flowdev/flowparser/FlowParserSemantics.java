@@ -97,11 +97,12 @@ class FlowParserSemantics extends SemanticsBase {
 
         lhs().put(data);
     }
+
     private void correctDataTypes(RawConnectionChain chain) {
         RawDataType curType = chain.inPort != null ? copyDataType(chain.inPort.dataType) : null;
         for (int i = 0; i < chain.parts.size() - 1; i++) {
             RawConnectionPart curPart = chain.parts.get(i);
-            RawConnectionPart nextPart = chain.parts.get(i+1);
+            RawConnectionPart nextPart = chain.parts.get(i + 1);
             if (nextPart.inPort.dataType != null) {
                 curPart.outPort.dataType = nextPart.inPort.dataType;
                 curType = copyDataType(nextPart.inPort.dataType);
@@ -111,14 +112,16 @@ class FlowParserSemantics extends SemanticsBase {
             }
         }
     }
+
     private void correctChainEnd(RawConnectionChain chain) {
-        RawConnectionPart lastPart = chain.parts.get(chain.parts.size()-1);
+        RawConnectionPart lastPart = chain.parts.get(chain.parts.size() - 1);
         if (chain.outPort == null) {
             lastPart.outPort = null;
         } else {
             lastPart.outPort.dataType = chain.outPort.dataType;
             if (chain.outPort.name == null) {
                 chain.outPort.name = lastPart.outPort.name;
+                chain.outPort.index = lastPart.outPort.index;
             }
             if (lastPart.outPort.dataType == null && lastPart.inPort != null) {
                 RawDataType dataType = copyDataType(lastPart.inPort.dataType);
@@ -127,6 +130,7 @@ class FlowParserSemantics extends SemanticsBase {
             }
         }
     }
+
     private RawDataType copyDataType(RawDataType dataType) {
         if (dataType == null) {
             return null;
@@ -153,6 +157,7 @@ class FlowParserSemantics extends SemanticsBase {
         data.inPort.dataType = part.inPort.dataType;
         if (data.inPort.name == null) {
             data.inPort.name = part.inPort.name;
+            data.inPort.index = part.inPort.index;
         }
 
         lhs().put(data);
@@ -238,7 +243,7 @@ class FlowParserSemantics extends SemanticsBase {
     void operationNameParens() {
         RawOperation data = new RawOperation();
         data.sourcePosition = lhs().where(0);
-        data.name =  (String) rhs(0).get();
+        data.name = (String) rhs(0).get();
         data.type = (RawDataType) rhs(3).get();
 
         if (data.name == null || data.name.isEmpty()) {
@@ -250,6 +255,7 @@ class FlowParserSemantics extends SemanticsBase {
 
         lhs().put(data);
     }
+
     private static String decapitalize(String s) {
         if (s == null || s.isEmpty()) {
             return s;
@@ -310,42 +316,55 @@ class FlowParserSemantics extends SemanticsBase {
     // OpPortSpc = PortSpc?
     // -------------------------------------------------------------------
     public void opPortSpc() {
-        RawPort data = new RawPort();
-        data.sourcePosition = lhs().where(0);
-
-        if (rhsSize() > 0) {
-            data.name = (String) rhs(0).get();
-        }
-
-        lhs().put(data);
+        opPort();
     }
 
     // -------------------------------------------------------------------
-    // PortSpc = PortName ASpc
+    // PortSpc = Port ASpc
     // -------------------------------------------------------------------
     public void portSpc() {
         lhs().put(rhs(0).get());
     }
 
     // -------------------------------------------------------------------
-    // OpPort = PortName?
+    // OpPort = Port?
     // -------------------------------------------------------------------
     void opPort() {
-        RawPort data = new RawPort();
-        data.sourcePosition = lhs().where(0);
+        RawPort data;
 
         if (rhsSize() > 0) {
-            data.name = (String) rhs(0).get();
+            data = (RawPort) rhs(0).get();
+        } else {
+            data = new RawPort();
+            data.sourcePosition = lhs().where(0);
         }
 
         lhs().put(data);
     }
 
     // -------------------------------------------------------------------
-    // PortName = SmallIdent
+    // Port = SmallIdent PortNum?
     // -------------------------------------------------------------------
-    void portName() {
-        lhs().put(rhs(0).text());
+    void port() {
+        RawPort data = new RawPort();
+        data.sourcePosition = lhs().where(0);
+        data.name = rhs(0).text();
+        if (rhsSize() > 1) {
+            data.index = (Integer) rhs(1).get();
+        }
+
+        lhs().put(data);
+    }
+
+    // -------------------------------------------------------------------
+    // PortNum = "." Natural
+    // -------------------------------------------------------------------
+    void portNum() {
+        long l = (Long) rhs(1).get();
+        if (l < 0 || l > Integer.MAX_VALUE) {
+            throw new RuntimeException("Invalid port number '" + l + "' found at " + rhs(1).where(0));
+        }
+        lhs().put((int) l);
     }
 
     // -------------------------------------------------------------------

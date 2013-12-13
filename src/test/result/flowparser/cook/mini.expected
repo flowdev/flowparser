@@ -9,9 +9,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "in" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doIt" ;
                     toPort : "in" ;
+                    toPortIndex : 0 ;
                 } ;
             ] ;
             name : "Mini" ;

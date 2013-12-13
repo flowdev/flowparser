@@ -5,6 +5,7 @@ RawFlowFile {
                 0 : RawConnectionChain {
                     inPort : RawPort {
                         dataType : NULL ;
+                        index : NULL ;
                         name : "in" ;
                         sourcePosition : "After '... \n\nflow Mini{\n  '" ;
                         type : in ;
@@ -14,6 +15,7 @@ RawFlowFile {
                         0 : RawConnectionPart {
                             inPort : RawPort {
                                 dataType : NULL ;
+                                index : NULL ;
                                 name : "in" ;
                                 sourcePosition : "After '... flow Mini{\n  ->'" ;
                                 type : in ;

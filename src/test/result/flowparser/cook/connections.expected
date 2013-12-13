@@ -9,9 +9,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "in" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doIt" ;
                     toPort : "in" ;
+                    toPortIndex : 0 ;
                 } ;
                 1 : Connection {
                     capFromPort : "In" ;
@@ -19,9 +23,13 @@ FlowFile {
                     dataType : "FlowData" ;
                     fromOp : NULL ;
                     fromPort : "in" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : true ;
                     toOp : "doIt" ;
                     toPort : "in" ;
+                    toPortIndex : 0 ;
                 } ;
                 2 : Connection {
                     capFromPort : "I1" ;
@@ -29,9 +37,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "i1" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doIt" ;
                     toPort : "in" ;
+                    toPortIndex : 0 ;
                 } ;
                 3 : Connection {
                     capFromPort : "Out" ;
@@ -39,9 +51,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : "doIt" ;
                     fromPort : "out" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : NULL ;
                     toPort : "out" ;
+                    toPortIndex : 0 ;
                 } ;
                 4 : Connection {
                     capFromPort : "Out" ;
@@ -49,9 +65,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : "doIt" ;
                     fromPort : "out" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : NULL ;
                     toPort : "o1" ;
+                    toPortIndex : 0 ;
                 } ;
                 5 : Connection {
                     capFromPort : "In" ;
@@ -59,9 +79,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "in" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doIt" ;
                     toPort : "in" ;
+                    toPortIndex : 0 ;
                 } ;
                 6 : Connection {
                     capFromPort : "Out" ;
@@ -69,9 +93,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : "doIt" ;
                     fromPort : "out" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : NULL ;
                     toPort : "out" ;
+                    toPortIndex : 0 ;
                 } ;
                 7 : Connection {
                     capFromPort : "I1" ;
@@ -79,9 +107,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "i1" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doIt" ;
                     toPort : "i2" ;
+                    toPortIndex : 0 ;
                 } ;
                 8 : Connection {
                     capFromPort : "O1" ;
@@ -89,9 +121,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : "doIt" ;
                     fromPort : "o1" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : NULL ;
                     toPort : "o2" ;
+                    toPortIndex : 0 ;
                 } ;
                 9 : Connection {
                     capFromPort : "In" ;
@@ -99,9 +135,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "in" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doIt" ;
                     toPort : "in" ;
+                    toPortIndex : 0 ;
                 } ;
                 10 : Connection {
                     capFromPort : "Out" ;
@@ -109,9 +149,13 @@ FlowFile {
                     dataType : "FlowData1" ;
                     fromOp : "doIt" ;
                     fromPort : "out" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : true ;
                     toOp : "doThis" ;
                     toPort : "in" ;
+                    toPortIndex : 0 ;
                 } ;
                 11 : Connection {
                     capFromPort : "Out" ;
@@ -119,9 +163,13 @@ FlowFile {
                     dataType : "FlowData1" ;
                     fromOp : "doThis" ;
                     fromPort : "out" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doThat" ;
                     toPort : "in" ;
+                    toPortIndex : 0 ;
                 } ;
                 12 : Connection {
                     capFromPort : "I1" ;
@@ -129,9 +177,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "i1" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doIt" ;
                     toPort : "in" ;
+                    toPortIndex : 0 ;
                 } ;
                 13 : Connection {
                     capFromPort : "O1" ;
@@ -139,9 +191,13 @@ FlowFile {
                     dataType : "FlowData2" ;
                     fromOp : "doIt" ;
                     fromPort : "o1" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : true ;
                     toOp : "doThis" ;
                     toPort : "in" ;
+                    toPortIndex : 0 ;
                 } ;
                 14 : Connection {
                     capFromPort : "Out" ;
@@ -149,9 +205,13 @@ FlowFile {
                     dataType : "FlowData2" ;
                     fromOp : "doThis" ;
                     fromPort : "out" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doThat" ;
                     toPort : "i2" ;
+                    toPortIndex : 0 ;
                 } ;
                 15 : Connection {
                     capFromPort : "Out" ;
@@ -159,9 +219,13 @@ FlowFile {
                     dataType : "FlowData2" ;
                     fromOp : "doThat" ;
                     fromPort : "out" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : NULL ;
                     toPort : "o2" ;
+                    toPortIndex : 0 ;
                 } ;
                 16 : Connection {
                     capFromPort : "I1" ;
@@ -169,9 +233,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "i1" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doIt" ;
                     toPort : "i1" ;
+                    toPortIndex : 0 ;
                 } ;
                 17 : Connection {
                     capFromPort : "Out" ;
@@ -179,9 +247,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : "doIt" ;
                     fromPort : "out" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doThat" ;
                     toPort : "i2" ;
+                    toPortIndex : 0 ;
                 } ;
                 18 : Connection {
                     capFromPort : "O1" ;
@@ -189,9 +261,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : "doThat" ;
                     fromPort : "o1" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doThis" ;
                     toPort : "in" ;
+                    toPortIndex : 0 ;
                 } ;
                 19 : Connection {
                     capFromPort : "O2" ;
@@ -199,9 +275,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : "doThis" ;
                     fromPort : "o2" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : NULL ;
                     toPort : "o2" ;
+                    toPortIndex : 0 ;
                 } ;
                 20 : Connection {
                     capFromPort : "Err" ;
@@ -209,9 +289,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : "doThis" ;
                     fromPort : "err" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : NULL ;
                     toPort : "err" ;
+                    toPortIndex : 0 ;
                 } ;
                 21 : Connection {
                     capFromPort : "I1" ;
@@ -219,9 +303,13 @@ FlowFile {
                     dataType : NULL ;
                     fromOp : NULL ;
                     fromPort : "i1" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : false ;
                     toOp : "doThis" ;
                     toPort : "in2" ;
+                    toPortIndex : 0 ;
                 } ;
                 22 : Connection {
                     capFromPort : "I1" ;
@@ -229,9 +317,13 @@ FlowFile {
                     dataType : "FlowData" ;
                     fromOp : NULL ;
                     fromPort : "i1" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : true ;
                     toOp : "doThat" ;
                     toPort : "in2" ;
+                    toPortIndex : 0 ;
                 } ;
                 23 : Connection {
                     capFromPort : "O1" ;
@@ -239,9 +331,13 @@ FlowFile {
                     dataType : "FlowData2" ;
                     fromOp : "doThat" ;
                     fromPort : "o1" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
                     showDataType : true ;
                     toOp : NULL ;
                     toPort : "o2" ;
+                    toPortIndex : 0 ;
                 } ;
             ] ;
             name : "Connections1" ;
@@ -308,6 +404,315 @@ FlowFile {
                         } ;
                     ] ;
                     type : "DoThat" ;
+                } ;
+            ] ;
+        } ;
+        1 : Flow {
+            connections : List [
+                0 : Connection {
+                    capFromPort : "In" ;
+                    capToPort : "In" ;
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "in" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
+                    showDataType : false ;
+                    toOp : "doIt" ;
+                    toPort : "in" ;
+                    toPortIndex : 0 ;
+                } ;
+                1 : Connection {
+                    capFromPort : "Out" ;
+                    capToPort : "In" ;
+                    dataType : NULL ;
+                    fromOp : "doIt" ;
+                    fromPort : "out" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
+                    showDataType : false ;
+                    toOp : "doThis" ;
+                    toPort : "in" ;
+                    toPortIndex : 0 ;
+                } ;
+                2 : Connection {
+                    capFromPort : "Out" ;
+                    capToPort : "In" ;
+                    dataType : NULL ;
+                    fromOp : "doThis" ;
+                    fromPort : "out" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
+                    showDataType : false ;
+                    toOp : "doThat" ;
+                    toPort : "in" ;
+                    toPortIndex : 0 ;
+                } ;
+                3 : Connection {
+                    capFromPort : "Out" ;
+                    capToPort : "Out" ;
+                    dataType : NULL ;
+                    fromOp : "doThat" ;
+                    fromPort : "out" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : false ;
+                    hasToPortIndex : false ;
+                    showDataType : false ;
+                    toOp : NULL ;
+                    toPort : "out" ;
+                    toPortIndex : 0 ;
+                } ;
+                4 : Connection {
+                    capFromPort : "SubIn" ;
+                    capToPort : "SubIn" ;
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "subIn" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : true ;
+                    hasToPortIndex : true ;
+                    showDataType : false ;
+                    toOp : "doIt" ;
+                    toPort : "subIn" ;
+                    toPortIndex : 0 ;
+                } ;
+                5 : Connection {
+                    capFromPort : "SubOut" ;
+                    capToPort : "SubIn" ;
+                    dataType : NULL ;
+                    fromOp : "doIt" ;
+                    fromPort : "subOut" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : true ;
+                    hasToPortIndex : true ;
+                    showDataType : false ;
+                    toOp : "doThis" ;
+                    toPort : "subIn" ;
+                    toPortIndex : 0 ;
+                } ;
+                6 : Connection {
+                    capFromPort : "SubOut" ;
+                    capToPort : "SubIn" ;
+                    dataType : NULL ;
+                    fromOp : "doThis" ;
+                    fromPort : "subOut" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : true ;
+                    hasToPortIndex : true ;
+                    showDataType : false ;
+                    toOp : "doThat" ;
+                    toPort : "subIn" ;
+                    toPortIndex : 0 ;
+                } ;
+                7 : Connection {
+                    capFromPort : "SubOut" ;
+                    capToPort : "SubOut" ;
+                    dataType : NULL ;
+                    fromOp : "doThat" ;
+                    fromPort : "subOut" ;
+                    fromPortIndex : 0 ;
+                    hasFromPortIndex : true ;
+                    hasToPortIndex : true ;
+                    showDataType : false ;
+                    toOp : NULL ;
+                    toPort : "subOut" ;
+                    toPortIndex : 0 ;
+                } ;
+                8 : Connection {
+                    capFromPort : "SubIn" ;
+                    capToPort : "SubIn" ;
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "subIn" ;
+                    fromPortIndex : 1 ;
+                    hasFromPortIndex : true ;
+                    hasToPortIndex : true ;
+                    showDataType : false ;
+                    toOp : "doIt" ;
+                    toPort : "subIn" ;
+                    toPortIndex : 1 ;
+                } ;
+                9 : Connection {
+                    capFromPort : "SubOut" ;
+                    capToPort : "SubIn" ;
+                    dataType : NULL ;
+                    fromOp : "doIt" ;
+                    fromPort : "subOut" ;
+                    fromPortIndex : 1 ;
+                    hasFromPortIndex : true ;
+                    hasToPortIndex : true ;
+                    showDataType : false ;
+                    toOp : "doThis" ;
+                    toPort : "subIn" ;
+                    toPortIndex : 1 ;
+                } ;
+                10 : Connection {
+                    capFromPort : "SubOut" ;
+                    capToPort : "SubIn" ;
+                    dataType : NULL ;
+                    fromOp : "doThis" ;
+                    fromPort : "subOut" ;
+                    fromPortIndex : 1 ;
+                    hasFromPortIndex : true ;
+                    hasToPortIndex : true ;
+                    showDataType : false ;
+                    toOp : "doThat" ;
+                    toPort : "subIn" ;
+                    toPortIndex : 1 ;
+                } ;
+                11 : Connection {
+                    capFromPort : "SubOut" ;
+                    capToPort : "SubOut" ;
+                    dataType : NULL ;
+                    fromOp : "doThat" ;
+                    fromPort : "subOut" ;
+                    fromPortIndex : 1 ;
+                    hasFromPortIndex : true ;
+                    hasToPortIndex : true ;
+                    showDataType : false ;
+                    toOp : NULL ;
+                    toPort : "subOut" ;
+                    toPortIndex : 1 ;
+                } ;
+                12 : Connection {
+                    capFromPort : "SubIn" ;
+                    capToPort : "SubIn" ;
+                    dataType : NULL ;
+                    fromOp : NULL ;
+                    fromPort : "subIn" ;
+                    fromPortIndex : 2 ;
+                    hasFromPortIndex : true ;
+                    hasToPortIndex : true ;
+                    showDataType : false ;
+                    toOp : "doIt" ;
+                    toPort : "subIn" ;
+                    toPortIndex : 2 ;
+                } ;
+                13 : Connection {
+                    capFromPort : "SubOut" ;
+                    capToPort : "SubIn" ;
+                    dataType : NULL ;
+                    fromOp : "doIt" ;
+                    fromPort : "subOut" ;
+                    fromPortIndex : 2 ;
+                    hasFromPortIndex : true ;
+                    hasToPortIndex : true ;
+                    showDataType : false ;
+                    toOp : "doThis" ;
+                    toPort : "subIn" ;
+                    toPortIndex : 2 ;
+                } ;
+                14 : Connection {
+                    capFromPort : "SubOut" ;
+                    capToPort : "SubIn" ;
+                    dataType : NULL ;
+                    fromOp : "doThis" ;
+                    fromPort : "subOut" ;
+                    fromPortIndex : 2 ;
+                    hasFromPortIndex : true ;
+                    hasToPortIndex : true ;
+                    showDataType : false ;
+                    toOp : "doThat" ;
+                    toPort : "subIn" ;
+                    toPortIndex : 2 ;
+                } ;
+                15 : Connection {
+                    capFromPort : "SubOut" ;
+                    capToPort : "SubOut" ;
+                    dataType : NULL ;
+                    fromOp : "doThat" ;
+                    fromPort : "subOut" ;
+                    fromPortIndex : 2 ;
+                    hasFromPortIndex : true ;
+                    hasToPortIndex : true ;
+                    showDataType : false ;
+                    toOp : NULL ;
+                    toPort : "subOut" ;
+                    toPortIndex : 2 ;
+                } ;
+            ] ;
+            name : "NumberedPorts" ;
+            operations : List [
+                0 : Operation {
+                    name : "doThis" ;
+                    ports : List [
+                        0 : PortPair {
+                            inPort : "in" ;
+                            isLast : false ;
+                            outPort : "out" ;
+                        } ;
+                        1 : PortPair {
+                            inPort : "subIn.0" ;
+                            isLast : false ;
+                            outPort : "subOut.0" ;
+                        } ;
+                        2 : PortPair {
+                            inPort : "subIn.1" ;
+                            isLast : false ;
+                            outPort : "subOut.1" ;
+                        } ;
+                        3 : PortPair {
+                            inPort : "subIn.2" ;
+                            isLast : true ;
+                            outPort : "subOut.2" ;
+                        } ;
+                    ] ;
+                    type : NULL ;
+                } ;
+                1 : Operation {
+                    name : "doIt" ;
+                    ports : List [
+                        0 : PortPair {
+                            inPort : "in" ;
+                            isLast : false ;
+                            outPort : "out" ;
+                        } ;
+                        1 : PortPair {
+                            inPort : "subIn.0" ;
+                            isLast : false ;
+                            outPort : "subOut.0" ;
+                        } ;
+                        2 : PortPair {
+                            inPort : "subIn.1" ;
+                            isLast : false ;
+                            outPort : "subOut.1" ;
+                        } ;
+                        3 : PortPair {
+                            inPort : "subIn.2" ;
+                            isLast : true ;
+                            outPort : "subOut.2" ;
+                        } ;
+                    ] ;
+                    type : NULL ;
+                } ;
+                2 : Operation {
+                    name : "doThat" ;
+                    ports : List [
+                        0 : PortPair {
+                            inPort : "in" ;
+                            isLast : false ;
+                            outPort : "out" ;
+                        } ;
+                        1 : PortPair {
+                            inPort : "subIn.0" ;
+                            isLast : false ;
+                            outPort : "subOut.0" ;
+                        } ;
+                        2 : PortPair {
+                            inPort : "subIn.1" ;
+                            isLast : false ;
+                            outPort : "subOut.1" ;
+                        } ;
+                        3 : PortPair {
+                            inPort : "subIn.2" ;
+                            isLast : true ;
+                            outPort : "subOut.2" ;
+                        } ;
+                    ] ;
+                    type : NULL ;
                 } ;
             ] ;
         } ;

@@ -1,10 +1,6 @@
 package org.flowdev.flowparser;
 
-import org.flowdev.base.Getter;
-import org.flowdev.base.Port;
-import org.flowdev.base.Setter;
 import org.flowdev.base.data.PrettyPrinter;
-import org.flowdev.flowparser.rawdata.RawFlowFile;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
