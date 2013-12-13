@@ -2,6 +2,8 @@
 /.settings
 /.classpath
 /.project
+/.idea
 dependency-reduced-pom.xml
 *.actual
 *.swp
+*.iml
