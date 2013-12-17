@@ -1,13 +1,40 @@
 version 0.1
 
 flow ParseFlowFile {
-  [ParserData]-> (ReadTextFile) -> (ParseAnd) -> ;
-  parseAnd() semOut [ParserData]-> (CreateFlowFileData) -> semIn parseAnd() ;
-  parseAnd() subOut.0 [ParserData]-> (SpaceComment) -> subIn.0 parseAnd() ;
-  parseAnd() subOut.1 [ParserData]-> (Version) -> subIn.1 parseAnd() ;
-  parseAnd() subOut.2 [ParserData]-> (ParseMultiple(1,inf)) -> subIn.2 parseAnd() ;
-  parseAnd() subOut.3 [ParserData]-> (ParseEof) -> subIn.3 parseAnd() ;
+  [String]-> (ParserManager) [FlowFile]-> ;
+  parserManager() subOut [ParserData]-> (ReadTextFile) -> parseFlowFile(ParseAnd) -> subIn parserManager() ;
 
-  parseMultiple() subOut [ParserData]-> (ParseFlow) -> subIn parseMultiple() ;
-  parseMultiple() semOut [ParserData]-> (CreateFlowData) -> semIn parseMultiple() ;
+  parseFlowFile() semOut [ParserData]-> (CreateFlowFileData) -> semIn parseFlowFile() ;
+  parseFlowFile() subOut.0 [ParserData]-> (SpaceComment) -> subIn.0 parseFlowFile() ;
+  parseFlowFile() subOut.1 [ParserData]-> (Version) -> subIn.1 parseFlowFile() ;
+  parseFlowFile() subOut.2 [ParserData]-> parseFlows(ParseMultiple(1,inf)) -> subIn.2 parseFlowFile() ;
+  parseFlowFile() subOut.3 [ParserData]-> (ParseEof) -> subIn.3 parseFlowFile() ;
+
+  parseFlows() subOut [ParserData]-> (ParseFlow) -> subIn parseFlows() ;
+//  parseFlows() semOut [ParserData]-> (CreateFlowList) -> semIn parseFlows() ; ???
 }
+
+Version = "version" ASpc Natural "." Natural SpcCom						{version};
+flow Version {
+  [ParserData]-> parseVersion(ParseAnd) -> ;
+
+  parseVersion() semOut [ParserData]-> (CreateVersion) -> semIn parseVersion() ;
+  parseVersion() subOut.0 [ParserData]-> (ParseLiteral("version")) -> subIn.0 parseVersion() ;
+  parseVersion() subOut.1 [ParserData]-> (ParseSpace(false)) -> subIn.1 parseVersion() ;
+  parseVersion() subOut.2 [ParserData]-> (ParseNatural) -> subIn.2 parseVersion() ;
+  parseVersion() subOut.3 [ParserData]-> (ParseLiteral(".")) -> subIn.3 parseVersion() ;
+  parseVersion() subOut.4 [ParserData]-> (ParseNatural) -> subIn.4 parseVersion() ;
+  parseVersion() subOut.5 [ParserData]-> (SpaceComment) -> subIn.5 parseVersion() ;
+}
+
+flow ParseFlow {
+
+}
+
+flow SpaceComment {
+  [ParserData]-> spcComs(ParseMultiple(0,inf)) -> ;
+  spcComs() subOut [ParserData]-> spcOrCom(ParseOr) -> subIn spcComs() ;
+  spcOrCom() subOut.0 [ParserData]-> (ParseSpace(true)) -> subIn.0 spcOrCom() ;
+  spcOrCom() subOut.1 [ParserData]-> (ParseComment(ALL)) -> subIn.1 spcOrCom() ;
+}
+
