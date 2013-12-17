@@ -5,24 +5,36 @@ Simple operations:
 ParseLiteral, ParseRegex, ParseSpace(inc./exc. new lines), ParseComment(line, block), ParseNatural, ParseBigIdent, ParseSmallIdent
 
     [ParserData]->simpleOperation() -> ;
+    simpleOperation() semOut [ParserData]-> semOp() -> semIn simpleOperation() ;
+
+Base class for all simple operations: SimpleParseOp
 
 
 Combining operations:
 ParseOptional
-    [ParserData]-> parseOptional() -> ;
+    [ParserData]-> (ParseOptional) -> ;
     parseOptional() subOut [ParserData]-> subOp() -> subIn parseOptional() ;
+    parseOptional() semOut [ParserData]-> semOp() -> semIn parseOptional() ;
 
 ParseMultiple(min, max)
-    [ParserData]-> parseMultiple() -> ;
+    [ParserData]-> (ParseMultiple) -> ;
     parseMultiple() subOut [ParserData]-> subOp() -> subIn parseMultiple() ;
+    parseMultiple() semOut [ParserData]-> semOp() -> semIn parseMultiple() ;
+
+Base class for ParseOptional and ParseMultiple: CombineSingleParseOp
+
 
 ParseAnd
-    [ParserData]-> parseAnd() -> ;
+    [ParserData]-> (ParseAnd) -> ;
     parseAnd subOut.i [ParserData]-> subOp() -> subIn.i parseAnd() ;
+    parseAnd() semOut [ParserData]-> semOp() -> semIn parseAnd() ;
 
 ParseOr
-    [ParserData]-> parseOr() -> ;
+    [ParserData]-> (ParseOr) -> ;
     parseOr subOut.i [ParserData]-> subOp() -> subIn.i parseOr() ;
+    parseOr() semOut [ParserData]-> semOp() -> semIn parseOr() ;
+
+Base class for ParseOr and ParseAnd: CombineMultipleParseOp
 
 
 ParserData {

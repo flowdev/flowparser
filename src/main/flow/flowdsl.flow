@@ -1,0 +1,13 @@
+version 0.1
+
+flow ParseFlowFile {
+  [ParserData]-> (ReadTextFile) -> (ParseAnd) -> ;
+  parseAnd() semOut [ParserData]-> (CreateFlowFileData) -> semIn parseAnd() ;
+  parseAnd() subOut.0 [ParserData]-> (SpaceComment) -> subIn.0 parseAnd() ;
+  parseAnd() subOut.1 [ParserData]-> (Version) -> subIn.1 parseAnd() ;
+  parseAnd() subOut.2 [ParserData]-> (ParseMultiple(1,inf)) -> subIn.2 parseAnd() ;
+  parseAnd() subOut.3 [ParserData]-> (ParseEof) -> subIn.3 parseAnd() ;
+
+  parseMultiple() subOut [ParserData]-> (ParseFlow) -> subIn parseMultiple() ;
+  parseMultiple() semOut [ParserData]-> (CreateFlowData) -> semIn parseMultiple() ;
+}
