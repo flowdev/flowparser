@@ -6,6 +6,7 @@ ParseLiteral, ParseRegex, ParseSpace(inc./exc. new lines), ParseComment(line, bl
 
     [ParserData]->simpleOperation() -> ;
     simpleOperation() semOut [ParserData]-> semOp() -> semIn simpleOperation() ;
+    Simple operations rarely have own semantics.
 
 Base class for all simple operations: SimpleParseOp
 
@@ -15,11 +16,13 @@ ParseOptional
     [ParserData]-> (ParseOptional) -> ;
     parseOptional() subOut [ParserData]-> subOp() -> subIn parseOptional() ;
     parseOptional() semOut [ParserData]-> semOp() -> semIn parseOptional() ;
+    ParseOptional rarely has own semantics (the subresult is used or null).
 
 ParseMultiple(min, max)
     [ParserData]-> (ParseMultiple) -> ;
     parseMultiple() subOut [ParserData]-> subOp() -> subIn parseMultiple() ;
     parseMultiple() semOut [ParserData]-> semOp() -> semIn parseMultiple() ;
+    ParseMultiple rarely has own semantics (a list of the subresults/subtexts is used).
 
 Base class for ParseOptional and ParseMultiple: CombineSingleParseOp
 
@@ -28,31 +31,39 @@ ParseAnd
     [ParserData]-> (ParseAnd) -> ;
     parseAnd subOut.i [ParserData]-> subOp() -> subIn.i parseAnd() ;
     parseAnd() semOut [ParserData]-> semOp() -> semIn parseAnd() ;
+    ParseMultiple usually has own semantics (the complete text is used as fall back).
 
 ParseOr
     [ParserData]-> (ParseOr) -> ;
     parseOr subOut.i [ParserData]-> subOp() -> subIn.i parseOr() ;
-    parseOr() semOut [ParserData]-> semOp() -> semIn parseOr() ;
+    ParseOr has no own semantics!!!
 
 Base class for ParseOr and ParseAnd: CombineMultipleParseOp
 
 
 ParserData {
   Feedback feedback;
-  boolean lastParserMatched;
   SourceData source;
-  Object result;
+  ParseResult result;
+  List<ParseResult> subResults;
 }
 SourceData {
   String name;
   String content;
   int pos;
 }
+ParseResult {
+  boolean matched;
+  int pos;
+  String text;
+  Object value;
+}
+
 
 Utilities:
-String SourceUtil.where(source)
-String SourceUtil.curLine(source) ?
+String SourceUtil.where(source, pos)
 String SourceUtil.substring(source, from, to)
+String SourceUtil.curLine(source) ?
 char SourceUtil.charAt(source, pos) ?
 
 

@@ -10,15 +10,13 @@ flow ParseFlowFile {
   parseFlowFile() subOut.2 [ParserData]-> parseFlows(ParseMultiple(1,inf)) -> subIn.2 parseFlowFile() ;
   parseFlowFile() subOut.3 [ParserData]-> (ParseEof) -> subIn.3 parseFlowFile() ;
 
-  parseFlows() subOut [ParserData]-> (ParseFlow) -> subIn parseFlows() ;
-//  parseFlows() semOut [ParserData]-> (CreateFlowList) -> semIn parseFlows() ; ???
+  parseFlows() subOut [ParserData]-> (Flow) -> subIn parseFlows() ;
 }
 
-Version = "version" ASpc Natural "." Natural SpcCom						{version};
 flow Version {
   [ParserData]-> parseVersion(ParseAnd) -> ;
-
   parseVersion() semOut [ParserData]-> (CreateVersion) -> semIn parseVersion() ;
+
   parseVersion() subOut.0 [ParserData]-> (ParseLiteral("version")) -> subIn.0 parseVersion() ;
   parseVersion() subOut.1 [ParserData]-> (ParseSpace(false)) -> subIn.1 parseVersion() ;
   parseVersion() subOut.2 [ParserData]-> (ParseNatural) -> subIn.2 parseVersion() ;
@@ -27,8 +25,55 @@ flow Version {
   parseVersion() subOut.5 [ParserData]-> (SpaceComment) -> subIn.5 parseVersion() ;
 }
 
-flow ParseFlow {
+flow Flow {
+  [ParserData]-> parseFlow(ParseAnd) -> ;
+  parseFlow() semOut [ParserData]-> (CreateFlow) -> semIn parseFlow() ;
 
+  parseFlow() subOut.0 [ParserData]-> (ParseLiteral("flow")) -> subIn.0 parseFlow() ;
+  parseFlow() subOut.1 [ParserData]-> (ParseSpace(false)) -> subIn.1 parseFlow() ;
+  parseFlow() subOut.2 [ParserData]-> (ParseBigIdent) -> subIn.2 parseFlow() ;
+  parseFlow() subOut.3 [ParserData]-> (SpaceComment) -> subIn.3 parseFlow() ;
+  parseFlow() subOut.4 [ParserData]-> (ParseLiteral("{")) -> subIn.4 parseFlow() ;
+  parseFlow() subOut.5 [ParserData]-> (SpaceComment) -> subIn.5 parseFlow() ;
+  parseFlow() subOut.6 [ParserData]-> (Connections) -> subIn.6 parseFlow() ;
+  parseFlow() subOut.7 [ParserData]-> (ParseLiteral("}")) -> subIn.7 parseFlow() ;
+  parseFlow() subOut.8 [ParserData]-> (SpaceComment) -> subIn.8 parseFlow() ;
+}
+
+flow Connections {
+  [ParserData]-> connections(ParseMultiple(1,inf)) -> ;
+  connections() subOut [ParserData]-> chain(ParseAnd) -> subIn connections() ;
+  chain() semOut [ParserData]-> (CreateChain) -> semIn chain() ;
+
+  chain() subOut.0 [ParserData]-> (ConnectionChainBegin) -> subIn.0 chain() ;
+  chain() subOut.1 [ParserData]-> chainMid(ParseMultiple) -> subIn.1 chain() ;
+  chain() subOut.2 [ParserData]-> chainEnd(ParseOptional) -> subIn.2 chain() ;
+  chain() subOut.3 [ParserData]-> (StatementEnd) -> subIn.3 chain() ;
+
+  chainMid() subOut [ParserData]-> (ConnectionChainMiddle) -> subIn chainMid() ;
+
+  chainEnd() subOut [ParserData]-> (ConnectionChainEnd) -> subIn chainEnd() ;
+}
+
+flow ConnectionChainBegin {
+}
+
+flow ConnectionChainMiddle {
+}
+
+flow ConnectionChainEnd {
+}
+
+// -------------------------------------------------------------------------
+// Utility like parser flows
+//
+
+flow StatementEnd {
+  [ParserData]-> stmtEnd(ParseAnd) -> ;
+
+  stmtEnd() subOut.0 [ParserData]-> (SpaceComment) -> subIn.0 stmtEnd() ;
+  stmtEnd() subOut.1 [ParserData]-> (ParseLiteral(";")) -> subIn.1 stmtEnd() ;
+  stmtEnd() subOut.2 [ParserData]-> (SpaceComment) -> subIn.2 stmtEnd() ;
 }
 
 flow SpaceComment {
