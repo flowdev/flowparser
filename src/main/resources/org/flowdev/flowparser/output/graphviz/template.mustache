@@ -8,8 +8,8 @@ digraph {{name}} {
 
   node [shape=plaintext,style=plain,rank=same];
 
-    {{#connections}}  {{#fromOp}}{{fromOp}}:{{fromPort}}{{#hasFromPortIndex}}
-        .{{fromPortIndex}}{{/hasFromPortIndex}}{{/fromOp}}{{^fromOp}}"{{fromPort}}{{#hasFromPortIndex}}
+    {{#connections}}{{#fromOp}}  {{fromOp}}:{{fromPort}}{{#hasFromPortIndex}}
+        .{{fromPortIndex}}{{/hasFromPortIndex}}{{/fromOp}}{{^fromOp}}  "{{fromPort}}{{#hasFromPortIndex}}
         .{{fromPortIndex}}{{/hasFromPortIndex}}"{{/fromOp}} -> {{#toOp}}{{toOp}}:{{toPort}}{{#hasToPortIndex}}
         .{{toPortIndex}}{{/hasToPortIndex}}{{/toOp}}{{^toOp}}"{{toPort}}{{#hasToPortIndex}}
         .{{toPortIndex}}{{/hasToPortIndex}}"{{/toOp}}{{#showDataType}} [label="{{dataType}}"]{{/showDataType}} ;
