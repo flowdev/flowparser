@@ -7,7 +7,7 @@ flow ParseFlowFile {
   parseFlowFile() semOut [ParserData]-> (CreateFlowFileData) -> semIn parseFlowFile() ;
   parseFlowFile() subOut.0 [ParserData]-> (SpaceComment) -> subIn.0 parseFlowFile() ;
   parseFlowFile() subOut.1 [ParserData]-> (Version) -> subIn.1 parseFlowFile() ;
-  parseFlowFile() subOut.2 [ParserData]-> parseFlows(ParseMultiple(1,inf)) -> subIn.2 parseFlowFile() ;
+  parseFlowFile() subOut.2 [ParserData]-> parseFlows(ParseMultiple1) -> subIn.2 parseFlowFile() ;
   parseFlowFile() subOut.3 [ParserData]-> (ParseEof) -> subIn.3 parseFlowFile() ;
 
   parseFlows() subOut [ParserData]-> (Flow) -> subIn parseFlows() ;
@@ -41,7 +41,7 @@ flow Flow {
 }
 
 flow Connections {
-  [ParserData]-> connections(ParseMultiple(1,inf)) -> ;
+  [ParserData]-> connections(ParseMultiple1) -> ;
   connections() subOut [ParserData]-> chain(ParseAnd) -> subIn connections() ;
   chain() semOut [ParserData]-> (CreateChain) -> semIn chain() ;
 
@@ -77,7 +77,7 @@ flow StatementEnd {
 }
 
 flow SpaceComment {
-  [ParserData]-> spcComs(ParseMultiple(0,inf)) -> ;
+  [ParserData]-> spcComs(ParseMultiple0) -> ;
   spcComs() subOut [ParserData]-> spcOrCom(ParseOr) -> subIn spcComs() ;
   spcOrCom() subOut.0 [ParserData]-> (ParseSpace(true)) -> subIn.0 spcOrCom() ;
   spcOrCom() subOut.1 [ParserData]-> (ParseComment(ALL)) -> subIn.1 spcOrCom() ;
