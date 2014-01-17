@@ -102,7 +102,6 @@ flow ConnectionChainEnd {
 // Flows for parsing parts of connetcions
 //
 
-ConnectionPart		= OpPortSpc OperationNameParens OpPort				{connectionPart} ;
 flow ConnectionPart {
   [ParserData]-> connPart(ParseAll) -> ;
   connPart() semOut [ParserData]-> (CreateConnectionPart) -> semIn connPart() ;
@@ -112,16 +111,53 @@ flow ConnectionPart {
   connPart() subOut.2 [ParserData]-> opOutPort(OpPort) -> subIn.2 connPart() ;
 }
 
-OperationNameParens	= OpOperationName "(" Spc OpOperationType ")" Spc	{operationNameParens} ;
-OpOperationName		= OperationName?				{opOperationName} ;
-OperationName		= SmallIdent Spc				{operationName} ;
+flow OperationNameParens {
+  [ParserData]-> opNameParens(ParseAll) -> ;
+  opNameParens() semOut [ParserData]-> (CreateOperationNameParens) -> semIn opNameParens() ;
 
-OpOperationType		= OperationType?				{opOperationType} ;
-OperationType		= BigIdent Spc					{operationType} ;
+  opNameParens() subOut.0 [ParserData]-> opOpName(ParseOptional) -> subIn.0 opNameParens() ;
+  opNameParens() subOut.1 [ParserData]-> openType(ParseLiteral("(")) -> subIn.1 opNameParens() ;
+  opNameParens() subOut.2 [ParserData]-> spc1(OpSpc) -> subIn.2 opNameParens() ;
+  opNameParens() subOut.3 [ParserData]-> opOpType(OpOperationType) -> subIn.3 opNameParens() ;
+  opNameParens() subOut.4 [ParserData]-> closeType(ParseLiteral(")")) -> subIn.4 opNameParens() ;
+  opNameParens() subOut.5 [ParserData]-> spc2(OpSpc) -> subIn.5 opNameParens() ;
 
-Arrow			= SpcCom OpDataType "->" SpcCom     {arrow} ;
-OpDataType		= DataType?							{opDataType} ;
-DataType		= "[" Spc BigIdent Spc "]"			{dataType} ;
+  opOpName() subOut [ParserData]-> opName(ParseAll) -> subIn opOpName() ;
+  opOpName() semOut [ParserData]-> (CreateOperationName) -> semIn opOpName() ;
+
+  opName() subOut.0 [ParserData]-> smallIdent(SmallIdent) -> subIn.0 opName() ;
+  opName() subOut.1 [ParserData]-> spc3(OpSpc) -> subIn.1 opName() ;
+}
+
+flow OpOperationType {
+  [ParserData]-> opOpType(ParseOptional) -> ;
+  opOpType() semOut [ParserData]-> (CreateOperationType) -> semIn opOpType() ;
+  opOpType() subOut [ParserData]-> opType(ParseAll) -> subIn opOpType() ;
+
+  opType() semOut [ParserData]-> (CreateOpType) -> semIn opType() ;
+
+  opType() subOut.0 [ParserData]-> (BigIdent) -> subIn.0 opType() ;
+  opType() subOut.1 [ParserData]-> (OpSpc) -> subIn.1 opType() ;
+}
+
+flow Arrow {
+  [ParserData]-> arrow(ParseAll) -> ;
+  arrow() semOut [ParserData]-> (CreateArrow) -> semIn arrow() ;
+
+  arrow() subOut.0 [ParserData]-> spcCom1(SpaceComment) -> subIn.0 arrow() ;
+  arrow() subOut.1 [ParserData]-> opType(ParseOptional) -> subIn.1 arrow() ;
+  arrow() subOut.2 [ParserData]-> litArr(ParseLiteral("->")) -> subIn.2 arrow() ;
+  arrow() subOut.3 [ParserData]-> spcCom1(SpaceComment) -> subIn.3 arrow() ;
+
+  opType() subOut [ParserData]-> type(ParseAll) -> subIn opType() ;
+  type() semOut [ParserData]-> (CreateArrowType) -> semIn type() ;
+
+  type() subOut.0 [ParserData]-> openType(ParseLiteral("[")) -> subIn.0 type() ;
+  type() subOut.0 [ParserData]-> spc1(OpSpc) -> subIn.0 type() ;
+  type() subOut.0 [ParserData]-> typeName(BigIdent) -> subIn.0 type() ;
+  type() subOut.0 [ParserData]-> spc2(OpSpc) -> subIn.0 type() ;
+  type() subOut.0 [ParserData]-> openType(ParseLiteral("]")) -> subIn.0 type() ;
+}
 
 flow OpPortSpc {
   [ParserData]-> opPortSpc(ParseOptional) -> ;
@@ -131,7 +167,7 @@ flow OpPortSpc {
   portSpc() semOut [ParserData]-> (CreatePortSpc) -> semIn portSpc() ;
 
   portSpc() subOut.0 [ParserData]-> (Port) -> subIn.0 portSpc() ;
-  portSpc() subOut.0 [ParserData]-> (ParseSpace(false)) -> subIn.0 portSpc() ;
+  portSpc() subOut.1 [ParserData]-> (ParseSpace(false)) -> subIn.1 portSpc() ;
 }
 
 flow OpPort {
@@ -165,6 +201,11 @@ flow SmallIdent {
 
 flow BigIdent {
   [ParserData]-> (ParseRegex("[A-Z][a-zA-Z0-9]+")) -> ;
+}
+
+flow OpSpc {
+  [ParserData]-> opSpc(ParseOptional) -> ;
+  opSpc() subOut [ParserData]-> (ParseSpace(false)) -> subIn opSpc() ;
 }
 
 flow StatementEnd {
