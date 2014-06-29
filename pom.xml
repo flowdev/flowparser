@@ -35,16 +35,16 @@
 	</dependency>
 
 	<!--
-	Second alternative is JParsec a modular parser generator library inspired by Haskell.
+	Second alternative is our own modular parser library.
 	No need to generate any source code since it is a normal library, yeah!
-	Otherwise its a quite traditional scanner/parser based animal. :-(
+	Otherwise it works like a PEG parser.
 	 -->
-	<dependency>
-		<groupId>jparsec</groupId>
-		<artifactId>jparsec</artifactId>
-		<version>2.0.1</version>
-	</dependency>
-	<!-- Parser alternatives end! -->
+      <dependency>
+          <groupId>org.flowdev</groupId>
+          <artifactId>parser</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+      </dependency>
+      <!-- Parser alternatives end! -->
 
 <!-- Not needed during runtime: -->
 	<dependency>
