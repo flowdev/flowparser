@@ -1,76 +1,77 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.flowdev</groupId>
-  <artifactId>flowparser</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>flowparser</name>
-  <description>parser for the flow DSL</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.flowdev</groupId>
+    <artifactId>flowparser</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
+    <name>flowparser</name>
+    <description>parser for the flow DSL</description>
 
-  <dependencies>
-    <dependency>
-		<groupId>org.flowdev</groupId>
-		<artifactId>base</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-		<groupId>net.sf.jopt-simple</groupId>
-		<artifactId>jopt-simple</artifactId>
-		<version>4.4</version>
-	</dependency>
-	<dependency>
-		<groupId>com.github.spullara.mustache.java</groupId>
-		<artifactId>compiler</artifactId>
-		<version>0.8.10</version>
-	</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.flowdev</groupId>
+            <artifactId>base</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jopt-simple</groupId>
+            <artifactId>jopt-simple</artifactId>
+            <version>4.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.spullara.mustache.java</groupId>
+            <artifactId>compiler</artifactId>
+            <version>0.8.10</version>
+        </dependency>
 
 
-	<!-- Parser alternatives start:
-	First alternative is Mouse, a nice little PEG parser generator.
-	Negative points: It isn't modular and it has to generate Java source code.
-	 -->
-	<dependency>
-	    <groupId>se.romanredz.mouse</groupId>
-	    <artifactId>mouse-runtime</artifactId>
-	    <version>1.5.1</version>
-	</dependency>
+        <!-- Parser alternatives start:
+        First alternative is Mouse, a nice little PEG parser generator.
+        Negative points: It isn't modular and it has to generate Java source code.
+         -->
+        <dependency>
+            <groupId>se.romanredz.mouse</groupId>
+            <artifactId>mouse-runtime</artifactId>
+            <version>1.5.1</version>
+        </dependency>
 
-	<!--
-	Second alternative is our own modular parser library.
-	No need to generate any source code since it is a normal library, yeah!
-	Otherwise it works like a PEG parser.
-	 -->
-      <dependency>
-          <groupId>org.flowdev</groupId>
-          <artifactId>parser</artifactId>
-          <version>0.0.1-SNAPSHOT</version>
-      </dependency>
-      <!-- Parser alternatives end! -->
+        <!--
+        Second alternative is our own modular parser library.
+        No need to generate any source code since it is a normal library, yeah!
+        Otherwise it works like a PEG parser.
+         -->
+        <dependency>
+            <groupId>org.flowdev</groupId>
+            <artifactId>parser</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!-- Parser alternatives end! -->
 
-<!-- Not needed during runtime: -->
-	<dependency>
-	<!--  This is needed for generating the Java parser from the PEG file.
-	  It can be run as a normal Java application like:
-	  java mouse.Generate -G src/main/peg/flowdsl.peg \
-        -D "src/main/java/org/flowdev/flowparser" \
-        -p org.flowdev.flowparser \
-        -P FlowParser -S FlowParserSemantics
+        <!-- Not needed during runtime: -->
+        <dependency>
+            <!--  This is needed for generating the Java parser from the PEG file.
+              It can be run as a normal Java application like:
+              java mouse.Generate -G src/main/peg/flowdsl.peg \
+                -D "src/main/java/org/flowdev/flowparser" \
+                -p org.flowdev.flowparser \
+                -P FlowParser -S FlowParserSemantics
 
-	  In eclipse you have to check the box 'Include system libraries when searching for a main class'.
-	 -->
-	    <groupId>se.romanredz.mouse</groupId>
-	    <artifactId>mouse</artifactId>
-	    <version>1.5.1</version>
-		<scope>provided</scope>
-	</dependency>
-    <dependency>
-		<groupId>junit</groupId>
-		<artifactId>junit</artifactId>
-		<version>4.6</version>
-		<scope>test</scope>
-    </dependency>
-  </dependencies>
- 
-   <build>
+              In eclipse you have to check the box 'Include system libraries when searching for a main class'.
+             -->
+            <groupId>se.romanredz.mouse</groupId>
+            <artifactId>mouse</artifactId>
+            <version>1.5.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.6</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -93,7 +94,8 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.flowdev.flowparser.Main</mainClass>
                                 </transformer>
                             </transformers>
