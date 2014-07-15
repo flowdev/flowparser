@@ -1,7 +1,6 @@
 package org.flowdev.flowparser.parse;
 
 import org.flowdev.base.Port;
-import org.flowdev.parser.data.ParseLiteralConfig;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseLiteral;
 
@@ -31,7 +30,7 @@ public class StatementEnd<T> {
     }
 
     private void initConfig() {
-        ParseLiteralConfig parseRegexConfig = new ParseLiteralConfig(";");
+        ParseLiteral.ParseLiteralConfig parseRegexConfig = new ParseLiteral.ParseLiteralConfig(";");
         parseLiteral.getConfigPort().send(parseRegexConfig);
     }
 

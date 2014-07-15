@@ -11,7 +11,7 @@
         <dependency>
             <groupId>org.flowdev</groupId>
             <artifactId>base</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.sf.jopt-simple</groupId>
@@ -43,7 +43,7 @@
         <dependency>
             <groupId>org.flowdev</groupId>
             <artifactId>parser</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.2-SNAPSHOT</version>
         </dependency>
         <!-- Parser alternatives end! -->
 

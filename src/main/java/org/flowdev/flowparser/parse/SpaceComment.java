@@ -1,7 +1,6 @@
 package org.flowdev.flowparser.parse;
 
 import org.flowdev.base.Port;
-import org.flowdev.parser.data.ParseSpaceConfig;
 import org.flowdev.parser.op.*;
 
 import static org.flowdev.parser.op.BaseParser.Params;
@@ -36,7 +35,7 @@ public class SpaceComment<T> {
     }
 
     private void initConfig() {
-        ParseSpaceConfig parseSpaceConfig = new ParseSpaceConfig(false);
+        ParseSpace.ParseSpaceConfig parseSpaceConfig = new ParseSpace.ParseSpaceConfig(false);
         parseSpace.getConfigPort().send(parseSpaceConfig);
     }
 

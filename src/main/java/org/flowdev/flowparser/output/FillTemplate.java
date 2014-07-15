@@ -5,7 +5,7 @@ import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheException;
 import com.github.mustachejava.MustacheFactory;
 import com.google.common.util.concurrent.UncheckedExecutionException;
-import org.flowdev.base.data.EmptyConfig;
+import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
 import org.flowdev.flowparser.MainData;
 import org.flowdev.flowparser.data.Connection;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FillTemplate extends Filter<MainData, EmptyConfig> {
+public class FillTemplate extends Filter<MainData, NoConfig> {
     static final String TEMPLATE_DIR = FillTemplate.class.getPackage().getName().replace('.', '/') + "/";
 
     @Override

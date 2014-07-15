@@ -1,6 +1,6 @@
 package org.flowdev.flowparser.cook;
 
-import org.flowdev.base.data.EmptyConfig;
+import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
 import org.flowdev.flowparser.MainData;
 import org.flowdev.flowparser.data.*;
@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * This operation reads the content of a file as a UTF-8 text into a string.
  */
-public class CookFlowFile extends Filter<MainData, EmptyConfig> {
+public class CookFlowFile extends Filter<MainData, NoConfig> {
     private static class OpData {
         Operation op;
         Set<String> inPorts = new HashSet<>();
