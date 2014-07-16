@@ -25,9 +25,9 @@ public class CookFlowFile extends Filter<MainData, NoConfig> {
     protected void filter(MainData data) {
         FlowFile cookedFlowFile = new FlowFile();
 
-        cookedFlowFile.fileName = data.fileName;
-        cookedFlowFile.version = cookVersion(data.rawFlowFile.version);
-        cookedFlowFile.flows = cookFlows(data.rawFlowFile.flows);
+        cookedFlowFile.setFileName(data.fileName);
+        cookedFlowFile.setVersion(cookVersion(data.rawFlowFile.getVersion()));
+        cookedFlowFile.setFlows(cookFlows(data.rawFlowFile.getFlows()));
 
         data.flowFile = cookedFlowFile;
         outPort.send(data);
@@ -43,99 +43,99 @@ public class CookFlowFile extends Filter<MainData, NoConfig> {
 
     private Flow cookFlow(RawFlow rflow) {
         Flow flow = new Flow();
-        flow.name = rflow.name;
+        flow.setName(rflow.getName());
         cookConnections(rflow, flow);
         cookOperations(rflow, flow);
         return flow;
     }
 
     private void cookConnections(RawFlow rflow, Flow flow) {
-        flow.connections = new ArrayList<>();
-        for (RawConnectionChain connChain : rflow.connections) {
-            cookConnectionChain(connChain, flow.connections);
+        flow.setConnections(new ArrayList<>());
+        for (RawConnectionChain connChain : rflow.getConnections()) {
+            cookConnectionChain(connChain, flow.getConnections());
         }
     }
 
     private void cookConnectionChain(RawConnectionChain chain, List<Connection> connections) {
-        if (chain.inPort != null) {
-            RawConnectionPart toPart = chain.parts.get(0);
-            addConnection(chain.inPort, null, toPart.inPort, toPart.operation, connections);
+        if (chain.getInPort() != null) {
+            RawConnectionPart toPart = chain.getParts().get(0);
+            addConnection(chain.getInPort(), null, toPart.getInPort(), toPart.getOperation(), connections);
         }
-        int last = chain.parts.size() - 1;
+        int last = chain.getParts().size() - 1;
         int i;
         for (i = 0; i < last; i++) {
-            RawConnectionPart fromPart = chain.parts.get(i);
-            RawConnectionPart toPart = chain.parts.get(i + 1);
-            addConnection(fromPart.outPort, fromPart.operation, toPart.inPort, toPart.operation, connections);
+            RawConnectionPart fromPart = chain.getParts().get(i);
+            RawConnectionPart toPart = chain.getParts().get(i + 1);
+            addConnection(fromPart.getOutPort(), fromPart.getOperation(), toPart.getInPort(), toPart.getOperation(), connections);
         }
-        if (chain.outPort != null) {
-            RawConnectionPart fromPart = chain.parts.get(last);
-            addConnection(fromPart.outPort, fromPart.operation, chain.outPort, null, connections);
+        if (chain.getOutPort() != null) {
+            RawConnectionPart fromPart = chain.getParts().get(last);
+            addConnection(fromPart.getOutPort(), fromPart.getOperation(), chain.getOutPort(), null, connections);
         }
     }
 
     private void addConnection(RawPort fromPort, RawOperation fromOp, RawPort toPort, RawOperation toOp, List<Connection> connections) {
         Connection conn = new Connection();
 
-        conn.fromPort = fromPort.name;
-        conn.fromOp = (fromOp == null) ? null : fromOp.name;
-        conn.toPort = toPort.name;
-        conn.toOp = (toOp == null) ? null : toOp.name;
+        conn.setFromPort(fromPort.getName());
+        conn.setFromOp((fromOp == null) ? null : fromOp.getName());
+        conn.setToPort(toPort.getName());
+        conn.setToOp((toOp == null) ? null : toOp.getName());
 
-        if (fromPort.index != null) {
-            conn.hasFromPortIndex = true;
-            conn.fromPortIndex = fromPort.index;
+        if (fromPort.getIndex() != null) {
+            conn.setHasFromPortIndex(true);
+            conn.setFromPortIndex(fromPort.getIndex());
         }
-        if (toPort.index != null) {
-            conn.hasToPortIndex = true;
-            conn.toPortIndex = toPort.index;
-        }
-
-        if (fromPort.dataType != null) {
-            conn.dataType = fromPort.dataType.type;
-            conn.showDataType = fromPort.dataType.fromDsl;
-        } else if (toPort.dataType != null) {
-            conn.dataType = toPort.dataType.type;
-            conn.showDataType = toPort.dataType.fromDsl;
+        if (toPort.getIndex() != null) {
+            conn.setHasToPortIndex(true);
+            conn.setToPortIndex(toPort.getIndex());
         }
 
-        conn.capFromPort = capitalize(conn.fromPort);
-        conn.capToPort = capitalize(conn.toPort);
+        if (fromPort.getDataType() != null) {
+            conn.setDataType(fromPort.getDataType().getType());
+            conn.setShowDataType(fromPort.getDataType().isFromDsl());
+        } else if (toPort.getDataType() != null) {
+            conn.setDataType(toPort.getDataType().getType());
+            conn.setShowDataType(toPort.getDataType().isFromDsl());
+        }
+
+        conn.setCapFromPort(capitalize(conn.getFromPort()));
+        conn.setCapToPort(capitalize(conn.getToPort()));
         connections.add(conn);
     }
 
     private void cookOperations(RawFlow rflow, Flow flow) {
         Map<String, OpData> operationMap = new HashMap<>();
-        for (RawConnectionChain chain : rflow.connections) {
-            for (RawConnectionPart part : chain.parts) {
+        for (RawConnectionChain chain : rflow.getConnections()) {
+            for (RawConnectionPart part : chain.getParts()) {
                 cookOperation(part, operationMap);
             }
         }
 
-        flow.operations = new ArrayList<>(operationMap.values().size());
+        flow.setOperations(new ArrayList<>(operationMap.values().size()));
         for (OpData opData : operationMap.values()) {
-            flow.operations.add(opData.op);
+            flow.getOperations().add(opData.op);
         }
     }
 
     private void cookOperation(RawConnectionPart part, Map<String, OpData> operationMap) {
-        OpData opData = operationMap.get(part.operation.name);
+        OpData opData = operationMap.get(part.getOperation().getName());
         Operation op;
         if (opData == null) {
             op = new Operation();
-            op.name = part.operation.name;
-            op.type = (part.operation.type == null) ? null : part.operation.type.type;
-            op.ports = new ArrayList<>();
+            op.setName(part.getOperation().getName());
+            op.setType((part.getOperation().getType() == null) ? null : part.getOperation().getType().getType());
+            op.setPorts(new ArrayList<>());
             opData = new OpData(op);
-            operationMap.put(op.name, opData);
+            operationMap.put(op.getName(), opData);
         } else {
             op = opData.op;
-            if (op.type == null && part.operation.type != null) {
-                op.type = part.operation.type.type;
+            if (op.getType() == null && part.getOperation().getType() != null) {
+                op.setType(part.getOperation().getType().getType());
             }
         }
 
-        addPorts(part.inPort, part.outPort, op, opData.inPorts, opData.outPorts);
+        addPorts(part.getInPort(), part.getOutPort(), op, opData.inPorts, opData.outPorts);
     }
 
     private void addPorts(RawPort inPort, RawPort outPort, Operation op, Set<String> inPorts, Set<String> outPorts) {
@@ -156,37 +156,37 @@ public class CookFlowFile extends Filter<MainData, NoConfig> {
         int reusePair = otherPortsCount - myPorts.size();
         PortPair portPair;
         if (reusePair > 0) {
-            portPair = op.ports.get(op.ports.size() - reusePair);
+            portPair = op.getPorts().get(op.getPorts().size() - reusePair);
         } else {
             portPair = new PortPair();
-            portPair.isLast = true;
-            op.ports.add(portPair);
+            portPair.setLast(true);
+            op.getPorts().add(portPair);
 
             // old last isn't last anymore:
-            if (op.ports.size() > 1) {
-                op.ports.get(op.ports.size() - 2).isLast = false;
+            if (op.getPorts().size() > 1) {
+                op.getPorts().get(op.getPorts().size() - 2).setLast(false);
             }
         }
         myPorts.add(portName);
         if (isInPort) {
-            portPair.inPort = portName;
+            portPair.setInPort(portName);
         } else {
-            portPair.outPort = portName;
+            portPair.setOutPort(portName);
         }
     }
 
     private static String createPortName(RawPort port) {
-        if (port.index == null) {
-            return port.name;
+        if (port.getIndex() == null) {
+            return port.getName();
         } else {
-            return port.name + "." + port.index;
+            return port.getName() + "." + port.getIndex();
         }
     }
 
     private Version cookVersion(RawVersion rawVers) {
         Version vers = new Version();
-        vers.political = rawVers.political;
-        vers.major = rawVers.major;
+        vers.setPolitical(rawVers.getPolitical());
+        vers.setMajor(rawVers.getMajor());
         return vers;
     }
 

@@ -25,7 +25,7 @@ FlowFile {
                     ports : List [
                         0 : PortPair {
                             inPort : "in" ;
-                            isLast : true ;
+                            last : true ;
                             outPort : NULL ;
                         } ;
                     ] ;

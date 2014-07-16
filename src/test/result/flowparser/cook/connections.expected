@@ -347,17 +347,17 @@ FlowFile {
                     ports : List [
                         0 : PortPair {
                             inPort : "in" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "out" ;
                         } ;
                         1 : PortPair {
                             inPort : "in2" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "o2" ;
                         } ;
                         2 : PortPair {
                             inPort : NULL ;
-                            isLast : true ;
+                            last : true ;
                             outPort : "err" ;
                         } ;
                     ] ;
@@ -368,17 +368,17 @@ FlowFile {
                     ports : List [
                         0 : PortPair {
                             inPort : "in" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "out" ;
                         } ;
                         1 : PortPair {
                             inPort : "i2" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "o1" ;
                         } ;
                         2 : PortPair {
                             inPort : "i1" ;
-                            isLast : true ;
+                            last : true ;
                             outPort : NULL ;
                         } ;
                     ] ;
@@ -389,17 +389,17 @@ FlowFile {
                     ports : List [
                         0 : PortPair {
                             inPort : "in" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "out" ;
                         } ;
                         1 : PortPair {
                             inPort : "i2" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "o1" ;
                         } ;
                         2 : PortPair {
                             inPort : "in2" ;
-                            isLast : true ;
+                            last : true ;
                             outPort : NULL ;
                         } ;
                     ] ;
@@ -641,22 +641,22 @@ FlowFile {
                     ports : List [
                         0 : PortPair {
                             inPort : "in" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "out" ;
                         } ;
                         1 : PortPair {
                             inPort : "subIn.0" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "subOut.0" ;
                         } ;
                         2 : PortPair {
                             inPort : "subIn.1" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "subOut.1" ;
                         } ;
                         3 : PortPair {
                             inPort : "subIn.2" ;
-                            isLast : true ;
+                            last : true ;
                             outPort : "subOut.2" ;
                         } ;
                     ] ;
@@ -667,22 +667,22 @@ FlowFile {
                     ports : List [
                         0 : PortPair {
                             inPort : "in" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "out" ;
                         } ;
                         1 : PortPair {
                             inPort : "subIn.0" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "subOut.0" ;
                         } ;
                         2 : PortPair {
                             inPort : "subIn.1" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "subOut.1" ;
                         } ;
                         3 : PortPair {
                             inPort : "subIn.2" ;
-                            isLast : true ;
+                            last : true ;
                             outPort : "subOut.2" ;
                         } ;
                     ] ;
@@ -693,22 +693,22 @@ FlowFile {
                     ports : List [
                         0 : PortPair {
                             inPort : "in" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "out" ;
                         } ;
                         1 : PortPair {
                             inPort : "subIn.0" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "subOut.0" ;
                         } ;
                         2 : PortPair {
                             inPort : "subIn.1" ;
-                            isLast : false ;
+                            last : false ;
                             outPort : "subOut.1" ;
                         } ;
                         3 : PortPair {
                             inPort : "subIn.2" ;
-                            isLast : true ;
+                            last : true ;
                             outPort : "subOut.2" ;
                         } ;
                     ] ;

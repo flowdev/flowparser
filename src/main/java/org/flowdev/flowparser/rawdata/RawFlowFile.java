@@ -4,6 +4,22 @@ import java.util.List;
 
 
 public class RawFlowFile {
-	public RawVersion version;
-	public List<RawFlow> flows;
+    private RawVersion version;
+    private List<RawFlow> flows;
+
+    public RawVersion getVersion() {
+        return version;
+    }
+
+    public void setVersion(RawVersion version) {
+        this.version = version;
+    }
+
+    public List<RawFlow> getFlows() {
+        return flows;
+    }
+
+    public void setFlows(List<RawFlow> flows) {
+        this.flows = flows;
+    }
 }

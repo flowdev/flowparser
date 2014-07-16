@@ -24,11 +24,11 @@ class FlowParserSemantics extends SemanticsBase {
     void flowFile() {
         int N = rhsSize() - 1;
 
-        flowFile.version = (RawVersion) rhs(1).get();
-        flowFile.flows = new ArrayList<>(N - 2);
+        flowFile.setVersion((RawVersion) rhs(1).get());
+        flowFile.setFlows(new ArrayList<>(N - 2));
 
         for (int i = 2; i < N; i++) {
-            flowFile.flows.add((RawFlow) rhs(i).get());
+            flowFile.getFlows().add((RawFlow) rhs(i).get());
         }
     }
 
@@ -37,9 +37,9 @@ class FlowParserSemantics extends SemanticsBase {
     // -------------------------------------------------------------------
     void version() {
         RawVersion data = new RawVersion();
-        data.sourcePosition = lhs().where(0);
-        data.political = (Long) rhs(2).get();
-        data.major = (Long) rhs(4).get();
+        data.setSourcePosition(lhs().where(0));
+        data.setPolitical((Long) rhs(2).get());
+        data.setMajor((Long) rhs(4).get());
 
         lhs().put(data);
     }
@@ -50,9 +50,9 @@ class FlowParserSemantics extends SemanticsBase {
     @SuppressWarnings("unchecked")
     void flow() {
         RawFlow data = new RawFlow();
-        data.sourcePosition = lhs().where(0);
-        data.name = (String) rhs(0).get();
-        data.connections = (List<RawConnectionChain>) rhs(3).get();
+        data.setSourcePosition(lhs().where(0));
+        data.setName((String) rhs(0).get());
+        data.setConnections((List<RawConnectionChain>) rhs(3).get());
 
         lhs().put(data);
     }
@@ -87,10 +87,10 @@ class FlowParserSemantics extends SemanticsBase {
         RawConnectionChain data = (RawConnectionChain) rhs(0).get();
 
         for (int i = 1; i < n; i++) {
-            data.parts.add((RawConnectionPart) rhs(i).get());
+            data.getParts().add((RawConnectionPart) rhs(i).get());
         }
 
-        data.outPort = (RawPort) rhs(n).get();
+        data.setOutPort((RawPort) rhs(n).get());
 
         correctDataTypes(data);
         correctChainEnd(data);
@@ -99,34 +99,34 @@ class FlowParserSemantics extends SemanticsBase {
     }
 
     private void correctDataTypes(RawConnectionChain chain) {
-        RawDataType curType = chain.inPort != null ? copyDataType(chain.inPort.dataType) : null;
-        for (int i = 0; i < chain.parts.size() - 1; i++) {
-            RawConnectionPart curPart = chain.parts.get(i);
-            RawConnectionPart nextPart = chain.parts.get(i + 1);
-            if (nextPart.inPort.dataType != null) {
-                curPart.outPort.dataType = nextPart.inPort.dataType;
-                curType = copyDataType(nextPart.inPort.dataType);
+        RawDataType curType = chain.getInPort() != null ? copyDataType(chain.getInPort().getDataType()) : null;
+        for (int i = 0; i < chain.getParts().size() - 1; i++) {
+            RawConnectionPart curPart = chain.getParts().get(i);
+            RawConnectionPart nextPart = chain.getParts().get(i + 1);
+            if (nextPart.getInPort().getDataType() != null) {
+                curPart.getOutPort().setDataType(nextPart.getInPort().getDataType());
+                curType = copyDataType(nextPart.getInPort().getDataType());
             } else {
-                curPart.outPort.dataType = curType;
-                nextPart.inPort.dataType = curType;
+                curPart.getOutPort().setDataType(curType);
+                nextPart.getInPort().setDataType(curType);
             }
         }
     }
 
     private void correctChainEnd(RawConnectionChain chain) {
-        RawConnectionPart lastPart = chain.parts.get(chain.parts.size() - 1);
-        if (chain.outPort == null) {
-            lastPart.outPort = null;
+        RawConnectionPart lastPart = chain.getParts().get(chain.getParts().size() - 1);
+        if (chain.getOutPort() == null) {
+            lastPart.setOutPort(null);
         } else {
-            lastPart.outPort.dataType = chain.outPort.dataType;
-            if (chain.outPort.name == null) {
-                chain.outPort.name = lastPart.outPort.name;
-                chain.outPort.index = lastPart.outPort.index;
+            lastPart.getOutPort().setDataType(chain.getOutPort().getDataType());
+            if (chain.getOutPort().getName() == null) {
+                chain.getOutPort().setName(lastPart.getOutPort().getName());
+                chain.getOutPort().setIndex(lastPart.getOutPort().getIndex());
             }
-            if (lastPart.outPort.dataType == null && lastPart.inPort != null) {
-                RawDataType dataType = copyDataType(lastPart.inPort.dataType);
-                lastPart.outPort.dataType = dataType;
-                chain.outPort.dataType = dataType;
+            if (lastPart.getOutPort().getDataType() == null && lastPart.getInPort() != null) {
+                RawDataType dataType = copyDataType(lastPart.getInPort().getDataType());
+                lastPart.getOutPort().setDataType(dataType);
+                chain.getOutPort().setDataType(dataType);
             }
         }
     }
@@ -136,9 +136,9 @@ class FlowParserSemantics extends SemanticsBase {
             return null;
         }
         RawDataType ret = new RawDataType();
-        ret.type = dataType.type;
-        ret.sourcePosition = dataType.sourcePosition;
-        ret.fromDsl = false;
+        ret.setType(dataType.getType());
+        ret.setSourcePosition(dataType.getSourcePosition());
+        ret.setFromDsl(false);
         return ret;
     }
 
@@ -148,16 +148,16 @@ class FlowParserSemantics extends SemanticsBase {
     // -------------------------------------------------------------------
     void connectionChainBegMax() {
         RawConnectionChain data = new RawConnectionChain();
-        data.sourcePosition = lhs().where(0);
-        data.inPort = (RawPort) rhs(0).get();
-        data.inPort.type = RawPortType.IN;
-        data.parts = new ArrayList<>();
+        data.setSourcePosition(lhs().where(0));
+        data.setInPort((RawPort) rhs(0).get());
+        data.getInPort().setType(RawPortType.IN);
+        data.setParts(new ArrayList<>());
         RawConnectionPart part = (RawConnectionPart) rhs(1).get();
-        data.parts.add(part);
-        data.inPort.dataType = part.inPort.dataType;
-        if (data.inPort.name == null) {
-            data.inPort.name = part.inPort.name;
-            data.inPort.index = part.inPort.index;
+        data.getParts().add(part);
+        data.getInPort().setDataType(part.getInPort().getDataType());
+        if (data.getInPort().getName() == null) {
+            data.getInPort().setName(part.getInPort().getName());
+            data.getInPort().setIndex(part.getInPort().getIndex());
         }
 
         lhs().put(data);
@@ -168,17 +168,17 @@ class FlowParserSemantics extends SemanticsBase {
     // -------------------------------------------------------------------
     void connectionChainBegMin() {
         RawConnectionChain data = new RawConnectionChain();
-        data.sourcePosition = lhs().where(0);
-        data.inPort = null;
-        data.parts = new ArrayList<>();
+        data.setSourcePosition(lhs().where(0));
+        data.setInPort(null);
+        data.setParts(new ArrayList<>());
         RawConnectionPart part = new RawConnectionPart();
-        data.parts.add(part);
-        part.inPort = null;
-        part.operation = (RawOperation) rhs(0).get();
-        part.outPort = (RawPort) rhs(1).get();
-        part.outPort.type = RawPortType.OUT;
-        if (part.outPort.name == null) {
-            part.outPort.name = RawPortType.OUT.toString();
+        data.getParts().add(part);
+        part.setInPort(null);
+        part.setOperation((RawOperation) rhs(0).get());
+        part.setOutPort((RawPort) rhs(1).get());
+        part.getOutPort().setType(RawPortType.OUT);
+        if (part.getOutPort().getName() == null) {
+            part.getOutPort().setName(RawPortType.OUT.toString());
         }
 
         lhs().put(data);
@@ -189,7 +189,7 @@ class FlowParserSemantics extends SemanticsBase {
     // -------------------------------------------------------------------
     void connectionChainMid() {
         RawConnectionPart data = (RawConnectionPart) rhs(1).get();
-        data.inPort.dataType = (RawDataType) rhs(0).get();
+        data.getInPort().setDataType((RawDataType) rhs(0).get());
 
         lhs().put(data);
     }
@@ -208,8 +208,8 @@ class FlowParserSemantics extends SemanticsBase {
     // -------------------------------------------------------------------
     void connectionChainEnd() {
         RawPort data = (RawPort) rhs(1).get();
-        data.dataType = (RawDataType) rhs(0).get();
-        data.type = RawPortType.OUT;
+        data.setDataType((RawDataType) rhs(0).get());
+        data.setType(RawPortType.OUT);
 
         lhs().put(data);
     }
@@ -219,19 +219,19 @@ class FlowParserSemantics extends SemanticsBase {
     // -------------------------------------------------------------------
     void connectionPart() {
         RawConnectionPart data = new RawConnectionPart();
-        data.sourcePosition = lhs().where(0);
-        data.inPort = (RawPort) rhs(0).get();
-        data.inPort.type = RawPortType.IN;
-        if (data.inPort.name == null) {
-            data.inPort.name = RawPortType.IN.toString();
+        data.setSourcePosition(lhs().where(0));
+        data.setInPort((RawPort) rhs(0).get());
+        data.getInPort().setType(RawPortType.IN);
+        if (data.getInPort().getName() == null) {
+            data.getInPort().setName(RawPortType.IN.toString());
         }
 
-        data.operation = (RawOperation) rhs(1).get();
+        data.setOperation((RawOperation) rhs(1).get());
 
-        data.outPort = (RawPort) rhs(2).get();
-        data.outPort.type = RawPortType.OUT;
-        if (data.outPort.name == null) {
-            data.outPort.name = RawPortType.OUT.toString();
+        data.setOutPort((RawPort) rhs(2).get());
+        data.getOutPort().setType(RawPortType.OUT);
+        if (data.getOutPort().getName() == null) {
+            data.getOutPort().setName(RawPortType.OUT.toString());
         }
 
         lhs().put(data);
@@ -242,15 +242,15 @@ class FlowParserSemantics extends SemanticsBase {
     // -------------------------------------------------------------------
     void operationNameParens() {
         RawOperation data = new RawOperation();
-        data.sourcePosition = lhs().where(0);
-        data.name = (String) rhs(0).get();
-        data.type = (RawDataType) rhs(3).get();
+        data.setSourcePosition(lhs().where(0));
+        data.setName((String) rhs(0).get());
+        data.setType((RawDataType) rhs(3).get());
 
-        if (data.name == null || data.name.isEmpty()) {
-            if (data.type.type == null || data.type.type.isEmpty()) {
-                throw new RuntimeException("Operation name AND type are missing at: " + data.sourcePosition);
+        if (data.getName() == null || data.getName().isEmpty()) {
+            if (data.getType().getType() == null || data.getType().getType().isEmpty()) {
+                throw new RuntimeException("Operation name AND type are missing at: " + data.getSourcePosition());
             }
-            data.name = decapitalize(data.type.type);
+            data.setName(decapitalize(data.getType().getType()));
         }
 
         lhs().put(data);
@@ -286,9 +286,9 @@ class FlowParserSemantics extends SemanticsBase {
     // -------------------------------------------------------------------
     public void dataType() {
         RawDataType data = new RawDataType();
-        data.type = rhs(2).text();
-        data.fromDsl = true;
-        data.sourcePosition = lhs().where(2);
+        data.setType(rhs(2).text());
+        data.setFromDsl(true);
+        data.setSourcePosition(lhs().where(2));
         lhs().put(data);
     }
 
@@ -306,9 +306,9 @@ class FlowParserSemantics extends SemanticsBase {
     // -------------------------------------------------------------------
     public void operationType() {
         RawDataType data = new RawDataType();
-        data.type = rhs(0).text();
-        data.fromDsl = true;
-        data.sourcePosition = lhs().where(0);
+        data.setType(rhs(0).text());
+        data.setFromDsl(true);
+        data.setSourcePosition(lhs().where(0));
         lhs().put(data);
     }
 
@@ -336,7 +336,7 @@ class FlowParserSemantics extends SemanticsBase {
             data = (RawPort) rhs(0).get();
         } else {
             data = new RawPort();
-            data.sourcePosition = lhs().where(0);
+            data.setSourcePosition(lhs().where(0));
         }
 
         lhs().put(data);
@@ -347,10 +347,10 @@ class FlowParserSemantics extends SemanticsBase {
     // -------------------------------------------------------------------
     void port() {
         RawPort data = new RawPort();
-        data.sourcePosition = lhs().where(0);
-        data.name = rhs(0).text();
+        data.setSourcePosition(lhs().where(0));
+        data.setName(rhs(0).text());
         if (rhsSize() > 1) {
-            data.index = (Integer) rhs(1).get();
+            data.setIndex((Integer) rhs(1).get());
         }
 
         lhs().put(data);
@@ -451,11 +451,11 @@ class FlowParserSemantics extends SemanticsBase {
     // -------------------------------------------------------------------
     void integer() {
         RawInt data = new RawInt();
-        data.sourcePosition = lhs().where(0);
-        data.value = (Long) rhs(rhsSize() - 1).get();
+        data.setSourcePosition(lhs().where(0));
+        data.setValue((Long) rhs(rhsSize() - 1).get());
 
         if ("-".equals(rhs(0).text())) {
-            data.value = -data.value;
+            data.setValue(-data.getValue());
         }
 
         lhs().put(data);

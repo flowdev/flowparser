@@ -37,7 +37,7 @@ public class FillTemplate extends Filter<MainData, NoConfig> {
             }
         }
         StringBuilder fileContent = new StringBuilder(80192);
-        for (Flow flow : data.flowFile.flows) {
+        for (Flow flow : data.flowFile.getFlows()) {
             StringWriter sw = new StringWriter();
             if (linearTpl != null && isLinearFlow(flow)) {
                 linearTpl.execute(sw, flow);
@@ -53,17 +53,17 @@ public class FillTemplate extends Filter<MainData, NoConfig> {
     }
 
     private static boolean isLinearFlow(Flow flow) {
-        for (Operation op : flow.operations) {
+        for (Operation op : flow.getOperations()) {
             if (!isFilterOp(op)) {
                 return false;
             }
         }
-        if (flow.connections.size() != flow.operations.size() + 1) {
+        if (flow.getConnections().size() != flow.getOperations().size() + 1) {
             return false;
         }
-        List<String> connectedOps = new ArrayList<>(flow.connections.size());
+        List<String> connectedOps = new ArrayList<>(flow.getConnections().size());
         RawDataType dataType = new RawDataType();
-        for (Connection connection : flow.connections) {
+        for (Connection connection : flow.getConnections()) {
             if (!isLinearConnection(connection, connectedOps, dataType)) {
                 return false;
             }
@@ -72,57 +72,57 @@ public class FillTemplate extends Filter<MainData, NoConfig> {
     }
 
     private static boolean isFilterOp(Operation op) {
-        if (op.ports.size() != 1) {
+        if (op.getPorts().size() != 1) {
             return false;
         }
-        PortPair portPair = op.ports.get(0);
-        return "in".equals(portPair.inPort) && "out".equals(portPair.outPort);
+        PortPair portPair = op.getPorts().get(0);
+        return "in".equals(portPair.getInPort()) && "out".equals(portPair.getOutPort());
     }
 
     private static boolean isLinearConnection(Connection connection, List<String> connectedOps, RawDataType dataType) {
         String newOp;
         if (connectedOps.isEmpty()) {
-            if (connection.fromOp != null) {
+            if (connection.getFromOp() != null) {
                 return false;
             }
-            if (!"in".equals(connection.fromPort)) {
+            if (!"in".equals(connection.getFromPort())) {
                 return false;
             }
-            if (!"in".equals(connection.toPort)) {
+            if (!"in".equals(connection.getToPort())) {
                 return false;
             }
-            if (connection.toOp == null) {
+            if (connection.getToOp() == null) {
                 return false;
             }
-            newOp = connection.toOp;
-        } else if (connection.toOp == null) {
-            if (!connectedOps.get(connectedOps.size() - 1).equals(connection.fromOp)) {
+            newOp = connection.getToOp();
+        } else if (connection.getToOp() == null) {
+            if (!connectedOps.get(connectedOps.size() - 1).equals(connection.getFromOp())) {
                 return false;
             }
-            if (!"out".equals(connection.fromPort)) {
+            if (!"out".equals(connection.getFromPort())) {
                 return false;
             }
-            if (!"out".equals(connection.toPort)) {
+            if (!"out".equals(connection.getToPort())) {
                 return false;
             }
             newOp = "<NULL>!!!";
         } else {
-            if (!connectedOps.get(connectedOps.size() - 1).equals(connection.fromOp)) {
+            if (!connectedOps.get(connectedOps.size() - 1).equals(connection.getFromOp())) {
                 return false;
             }
-            if (!"out".equals(connection.fromPort)) {
+            if (!"out".equals(connection.getFromPort())) {
                 return false;
             }
-            if (!"in".equals(connection.toPort)) {
+            if (!"in".equals(connection.getToPort())) {
                 return false;
             }
-            if (connectedOps.contains(connection.toOp)) {
+            if (connectedOps.contains(connection.getToOp())) {
                 return false;
             }
-            newOp = connection.toOp;
+            newOp = connection.getToOp();
         }
 
-        if (!conform(connection.dataType, dataType)) {
+        if (!conform(connection.getDataType(), dataType)) {
             return false;
         }
         connectedOps.add(newOp);
@@ -132,9 +132,9 @@ public class FillTemplate extends Filter<MainData, NoConfig> {
     private static boolean conform(String s, RawDataType dataType) {
         if (s == null) {
             return true;
-        } else if (dataType.type == null) {
-            dataType.type = s;
+        } else if (dataType.getType() == null) {
+            dataType.setType(s);
         }
-        return s.equals(dataType.type);
+        return s.equals(dataType.getType());
     }
 }

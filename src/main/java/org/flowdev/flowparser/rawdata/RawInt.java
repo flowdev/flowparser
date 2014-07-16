@@ -2,6 +2,14 @@ package org.flowdev.flowparser.rawdata;
 
 
 public class RawInt extends RawNode {
-	public long value;
+    private long value;
+
+    public long getValue() {
+        return value;
+    }
+
+    public void setValue(long value) {
+        this.value = value;
+    }
 }
 

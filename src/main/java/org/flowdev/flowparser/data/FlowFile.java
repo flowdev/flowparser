@@ -4,7 +4,31 @@ import java.util.List;
 
 
 public class FlowFile {
-    public String fileName;
-	public Version version;
-	public List<Flow> flows;
+    private String fileName;
+    private Version version;
+    private List<Flow> flows;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public Version getVersion() {
+        return version;
+    }
+
+    public void setVersion(Version version) {
+        this.version = version;
+    }
+
+    public List<Flow> getFlows() {
+        return flows;
+    }
+
+    public void setFlows(List<Flow> flows) {
+        this.flows = flows;
+    }
 }

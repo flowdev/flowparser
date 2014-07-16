@@ -1,6 +1,22 @@
 package org.flowdev.flowparser.rawdata;
 
 public class RawOperation extends RawNode {
-    public String name;
-    public RawDataType type;
+    private String name;
+    private RawDataType type;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public RawDataType getType() {
+        return type;
+    }
+
+    public void setType(RawDataType type) {
+        this.type = type;
+    }
 }
