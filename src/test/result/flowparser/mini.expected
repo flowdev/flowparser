@@ -45,4 +45,4 @@ RawFlowFile {
         political : 0 ;
         sourcePosition : "At start" ;
     } ;
-}
+} ;
