@@ -7,14 +7,18 @@ import org.flowdev.flowparser.data.*;
 import org.flowdev.flowparser.rawdata.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * This operation reads the content of a file as a UTF-8 text into a string.
  */
 public class CookFlowFile extends Filter<MainData, NoConfig> {
     private static class OpData {
+        @SuppressWarnings("CanBeFinal")
         Operation op;
+        @SuppressWarnings("CanBeFinal")
         Set<String> inPorts = new HashSet<>();
+        @SuppressWarnings("CanBeFinal")
         Set<String> outPorts = new HashSet<>();
 
         OpData(Operation op) {
@@ -34,11 +38,7 @@ public class CookFlowFile extends Filter<MainData, NoConfig> {
     }
 
     private List<Flow> cookFlows(List<RawFlow> rawFlows) {
-        List<Flow> flows = new ArrayList<>(rawFlows.size());
-        for (RawFlow rflow : rawFlows) {
-            flows.add(cookFlow(rflow));
-        }
-        return flows;
+        return rawFlows.stream().map(this::cookFlow).collect(Collectors.toList());
     }
 
     private Flow cookFlow(RawFlow rflow) {

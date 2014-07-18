@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class TestUtils {
-    public static final String UTF8 = "UTF8";
+    private static final String UTF8 = "UTF8";
 
     public static String readFile(String path) throws IOException {
         byte[] bytes = Files.readAllBytes(getPath(path));

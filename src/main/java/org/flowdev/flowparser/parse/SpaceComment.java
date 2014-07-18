@@ -5,6 +5,7 @@ import org.flowdev.parser.op.*;
 
 import static org.flowdev.parser.op.BaseParser.Params;
 
+@SuppressWarnings("WeakerAccess")
 public class SpaceComment<T> {
     private ParseMultiple0<T> spcComs;
     private ParseAlternatives<T> spcOrCom;

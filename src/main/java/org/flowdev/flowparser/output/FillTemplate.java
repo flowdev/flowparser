@@ -20,7 +20,7 @@ import java.util.List;
 
 
 public class FillTemplate extends Filter<MainData, NoConfig> {
-    static final String TEMPLATE_DIR = FillTemplate.class.getPackage().getName().replace('.', '/') + "/";
+    private static final String TEMPLATE_DIR = FillTemplate.class.getPackage().getName().replace('.', '/') + "/";
 
     @Override
     protected void filter(MainData data) {

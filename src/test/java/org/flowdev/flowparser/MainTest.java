@@ -22,9 +22,9 @@ public class MainTest {
     private static final String FORMAT = "graphviz";
     private static final String MINI_FLOW = "./src/test/flow/flowparser/mini.flow";
     private TestMainFlow flow;
-    private String[] args;
-    private MainData expectedData;
-    private MainConfig expectedConfig;
+    private final String[] args;
+    private final MainData expectedData;
+    private final MainConfig expectedConfig;
 
     public MainTest(String[] args, MainData expectedData,
                     MainConfig expectedConfig) {
@@ -84,16 +84,12 @@ public class MainTest {
 
         @Override
         public Port<MainData> getInPort() {
-            return data -> {
-                myData = data;
-            };
+            return data -> myData = data;
         }
 
         @Override
         public Port<MainConfig> getConfigPort() {
-            return data -> {
-                myConfig = data;
-            };
+            return data -> myConfig = data;
         }
 
     }

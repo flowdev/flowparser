@@ -6,6 +6,7 @@ import org.flowdev.parser.op.ParseLiteral;
 
 import static org.flowdev.parser.op.BaseParser.Params;
 
+@SuppressWarnings("WeakerAccess")
 public class StatementEnd<T> {
     private SpaceComment<T> spaceComment;
     private ParseAll<T> stmtEnd;

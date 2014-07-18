@@ -1,6 +1,7 @@
 package org.flowdev.flowparser.data;
 
 
+@SuppressWarnings("UnusedDeclaration")
 public class Connection {
     private String fromOp;
     private String fromPort;

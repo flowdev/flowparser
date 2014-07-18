@@ -21,9 +21,9 @@ public class CookFlowFileTest {
     private static final String FLOW_DIR = "./src/test/flow/flowparser/";
     private static final String RESULT_DIR = "./src/test/result/flowparser/cook/";
 
-    private String fileName;
-    private ParseToRawFlowFile rawParser;
-    private CookFlowFile cookParser;
+    private final String fileName;
+    private final ParseToRawFlowFile rawParser;
+    private final CookFlowFile cookParser;
 
     public CookFlowFileTest(String fileName) {
         this.fileName = fileName;

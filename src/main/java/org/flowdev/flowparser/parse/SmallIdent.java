@@ -6,17 +6,14 @@ import org.flowdev.parser.op.ParseRegex;
 import static org.flowdev.parser.op.BaseParser.Params;
 
 
+@SuppressWarnings("WeakerAccess")
 public class SmallIdent<T> {
-    private ParseRegex<T> parseRegex;
+    private final ParseRegex<T> parseRegex;
 
     public SmallIdent(Params<T> params) {
         parseRegex = new ParseRegex<>(params);
 
-        createConnections();
         initConfig();
-    }
-
-    private void createConnections() {
     }
 
     private void initConfig() {

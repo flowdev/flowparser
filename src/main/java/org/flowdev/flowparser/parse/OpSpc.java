@@ -6,6 +6,7 @@ import org.flowdev.parser.op.ParseSpace;
 
 import static org.flowdev.parser.op.BaseParser.Params;
 
+@SuppressWarnings("WeakerAccess")
 public class OpSpc<T> {
     private ParseSpace<T> parseSpace;
     private ParseOptional<T> opSpc;

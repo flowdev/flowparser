@@ -18,11 +18,11 @@ import static org.junit.Assert.fail;
 
 @RunWith(Parameterized.class)
 public class ParseToRawFlowFileTest {
-    public static final String FLOW_DIR = "./src/test/flow/flowparser/";
+    private static final String FLOW_DIR = "./src/test/flow/flowparser/";
     private static final String RESULT_DIR = "./src/test/result/flowparser/";
 
-    private ParseToRawFlowFile parser;
-    private String fileName;
+    private final ParseToRawFlowFile parser;
+    private final String fileName;
 
     public ParseToRawFlowFileTest(String fileName) {
         this.fileName = fileName;

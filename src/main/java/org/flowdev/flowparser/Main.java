@@ -12,6 +12,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
+@SuppressWarnings("WeakerAccess")
 public class Main {
     private static OptionParser optParser;
     private static IMainFlow mainFlow = new MainFlow();

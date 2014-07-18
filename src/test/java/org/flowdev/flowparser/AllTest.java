@@ -13,7 +13,7 @@ import static org.junit.Assert.fail;
 
 @RunWith(Parameterized.class)
 public class AllTest {
-    public static final String FLOW_DIR = "./src/test/flow/flowparser/";
+    private static final String FLOW_DIR = "./src/test/flow/flowparser/";
     private static final String WORK_DIR = "./src/test/result/flowparser/all/";
     private static final String FLOW_EXT = ".flow";
 
