@@ -45,12 +45,12 @@ public abstract class ParseTestBase {
         checkResultValue(expectedValue, actualResultParserData.getResult().getValue());
         if (expectedValue == null) {
             assertNotNull(actualResultParserData.getResult().getFeedback());
-            assertNotNull(actualResultParserData.getResult().getFeedback().getErrors());
-            assertNotSame(0, actualResultParserData.getResult().getFeedback().getErrors().size());
-            System.out.println("Expected errors: " + actualResultParserData.getResult().getFeedback().getErrors());
+            assertNotNull(actualResultParserData.getResult().getFeedback().errors());
+            assertNotSame(0, actualResultParserData.getResult().getFeedback().errors().size());
+            System.out.println("Expected errors: " + actualResultParserData.getResult().getFeedback().errors());
         } else {
             if (actualResultParserData.getResult().getFeedback() != null) {
-                assertNull(actualResultParserData.getResult().getFeedback().getErrors());
+                assertNull(actualResultParserData.getResult().getFeedback().errors());
             }
         }
     }
