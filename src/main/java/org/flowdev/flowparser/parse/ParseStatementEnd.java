@@ -36,7 +36,7 @@ public class ParseStatementEnd<T> implements Filter<T, NoConfig> {
     }
 
     private void initConfig() {
-        stmtEnd.getConfigPort().send(new UseTextSemanticConfig(true));
+        stmtEnd.getConfigPort().send(new UseTextSemanticConfig().useTextSemantic(true));
         semicolon.getConfigPort().send(new ParseLiteralConfig(";"));
     }
 
