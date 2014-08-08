@@ -1,0 +1,17 @@
+version 0.1
+
+flow ParseVersion {
+  [ParserData]-> parseVersion(ParseAll) -> ;
+  parseVersion() semOut [ParserData]-> (SemanticCreateVersion) -> semIn parseVersion() ;
+
+  // config: literal = "version"
+  parseVersion() subOut.0 [ParserData]-> spcComm(ParseSpaceComment) -> subIn parseVersion() ;
+  parseVersion() subOut.1 [ParserData]-> vers(ParseLiteral) -> subIn parseVersion() ;
+  // config: includeNewline = false
+  parseVersion() subOut.2 [ParserData]-> aspc(ParseSpace) -> subIn parseVersion() ;
+  parseVersion() subOut.3 [ParserData]-> political(ParseNatural) -> subIn parseVersion() ;
+  // config: literal = "."
+  parseVersion() subOut.4 [ParserData]-> dot(ParseLiteral) -> subIn parseVersion() ;
+  parseVersion() subOut.5 [ParserData]-> major(ParseNatural) -> subIn parseVersion() ;
+  parseVersion() subOut.6 [ParserData]-> spcComm(ParseSpaceComment) -> subIn parseVersion() ;
+}

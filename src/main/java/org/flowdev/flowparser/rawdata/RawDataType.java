@@ -1,9 +1,10 @@
 package org.flowdev.flowparser.rawdata;
 
 
-public class RawDataType extends RawNode {
+public class RawDataType {
     private String type;
     private boolean fromDsl;
+    private String sourcePosition;
 
     public String getType() {
         return type;
@@ -19,5 +20,13 @@ public class RawDataType extends RawNode {
 
     public void setFromDsl(boolean fromDsl) {
         this.fromDsl = fromDsl;
+    }
+
+    public String getSourcePosition() {
+        return sourcePosition;
+    }
+
+    public void setSourcePosition(String sourcePosition) {
+        this.sourcePosition = sourcePosition;
     }
 }

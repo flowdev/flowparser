@@ -1,10 +1,11 @@
 package org.flowdev.flowparser.rawdata;
 
 
-public class RawConnectionPart extends RawNode {
+public class RawConnectionPart {
     private RawPort inPort;
     private RawOperation operation;
     private RawPort outPort;
+    private String sourcePosition;
 
     public RawPort getInPort() {
         return inPort;
@@ -28,5 +29,13 @@ public class RawConnectionPart extends RawNode {
 
     public void setOutPort(RawPort outPort) {
         this.outPort = outPort;
+    }
+
+    public String getSourcePosition() {
+        return sourcePosition;
+    }
+
+    public void setSourcePosition(String sourcePosition) {
+        this.sourcePosition = sourcePosition;
     }
 }

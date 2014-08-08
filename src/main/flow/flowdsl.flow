@@ -5,10 +5,9 @@ flow ParseFlowFile {
   parserManager() subOut [ParserData]-> (ReadTextFile) -> parseFlowFile(ParseAll) -> subIn parserManager() ;
 
   parseFlowFile() semOut [ParserData]-> (CreateFlowFileData) -> semIn parseFlowFile() ;
-  parseFlowFile() subOut.0 [ParserData]-> (SpaceComment) -> subIn.0 parseFlowFile() ;
-  parseFlowFile() subOut.1 [ParserData]-> (Version) -> subIn.1 parseFlowFile() ;
-  parseFlowFile() subOut.2 [ParserData]-> parseFlows(ParseMultiple1) -> subIn.2 parseFlowFile() ;
-  parseFlowFile() subOut.3 [ParserData]-> (ParseEof) -> subIn.3 parseFlowFile() ;
+  parseFlowFile() subOut.0 [ParserData]-> (Version) -> subIn parseFlowFile() ;
+  parseFlowFile() subOut.1 [ParserData]-> parseFlows(ParseMultiple1) -> subIn parseFlowFile() ;
+  parseFlowFile() subOut.2 [ParserData]-> (ParseEof) -> subIn parseFlowFile() ;
 
   parseFlows() subOut [ParserData]-> (Flow) -> subIn parseFlows() ;
 }
@@ -17,27 +16,27 @@ flow Version {
   [ParserData]-> parseVersion(ParseAll) -> ;
   parseVersion() semOut [ParserData]-> (CreateVersion) -> semIn parseVersion() ;
 
-  parseVersion() subOut.0 [ParserData]-> vers(ParseLiteral("version")) -> subIn.0 parseVersion() ;
-  parseVersion() subOut.1 [ParserData]-> aspc(ParseSpace(false)) -> subIn.1 parseVersion() ;
-  parseVersion() subOut.2 [ParserData]-> political(ParseNatural) -> subIn.2 parseVersion() ;
-  parseVersion() subOut.3 [ParserData]-> dot(ParseLiteral(".")) -> subIn.3 parseVersion() ;
-  parseVersion() subOut.4 [ParserData]-> major(ParseNatural) -> subIn.4 parseVersion() ;
-  parseVersion() subOut.5 [ParserData]-> spcComm(SpaceComment) -> subIn.5 parseVersion() ;
+  parseVersion() subOut.0 [ParserData]-> vers(ParseLiteral("version")) -> subIn parseVersion() ;
+  parseVersion() subOut.1 [ParserData]-> aspc(ParseSpace(false)) -> subIn parseVersion() ;
+  parseVersion() subOut.2 [ParserData]-> political(ParseNatural) -> subIn parseVersion() ;
+  parseVersion() subOut.3 [ParserData]-> dot(ParseLiteral(".")) -> subIn parseVersion() ;
+  parseVersion() subOut.4 [ParserData]-> major(ParseNatural) -> subIn parseVersion() ;
+  parseVersion() subOut.5 [ParserData]-> spcComm(SpaceComment) -> subIn parseVersion() ;
 }
 
 flow Flow {
   [ParserData]-> parseFlow(ParseAll) -> ;
   parseFlow() semOut [ParserData]-> (CreateFlow) -> semIn parseFlow() ;
 
-  parseFlow() subOut.0 [ParserData]-> flow(ParseLiteral("flow")) -> subIn.0 parseFlow() ;
-  parseFlow() subOut.1 [ParserData]-> space(ParseSpace(false)) -> subIn.1 parseFlow() ;
-  parseFlow() subOut.2 [ParserData]-> bigIdent(ParseBigIdent) -> subIn.2 parseFlow() ;
-  parseFlow() subOut.3 [ParserData]-> spcComm1(SpaceComment) -> subIn.3 parseFlow() ;
-  parseFlow() subOut.4 [ParserData]-> openFlow(ParseLiteral("{")) -> subIn.4 parseFlow() ;
-  parseFlow() subOut.5 [ParserData]-> spcComm2(SpaceComment) -> subIn.5 parseFlow() ;
-  parseFlow() subOut.6 [ParserData]-> (Connections) -> subIn.6 parseFlow() ;
-  parseFlow() subOut.7 [ParserData]-> closeFlow(ParseLiteral("}")) -> subIn.7 parseFlow() ;
-  parseFlow() subOut.8 [ParserData]-> spcComm3(SpaceComment) -> subIn.8 parseFlow() ;
+  parseFlow() subOut.0 [ParserData]-> flow(ParseLiteral("flow")) -> subIn parseFlow() ;
+  parseFlow() subOut.1 [ParserData]-> space(ParseSpace(false)) -> subIn parseFlow() ;
+  parseFlow() subOut.2 [ParserData]-> bigIdent(ParseBigIdent) -> subIn parseFlow() ;
+  parseFlow() subOut.3 [ParserData]-> spcComm1(SpaceComment) -> subIn parseFlow() ;
+  parseFlow() subOut.4 [ParserData]-> openFlow(ParseLiteral("{")) -> subIn parseFlow() ;
+  parseFlow() subOut.5 [ParserData]-> spcComm2(SpaceComment) -> subIn parseFlow() ;
+  parseFlow() subOut.6 [ParserData]-> (Connections) -> subIn parseFlow() ;
+  parseFlow() subOut.7 [ParserData]-> closeFlow(ParseLiteral("}")) -> subIn parseFlow() ;
+  parseFlow() subOut.8 [ParserData]-> spcComm3(SpaceComment) -> subIn parseFlow() ;
 }
 
 

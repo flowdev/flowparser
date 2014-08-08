@@ -1,10 +1,10 @@
 package org.flowdev.flowparser.output;
 
 import org.flowdev.base.data.NoConfig;
-import org.flowdev.base.op.Filter;
+import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.MainData;
 
-public class CreateOutputFileName extends Filter<MainData, NoConfig> {
+public class CreateOutputFileName extends FilterOp<MainData, NoConfig> {
     @Override
     protected void filter(MainData data) {
         String fileName = data.fileName;

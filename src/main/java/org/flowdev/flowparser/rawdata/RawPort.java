@@ -1,11 +1,12 @@
 package org.flowdev.flowparser.rawdata;
 
 
-public class RawPort extends RawNode {
+public class RawPort {
     private String name;
     private Integer index;
     private RawPortType type;
     private RawDataType dataType;
+    private String sourcePosition;
 
     public String getName() {
         return name;
@@ -37,5 +38,13 @@ public class RawPort extends RawNode {
 
     public void setDataType(RawDataType dataType) {
         this.dataType = dataType;
+    }
+
+    public String getSourcePosition() {
+        return sourcePosition;
+    }
+
+    public void setSourcePosition(String sourcePosition) {
+        this.sourcePosition = sourcePosition;
     }
 }

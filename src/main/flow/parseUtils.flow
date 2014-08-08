@@ -4,32 +4,32 @@ version 0.1
 // Utility like parser flows
 //
 
-flow SmallIdent {
+flow ParseSmallIdent {
   // config: regex = "[a-z][a-zA-Z0-9]*"
   [ParserData]-> (ParseRegex) -> ;
 }
 
-flow BigIdent {
+flow ParseBigIdent {
   // config: regex = "[A-Z][a-zA-Z0-9]+"
   [ParserData]-> (ParseRegex) -> ;
 }
 
-flow OpSpc {
+flow ParseOpSpc {
   [ParserData]-> opSpc(ParseOptional) -> ;
   // config: includeNewline = false
   opSpc() subOut [ParserData]-> (ParseSpace) -> subIn opSpc() ;
 }
 
-flow StatementEnd {
+flow ParseStatementEnd {
   [ParserData]-> stmtEnd(ParseAll) -> ;
 
-  stmtEnd() subOut.0 [ParserData]-> (SpaceComment) -> subIn.0 stmtEnd() ;
+  stmtEnd() subOut.0 [ParserData]-> (ParseSpaceComment) -> subIn.0 stmtEnd() ;
   // config: literal = ";"
   stmtEnd() subOut.1 [ParserData]-> (ParseLiteral) -> subIn.1 stmtEnd() ;
-  stmtEnd() subOut.2 [ParserData]-> (SpaceComment) -> subIn.2 stmtEnd() ;
+  stmtEnd() subOut.2 [ParserData]-> (ParseSpaceComment) -> subIn.2 stmtEnd() ;
 }
 
-flow SpaceComment {
+flow ParseSpaceComment {
   [ParserData]-> spcComs(ParseMultiple0) -> ;
   spcComs() subOut [ParserData]-> spcOrCom(ParseAlternatives) -> subIn spcComs() ;
   // config: includeNewline = true

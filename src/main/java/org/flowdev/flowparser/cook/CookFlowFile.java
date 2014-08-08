@@ -1,7 +1,7 @@
 package org.flowdev.flowparser.cook;
 
 import org.flowdev.base.data.NoConfig;
-import org.flowdev.base.op.Filter;
+import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.MainData;
 import org.flowdev.flowparser.data.*;
 import org.flowdev.flowparser.rawdata.*;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 /**
  * This operation reads the content of a file as a UTF-8 text into a string.
  */
-public class CookFlowFile extends Filter<MainData, NoConfig> {
+public class CookFlowFile extends FilterOp<MainData, NoConfig> {
     private static class OpData {
         @SuppressWarnings("CanBeFinal")
         Operation op;
@@ -184,10 +184,7 @@ public class CookFlowFile extends Filter<MainData, NoConfig> {
     }
 
     private Version cookVersion(RawVersion rawVers) {
-        Version vers = new Version();
-        vers.setPolitical(rawVers.getPolitical());
-        vers.setMajor(rawVers.getMajor());
-        return vers;
+        return new Version().political((int) rawVers.getPolitical()).major((int) rawVers.getMajor());
     }
 
     private static String capitalize(String s) {

@@ -1,9 +1,10 @@
 package org.flowdev.flowparser.rawdata;
 
 
-public class RawVersion extends RawNode {
+public class RawVersion {
     private long political;
     private long major;
+    private String sourcePosition;
 
     public long getPolitical() {
         return political;
@@ -19,5 +20,13 @@ public class RawVersion extends RawNode {
 
     public void setMajor(long major) {
         this.major = major;
+    }
+
+    public String getSourcePosition() {
+        return sourcePosition;
+    }
+
+    public void setSourcePosition(String sourcePosition) {
+        this.sourcePosition = sourcePosition;
     }
 }

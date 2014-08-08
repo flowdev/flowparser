@@ -2,22 +2,24 @@ package org.flowdev.flowparser.data;
 
 
 public class Version {
-    private long political;
-    private long major;
+    private int political;
+    private int major;
 
-    public long getPolitical() {
+    public int political() {
         return political;
     }
 
-    public void setPolitical(long political) {
+    public Version political(int political) {
         this.political = political;
+        return this;
     }
 
-    public long getMajor() {
+    public int major() {
         return major;
     }
 
-    public void setMajor(long major) {
+    public Version major(int major) {
         this.major = major;
+        return this;
     }
 }

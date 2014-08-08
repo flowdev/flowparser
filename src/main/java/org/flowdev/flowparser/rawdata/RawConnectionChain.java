@@ -3,10 +3,11 @@ package org.flowdev.flowparser.rawdata;
 import java.util.List;
 
 
-public class RawConnectionChain extends RawNode {
+public class RawConnectionChain {
     private RawPort inPort;
     private List<RawConnectionPart> parts;
     private RawPort outPort;
+    private String sourcePosition;
 
     public RawPort getInPort() {
         return inPort;
@@ -30,5 +31,13 @@ public class RawConnectionChain extends RawNode {
 
     public void setOutPort(RawPort outPort) {
         this.outPort = outPort;
+    }
+
+    public String getSourcePosition() {
+        return sourcePosition;
+    }
+
+    public void setSourcePosition(String sourcePosition) {
+        this.sourcePosition = sourcePosition;
     }
 }
