@@ -55,9 +55,9 @@ public class ParseVersion<T> implements Filter<T, NoConfig> {
     }
 
     private void initConfig() {
-        vers.getConfigPort().send(new ParseLiteralConfig("version"));
-        aspc.getConfigPort().send(new ParseSpaceConfig(false));
-        dot.getConfigPort().send(new ParseLiteralConfig("."));
+        vers.getConfigPort().send(new ParseLiteralConfig().literal("version"));
+        aspc.getConfigPort().send(new ParseSpaceConfig().acceptNewline(false));
+        dot.getConfigPort().send(new ParseLiteralConfig().literal("."));
     }
 
     public Port<T> getInPort() {

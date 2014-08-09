@@ -19,7 +19,7 @@ public class ParseBigIdent<T> implements Filter<T, NoConfig> {
     }
 
     private void initConfig() {
-        bigIdent.getConfigPort().send(new ParseRegexConfig("[A-Z][a-zA-Z0-9]+"));
+        bigIdent.getConfigPort().send(new ParseRegexConfig().regex("[A-Z][a-zA-Z0-9]+"));
     }
 
     public Port<T> getInPort() {

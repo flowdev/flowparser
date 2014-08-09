@@ -29,7 +29,7 @@ public class ParseOpSpc<T> implements Filter<T, NoConfig> {
 
     private void initConfig() {
         opSpc.getConfigPort().send(new UseTextSemanticConfig().useTextSemantic(true));
-        space.getConfigPort().send(new ParseSpaceConfig(false));
+        space.getConfigPort().send(new ParseSpaceConfig().acceptNewline(false));
     }
 
     public Port<T> getInPort() {

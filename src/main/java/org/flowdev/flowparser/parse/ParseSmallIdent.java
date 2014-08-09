@@ -19,7 +19,7 @@ public class ParseSmallIdent<T> implements Filter<T, NoConfig> {
     }
 
     private void initConfig() {
-        smallIdent.getConfigPort().send(new ParseRegexConfig("[a-z][a-zA-Z0-9]*"));
+        smallIdent.getConfigPort().send(new ParseRegexConfig().regex("[a-z][a-zA-Z0-9]*"));
     }
 
     public Port<T> getInPort() {

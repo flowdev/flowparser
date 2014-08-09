@@ -42,9 +42,9 @@ public class ParseSpaceComment<T> implements Filter<T, NoConfig> {
     private void initConfig() {
         spcComs.getConfigPort().send(new UseTextSemanticConfig().useTextSemantic(true));
         spcOrCom.getConfigPort().send(new UseTextSemanticConfig().useTextSemantic(true));
-        space.getConfigPort().send(new ParseSpaceConfig(true));
-        lineComment.getConfigPort().send(new ParseLineCommentConfig("//"));
-        blockComment.getConfigPort().send(new ParseBlockCommentConfig("/*", "*/"));
+        space.getConfigPort().send(new ParseSpaceConfig().acceptNewline(true));
+        lineComment.getConfigPort().send(new ParseLineCommentConfig().commentStart("//"));
+        blockComment.getConfigPort().send(new ParseBlockCommentConfig().commentStart("/*").commentEnd("*/"));
     }
 
     public Port<T> getInPort() {
