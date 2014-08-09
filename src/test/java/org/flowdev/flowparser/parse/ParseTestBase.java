@@ -57,10 +57,7 @@ public abstract class ParseTestBase {
 
     public static Object[] makeTestData(String srcName, String srcContent, Object expectedValue) {
         ParserData parserData = new ParserData();
-        parserData.setSource(new SourceData());
-        parserData.getSource().setName(srcName);
-        parserData.getSource().setPos(0);
-        parserData.getSource().setContent(srcContent);
+        parserData.setSource(new SourceData().name(srcName).pos(0).content(srcContent));
 
         return new Object[]{parserData, expectedValue};
     }
