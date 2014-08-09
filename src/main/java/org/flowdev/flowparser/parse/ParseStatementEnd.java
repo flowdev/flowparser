@@ -4,20 +4,20 @@ import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
 import org.flowdev.parser.data.UseTextSemanticConfig;
-import org.flowdev.parser.op.ParseAllSync;
+import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseLiteral;
 import org.flowdev.parser.op.ParserParams;
 
 import static org.flowdev.parser.op.ParseLiteral.ParseLiteralConfig;
 
 public class ParseStatementEnd<T> implements Filter<T, NoConfig> {
-    private ParseAllSync<T> stmtEnd;
+    private ParseAll<T> stmtEnd;
     private ParseSpaceComment<T> spaceCommentBeg;
     private ParseLiteral<T> semicolon;
     private ParseSpaceComment<T> spaceCommentEnd;
 
     public ParseStatementEnd(ParserParams<T> params) {
-        stmtEnd = new ParseAllSync<>(params);
+        stmtEnd = new ParseAll<>(params);
         spaceCommentBeg = new ParseSpaceComment<>(params);
         semicolon = new ParseLiteral<>(params);
         spaceCommentEnd = new ParseSpaceComment<>(params);

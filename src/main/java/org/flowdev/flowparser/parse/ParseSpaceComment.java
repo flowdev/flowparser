@@ -11,15 +11,15 @@ import static org.flowdev.parser.op.ParseLineComment.ParseLineCommentConfig;
 import static org.flowdev.parser.op.ParseSpace.ParseSpaceConfig;
 
 public class ParseSpaceComment<T> implements Filter<T, NoConfig> {
-    private ParseMultiple0Sync<T> spcComs;
-    private ParseAlternativesSync<T> spcOrCom;
+    private ParseMultiple0<T> spcComs;
+    private ParseAlternatives<T> spcOrCom;
     private ParseSpace<T> space;
     private ParseLineComment<T> lineComment;
     private ParseBlockComment<T> blockComment;
 
     public ParseSpaceComment(ParserParams<T> params) {
-        spcComs = new ParseMultiple0Sync<>(params);
-        spcOrCom = new ParseAlternativesSync<>(params);
+        spcComs = new ParseMultiple0<>(params);
+        spcOrCom = new ParseAlternatives<>(params);
         space = new ParseSpace<>(params);
         lineComment = new ParseLineComment<>(params);
         blockComment = new ParseBlockComment<>(params);

@@ -10,7 +10,7 @@ import static org.flowdev.parser.op.ParseSpace.ParseSpaceConfig;
 
 
 public class ParseVersion<T> implements Filter<T, NoConfig> {
-    private ParseAllSync<T> version;
+    private ParseAll<T> version;
     private SemanticCreateVersion<T> semanticCreateVersion;
     private ParseSpaceComment<T> spcCommBeg;
     private ParseLiteral<T> vers;
@@ -21,7 +21,7 @@ public class ParseVersion<T> implements Filter<T, NoConfig> {
     private ParseSpaceComment<T> spcCommEnd;
 
     public ParseVersion(ParserParams<T> params) {
-        version = new ParseAllSync<>(params);
+        version = new ParseAll<>(params);
         semanticCreateVersion = new SemanticCreateVersion<>(params);
         spcCommBeg = new ParseSpaceComment<>(params);
         vers = new ParseLiteral<>(params);

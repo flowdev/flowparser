@@ -4,18 +4,18 @@ import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
 import org.flowdev.parser.data.UseTextSemanticConfig;
-import org.flowdev.parser.op.ParseOptionalSync;
+import org.flowdev.parser.op.ParseOptional;
 import org.flowdev.parser.op.ParseSpace;
 import org.flowdev.parser.op.ParserParams;
 
 import static org.flowdev.parser.op.ParseSpace.ParseSpaceConfig;
 
 public class ParseOpSpc<T> implements Filter<T, NoConfig> {
-    private ParseOptionalSync<T> opSpc;
+    private ParseOptional<T> opSpc;
     private ParseSpace<T> space;
 
     public ParseOpSpc(ParserParams<T> params) {
-        opSpc = new ParseOptionalSync<>(params);
+        opSpc = new ParseOptional<>(params);
         space = new ParseSpace<>(params);
 
         createConnections();
