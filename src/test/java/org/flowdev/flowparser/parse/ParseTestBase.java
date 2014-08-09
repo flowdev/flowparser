@@ -42,22 +42,22 @@ public abstract class ParseTestBase {
     @Test
     public void testParser() {
         parser.getInPort().send(parserData);
-        checkResultValue(expectedValue, actualResultParserData.getResult().value());
+        checkResultValue(expectedValue, actualResultParserData.result().value());
         if (expectedValue == null) {
-            assertNotNull(actualResultParserData.getResult().feedback());
-            assertNotNull(actualResultParserData.getResult().feedback().errors());
-            assertNotSame(0, actualResultParserData.getResult().feedback().errors().size());
-            System.out.println("Expected errors: " + actualResultParserData.getResult().feedback().errors());
+            assertNotNull(actualResultParserData.result().feedback());
+            assertNotNull(actualResultParserData.result().feedback().errors());
+            assertNotSame(0, actualResultParserData.result().feedback().errors().size());
+            System.out.println("Expected errors: " + actualResultParserData.result().feedback().errors());
         } else {
-            if (actualResultParserData.getResult().feedback() != null) {
-                assertNull(actualResultParserData.getResult().feedback().errors());
+            if (actualResultParserData.result().feedback() != null) {
+                assertNull(actualResultParserData.result().feedback().errors());
             }
         }
     }
 
     public static Object[] makeTestData(String srcName, String srcContent, Object expectedValue) {
         ParserData parserData = new ParserData();
-        parserData.setSource(new SourceData().name(srcName).pos(0).content(srcContent));
+        parserData.source(new SourceData().name(srcName).pos(0).content(srcContent));
 
         return new Object[]{parserData, expectedValue};
     }

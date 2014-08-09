@@ -21,7 +21,7 @@ public class SemanticCreateVersion<T> extends FilterOp<T, NoConfig> {
     protected void filter(T data) {
         ParserData parserData = params.getParserData.get(data);
 
-        parserData.getResult().value(createVersion(parserData.getSubResults()));
+        parserData.result().value(createVersion(parserData.subResults()));
 
         outPort.send(params.setParserData.set(data, parserData));
     }
