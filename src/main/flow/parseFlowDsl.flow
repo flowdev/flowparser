@@ -1,5 +1,18 @@
 version 0.1
 
+flow ParseFlowFile {
+//  [String]-> (ParserManager) [FlowFile]-> ;
+//  parserManager() subOut [ParserData]-> (ReadTextFile) -> parseFlowFile(ParseAll) -> subIn parserManager() ;
+  [ParserData]-> parseFlowFile(ParseAll) [FlowFile]-> ;
+
+  parseFlowFile() semOut [ParserData]-> (SemanticCreateFlowFileData) -> semIn parseFlowFile() ;
+  parseFlowFile() subOut.0 [ParserData]-> (ParseVersion) -> subIn parseFlowFile() ;
+//  parseFlowFile() subOut.1 [ParserData]-> parseFlows(ParseMultiple1) -> subIn parseFlowFile() ;
+  parseFlowFile() subOut.2 [ParserData]-> (ParseEof) -> subIn parseFlowFile() ;
+
+//  parseFlows() subOut [ParserData]-> (ParseFlow) -> subIn parseFlows() ;
+}
+
 flow ParseVersion {
   [ParserData]-> parseVersion(ParseAll) -> ;
   parseVersion() semOut [ParserData]-> (SemanticCreateVersion) -> semIn parseVersion() ;
