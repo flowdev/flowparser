@@ -21,14 +21,14 @@ public class SemanticCreateVersion<T> extends FilterOp<T, NoConfig> {
     protected void filter(T data) {
         ParserData parserData = params.getParserData.get(data);
 
-        parserData.getResult().setValue(createVersion(parserData.getSubResults()));
+        parserData.getResult().value(createVersion(parserData.getSubResults()));
 
         outPort.send(params.setParserData.set(data, parserData));
     }
 
     private Version createVersion(List<ParseResult> subResults) {
-        Long political = (Long) subResults.get(3).getValue();
-        Long major = (Long) subResults.get(5).getValue();
+        Long political = (Long) subResults.get(3).value();
+        Long major = (Long) subResults.get(5).value();
 
         return new Version().political(political.intValue()).major(major.intValue());
     }
