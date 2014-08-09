@@ -6,27 +6,30 @@ public class PortPair {
     private String outPort;
     private boolean isLast;
 
-    public String getInPort() {
+    public PortPair inPort(final String inPort) {
+        this.inPort = inPort;
+        return this;
+    }
+
+    public PortPair outPort(final String outPort) {
+        this.outPort = outPort;
+        return this;
+    }
+
+    public PortPair isLast(final boolean isLast) {
+        this.isLast = isLast;
+        return this;
+    }
+
+    public String inPort() {
         return inPort;
     }
 
-    public void setInPort(String inPort) {
-        this.inPort = inPort;
-    }
-
-    public String getOutPort() {
+    public String outPort() {
         return outPort;
-    }
-
-    public void setOutPort(String outPort) {
-        this.outPort = outPort;
     }
 
     public boolean isLast() {
         return isLast;
-    }
-
-    public void setLast(boolean isLast) {
-        this.isLast = isLast;
     }
 }

@@ -16,99 +16,111 @@ public class Connection {
     private boolean hasToPortIndex;
     private int toPortIndex;
 
-    public String getFromOp() {
+    public Connection fromOp(final String fromOp) {
+        this.fromOp = fromOp;
+        return this;
+    }
+
+    public Connection fromPort(final String fromPort) {
+        this.fromPort = fromPort;
+        return this;
+    }
+
+    public Connection capFromPort(final String capFromPort) {
+        this.capFromPort = capFromPort;
+        return this;
+    }
+
+    public Connection hasFromPortIndex(final boolean hasFromPortIndex) {
+        this.hasFromPortIndex = hasFromPortIndex;
+        return this;
+    }
+
+    public Connection fromPortIndex(final int fromPortIndex) {
+        this.fromPortIndex = fromPortIndex;
+        return this;
+    }
+
+    public Connection dataType(final String dataType) {
+        this.dataType = dataType;
+        return this;
+    }
+
+    public Connection showDataType(final boolean showDataType) {
+        this.showDataType = showDataType;
+        return this;
+    }
+
+    public Connection toOp(final String toOp) {
+        this.toOp = toOp;
+        return this;
+    }
+
+    public Connection toPort(final String toPort) {
+        this.toPort = toPort;
+        return this;
+    }
+
+    public Connection capToPort(final String capToPort) {
+        this.capToPort = capToPort;
+        return this;
+    }
+
+    public Connection hasToPortIndex(final boolean hasToPortIndex) {
+        this.hasToPortIndex = hasToPortIndex;
+        return this;
+    }
+
+    public Connection toPortIndex(final int toPortIndex) {
+        this.toPortIndex = toPortIndex;
+        return this;
+    }
+
+    public String fromOp() {
         return fromOp;
     }
 
-    public void setFromOp(String fromOp) {
-        this.fromOp = fromOp;
-    }
-
-    public String getFromPort() {
+    public String fromPort() {
         return fromPort;
     }
 
-    public void setFromPort(String fromPort) {
-        this.fromPort = fromPort;
-    }
-
-    public String getCapFromPort() {
+    public String capFromPort() {
         return capFromPort;
     }
 
-    public void setCapFromPort(String capFromPort) {
-        this.capFromPort = capFromPort;
-    }
-
-    public boolean isHasFromPortIndex() {
+    public boolean hasFromPortIndex() {
         return hasFromPortIndex;
     }
 
-    public void setHasFromPortIndex(boolean hasFromPortIndex) {
-        this.hasFromPortIndex = hasFromPortIndex;
-    }
-
-    public int getFromPortIndex() {
+    public int fromPortIndex() {
         return fromPortIndex;
     }
 
-    public void setFromPortIndex(int fromPortIndex) {
-        this.fromPortIndex = fromPortIndex;
-    }
-
-    public String getDataType() {
+    public String dataType() {
         return dataType;
     }
 
-    public void setDataType(String dataType) {
-        this.dataType = dataType;
-    }
-
-    public boolean isShowDataType() {
+    public boolean showDataType() {
         return showDataType;
     }
 
-    public void setShowDataType(boolean showDataType) {
-        this.showDataType = showDataType;
-    }
-
-    public String getToOp() {
+    public String toOp() {
         return toOp;
     }
 
-    public void setToOp(String toOp) {
-        this.toOp = toOp;
-    }
-
-    public String getToPort() {
+    public String toPort() {
         return toPort;
     }
 
-    public void setToPort(String toPort) {
-        this.toPort = toPort;
-    }
-
-    public String getCapToPort() {
+    public String capToPort() {
         return capToPort;
     }
 
-    public void setCapToPort(String capToPort) {
-        this.capToPort = capToPort;
-    }
-
-    public boolean isHasToPortIndex() {
+    public boolean hasToPortIndex() {
         return hasToPortIndex;
     }
 
-    public void setHasToPortIndex(boolean hasToPortIndex) {
-        this.hasToPortIndex = hasToPortIndex;
-    }
-
-    public int getToPortIndex() {
+    public int toPortIndex() {
         return toPortIndex;
-    }
-
-    public void setToPortIndex(int toPortIndex) {
-        this.toPortIndex = toPortIndex;
     }
 }

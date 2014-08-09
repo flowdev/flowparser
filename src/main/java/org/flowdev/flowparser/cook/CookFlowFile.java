@@ -29,9 +29,8 @@ public class CookFlowFile extends FilterOp<MainData, NoConfig> {
     protected void filter(MainData data) {
         FlowFile cookedFlowFile = new FlowFile();
 
-        cookedFlowFile.setFileName(data.fileName);
-        cookedFlowFile.setVersion(cookVersion(data.rawFlowFile.getVersion()));
-        cookedFlowFile.setFlows(cookFlows(data.rawFlowFile.getFlows()));
+        cookedFlowFile.fileName(data.fileName).version(cookVersion(data.rawFlowFile.getVersion()))
+                .flows(cookFlows(data.rawFlowFile.getFlows()));
 
         data.flowFile = cookedFlowFile;
         outPort.send(data);
@@ -43,16 +42,16 @@ public class CookFlowFile extends FilterOp<MainData, NoConfig> {
 
     private Flow cookFlow(RawFlow rflow) {
         Flow flow = new Flow();
-        flow.setName(rflow.getName());
+        flow.name(rflow.getName());
         cookConnections(rflow, flow);
         cookOperations(rflow, flow);
         return flow;
     }
 
     private void cookConnections(RawFlow rflow, Flow flow) {
-        flow.setConnections(new ArrayList<>());
+        flow.connections(new ArrayList<>());
         for (RawConnectionChain connChain : rflow.getConnections()) {
-            cookConnectionChain(connChain, flow.getConnections());
+            cookConnectionChain(connChain, flow.connections());
         }
     }
 
@@ -77,30 +76,23 @@ public class CookFlowFile extends FilterOp<MainData, NoConfig> {
     private void addConnection(RawPort fromPort, RawOperation fromOp, RawPort toPort, RawOperation toOp, List<Connection> connections) {
         Connection conn = new Connection();
 
-        conn.setFromPort(fromPort.getName());
-        conn.setFromOp((fromOp == null) ? null : fromOp.getName());
-        conn.setToPort(toPort.getName());
-        conn.setToOp((toOp == null) ? null : toOp.getName());
+        conn.fromPort(fromPort.getName()).fromOp((fromOp == null) ? null : fromOp.getName())
+                .toPort(toPort.getName()).toOp((toOp == null) ? null : toOp.getName());
 
         if (fromPort.getIndex() != null) {
-            conn.setHasFromPortIndex(true);
-            conn.setFromPortIndex(fromPort.getIndex());
+            conn.hasFromPortIndex(true).fromPortIndex(fromPort.getIndex());
         }
         if (toPort.getIndex() != null) {
-            conn.setHasToPortIndex(true);
-            conn.setToPortIndex(toPort.getIndex());
+            conn.hasToPortIndex(true).toPortIndex(toPort.getIndex());
         }
 
         if (fromPort.getDataType() != null) {
-            conn.setDataType(fromPort.getDataType().getType());
-            conn.setShowDataType(fromPort.getDataType().isFromDsl());
+            conn.dataType(fromPort.getDataType().getType()).showDataType(fromPort.getDataType().isFromDsl());
         } else if (toPort.getDataType() != null) {
-            conn.setDataType(toPort.getDataType().getType());
-            conn.setShowDataType(toPort.getDataType().isFromDsl());
+            conn.dataType(toPort.getDataType().getType()).showDataType(toPort.getDataType().isFromDsl());
         }
 
-        conn.setCapFromPort(capitalize(conn.getFromPort()));
-        conn.setCapToPort(capitalize(conn.getToPort()));
+        conn.capFromPort(capitalize(conn.fromPort())).capToPort(capitalize(conn.toPort()));
         connections.add(conn);
     }
 
@@ -112,9 +104,9 @@ public class CookFlowFile extends FilterOp<MainData, NoConfig> {
             }
         }
 
-        flow.setOperations(new ArrayList<>(operationMap.values().size()));
+        flow.operations(new ArrayList<>(operationMap.values().size()));
         for (OpData opData : operationMap.values()) {
-            flow.getOperations().add(opData.op);
+            flow.operations().add(opData.op);
         }
     }
 
@@ -122,16 +114,15 @@ public class CookFlowFile extends FilterOp<MainData, NoConfig> {
         OpData opData = operationMap.get(part.getOperation().getName());
         Operation op;
         if (opData == null) {
-            op = new Operation();
-            op.setName(part.getOperation().getName());
-            op.setType((part.getOperation().getType() == null) ? null : part.getOperation().getType().getType());
-            op.setPorts(new ArrayList<>());
+            op = new Operation().name(part.getOperation().getName())
+                    .type((part.getOperation().getType() == null) ? null : part.getOperation().getType().getType())
+                    .ports(new ArrayList<>());
             opData = new OpData(op);
-            operationMap.put(op.getName(), opData);
+            operationMap.put(op.name(), opData);
         } else {
             op = opData.op;
-            if (op.getType() == null && part.getOperation().getType() != null) {
-                op.setType(part.getOperation().getType().getType());
+            if (op.type() == null && part.getOperation().getType() != null) {
+                op.type(part.getOperation().getType().getType());
             }
         }
 
@@ -156,22 +147,21 @@ public class CookFlowFile extends FilterOp<MainData, NoConfig> {
         int reusePair = otherPortsCount - myPorts.size();
         PortPair portPair;
         if (reusePair > 0) {
-            portPair = op.getPorts().get(op.getPorts().size() - reusePair);
+            portPair = op.ports().get(op.ports().size() - reusePair);
         } else {
-            portPair = new PortPair();
-            portPair.setLast(true);
-            op.getPorts().add(portPair);
+            portPair = new PortPair().isLast(true);
+            op.ports().add(portPair);
 
             // old last isn't last anymore:
-            if (op.getPorts().size() > 1) {
-                op.getPorts().get(op.getPorts().size() - 2).setLast(false);
+            if (op.ports().size() > 1) {
+                op.ports().get(op.ports().size() - 2).isLast(false);
             }
         }
         myPorts.add(portName);
         if (isInPort) {
-            portPair.setInPort(portName);
+            portPair.inPort(portName);
         } else {
-            portPair.setOutPort(portName);
+            portPair.outPort(portName);
         }
     }
 

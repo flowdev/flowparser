@@ -8,27 +8,30 @@ public class FlowFile {
     private Version version;
     private List<Flow> flows;
 
-    public String getFileName() {
+    public FlowFile fileName(final String fileName) {
+        this.fileName = fileName;
+        return this;
+    }
+
+    public FlowFile version(final Version version) {
+        this.version = version;
+        return this;
+    }
+
+    public FlowFile flows(final List<Flow> flows) {
+        this.flows = flows;
+        return this;
+    }
+
+    public String fileName() {
         return fileName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public Version getVersion() {
+    public Version version() {
         return version;
     }
 
-    public void setVersion(Version version) {
-        this.version = version;
-    }
-
-    public List<Flow> getFlows() {
+    public List<Flow> flows() {
         return flows;
-    }
-
-    public void setFlows(List<Flow> flows) {
-        this.flows = flows;
     }
 }
