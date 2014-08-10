@@ -3,28 +3,48 @@ version 0.1
 flow ParseFlowFile {
 //  [String]-> (ParserManager) [FlowFile]-> ;
 //  parserManager() subOut [ParserData]-> (ReadTextFile) -> parseFlowFile(ParseAll) -> subIn parserManager() ;
-  [ParserData]-> parseFlowFile(ParseAll) [FlowFile]-> ;
+  [ParserData]-> flowFile(ParseAll) [FlowFile]-> ;
 
-  parseFlowFile() semOut [ParserData]-> (SemanticCreateFlowFileData) -> semIn parseFlowFile() ;
-  parseFlowFile() subOut.0 [ParserData]-> (ParseVersion) -> subIn parseFlowFile() ;
-//  parseFlowFile() subOut.1 [ParserData]-> parseFlows(ParseMultiple1) -> subIn parseFlowFile() ;
-  parseFlowFile() subOut.2 [ParserData]-> (ParseEof) -> subIn parseFlowFile() ;
+  flowFile() semOut [ParserData]-> semantic(SemanticCreateFlowFileData) -> semIn flowFile() ;
+  flowFile() subOut.0 [ParserData]-> version(ParseVersion) -> subIn flowFile() ;
+  flowFile() subOut.1 [ParserData]-> flows(ParseMultiple1) -> subIn flowFile() ;
+  flowFile() subOut.2 [ParserData]-> eof(ParseEof) -> subIn flowFile() ;
 
-//  parseFlows() subOut [ParserData]-> (ParseFlow) -> subIn parseFlows() ;
+  flows() subOut [ParserData]-> flow(ParseFlow) -> subIn flows() ;
 }
 
 flow ParseVersion {
-  [ParserData]-> parseVersion(ParseAll) -> ;
-  parseVersion() semOut [ParserData]-> (SemanticCreateVersion) -> semIn parseVersion() ;
+  [ParserData]-> version(ParseAll) -> ;
+  version() semOut [ParserData]-> semantic(SemanticCreateVersion) -> semIn version() ;
 
   // config: literal = "version"
-  parseVersion() subOut.0 [ParserData]-> spcComm(ParseSpaceComment) -> subIn parseVersion() ;
-  parseVersion() subOut.1 [ParserData]-> vers(ParseLiteral) -> subIn parseVersion() ;
+  version() subOut.0 [ParserData]-> spcComm(ParseSpaceComment) -> subIn version() ;
+  version() subOut.1 [ParserData]-> vers(ParseLiteral) -> subIn version() ;
   // config: includeNewline = false
-  parseVersion() subOut.2 [ParserData]-> aspc(ParseSpace) -> subIn parseVersion() ;
-  parseVersion() subOut.3 [ParserData]-> political(ParseNatural) -> subIn parseVersion() ;
+  version() subOut.2 [ParserData]-> aspc(ParseSpace) -> subIn version() ;
+  version() subOut.3 [ParserData]-> political(ParseNatural) -> subIn version() ;
   // config: literal = "."
-  parseVersion() subOut.4 [ParserData]-> dot(ParseLiteral) -> subIn parseVersion() ;
-  parseVersion() subOut.5 [ParserData]-> major(ParseNatural) -> subIn parseVersion() ;
-  parseVersion() subOut.6 [ParserData]-> spcComm(ParseSpaceComment) -> subIn parseVersion() ;
+  version() subOut.4 [ParserData]-> dot(ParseLiteral) -> subIn version() ;
+  version() subOut.5 [ParserData]-> major(ParseNatural) -> subIn version() ;
+  version() subOut.6 [ParserData]-> spcComm(ParseSpaceComment) -> subIn version() ;
 }
+
+flow ParseFlow {
+  [ParserData]-> flow(ParseAll) -> ;
+  flow() semOut [ParserData]-> semantic(SemanticCreateFlow) -> semIn flow() ;
+
+  // config: literal = "flow"
+  flow() subOut.0 [ParserData]-> flowLiteral(ParseLiteral) -> subIn flow() ;
+  // config: includeNewline = false
+  flow() subOut.1 [ParserData]-> aspc(ParseSpace) -> subIn flow() ;
+  flow() subOut.2 [ParserData]-> name(ParseBigIdent) -> subIn flow() ;
+  flow() subOut.3 [ParserData]-> spcComm1(ParseSpaceComment) -> subIn flow() ;
+  // config: literal = "{"
+  flow() subOut.4 [ParserData]-> openFlow(ParseLiteral) -> subIn flow() ;
+  flow() subOut.5 [ParserData]-> spcComm2(ParseSpaceComment) -> subIn flow() ;
+//  flow() subOut.6 [ParserData]-> (Connections) -> subIn flow() ;
+  // config: literal = "}"
+  flow() subOut.6 [ParserData]-> closeFlow(ParseLiteral) -> subIn flow() ;
+  flow() subOut.7 [ParserData]-> spcComm3(ParseSpaceComment) -> subIn flow() ;
+}
+
