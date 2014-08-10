@@ -26,6 +26,7 @@ public class SemanticCreateFlowFile<T> extends FilterOp<T, NoConfig> {
         outPort.send(params.setParserData.set(data, parserData));
     }
 
+    @SuppressWarnings("unchecked")
     private FlowFile createFlowFile(ParserData parserData) {
         return new FlowFile().fileName(parserData.source().name())
                 .version((Version) parserData.subResults().get(0).value())
