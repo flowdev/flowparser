@@ -2,6 +2,7 @@ package org.flowdev.flowparser.parse;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.Flow;
 import org.flowdev.flowparser.data.FlowFile;
 import org.flowdev.flowparser.data.Version;
 import org.flowdev.parser.data.ParserData;
@@ -19,19 +20,22 @@ import static org.junit.Assert.assertNull;
 public class ParseFlowFileTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Collection<?> testDatas = asList( //
+        return asList( //
                 makeTestData("empty", "", null), //
-                makeTestData("no match 1", "vers", null), //
-                makeTestData("no match 2", "version \n 2.0  ", null), //
-                makeTestData("no match 3", " /* bla */version \t 1.234 \n _t", null), //
-                makeTestData("simple 1", "version 0.1", new FlowFile().fileName("simple 1").version(new Version().political(0).major(1))), //
-                makeTestData("simple 2", "\t version \t 1.234\n ", new FlowFile().fileName("simple 2").version(new Version().political(1).major(234))), //
-                makeTestData("simple 3", " /* bla */version \t 1.234 \n ", new FlowFile().fileName("simple 3").version(new Version().political(1).major(234))), //
-                makeTestData("simple 4", " // comment! \n version \t 1.234 \n ", new FlowFile().fileName("simple 4").version(new Version().political(1).major(234))), //
-                makeTestData("complex", " /* bla\n */ \t // com!\n \t version \t 1.234 \r\n/** blu */ ",
-                        new FlowFile().fileName("complex").version(new Version().political(1).major(234)))  //
+                makeTestData("no match 1", "version 2.0  flow Acdc", null), //
+                makeTestData("no match 3", " /* bla */version \t 1.234 \n flow Acdc {} _t", null), //
+                makeTestData("simple 1", "version 1.234 flow Acdc{}", createFlowFile("simple 1")), //
+                makeTestData("simple 2", "\t version \t 1.234\n flow \t Acdc { } \n ", createFlowFile("simple 2")), //
+                makeTestData("simple 3", " /* bla */version \t 1.234 \n flow  Acdc { \t \n \t }", createFlowFile("simple 3")), //
+                makeTestData("simple 4", " // comment! \n version \t 1.234 flow Acdc {} \r\n \t ", createFlowFile("simple 4")), //
+                makeTestData("complex", " /* bla\n */ \t // com!\n \t version \t 1.234 \r\n/** blu */ flow \t Acdc /* blo \n */ { \t // com2!\r\n } ",
+                        createFlowFile("complex"))
         );
-        return testDatas;
+    }
+
+    private static FlowFile createFlowFile(String name) {
+        return new FlowFile().fileName(name).version(new Version().political(1).major(234))
+                .flows(asList(new Flow().name("Acdc")));
     }
 
     public ParseFlowFileTest(ParserData parserData, Object expectedValue) {
