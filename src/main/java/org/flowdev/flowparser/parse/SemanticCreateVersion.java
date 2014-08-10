@@ -26,6 +26,7 @@ public class SemanticCreateVersion<T> extends FilterOp<T, NoConfig> {
         outPort.send(params.setParserData.set(data, parserData));
     }
 
+    @SuppressWarnings("unchecked")
     private Version createVersion(List<ParseResult> subResults) {
         Long political = (Long) subResults.get(3).value();
         Long major = (Long) subResults.get(5).value();
