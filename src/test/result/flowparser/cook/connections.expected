@@ -346,19 +346,31 @@ FlowFile {
                     name : "doThis" ;
                     ports : List [
                         0 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "in" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "out" ;
+                            outPortIndex : 0 ;
                         } ;
                         1 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "in2" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "o2" ;
+                            outPortIndex : 0 ;
                         } ;
                         2 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : NULL ;
+                            inPortIndex : 0 ;
                             last : true ;
                             outPort : "err" ;
+                            outPortIndex : 0 ;
                         } ;
                     ] ;
                     type : "DoThis" ;
@@ -367,19 +379,31 @@ FlowFile {
                     name : "doIt" ;
                     ports : List [
                         0 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "in" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "out" ;
+                            outPortIndex : 0 ;
                         } ;
                         1 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "i2" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "o1" ;
+                            outPortIndex : 0 ;
                         } ;
                         2 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "i1" ;
+                            inPortIndex : 0 ;
                             last : true ;
                             outPort : NULL ;
+                            outPortIndex : 0 ;
                         } ;
                     ] ;
                     type : "DoIt" ;
@@ -388,19 +412,31 @@ FlowFile {
                     name : "doThat" ;
                     ports : List [
                         0 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "in" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "out" ;
+                            outPortIndex : 0 ;
                         } ;
                         1 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "i2" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "o1" ;
+                            outPortIndex : 0 ;
                         } ;
                         2 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "in2" ;
+                            inPortIndex : 0 ;
                             last : true ;
                             outPort : NULL ;
+                            outPortIndex : 0 ;
                         } ;
                     ] ;
                     type : "DoThat" ;
@@ -640,24 +676,40 @@ FlowFile {
                     name : "doThis" ;
                     ports : List [
                         0 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "in" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "out" ;
+                            outPortIndex : 0 ;
                         } ;
                         1 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "subIn.0" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "subOut.0" ;
+                            outPortIndex : 0 ;
                         } ;
                         2 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "subIn.1" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "subOut.1" ;
+                            outPortIndex : 0 ;
                         } ;
                         3 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "subIn.2" ;
+                            inPortIndex : 0 ;
                             last : true ;
                             outPort : "subOut.2" ;
+                            outPortIndex : 0 ;
                         } ;
                     ] ;
                     type : NULL ;
@@ -666,24 +718,40 @@ FlowFile {
                     name : "doIt" ;
                     ports : List [
                         0 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "in" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "out" ;
+                            outPortIndex : 0 ;
                         } ;
                         1 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "subIn.0" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "subOut.0" ;
+                            outPortIndex : 0 ;
                         } ;
                         2 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "subIn.1" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "subOut.1" ;
+                            outPortIndex : 0 ;
                         } ;
                         3 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "subIn.2" ;
+                            inPortIndex : 0 ;
                             last : true ;
                             outPort : "subOut.2" ;
+                            outPortIndex : 0 ;
                         } ;
                     ] ;
                     type : NULL ;
@@ -692,24 +760,40 @@ FlowFile {
                     name : "doThat" ;
                     ports : List [
                         0 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "in" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "out" ;
+                            outPortIndex : 0 ;
                         } ;
                         1 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "subIn.0" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "subOut.0" ;
+                            outPortIndex : 0 ;
                         } ;
                         2 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "subIn.1" ;
+                            inPortIndex : 0 ;
                             last : false ;
                             outPort : "subOut.1" ;
+                            outPortIndex : 0 ;
                         } ;
                         3 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "subIn.2" ;
+                            inPortIndex : 0 ;
                             last : true ;
                             outPort : "subOut.2" ;
+                            outPortIndex : 0 ;
                         } ;
                     ] ;
                     type : NULL ;

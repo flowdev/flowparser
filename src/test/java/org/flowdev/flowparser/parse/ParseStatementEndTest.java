@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class ParseStatementEndTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Collection<?> testDatas = asList( //
+        return asList( //
                 makeTestData("empty", "", null), //
                 makeTestData("no match", "baaa", null), //
                 makeTestData("simple 1", ";", ";"), //
@@ -26,7 +26,6 @@ public class ParseStatementEndTest extends ParseTestBase {
                 makeTestData("complex", " /* bla\n */ \t; // com!\n \t \r\n/** blu */ _t",
                         " /* bla\n */ \t; // com!\n \t \r\n/** blu */ ")  //
         );
-        return testDatas;
     }
 
     public ParseStatementEndTest(ParserData parserData, Object expectedValue) {

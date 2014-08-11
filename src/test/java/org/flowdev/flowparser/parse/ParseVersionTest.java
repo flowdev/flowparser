@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNull;
 public class ParseVersionTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Collection<?> testDatas = asList( //
+        return asList( //
                 makeTestData("empty", "", null), //
                 makeTestData("no match 1", "vers", null), //
                 makeTestData("no match 2", "version", null), //
@@ -32,7 +32,6 @@ public class ParseVersionTest extends ParseTestBase {
                 makeTestData("complex", " /* bla\n */ \t // com!\n \t version \t 1.234 \r\n/** blu */ _t",
                         new Version().political(1).major(234))  //
         );
-        return testDatas;
     }
 
     public ParseVersionTest(ParserData parserData, Object expectedValue) {

@@ -24,9 +24,13 @@ FlowFile {
                     name : "doIt" ;
                     ports : List [
                         0 : PortPair {
+                            hasInPortIndex : false ;
+                            hasOutPortIndex : false ;
                             inPort : "in" ;
+                            inPortIndex : 0 ;
                             last : true ;
                             outPort : NULL ;
+                            outPortIndex : 0 ;
                         } ;
                     ] ;
                     type : "DoIt" ;

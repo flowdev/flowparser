@@ -1,0 +1,17 @@
+version 0.1
+
+flow ParsePort {
+  [ParserData]-> port(ParseAll) -> ;
+  port() semOut [ParserData]-> semantic(SemanticCreatePort) -> semIn port() ;
+
+  port() subOut.0 [ParserData]-> portName(ParseSmallIdent) -> subIn port() ;
+  port() subOut.1 [ParserData]-> opPortNum(ParseOptional) -> subIn port() ;
+
+  opPortNum() subOut [ParserData]-> portNum(ParseAll) -> subIn opPortNum() ;
+  portNum() semOut [ParserData]-> (SemanticCreatePortNum) -> semIn portNum() ;
+
+  // config: literal = "."
+  portNum() subOut.0 [ParserData]-> dot(ParseLiteral) -> subIn portNum() ;
+  portNum() subOut.1 [ParserData]-> num(ParseNatural) -> subIn portNum() ;
+}
+

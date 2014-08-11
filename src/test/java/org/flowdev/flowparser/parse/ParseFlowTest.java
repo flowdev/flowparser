@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNull;
 public class ParseFlowTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Collection<?> testDatas = asList( //
+        return asList( //
                 makeTestData("empty", "", null), //
                 makeTestData("no match 1", "flo", null), //
                 makeTestData("no match 2", "flow", null), //
@@ -32,7 +32,6 @@ public class ParseFlowTest extends ParseTestBase {
                 makeTestData("complex", "flow Ab \t /* bla\n */ \t // com!\n \t { \t \r\n/** blu */ }",
                         new Flow().name("Ab"))  //
         );
-        return testDatas;
     }
 
     public ParseFlowTest(ParserData parserData, Object expectedValue) {

@@ -151,11 +151,11 @@ flow Arrow {
   opType() subOut [ParserData]-> type(ParseAll) -> subIn opType() ;
   type() semOut [ParserData]-> (CreateArrowType) -> semIn type() ;
 
-  type() subOut.0 [ParserData]-> openType(ParseLiteral("[")) -> subIn.0 type() ;
-  type() subOut.0 [ParserData]-> spc1(OpSpc) -> subIn.0 type() ;
-  type() subOut.0 [ParserData]-> typeName(BigIdent) -> subIn.0 type() ;
-  type() subOut.0 [ParserData]-> spc2(OpSpc) -> subIn.0 type() ;
-  type() subOut.0 [ParserData]-> openType(ParseLiteral("]")) -> subIn.0 type() ;
+  type() subOut.0 [ParserData]-> openType(ParseLiteral("[")) -> subIn type() ;
+  type() subOut.1 [ParserData]-> spc1(OpSpc) -> subIn type() ;
+  type() subOut.2 [ParserData]-> typeName(BigIdent) -> subIn type() ;
+  type() subOut.3 [ParserData]-> spc2(OpSpc) -> subIn type() ;
+  type() subOut.4 [ParserData]-> openType(ParseLiteral("]")) -> subIn type() ;
 }
 
 flow OpPortSpc {
