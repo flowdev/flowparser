@@ -1,5 +1,21 @@
 version 0.1
 
+flow ParseOpPortSpc {
+  [ParserData]-> opPortSpc(ParseOptional) -> ;
+  opPortSpc() subOut [ParserData]-> portSpc(ParseAll) -> subIn opPortSpc() ;
+
+  portSpc() semOut [ParserData]-> (SemanticCreatePortSpc) -> semIn portSpc() ;
+
+  portSpc() subOut.0 [ParserData]-> pport(ParsePort) -> subIn portSpc() ;
+  // config: acceptNewLine = false
+  portSpc() subOut.1 [ParserData]-> space(ParseSpace) -> subIn portSpc() ;
+}
+
+flow ParseOpPort {
+  [ParserData]-> opPort(ParseOptional) -> ;
+  opPort() subOut [ParserData]-> pport(ParsePort) -> subIn opPort() ;
+}
+
 flow ParsePort {
   [ParserData]-> port(ParseAll) -> ;
   port() semOut [ParserData]-> semantic(SemanticCreatePort) -> semIn port() ;
@@ -14,4 +30,3 @@ flow ParsePort {
   portNum() subOut.0 [ParserData]-> dot(ParseLiteral) -> subIn portNum() ;
   portNum() subOut.1 [ParserData]-> num(ParseNatural) -> subIn portNum() ;
 }
-
