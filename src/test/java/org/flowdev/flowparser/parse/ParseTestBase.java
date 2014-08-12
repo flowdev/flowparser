@@ -50,7 +50,10 @@ public abstract class ParseTestBase {
             System.out.println("Expected errors: " + actualResultParserData.result().feedback().errors());
         } else {
             if (actualResultParserData.result().feedback() != null) {
-                assertNull(actualResultParserData.result().feedback().errors());
+                if (!actualResultParserData.result().feedback().errors().isEmpty()) {
+                    System.err.println("Unexpected errors: " + actualResultParserData.result().feedback().errors());
+                }
+                assertTrue("No errors expected.", actualResultParserData.result().feedback().errors().isEmpty());
             }
         }
     }

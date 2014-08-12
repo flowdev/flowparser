@@ -1,5 +1,26 @@
 version 0.1
 
+flow ParseArrow {
+  [ParserData]-> arrow(ParseAll) -> ;
+  arrow() semOut [ParserData]-> (SemanticCreateArrow) -> semIn arrow() ;
+
+  arrow() subOut.0 [ParserData]-> spcCom1(ParseSpaceComment) -> subIn arrow() ;
+  arrow() subOut.1 [ParserData]-> opType(ParseOptional) -> subIn arrow() ;
+  // config: literal = "->"
+  arrow() subOut.2 [ParserData]-> litArr(ParseLiteral) -> subIn arrow() ;
+  arrow() subOut.3 [ParserData]-> spcCom2(ParseSpaceComment) -> subIn arrow() ;
+
+  opType() subOut [ParserData]-> type(ParseAll) -> subIn opType() ;
+
+  // config: literal = "["
+  type() subOut.0 [ParserData]-> openType(ParseLiteral) -> subIn type() ;
+  type() subOut.1 [ParserData]-> spc1(ParseOpSpc) -> subIn type() ;
+  type() subOut.2 [ParserData]-> typeName(ParseBigIdent) -> subIn type() ;
+  type() subOut.3 [ParserData]-> spc2(ParseOpSpc) -> subIn type() ;
+  // config: literal = "]"
+  type() subOut.4 [ParserData]-> closeType(ParseLiteral) -> subIn type() ;
+}
+
 flow ParseOpPortSpc {
   [ParserData]-> opPortSpc(ParseOptional) -> ;
   opPortSpc() subOut [ParserData]-> portSpc(ParseAll) -> subIn opPortSpc() ;
