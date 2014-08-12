@@ -42,7 +42,14 @@ public abstract class ParseTestBase {
     @Test
     public void testParser() {
         parser.getInPort().send(parserData);
-        checkResultValue(expectedValue, actualResultParserData.result().value());
+        Object actualValue = actualResultParserData.result().value();
+        if (expectedValue == null || expectedValue == Void.TYPE) {
+            assertNull("Actual value should be null.", actualValue);
+        } else {
+            assertEquals("Expected and actual value don't have the same class.", expectedValue.getClass(), actualValue.getClass());
+
+            checkResultValue(expectedValue, actualValue);
+        }
         if (expectedValue == null) {
             assertNotNull(actualResultParserData.result().feedback());
             assertNotNull(actualResultParserData.result().feedback().errors());

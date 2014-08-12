@@ -11,7 +11,7 @@ import static org.flowdev.parser.op.ParseSpace.ParseSpaceConfig;
 
 public class ParseVersion<T> implements Filter<T, NoConfig> {
     private ParseAll<T> version;
-    private SemanticCreateVersion<T> semanticCreateVersion;
+    private SemanticCreateVersion<T> semantic;
     private ParseSpaceComment<T> spcCommBeg;
     private ParseLiteral<T> vers;
     private ParseSpace<T> aspc;
@@ -22,7 +22,7 @@ public class ParseVersion<T> implements Filter<T, NoConfig> {
 
     public ParseVersion(ParserParams<T> params) {
         version = new ParseAll<>(params);
-        semanticCreateVersion = new SemanticCreateVersion<>(params);
+        semantic = new SemanticCreateVersion<>(params);
         spcCommBeg = new ParseSpaceComment<>(params);
         vers = new ParseLiteral<>(params);
         aspc = new ParseSpace<>(params);
@@ -36,8 +36,8 @@ public class ParseVersion<T> implements Filter<T, NoConfig> {
     }
 
     private void createConnections() {
-        version.setSemOutPort(semanticCreateVersion.getInPort());
-        semanticCreateVersion.setOutPort(version.getSemInPort());
+        version.setSemOutPort(semantic.getInPort());
+        semantic.setOutPort(version.getSemInPort());
         version.setSubOutPort(0, spcCommBeg.getInPort());
         spcCommBeg.setOutPort(version.getSubInPort());
         version.setSubOutPort(1, vers.getInPort());
@@ -76,7 +76,7 @@ public class ParseVersion<T> implements Filter<T, NoConfig> {
     @Override
     public void setErrorPort(Port<Throwable> port) {
         version.setErrorPort(port);
-        semanticCreateVersion.setErrorPort(port);
+        semantic.setErrorPort(port);
         spcCommBeg.setErrorPort(port);
         vers.setErrorPort(port);
         aspc.setErrorPort(port);

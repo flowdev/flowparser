@@ -10,12 +10,12 @@ import org.flowdev.parser.op.ParserParams;
 
 import static org.flowdev.parser.op.ParseSpace.ParseSpaceConfig;
 
-public class ParseOpSpc<T> implements Filter<T, NoConfig> {
-    private ParseOptional<T> opSpc;
+public class ParseOptSpc<T> implements Filter<T, NoConfig> {
+    private ParseOptional<T> optSpc;
     private ParseSpace<T> space;
 
-    public ParseOpSpc(ParserParams<T> params) {
-        opSpc = new ParseOptional<>(params);
+    public ParseOptSpc(ParserParams<T> params) {
+        optSpc = new ParseOptional<>(params);
         space = new ParseSpace<>(params);
 
         createConnections();
@@ -23,21 +23,21 @@ public class ParseOpSpc<T> implements Filter<T, NoConfig> {
     }
 
     private void createConnections() {
-        opSpc.setSubOutPort(space.getInPort());
-        space.setOutPort(opSpc.getSubInPort());
+        optSpc.setSubOutPort(space.getInPort());
+        space.setOutPort(optSpc.getSubInPort());
     }
 
     private void initConfig() {
-        opSpc.getConfigPort().send(new UseTextSemanticConfig().useTextSemantic(true));
+        optSpc.getConfigPort().send(new UseTextSemanticConfig().useTextSemantic(true));
         space.getConfigPort().send(new ParseSpaceConfig().acceptNewline(false));
     }
 
     public Port<T> getInPort() {
-        return opSpc.getInPort();
+        return optSpc.getInPort();
     }
 
     public void setOutPort(Port<T> port) {
-        opSpc.setOutPort(port);
+        optSpc.setOutPort(port);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ParseOpSpc<T> implements Filter<T, NoConfig> {
 
     @Override
     public void setErrorPort(Port<Throwable> port) {
-        opSpc.setErrorPort(port);
+        optSpc.setErrorPort(port);
         space.setErrorPort(port);
     }
 }

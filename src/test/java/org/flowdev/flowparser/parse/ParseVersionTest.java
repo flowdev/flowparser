@@ -12,7 +12,6 @@ import java.util.Collection;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 @RunWith(Parameterized.class)
 public class ParseVersionTest extends ParseTestBase {
@@ -45,12 +44,6 @@ public class ParseVersionTest extends ParseTestBase {
 
     @Override
     protected void checkResultValue(Object expectedValue, Object actualValue) {
-        if (expectedValue == null) {
-            assertNull("Actual value should be null.", actualValue);
-            return;
-        }
-        assertEquals("Expected and actual value don't have the same class.", expectedValue.getClass(), actualValue.getClass());
-
         Version expected = (Version) expectedValue;
         Version actual = (Version) actualValue;
         assertEquals("Political version doesn't match.", expected.political(), actual.political());

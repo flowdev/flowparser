@@ -2,11 +2,11 @@ version 0.1
 
 flow ParseOptOperationType {
   [ParserData]-> optOpType(ParseOptional) -> ;
-  optOpType() semOut [ParserData]-> (CreateOperationType) -> semIn optOpType() ;
   optOpType() subOut [ParserData]-> opType(ParseAll) -> subIn optOpType() ;
+  opType() semOut [ParserData]-> (SemanticCreateOperationType) -> semIn opType() ;
 
-  opType() subOut.0 [ParserData]-> (BigIdent) -> subIn.0 opType() ;
-  opType() subOut.1 [ParserData]-> (OptSpc) -> subIn.1 opType() ;
+  opType() subOut.0 [ParserData]-> (ParseBigIdent) -> subIn opType() ;
+  opType() subOut.1 [ParserData]-> (ParseOptSpc) -> subIn opType() ;
 }
 
 flow ParseArrow {

@@ -13,7 +13,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class ParseOpSpcTest extends ParseTestBase {
+public class ParseOptSpcTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         return asList( //
@@ -26,13 +26,13 @@ public class ParseOpSpcTest extends ParseTestBase {
         );
     }
 
-    public ParseOpSpcTest(ParserData parserData, Object expectedValue) {
+    public ParseOptSpcTest(ParserData parserData, Object expectedValue) {
         super(parserData, expectedValue);
     }
 
     @Override
     protected Filter<ParserData, NoConfig> makeParser(ParserParams<ParserData> params) {
-        return new ParseOpSpc<>(params);
+        return new ParseOptSpc<>(params);
     }
 
     @Override

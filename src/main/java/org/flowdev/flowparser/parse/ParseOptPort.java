@@ -6,12 +6,12 @@ import org.flowdev.base.op.Filter;
 import org.flowdev.parser.op.ParseOptional;
 import org.flowdev.parser.op.ParserParams;
 
-public class ParseOpPort<T> implements Filter<T, NoConfig> {
-    private ParseOptional<T> opPort;
+public class ParseOptPort<T> implements Filter<T, NoConfig> {
+    private ParseOptional<T> optPort;
     private ParsePort<T> port;
 
-    public ParseOpPort(ParserParams<T> params) {
-        opPort = new ParseOptional<>(params);
+    public ParseOptPort(ParserParams<T> params) {
+        optPort = new ParseOptional<>(params);
         port = new ParsePort<>(params);
 
         createConnections();
@@ -19,19 +19,19 @@ public class ParseOpPort<T> implements Filter<T, NoConfig> {
     }
 
     private void createConnections() {
-        opPort.setSubOutPort(port.getInPort());
-        port.setOutPort(opPort.getSubInPort());
+        optPort.setSubOutPort(port.getInPort());
+        port.setOutPort(optPort.getSubInPort());
     }
 
     private void initConfig() {
     }
 
     public Port<T> getInPort() {
-        return opPort.getInPort();
+        return optPort.getInPort();
     }
 
     public void setOutPort(Port<T> outPort) {
-        opPort.setOutPort(outPort);
+        optPort.setOutPort(outPort);
     }
 
     @Override
@@ -42,6 +42,6 @@ public class ParseOpPort<T> implements Filter<T, NoConfig> {
     @Override
     public void setErrorPort(Port<Throwable> errorPort) {
         port.setErrorPort(errorPort);
-        opPort.setErrorPort(errorPort);
+        optPort.setErrorPort(errorPort);
     }
 }

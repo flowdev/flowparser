@@ -12,21 +12,19 @@ import java.util.Collection;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 @RunWith(Parameterized.class)
-public class ParseOpPortTest extends ParseTestBase {
+public class ParseOptPortSpcTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         return asList( //
                 makeTestData("empty", "", Void.TYPE), //
-                makeTestData("no match 1", ".1", Void.TYPE), //
-                makeTestData("half match 1", "pt.", createPort("pt", false, 0)), //
-                makeTestData("half match 2", "pt_1", createPort("pt", false, 0)), //
-                makeTestData("simple 1", "p", createPort("p", false, 0)), //
-                makeTestData("simple 2", "pt.0", createPort("pt", true, 0)), //
-                makeTestData("simple 3", "looooongPortName", createPort("looooongPortName", false, 0)), //
-                makeTestData("simple 4", "port.123", createPort("port", true, 123))  //
+                makeTestData("no match 1", "p.1", Void.TYPE), //
+                makeTestData("no match 3", "pt. ", Void.TYPE), //
+                makeTestData("simple 1", "p ", createPort("p", false, 0)), //
+                makeTestData("simple 2", "pt.0\t", createPort("pt", true, 0)), //
+                makeTestData("simple 3", "looooongPortName  \t   ", createPort("looooongPortName", false, 0)), //
+                makeTestData("simple 4", "port.123 \t ", createPort("port", true, 123))  //
         );
     }
 
@@ -34,23 +32,17 @@ public class ParseOpPortTest extends ParseTestBase {
         return new PortPair().inPort(name).hasInPortIndex(hasIndex).inPortIndex(index);
     }
 
-    public ParseOpPortTest(ParserData parserData, Object expectedValue) {
+    public ParseOptPortSpcTest(ParserData parserData, Object expectedValue) {
         super(parserData, expectedValue);
     }
 
     @Override
     protected Filter<ParserData, NoConfig> makeParser(ParserParams<ParserData> params) {
-        return new ParseOpPort<>(params);
+        return new ParseOptPortSpc<>(params);
     }
 
     @Override
     protected void checkResultValue(Object expectedValue, Object actualValue) {
-        if (expectedValue == Void.TYPE) {
-            assertNull("Actual value should be null.", actualValue);
-            return;
-        }
-        assertEquals("Expected and actual value don't have the same class.", expectedValue.getClass(), actualValue.getClass());
-
         PortPair expected = (PortPair) expectedValue;
         PortPair actual = (PortPair) actualValue;
         assertEquals("Port name doesn't match.", expected.inPort(), actual.inPort());

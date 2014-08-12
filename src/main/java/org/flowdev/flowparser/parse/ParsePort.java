@@ -11,7 +11,7 @@ public class ParsePort<T> implements Filter<T, NoConfig> {
     private ParseAll<T> port;
     private SemanticCreatePort<T> semantic;
     private ParseSmallIdent<T> portName;
-    private ParseOptional<T> opPortNum;
+    private ParseOptional<T> optPortNum;
     private ParseAll<T> portNum;
     private ParseLiteral<T> dot;
     private ParseNatural<T> num;
@@ -20,7 +20,7 @@ public class ParsePort<T> implements Filter<T, NoConfig> {
         port = new ParseAll<>(params);
         semantic = new SemanticCreatePort<>(params);
         portName = new ParseSmallIdent<>(params);
-        opPortNum = new ParseOptional<>(params);
+        optPortNum = new ParseOptional<>(params);
         portNum = new ParseAll<>(params);
         dot = new ParseLiteral<>(params);
         num = new ParseNatural<>(params);
@@ -34,10 +34,10 @@ public class ParsePort<T> implements Filter<T, NoConfig> {
         semantic.setOutPort(port.getSemInPort());
         port.setSubOutPort(0, portName.getInPort());
         portName.setOutPort(port.getSubInPort());
-        port.setSubOutPort(1, opPortNum.getInPort());
-        opPortNum.setOutPort(port.getSubInPort());
-        opPortNum.setSubOutPort(portNum.getInPort());
-        portNum.setOutPort(opPortNum.getSubInPort());
+        port.setSubOutPort(1, optPortNum.getInPort());
+        optPortNum.setOutPort(port.getSubInPort());
+        optPortNum.setSubOutPort(portNum.getInPort());
+        portNum.setOutPort(optPortNum.getSubInPort());
         portNum.setSubOutPort(0, dot.getInPort());
         dot.setOutPort(portNum.getSubInPort());
         portNum.setSubOutPort(1, num.getInPort());
@@ -66,7 +66,7 @@ public class ParsePort<T> implements Filter<T, NoConfig> {
         port.setErrorPort(errorPort);
         semantic.setErrorPort(errorPort);
         portName.setErrorPort(errorPort);
-        opPortNum.setErrorPort(errorPort);
+        optPortNum.setErrorPort(errorPort);
         portNum.setErrorPort(errorPort);
         dot.setErrorPort(errorPort);
         num.setErrorPort(errorPort);

@@ -23,6 +23,7 @@ public class SemanticCreateArrow<T> extends FilterOp<T, NoConfig> {
         outPort.send(params.setParserData.set(data, parserData));
     }
 
+    @SuppressWarnings("unchecked")
     private Object createArrow(ParserData parserData) {
         List<Object> opType = (List<Object>) parserData.subResults().get(1).value();
         if (opType == null) {

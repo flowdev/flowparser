@@ -12,30 +12,30 @@ import static org.flowdev.parser.op.ParseLiteral.ParseLiteralConfig;
 
 public class ParseArrow<T> implements Filter<T, NoConfig> {
     private ParseAll<T> arrow;
-    private SemanticCreateArrow<T> semanticCreateArrow;
+    private SemanticCreateArrow<T> semantic;
     private ParseSpaceComment<T> spcCom1;
-    private ParseOptional<T> opType;
+    private ParseOptional<T> optType;
     private ParseLiteral<T> litArr;
     private ParseSpaceComment<T> spcCom2;
     private ParseAll<T> type;
     private ParseLiteral<T> openType;
-    private ParseOpSpc<T> spc1;
+    private ParseOptSpc<T> spc1;
     private ParseBigIdent<T> typeName;
-    private ParseOpSpc<T> spc2;
+    private ParseOptSpc<T> spc2;
     private ParseLiteral<T> closeType;
 
     public ParseArrow(ParserParams<T> params) {
         arrow = new ParseAll<>(params);
-        semanticCreateArrow = new SemanticCreateArrow<>(params);
+        semantic = new SemanticCreateArrow<>(params);
         spcCom1 = new ParseSpaceComment<>(params);
-        opType = new ParseOptional<>(params);
+        optType = new ParseOptional<>(params);
         litArr = new ParseLiteral<>(params);
         spcCom2 = new ParseSpaceComment<>(params);
         type = new ParseAll<>(params);
         openType = new ParseLiteral<>(params);
-        spc1 = new ParseOpSpc<>(params);
+        spc1 = new ParseOptSpc<>(params);
         typeName = new ParseBigIdent<>(params);
-        spc2 = new ParseOpSpc<>(params);
+        spc2 = new ParseOptSpc<>(params);
         closeType = new ParseLiteral<>(params);
 
         createConnections();
@@ -43,18 +43,18 @@ public class ParseArrow<T> implements Filter<T, NoConfig> {
     }
 
     private void createConnections() {
-        arrow.setSemOutPort(semanticCreateArrow.getInPort());
-        semanticCreateArrow.setOutPort(arrow.getSemInPort());
+        arrow.setSemOutPort(semantic.getInPort());
+        semantic.setOutPort(arrow.getSemInPort());
         arrow.setSubOutPort(0, spcCom1.getInPort());
         spcCom1.setOutPort(arrow.getSubInPort());
-        arrow.setSubOutPort(1, opType.getInPort());
-        opType.setOutPort(arrow.getSubInPort());
+        arrow.setSubOutPort(1, optType.getInPort());
+        optType.setOutPort(arrow.getSubInPort());
         arrow.setSubOutPort(2, litArr.getInPort());
         litArr.setOutPort(arrow.getSubInPort());
         arrow.setSubOutPort(3, spcCom2.getInPort());
         spcCom2.setOutPort(arrow.getSubInPort());
-        opType.setSubOutPort(type.getInPort());
-        type.setOutPort(opType.getSubInPort());
+        optType.setSubOutPort(type.getInPort());
+        type.setOutPort(optType.getSubInPort());
         type.setSubOutPort(0, openType.getInPort());
         openType.setOutPort(type.getSubInPort());
         type.setSubOutPort(1, spc1.getInPort());
@@ -89,9 +89,9 @@ public class ParseArrow<T> implements Filter<T, NoConfig> {
     @Override
     public void setErrorPort(Port<Throwable> port) {
         arrow.setErrorPort(port);
-        semanticCreateArrow.setErrorPort(port);
+        semantic.setErrorPort(port);
         spcCom1.setErrorPort(port);
-        opType.setErrorPort(port);
+        optType.setErrorPort(port);
         litArr.setErrorPort(port);
         spcCom2.setErrorPort(port);
         type.setErrorPort(port);
