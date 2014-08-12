@@ -1,29 +1,38 @@
 version 0.1
 
+flow ParseOptOperationType {
+  [ParserData]-> optOpType(ParseOptional) -> ;
+  optOpType() semOut [ParserData]-> (CreateOperationType) -> semIn optOpType() ;
+  optOpType() subOut [ParserData]-> opType(ParseAll) -> subIn optOpType() ;
+
+  opType() subOut.0 [ParserData]-> (BigIdent) -> subIn.0 opType() ;
+  opType() subOut.1 [ParserData]-> (OptSpc) -> subIn.1 opType() ;
+}
+
 flow ParseArrow {
   [ParserData]-> arrow(ParseAll) -> ;
   arrow() semOut [ParserData]-> (SemanticCreateArrow) -> semIn arrow() ;
 
   arrow() subOut.0 [ParserData]-> spcCom1(ParseSpaceComment) -> subIn arrow() ;
-  arrow() subOut.1 [ParserData]-> opType(ParseOptional) -> subIn arrow() ;
+  arrow() subOut.1 [ParserData]-> optType(ParseOptional) -> subIn arrow() ;
   // config: literal = "->"
   arrow() subOut.2 [ParserData]-> litArr(ParseLiteral) -> subIn arrow() ;
   arrow() subOut.3 [ParserData]-> spcCom2(ParseSpaceComment) -> subIn arrow() ;
 
-  opType() subOut [ParserData]-> type(ParseAll) -> subIn opType() ;
+  optType() subOut [ParserData]-> type(ParseAll) -> subIn optType() ;
 
   // config: literal = "["
   type() subOut.0 [ParserData]-> openType(ParseLiteral) -> subIn type() ;
-  type() subOut.1 [ParserData]-> spc1(ParseOpSpc) -> subIn type() ;
+  type() subOut.1 [ParserData]-> spc1(ParseOptSpc) -> subIn type() ;
   type() subOut.2 [ParserData]-> typeName(ParseBigIdent) -> subIn type() ;
-  type() subOut.3 [ParserData]-> spc2(ParseOpSpc) -> subIn type() ;
+  type() subOut.3 [ParserData]-> spc2(ParseOptSpc) -> subIn type() ;
   // config: literal = "]"
   type() subOut.4 [ParserData]-> closeType(ParseLiteral) -> subIn type() ;
 }
 
-flow ParseOpPortSpc {
-  [ParserData]-> opPortSpc(ParseOptional) -> ;
-  opPortSpc() subOut [ParserData]-> portSpc(ParseAll) -> subIn opPortSpc() ;
+flow ParseOptPortSpc {
+  [ParserData]-> optPortSpc(ParseOptional) -> ;
+  optPortSpc() subOut [ParserData]-> portSpc(ParseAll) -> subIn optPortSpc() ;
 
   portSpc() semOut [ParserData]-> (SemanticCreatePortSpc) -> semIn portSpc() ;
 
@@ -32,9 +41,9 @@ flow ParseOpPortSpc {
   portSpc() subOut.1 [ParserData]-> space(ParseSpace) -> subIn portSpc() ;
 }
 
-flow ParseOpPort {
-  [ParserData]-> opPort(ParseOptional) -> ;
-  opPort() subOut [ParserData]-> pport(ParsePort) -> subIn opPort() ;
+flow ParseOptPort {
+  [ParserData]-> optPort(ParseOptional) -> ;
+  optPort() subOut [ParserData]-> pport(ParsePort) -> subIn optPort() ;
 }
 
 flow ParsePort {
@@ -42,9 +51,9 @@ flow ParsePort {
   port() semOut [ParserData]-> semantic(SemanticCreatePort) -> semIn port() ;
 
   port() subOut.0 [ParserData]-> portName(ParseSmallIdent) -> subIn port() ;
-  port() subOut.1 [ParserData]-> opPortNum(ParseOptional) -> subIn port() ;
+  port() subOut.1 [ParserData]-> optPortNum(ParseOptional) -> subIn port() ;
 
-  opPortNum() subOut [ParserData]-> portNum(ParseAll) -> subIn opPortNum() ;
+  optPortNum() subOut [ParserData]-> portNum(ParseAll) -> subIn optPortNum() ;
   portNum() semOut [ParserData]-> (SemanticCreatePortNum) -> semIn portNum() ;
 
   // config: literal = "."
