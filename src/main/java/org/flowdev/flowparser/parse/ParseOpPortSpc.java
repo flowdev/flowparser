@@ -8,6 +8,8 @@ import org.flowdev.parser.op.ParseOptional;
 import org.flowdev.parser.op.ParseSpace;
 import org.flowdev.parser.op.ParserParams;
 
+import static org.flowdev.parser.op.ParseSpace.ParseSpaceConfig;
+
 public class ParseOpPortSpc<T> implements Filter<T, NoConfig> {
     private ParseOptional<T> opPortSpc;
     private SemanticCreatePortSpc<T> semanticCreatePortSpc;
@@ -38,6 +40,7 @@ public class ParseOpPortSpc<T> implements Filter<T, NoConfig> {
     }
 
     private void initConfig() {
+        space.getConfigPort().send(new ParseSpaceConfig().acceptNewline(false));
     }
 
     public Port<T> getInPort() {
