@@ -1,5 +1,32 @@
 version 0.1
 
+flow ParseConnectionPart {
+  [ParserData]-> connPart(ParseAll) -> ;
+  connPart() semOut [ParserData]-> (SemanticCreateConnectionPart) -> semIn connPart() ;
+
+  connPart() subOut.0 [ParserData]-> optInPort(ParseOptPortSpc) -> subIn connPart() ;
+  connPart() subOut.1 [ParserData]-> opNameParens(ParseOperationNameParens) -> subIn connPart() ;
+  connPart() subOut.2 [ParserData]-> optOutPort(ParseOptPort) -> subIn connPart() ;
+}
+
+flow ParseOperationNameParens {
+  [ParserData]-> opNameParens(ParseAll) -> ;
+  opNameParens() semOut [ParserData]-> semantic(SemanticCreateOperationNameParens) -> semIn opNameParens() ;
+
+  opNameParens() subOut.0 [ParserData]-> optOpName(ParseOptional) -> subIn opNameParens() ;
+  // config: literal = "("
+  opNameParens() subOut.1 [ParserData]-> openType(ParseLiteral) -> subIn opNameParens() ;
+  opNameParens() subOut.2 [ParserData]-> spc1(ParseOptSpc) -> subIn opNameParens() ;
+  opNameParens() subOut.3 [ParserData]-> optOpType(ParseOptOperationType) -> subIn opNameParens() ;
+  // config: literal = ")"
+  opNameParens() subOut.4 [ParserData]-> closeType(ParseLiteral) -> subIn opNameParens() ;
+  opNameParens() subOut.5 [ParserData]-> spc2(ParseOptSpc) -> subIn opNameParens() ;
+
+  optOpName() subOut [ParserData]-> opName(ParseAll) -> subIn optOpName() ;
+  opName() subOut.0 [ParserData]-> smallIdent(ParseSmallIdent) -> subIn opName() ;
+  opName() subOut.1 [ParserData]-> spc3(ParseOptSpc) -> subIn opName() ;
+}
+
 flow ParseOptOperationType {
   [ParserData]-> optOpType(ParseOptional) -> ;
   optOpType() subOut [ParserData]-> opType(ParseAll) -> subIn optOpType() ;

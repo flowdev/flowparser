@@ -7,6 +7,7 @@ import org.flowdev.parser.data.SourceData;
 import org.flowdev.parser.op.ParserParams;
 import org.junit.Test;
 
+import static org.flowdev.base.data.PrettyPrinter.prettyPrint;
 import static org.junit.Assert.*;
 
 
@@ -44,6 +45,9 @@ public abstract class ParseTestBase {
         parser.getInPort().send(parserData);
         Object actualValue = actualResultParserData.result().value();
         if (expectedValue == null || expectedValue == Void.TYPE) {
+            if (actualValue != null) {
+                System.err.println("Unexpected actual value: " + prettyPrint(actualValue));
+            }
             assertNull("Actual value should be null.", actualValue);
         } else {
             assertEquals("Expected and actual value don't have the same class.", expectedValue.getClass(), actualValue.getClass());
