@@ -22,9 +22,9 @@ public class ParseOperationNameParensTest extends ParseTestBase {
                 makeTestData("no match 1", "()", null), //
                 makeTestData("no match 2", "bla", null), //
                 makeTestData("no match 3", "Bla", null), //
-                makeTestData("simple 1", "(Bla)", new Operation().type("Bla")), //
+                makeTestData("simple 1", "(Bla)", new Operation().name("bla").type("Bla")), //
                 makeTestData("simple 2", "bla()", new Operation().name("bla")), //
-                makeTestData("simple 3", "bla(Bla)", new Operation().name("bla").type("Bla")), //
+                makeTestData("simple 3", "bla(Blu)", new Operation().name("bla").type("Blu")), //
                 makeTestData("simple 4", "bla \t ( \t Blu \t ) \t ", new Operation().name("bla").type("Blu"))  //
         );
     }

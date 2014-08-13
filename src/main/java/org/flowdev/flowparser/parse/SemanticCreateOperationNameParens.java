@@ -37,6 +37,9 @@ public class SemanticCreateOperationNameParens<T> extends FilterOp<T, NoConfig> 
         if (op.name() == null && op.type() == null) {
             op = null;
             addError(parserData, "At least an operation name or an operation type have to be provided.");
+        } else if (op.name() == null) {
+            // set default name if none is given:
+            op.name(op.type().substring(0, 1).toLowerCase() + op.type().substring(1));
         }
         return op;
     }
