@@ -1,13 +1,5 @@
 version 0.1
 
-flow ParseConnectionChainEnd {
-  [ParserData]-> chainEnd(ParseAll) -> ;
-  chainEnd() semOut [ParserData]-> semantic(SemanticCreateChainEnd) -> semIn chainEnd() ;
-
-  chainEnd() subOut.0 [ParserData]-> arrow(ParseArrow) -> subIn chainEnd() ;
-  chainEnd() subOut.1 [ParserData]-> optPort(ParseOptPort) -> subIn chainEnd() ;
-}
-
 flow ParseConnectionPart {
   [ParserData]-> connPart(ParseAll) -> ;
   connPart() semOut [ParserData]-> (SemanticCreateConnectionPart) -> semIn connPart() ;

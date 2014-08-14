@@ -1,0 +1,17 @@
+version 0.1
+
+flow ParseConnectionChainMiddle {
+  [ParserData]-> chainMid(ParseAll) -> ;
+  chainMid() semOut [ParserData]-> semantic(SemanticCreateChainMiddle) -> semIn chainMid() ;
+
+  chainMid() subOut.0 [ParserData]-> arrow(ParseArrow) -> subIn chainMid() ;
+  chainMid() subOut.1 [ParserData]-> connPart(ParseConnectionPart) -> subIn chainMid() ;
+}
+
+flow ParseConnectionChainEnd {
+  [ParserData]-> chainEnd(ParseAll) -> ;
+  chainEnd() semOut [ParserData]-> semantic(SemanticCreateChainEnd) -> semIn chainEnd() ;
+
+  chainEnd() subOut.0 [ParserData]-> arrow(ParseArrow) -> subIn chainEnd() ;
+  chainEnd() subOut.1 [ParserData]-> optPort(ParseOptPort) -> subIn chainEnd() ;
+}

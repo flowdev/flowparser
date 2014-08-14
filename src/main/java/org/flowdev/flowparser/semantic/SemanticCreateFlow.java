@@ -1,15 +1,15 @@
-package org.flowdev.flowparser.parse;
+package org.flowdev.flowparser.semantic;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
+import org.flowdev.flowparser.data.Flow;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
-
-public class SemanticCreateOperationType<T> extends FilterOp<T, NoConfig> {
+public class SemanticCreateFlow<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
 
-    public SemanticCreateOperationType(ParserParams<T> params) {
+    public SemanticCreateFlow(ParserParams<T> params) {
         this.params = params;
     }
 
@@ -17,8 +17,12 @@ public class SemanticCreateOperationType<T> extends FilterOp<T, NoConfig> {
     protected void filter(T data) {
         ParserData parserData = params.getParserData.get(data);
 
-        parserData.result().value(parserData.subResults().get(0).value());
+        parserData.result().value(createFlowFile(parserData));
 
         outPort.send(params.setParserData.set(data, parserData));
+    }
+
+    private Flow createFlowFile(ParserData parserData) {
+        return new Flow().name(parserData.subResults().get(2).text());
     }
 }

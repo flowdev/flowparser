@@ -1,4 +1,4 @@
-package org.flowdev.flowparser.parse;
+package org.flowdev.flowparser.semantic;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;

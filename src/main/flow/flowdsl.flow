@@ -67,7 +67,7 @@ flow ConnectionChainBegin {
 
   chainBegMax() semOut [ParserData]-> (CreateChainBegMax) -> semIn chainBegMax() ;
   chainBegMax() subOut.0 [ParserData]-> opPortMax(ParseOptional) -> subIn.0 chainBegMax() ;
-  chainBegMax() subOut.1 [ParserData]-> (ConnectionChainMid) -> subIn.1 chainBegMax() ;
+  chainBegMax() subOut.1 [ParserData]-> (ConnectionChainMiddle) -> subIn.1 chainBegMax() ;
 
   opPortMax() subOut [ParserData]-> portMax(Port) -> subIn opPortMax() ;
 
