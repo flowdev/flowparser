@@ -31,7 +31,7 @@ public class PortPair {
     }
 
     public PortPair hasOutPortIndex(boolean hasIndex) {
-        this.hasInPortIndex = hasIndex;
+        this.hasOutPortIndex = hasIndex;
         return this;
     }
 
@@ -54,7 +54,7 @@ public class PortPair {
     }
 
     public boolean hasInPortIndex() {
-        return hasOutPortIndex;
+        return hasInPortIndex;
     }
 
     public String outPort() {
