@@ -7,13 +7,13 @@ import org.flowdev.flowparser.semantic.SemanticCreateChainEnd;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParserParams;
 
-public class ParseConnectionChainEnd<T> implements Filter<T, NoConfig> {
+public class ParseChainEnd<T> implements Filter<T, NoConfig> {
     private ParseAll<T> chainEnd;
     private SemanticCreateChainEnd<T> semantic;
     private ParseArrow<T> arrow;
     private ParseOptPort<T> optPort;
 
-    public ParseConnectionChainEnd(ParserParams<T> params) {
+    public ParseChainEnd(ParserParams<T> params) {
         semantic = new SemanticCreateChainEnd<>(params);
         arrow = new ParseArrow<>(params);
         chainEnd = new ParseAll<>(params);

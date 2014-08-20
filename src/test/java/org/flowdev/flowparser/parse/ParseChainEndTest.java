@@ -14,7 +14,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class ParseConnectionChainEndTest extends ParseTestBase {
+public class ParseChainEndTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         Connection connMin = new Connection().toPort("out").hasToPortIndex(false);
@@ -32,13 +32,13 @@ public class ParseConnectionChainEndTest extends ParseTestBase {
         );
     }
 
-    public ParseConnectionChainEndTest(ParserData parserData, Object expectedValue) {
+    public ParseChainEndTest(ParserData parserData, Object expectedValue) {
         super(parserData, expectedValue);
     }
 
     @Override
     protected Filter<ParserData, NoConfig> makeParser(ParserParams<ParserData> params) {
-        return new ParseConnectionChainEnd<>(params);
+        return new ParseChainEnd<>(params);
     }
 
     @Override

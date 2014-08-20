@@ -6,12 +6,12 @@ import org.flowdev.base.op.Filter;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParserParams;
 
-public class ParseConnectionChainMiddle<T> implements Filter<T, NoConfig> {
+public class ParseChainMiddle<T> implements Filter<T, NoConfig> {
     private ParseAll<T> chainMid;
     private ParseArrow<T> arrow;
     private ParseConnectionPart<T> connPart;
 
-    public ParseConnectionChainMiddle(ParserParams<T> params) {
+    public ParseChainMiddle(ParserParams<T> params) {
         chainMid = new ParseAll<>(params);
         arrow = new ParseArrow<>(params);
         connPart = new ParseConnectionPart<>(params);

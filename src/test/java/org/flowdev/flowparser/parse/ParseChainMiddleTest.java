@@ -19,7 +19,7 @@ import static org.flowdev.base.data.PrettyPrinter.prettyPrint;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class ParseConnectionChainMiddleTest extends ParseTestBase {
+public class ParseChainMiddleTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         Operation opBlaNoPorts = new Operation().name("bla").type("Bla").ports(singletonList(new PortPair().inPort("in").outPort("out")));
@@ -45,13 +45,13 @@ public class ParseConnectionChainMiddleTest extends ParseTestBase {
         return list;
     }
 
-    public ParseConnectionChainMiddleTest(ParserData parserData, Object expectedValue) {
+    public ParseChainMiddleTest(ParserData parserData, Object expectedValue) {
         super(parserData, expectedValue);
     }
 
     @Override
     protected Filter<ParserData, NoConfig> makeParser(ParserParams<ParserData> params) {
-        return new ParseConnectionChainMiddle<>(params);
+        return new ParseChainMiddle<>(params);
     }
 
     @Override
