@@ -13,23 +13,23 @@ public class ParseChainBegin<T> implements Filter<T, NoConfig> {
     private ParseAlternatives<T> chainBeg;
     private ParseAll<T> chainBegMax;
     private SemanticCreateChainBeginMax<T> maxSemantic;
-    private ParseOptPort<T> opPortMax;
+    private ParseOptPort<T> optPortMax;
     private ParseChainMiddle<T> chainMid;
     private ParseAll<T> chainBegMin;
     private SemanticCreateChainBeginMin<T> minSemantic;
     private ParseOperationNameParens<T> opNameParens;
-    private ParseOptPort<T> opPortMin;
+    private ParseOptPort<T> optPortMin;
 
     public ParseChainBegin(ParserParams<T> params) {
         chainBeg = new ParseAlternatives<>(params);
         chainBegMax = new ParseAll<>(params);
         maxSemantic = new SemanticCreateChainBeginMax<>(params);
-        opPortMax = new ParseOptPort<>(params);
+        optPortMax = new ParseOptPort<>(params);
         chainMid = new ParseChainMiddle<>(params);
         chainBegMin = new ParseAll<>(params);
         minSemantic = new SemanticCreateChainBeginMin<>(params);
         opNameParens = new ParseOperationNameParens<>(params);
-        opPortMin = new ParseOptPort<>(params);
+        optPortMin = new ParseOptPort<>(params);
 
         createConnections();
         initConfig();
@@ -42,16 +42,16 @@ public class ParseChainBegin<T> implements Filter<T, NoConfig> {
         chainBegMin.setOutPort(chainBeg.getSubInPort());
         chainBegMax.setSemOutPort(maxSemantic.getInPort());
         maxSemantic.setOutPort(chainBegMax.getSemInPort());
-        chainBegMax.setSubOutPort(0, opPortMax.getInPort());
-        opPortMax.setOutPort(chainBegMax.getSubInPort());
+        chainBegMax.setSubOutPort(0, optPortMax.getInPort());
+        optPortMax.setOutPort(chainBegMax.getSubInPort());
         chainBegMax.setSubOutPort(1, chainMid.getInPort());
         chainMid.setOutPort(chainBegMax.getSubInPort());
         chainBegMin.setSemOutPort(minSemantic.getInPort());
         minSemantic.setOutPort(chainBegMin.getSemInPort());
         chainBegMin.setSubOutPort(0, opNameParens.getInPort());
         opNameParens.setOutPort(chainBegMin.getSubInPort());
-        chainBegMin.setSubOutPort(1, opPortMin.getInPort());
-        opPortMin.setOutPort(chainBegMin.getSubInPort());
+        chainBegMin.setSubOutPort(1, optPortMin.getInPort());
+        optPortMin.setOutPort(chainBegMin.getSubInPort());
     }
 
     private void initConfig() {
@@ -75,11 +75,11 @@ public class ParseChainBegin<T> implements Filter<T, NoConfig> {
         chainBeg.setErrorPort(port);
         chainBegMax.setErrorPort(port);
         maxSemantic.setErrorPort(port);
-        opPortMax.setErrorPort(port);
+        optPortMax.setErrorPort(port);
         chainMid.setErrorPort(port);
         chainBegMin.setErrorPort(port);
         minSemantic.setErrorPort(port);
         opNameParens.setErrorPort(port);
-        opPortMin.setErrorPort(port);
+        optPortMin.setErrorPort(port);
     }
 }

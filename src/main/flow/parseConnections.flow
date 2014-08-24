@@ -7,12 +7,12 @@ flow ParseChainBegin {
   chainBeg() subOut.1 [ParserData]-> chainBegMin(ParseAll) -> subIn chainBeg() ;
 
   chainBegMax() semOut [ParserData]-> maxSemantic(SemanticCreateChainBegMax) -> semIn chainBegMax() ;
-  chainBegMax() subOut.0 [ParserData]-> opPortMax(ParseOptPort) -> subIn chainBegMax() ;
+  chainBegMax() subOut.0 [ParserData]-> optPortMax(ParseOptPort) -> subIn chainBegMax() ;
   chainBegMax() subOut.1 [ParserData]-> chainMid(ParseConnectionChainMiddle) -> subIn chainBegMax() ;
 
   chainBegMin() semOut [ParserData]-> minSemantic(SemanticCreateChainBegMin) -> semIn chainBegMin() ;
   chainBegMin() subOut.0 [ParserData]-> opNameParens(ParseOperationNameParens) -> subIn chainBegMin() ;
-  chainBegMin() subOut.1 [ParserData]-> opPortMin(ParseOptPort) -> subIn chainBegMin() ;
+  chainBegMin() subOut.1 [ParserData]-> optPortMin(ParseOptPort) -> subIn chainBegMin() ;
 }
 
 flow ParseChainMiddle {
