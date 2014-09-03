@@ -9,6 +9,18 @@ import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseAlternatives;
 import org.flowdev.parser.op.ParserParams;
 
+/**
+ * This flow has two alternative inputs and semantic results:
+ * maximum case:
+ * input:  optInPort  [OptDataType]-> optInPort opName(OpType) optOutPort
+ * result: List[ Connection, Operation ]
+ * <p>
+ * minimum case:
+ * input:  opName(OpType) optOutPort
+ * result: List[ null, Operation ]
+ *
+ * @param <T> the type of the data moving through the flow.
+ */
 public class ParseChainBegin<T> implements Filter<T, NoConfig> {
     private ParseAlternatives<T> chainBeg;
     private ParseAll<T> chainBegMax;

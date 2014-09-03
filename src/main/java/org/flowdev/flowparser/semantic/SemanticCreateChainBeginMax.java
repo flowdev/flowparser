@@ -39,9 +39,10 @@ public class SemanticCreateChainBeginMax<T> extends FilterOp<T, NoConfig> {
             port = op.ports().get(0);
         }
         conn.fromPort(port.inPort()).hasFromPortIndex(port.hasInPortIndex()).fromPortIndex(port.inPortIndex());
-        conn.dataType(dataType);
+        conn.dataType(dataType).showDataType(dataType != null);
         port = op.ports().get(0);
         conn.toPort(port.inPort()).hasToPortIndex(port.hasInPortIndex()).toPortIndex(port.inPortIndex());
+        conn.toOp(op.name());
 
         chainBegin.add(conn);
         chainBegin.add(op);
