@@ -17,14 +17,15 @@ public class ParseStatementEndTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         return asList( //
-                makeTestData("empty", "", null), //
-                makeTestData("no match", "baaa", null), //
-                makeTestData("simple 1", ";", ";"), //
-                makeTestData("simple 2", "\t;0", "\t;"), //
-                makeTestData("simple 3", " /* bla */; _t", " /* bla */; "), //
-                makeTestData("simple 4", " // comment! \n ;lilalo", " // comment! \n ;"), //
+                makeTestData("empty", "", null),
+                makeTestData("no match 1", "baaa", null),
+                makeTestData("no match 2", " /* bla\n */ \t // com!\n \t \r\n/** blu ; */ ", null),
+                makeTestData("simple 1", ";", ";"),
+                makeTestData("simple 2", "\t;0", "\t;"),
+                makeTestData("simple 3", " /* bla */; _t", " /* bla */; "),
+                makeTestData("simple 4", " // comment! \n ;lilalo", " // comment! \n ;"),
                 makeTestData("complex", " /* bla\n */ \t; // com!\n \t \r\n/** blu */ _t",
-                        " /* bla\n */ \t; // com!\n \t \r\n/** blu */ ")  //
+                        " /* bla\n */ \t; // com!\n \t \r\n/** blu */ ")
         );
     }
 

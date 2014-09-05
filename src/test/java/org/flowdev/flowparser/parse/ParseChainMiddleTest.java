@@ -56,6 +56,6 @@ public class ParseChainMiddleTest extends ParseTestBase {
 
     @Override
     protected void checkResultValue(Object expectedValue, Object actualValue) {
-        assertEquals("Operation doesn't match.", prettyPrint(expectedValue), prettyPrint(actualValue));
+        assertEquals("Datatype or Operation doesn't match.", prettyPrint(expectedValue), prettyPrint(actualValue));
     }
 }
