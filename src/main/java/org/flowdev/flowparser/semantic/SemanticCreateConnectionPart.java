@@ -7,10 +7,11 @@ import org.flowdev.flowparser.data.PortPair;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
-import static java.util.Collections.singletonList;
+import static org.flowdev.flowparser.util.PortUtil.copyPortIn2Out;
+import static org.flowdev.flowparser.util.PortUtil.makePorts;
 
 public class SemanticCreateConnectionPart<T> extends FilterOp<T, NoConfig> {
-    private ParserParams<T> params;
+    private final ParserParams<T> params;
 
     public SemanticCreateConnectionPart(ParserParams<T> params) {
         this.params = params;
@@ -20,13 +21,13 @@ public class SemanticCreateConnectionPart<T> extends FilterOp<T, NoConfig> {
     protected void filter(T data) {
         ParserData parserData = params.getParserData.get(data);
 
-        parserData.result().value(createOperationNameParens(parserData));
+        parserData.result().value(createConnectionPart(parserData));
 
         outPort.send(params.setParserData.set(data, parserData));
     }
 
     @SuppressWarnings("unchecked")
-    private Operation createOperationNameParens(ParserData parserData) {
+    private Operation createConnectionPart(ParserData parserData) {
         PortPair inPort = (PortPair) parserData.subResults().get(0).value();
         Operation op = (Operation) parserData.subResults().get(1).value();
         PortPair outPort = (PortPair) parserData.subResults().get(2).value();
@@ -37,8 +38,8 @@ public class SemanticCreateConnectionPart<T> extends FilterOp<T, NoConfig> {
         if (outPort == null) {
             inPort.outPort("out").hasOutPortIndex(false);
         } else {
-            inPort.outPort(outPort.inPort()).hasOutPortIndex(outPort.hasInPortIndex()).outPortIndex(outPort.inPortIndex());
+            copyPortIn2Out(outPort, inPort);
         }
-        return op.ports(singletonList(inPort));
+        return op.ports(makePorts(inPort));
     }
 }

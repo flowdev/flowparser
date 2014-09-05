@@ -3,40 +3,58 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.flowparser.semantic.SemanticCreateChain;
+import org.flowdev.flowparser.semantic.SemanticCreateConnections;
 import org.flowdev.parser.op.*;
 
+/**
+ * text input:
+ * ( optInPort  [OptDataType]-> optInPort )? opName(OpType) optOutPort
+ * ( [OptDataType]-> optInPort opName(OpType) optOutPort )*
+ * ( [OptDataType]-> optOutPort )?
+ * <p>
+ * semantic input:
+ * List(multiple1)[
+ * List(all)[
+ * List(chainBeg)[Connection, Operation], List(multiple0)[ List(chainMid)[arrow, Operation] ], Connection ]
+ * ]
+ * ]
+ * <p>
+ * semantic result:
+ * Flow
+ *
+ * @param <T> the type of the data moving through the flow.
+ */
+@SuppressWarnings("CanBeFinal")
 public class ParseConnections<T> implements Filter<T, NoConfig> {
-    private ParseMultiple1 connections;
-    private ParseAll chain;
-    private SemanticCreateChain semantic;
-    private ParseChainBegin chainBeg;
-    private ParseMultiple0 chainMids;
-    private ParseOptional optChainEnd;
-    private ParseStatementEnd statementEnd;
-    private ParseChainMiddle chainMid;
-    private ParseChainEnd chainEnd;
+    private ParseMultiple1<T> connections;
+    private SemanticCreateConnections<T> semantic;
+    private ParseAll<T> chain;
+    private ParseChainBegin<T> chainBeg;
+    private ParseMultiple0<T> chainMids;
+    private ParseOptional<T> optChainEnd;
+    private ParseStatementEnd<T> statementEnd;
+    private ParseChainMiddle<T> chainMid;
+    private ParseChainEnd<T> chainEnd;
 
     public ParseConnections(ParserParams<T> params) {
-        connections = new ParseMultiple1(params);
-        chain = new ParseAll(params);
-        semantic = new SemanticCreateChain(params);
-        chainBeg = new ParseChainBegin(params);
-        chainMids = new ParseMultiple0(params);
-        optChainEnd = new ParseOptional(params);
-        statementEnd = new ParseStatementEnd(params);
-        chainMid = new ParseChainMiddle(params);
-        chainEnd = new ParseChainEnd(params);
+        connections = new ParseMultiple1<>(params);
+        semantic = new SemanticCreateConnections<>(params);
+        chain = new ParseAll<>(params);
+        chainBeg = new ParseChainBegin<>(params);
+        chainMids = new ParseMultiple0<>(params);
+        optChainEnd = new ParseOptional<>(params);
+        statementEnd = new ParseStatementEnd<>(params);
+        chainMid = new ParseChainMiddle<>(params);
+        chainEnd = new ParseChainEnd<>(params);
 
         createConnections();
-        initConfig();
     }
 
     private void createConnections() {
+        connections.setSemOutPort(semantic.getInPort());
+        semantic.setOutPort(connections.getSemInPort());
         connections.setSubOutPort(chain.getInPort());
         chain.setOutPort(connections.getSubInPort());
-        chain.setSemOutPort(semantic.getInPort());
-        semantic.setOutPort(chain.getSemInPort());
         chain.setSubOutPort(0, chainBeg.getInPort());
         chainBeg.setOutPort(chain.getSubInPort());
         chain.setSubOutPort(1, chainMids.getInPort());
@@ -49,9 +67,6 @@ public class ParseConnections<T> implements Filter<T, NoConfig> {
         chainMid.setOutPort(chainMids.getSubInPort());
         optChainEnd.setSubOutPort(chainEnd.getInPort());
         chainEnd.setOutPort(optChainEnd.getSubInPort());
-    }
-
-    private void initConfig() {
     }
 
     public Port<T> getInPort() {

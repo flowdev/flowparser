@@ -2,8 +2,9 @@ version 0.1
 
 flow ParseConnections {
   [ParserData]-> connections(ParseMultiple1) -> ;
+  connections() semOut [ParserData]-> semantic(SemanticCreateChain) -> semIn connections() ;
+
   connections() subOut [ParserData]-> chain(ParseAll) -> subIn connections() ;
-  chain() semOut [ParserData]-> semantic(SemanticCreateChain) -> semIn chain() ;
 
   chain() subOut.0 [ParserData]-> chainBeg(ConnectionChainBegin) -> subIn chain() ;
   chain() subOut.1 [ParserData]-> chainMids(ParseMultiple0) -> subIn chain() ;

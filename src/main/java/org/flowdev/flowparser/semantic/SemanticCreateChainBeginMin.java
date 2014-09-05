@@ -4,16 +4,17 @@ import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.Operation;
 import org.flowdev.flowparser.data.PortPair;
+import org.flowdev.flowparser.util.PortUtil;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Collections.singletonList;
+import static org.flowdev.flowparser.util.PortUtil.makePorts;
 
 public class SemanticCreateChainBeginMin<T> extends FilterOp<T, NoConfig> {
-    private ParserParams<T> params;
+    private final ParserParams<T> params;
 
     public SemanticCreateChainBeginMin(ParserParams<T> params) {
         this.params = params;
@@ -34,22 +35,14 @@ public class SemanticCreateChainBeginMin<T> extends FilterOp<T, NoConfig> {
         Operation op = (Operation) parserData.subResults().get(0).value();
         PortPair port = (PortPair) parserData.subResults().get(1).value();
         if (port != null) {
-            movePortFromInToOut(port);  // port is an out port really
+            PortUtil.movePortIn2Out(port);  // port is an out port really
         } else {
             port = new PortPair().outPort("out").hasOutPortIndex(false).outPortIndex(0);
         }
-        op.ports(singletonList(port));
+        op.ports(makePorts(port));
         chainBegin.add(null);
         chainBegin.add(op);
         return chainBegin;
     }
 
-    private void movePortFromInToOut(PortPair port) {
-        port.outPort(port.inPort());
-        port.inPort(null);
-        port.hasOutPortIndex(port.hasInPortIndex());
-        port.hasInPortIndex(false);
-        port.outPortIndex(port.inPortIndex());
-        port.inPortIndex(0);
-    }
 }

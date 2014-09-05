@@ -17,8 +17,8 @@ import static org.junit.Assert.assertEquals;
 public class ParseChainEndTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Connection connMin = new Connection().toPort("out").hasToPortIndex(false);
-        Connection connNoPort = new Connection().dataType("Bla").toPort("out").hasToPortIndex(false);
+        Connection connMin = new Connection();
+        Connection connNoPort = new Connection().dataType("Bla");
         Connection connNoType = new Connection().toPort("outX").hasToPortIndex(true).toPortIndex(3);
         Connection connMax = new Connection().dataType("Blu").toPort("outX").hasToPortIndex(true).toPortIndex(7);
         return asList( //

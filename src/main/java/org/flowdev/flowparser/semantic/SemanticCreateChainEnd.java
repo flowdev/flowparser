@@ -8,7 +8,7 @@ import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
 public class SemanticCreateChainEnd<T> extends FilterOp<T, NoConfig> {
-    private ParserParams<T> params;
+    private final ParserParams<T> params;
 
     public SemanticCreateChainEnd(ParserParams<T> params) {
         this.params = params;
@@ -31,9 +31,7 @@ public class SemanticCreateChainEnd<T> extends FilterOp<T, NoConfig> {
         conn.showDataType(dataType != null).dataType(dataType);
 
         PortPair port = (PortPair) parserData.subResults().get(1).value();
-        if (port == null) {
-            conn.toPort("out").hasToPortIndex(false);
-        } else {
+        if (port != null) {
             conn.toPort(port.inPort()).hasToPortIndex(port.hasInPortIndex()).toPortIndex(port.inPortIndex());
         }
 
