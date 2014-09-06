@@ -29,7 +29,10 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
     protected void filter(T data) {
         ParserData parserData = params.getParserData.get(data);
 
-        parserData.result().value(createFlow(parserData));
+        Flow flow = createFlow(parserData);
+        if (ParserUtil.matched(parserData.result())) {
+            parserData.result().value(flow);
+        }
 
         outPort.send(params.setParserData.set(data, parserData));
     }
@@ -157,7 +160,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                     }
                 } else {
                     ParserUtil.addError(parserData, "The output port '" + oldPort.outPort() +
-                            "' of the operation '" + op.name() + "' is used as outdexed and unoutdexed port out parallel!");
+                            "' of the operation '" + op.name() + "' is used as indexed and unindexed port in parallel!");
                     return;
                 }
             }

@@ -44,7 +44,8 @@ public class ParseConnectionsTest extends ParseTestBase {
         return asList(
                 makeTestData("no match 1", "-> (Bla) -> ", null),
                 makeTestData("min flow", "(Bla) \r\n\t ;", minFlow),
-                makeTestData("simple flow", "-> (Bla) -> (Blue) -> ; in2 -> (Blue) ->out2;", simpleFlow)
+                makeTestData("simple flow", "-> (Bla) -> (Blue) -> ; in2 -> (Blue) ->out2;", simpleFlow),
+                makeTestData("(un)indexed port error", "-> (Blue) -> ;\nin2 -> in.2 (Blue) out.2 -> out2;", null)
         );
     }
 
