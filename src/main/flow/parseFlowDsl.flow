@@ -42,9 +42,9 @@ flow ParseFlow {
   // config: literal = "{"
   flow() subOut.4 [ParserData]-> openFlow(ParseLiteral) -> subIn flow() ;
   flow() subOut.5 [ParserData]-> spcComm2(ParseSpaceComment) -> subIn flow() ;
-//  flow() subOut.6 [ParserData]-> (Connections) -> subIn flow() ;
+  flow() subOut.6 [ParserData]-> (Connections) -> subIn flow() ;
   // config: literal = "}"
-  flow() subOut.6 [ParserData]-> closeFlow(ParseLiteral) -> subIn flow() ;
-  flow() subOut.7 [ParserData]-> spcComm3(ParseSpaceComment) -> subIn flow() ;
+  flow() subOut.7 [ParserData]-> closeFlow(ParseLiteral) -> subIn flow() ;
+  flow() subOut.8 [ParserData]-> spcComm3(ParseSpaceComment) -> subIn flow() ;
 }
 
