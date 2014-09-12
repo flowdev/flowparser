@@ -68,6 +68,6 @@ public class ParseConnectionsTest extends ParseTestBase {
 
     @Override
     protected void checkResultValue(Object expectedValue, Object actualValue) {
-        assertEquals("Flow doesn't match.", prettyPrint(expectedValue), prettyPrint(actualValue));
+        assertEquals("Connections don't match.", prettyPrint(expectedValue), prettyPrint(actualValue));
     }
 }

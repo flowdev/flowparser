@@ -11,6 +11,7 @@ import org.junit.runners.Parameterized;
 import java.util.Collection;
 
 import static java.util.Arrays.asList;
+import static org.flowdev.base.data.PrettyPrinter.prettyPrint;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
@@ -44,8 +45,6 @@ public class ParseFlowTest extends ParseTestBase {
 
     @Override
     protected void checkResultValue(Object expectedValue, Object actualValue) {
-        Flow expected = (Flow) expectedValue;
-        Flow actual = (Flow) actualValue;
-        assertEquals("Flow name doesn't match.", expected.name(), actual.name());
+        assertEquals("Flows don't match.", prettyPrint(expectedValue), prettyPrint(actualValue));
     }
 }
