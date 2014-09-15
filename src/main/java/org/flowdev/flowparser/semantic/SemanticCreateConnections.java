@@ -151,10 +151,10 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
     private void addOutPort(Operation op, PortPair newPort, ParserData parserData) {
         for (PortPair oldPort : op.ports()) {
             if (oldPort.outPort() == null) {
-                oldPort.outPort(newPort.outPort()).hasInPortIndex(newPort.hasInPortIndex()).outPortIndex(newPort.outPortIndex());
+                oldPort.outPort(newPort.outPort()).hasOutPortIndex(newPort.hasOutPortIndex()).outPortIndex(newPort.outPortIndex());
                 return;
             } else if (oldPort.outPort().equals(newPort.outPort())) {
-                if (oldPort.hasInPortIndex() == newPort.hasInPortIndex()) {
+                if (oldPort.hasOutPortIndex() == newPort.hasOutPortIndex()) {
                     if (oldPort.outPortIndex() == newPort.outPortIndex()) {
                         return;
                     }
@@ -167,7 +167,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
         }
 
         op.ports().add(new PortPair()
-                        .outPort(newPort.outPort()).hasInPortIndex(newPort.hasInPortIndex()).outPortIndex(newPort.outPortIndex())
+                        .outPort(newPort.outPort()).hasOutPortIndex(newPort.hasOutPortIndex()).outPortIndex(newPort.outPortIndex())
         );
     }
 

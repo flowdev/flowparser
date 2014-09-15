@@ -44,28 +44,29 @@ public abstract class ParseTestBase {
     public void testParser() {
         parser.getInPort().send(parserData);
         Object actualValue = actualResultParserData.result().value();
+
         if (expectedValue == null || expectedValue == Void.TYPE) {
             if (actualValue != null) {
                 System.err.println("Unexpected actual value: " + prettyPrint(actualValue));
             }
             assertNull("Actual value should be null.", actualValue);
+
+            if (expectedValue == null) {
+                assertNotNull(actualResultParserData.result().feedback());
+                assertNotNull(actualResultParserData.result().feedback().errors());
+                assertNotSame(0, actualResultParserData.result().feedback().errors().size());
+                System.out.println("Expected errors: " + actualResultParserData.result().feedback().errors());
+            }
         } else {
 //            assertEquals("Expected and actual value don't have the same class.", expectedValue.getClass(), actualValue.getClass());
-
-            checkResultValue(expectedValue, actualValue);
-        }
-        if (expectedValue == null) {
-            assertNotNull(actualResultParserData.result().feedback());
-            assertNotNull(actualResultParserData.result().feedback().errors());
-            assertNotSame(0, actualResultParserData.result().feedback().errors().size());
-            System.out.println("Expected errors: " + actualResultParserData.result().feedback().errors());
-        } else {
             if (actualResultParserData.result().feedback() != null) {
                 if (!actualResultParserData.result().feedback().errors().isEmpty()) {
                     System.err.println("Unexpected errors: " + actualResultParserData.result().feedback().errors());
                 }
                 assertTrue("No errors expected.", actualResultParserData.result().feedback().errors().isEmpty());
             }
+
+            checkResultValue(expectedValue, actualValue);
         }
     }
 
