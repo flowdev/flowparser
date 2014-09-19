@@ -7,9 +7,9 @@ import org.flowdev.flowparser.MainData;
 public class CreateOutputFileName extends FilterOp<MainData, NoConfig> {
     @Override
     protected void filter(MainData data) {
-        String fileName = data.fileName;
+        String fileName = data.parserData().source().name();
         fileName = deleteExtension(fileName);
-        data.fileName = fileName + "." + data.format;
+        data.outputName(fileName + "." + data.format());
         outPort.send(data);
     }
 

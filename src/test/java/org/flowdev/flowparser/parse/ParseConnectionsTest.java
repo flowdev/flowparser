@@ -30,8 +30,11 @@ import static org.junit.Assert.assertEquals;
 public class ParseConnectionsTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Flow minFlow = addConnections(createFlow(new Operation().name("bla").type("Bla").ports(asList(new PortPair().outPort("out")))));
-        Flow simpleFlow = addConnections(createFlow(
+        Flow minFlow = addConnections(createFlow(new Operation().name("bla").type("Bla").ports(asList(new PortPair()))));
+        Flow simpleFlow1 = addConnections(createFlow(
+                        new Operation().name("doIt").type("DoIt").ports(asList(new PortPair().inPort("in")))),
+                new Connection().fromPort("in").toPort("in").toOp("doIt"));
+        Flow simpleFlow2 = addConnections(createFlow(
                         new Operation().name("bla").type("Bla").ports(asList(new PortPair().inPort("in").outPort("out"))),
                         new Operation().name("blue").type("Blue").ports(asList(new PortPair().inPort("in").outPort("out")))
                 ), new Connection().fromPort("in").toPort("in").toOp("bla"),
@@ -67,7 +70,8 @@ public class ParseConnectionsTest extends ParseTestBase {
                 makeTestData("no match 1", "-> (Bla) -> ", null),
                 makeTestData("min flow", "(Bla) \r\n\t ;", minFlow),
                 makeTestData("(un)indexed port error", "-> (Blue) -> ;\nin2 -> in.2 (Blue) out.2 -> out2;", null),
-                makeTestData("simple flow", "-> (Bla) -> (Blue) -> ; in2 -> (Blue) ->out2;", simpleFlow),
+                makeTestData("simple flow 1", "->doIt(DoIt);", simpleFlow1),
+                makeTestData("simple flow 2", "-> (Bla) -> (Blue) -> ; in2 -> (Blue) ->out2;", simpleFlow2),
                 makeTestData("complex flow", "i.1 -> i.0 blaa(Bla) o.0 -> i.1 bluu(Blue) o.3 -> ;\n" +
                         "  in.2 -> bluu() o.2 -> out2;\n" +
                         "  (Ab) -> out1;", complexFlow)

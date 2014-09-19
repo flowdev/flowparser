@@ -3,23 +3,25 @@ package org.flowdev.flowparser;
 import org.flowdev.base.Port;
 import org.flowdev.base.op.io.ReadTextFile;
 import org.flowdev.base.op.io.WriteTextFile;
-import org.flowdev.flowparser.cook.CookFlowFile;
 import org.flowdev.flowparser.output.CreateOutputFileName;
 import org.flowdev.flowparser.output.FillTemplate;
 import org.flowdev.flowparser.output.OutputAllFormats;
 import org.flowdev.flowparser.output.OutputAllFormatsConfig;
+import org.flowdev.flowparser.parse.HandleParserResult;
+import org.flowdev.flowparser.parse.ParseFlowFile;
+import org.flowdev.parser.op.ParserParams;
 
 /**
  * This flow parses a flow file and creates one ore more output files.
  */
 public class MainFlow implements IMainFlow {
-    private final ReadTextFile<MainData, MainData> readTextFile;
-    private final ParseToRawFlowFile parseToRawFlowFile;
-    private final CookFlowFile cookFlowFile;
-    private final OutputAllFormats outputAllFormats;
-    private final FillTemplate fillTemplate;
-    private final CreateOutputFileName createOutputFileName;
-    private final WriteTextFile<MainData> writeTextFile;
+    private ReadTextFile<MainData, MainData> readTextFile;
+    private ParseFlowFile<MainData> parseFlowFile;
+    private HandleParserResult handleParserResult;
+    private OutputAllFormats outputAllFormats;
+    private FillTemplate fillTemplate;
+    private CreateOutputFileName createOutputFileName;
+    private WriteTextFile<MainData> writeTextFile;
     // Getting a compiler error if replacing the anonymous inner class with a lambda expression!
     private final Port<MainConfig> configPort = new Port<MainConfig>() {
         @Override
@@ -30,16 +32,19 @@ public class MainFlow implements IMainFlow {
 
     public MainFlow() {
         ReadTextFile.Params<MainData, MainData> readTextFileParams = new ReadTextFile.Params<>();
-        readTextFileParams.getFileName = data -> data.fileName;
+        readTextFileParams.getFileName = data -> data.parserData().source().name();
         readTextFileParams.setFileContent = (data, subdata) -> {
-            data.fileContent = subdata;
+            data.parserData().source().content(subdata);
             return data;
         };
         readTextFile = new ReadTextFile<>(readTextFileParams);
 
-        parseToRawFlowFile = new ParseToRawFlowFile();
+        ParserParams<MainData> parserParams = new ParserParams<>();
+        parserParams.getParserData = MainData::parserData;
+        parserParams.setParserData = MainData::parserData;
+        parseFlowFile = new ParseFlowFile<>(parserParams);
 
-        cookFlowFile = new CookFlowFile();
+        handleParserResult = new HandleParserResult();
 
         outputAllFormats = new OutputAllFormats();
 
@@ -48,26 +53,18 @@ public class MainFlow implements IMainFlow {
         createOutputFileName = new CreateOutputFileName();
 
         WriteTextFile.Params<MainData> writeTextFileParams = new WriteTextFile.Params<>();
-        writeTextFileParams.getFileContent = data -> data.fileContent;
-        writeTextFileParams.getFileName = data -> data.fileName;
+        writeTextFileParams.getFileContent = MainData::outputContent;
+        writeTextFileParams.getFileName = MainData::outputName;
         writeTextFile = new WriteTextFile<>(writeTextFileParams);
 
         createConnections();
         initConfig();
     }
 
-    public Port<MainData> getInPort() {
-        return readTextFile.getInPort();
-    }
-
-    public Port<MainConfig> getConfigPort() {
-        return configPort;
-    }
-
     private void createConnections() {
-        readTextFile.setOutPort(parseToRawFlowFile.getInPort());
-        parseToRawFlowFile.setOutPort(cookFlowFile.getInPort());
-        cookFlowFile.setOutPort(outputAllFormats.getInPort());
+        readTextFile.setOutPort(parseFlowFile.getInPort());
+        parseFlowFile.setOutPort(handleParserResult.getInPort());
+        handleParserResult.setOutPort(outputAllFormats.getInPort());
         outputAllFormats.setOutPort(fillTemplate.getInPort());
         fillTemplate.setOutPort(createOutputFileName.getInPort());
         createOutputFileName.setOutPort(writeTextFile.getInPort());
@@ -78,5 +75,26 @@ public class MainFlow implements IMainFlow {
         outputAllFormatsConfig.formats.add("graphviz");
         outputAllFormatsConfig.formats.add("java6");
         outputAllFormats.getConfigPort().send(outputAllFormatsConfig);
+    }
+
+    @Override
+    public Port<MainData> getInPort() {
+        return readTextFile.getInPort();
+    }
+
+    @Override
+    public Port<MainConfig> getConfigPort() {
+        return configPort;
+    }
+
+    @Override
+    public void setErrorPort(Port<Throwable> port) {
+        readTextFile.setErrorPort(port);
+        parseFlowFile.setErrorPort(port);
+        handleParserResult.setErrorPort(port);
+        outputAllFormats.setErrorPort(port);
+        fillTemplate.setErrorPort(port);
+        createOutputFileName.setErrorPort(port);
+        writeTextFile.setErrorPort(port);
     }
 }

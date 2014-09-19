@@ -4,7 +4,8 @@ digraph {{name}} {
   node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
 
 {{#operations}}  {{name}} [label="{{name}}\n({{type}}){{#ports}}
-|{ {{#inPort}}<{{.}}> {{.}}{{/inPort}}|{{#outPort}}<{{.}}> {{.}}{{/outPort}} }{{/ports}}"{{#url}}
+|{ {{#inPort}}<{{.}}{{#hasInPortIndex}}.{{inPortIndex}}{{/hasInPortIndex}}> {{.}}{{#hasInPortIndex}}.{{inPortIndex}}{{/hasInPortIndex}}{{/inPort}}|{{#outPort}}
+<{{.}}{{#hasOutPortIndex}}.{{outPortIndex}}{{/hasOutPortIndex}}> {{.}}{{#hasOutPortIndex}}.{{outPortIndex}}{{/hasOutPortIndex}}{{/outPort}} }{{/ports}}"{{#url}}
  URL="{{type}}Flow"{{/url}}] ;
 {{/operations}}
 

@@ -12,7 +12,6 @@ import org.flowdev.flowparser.data.Connection;
 import org.flowdev.flowparser.data.Flow;
 import org.flowdev.flowparser.data.Operation;
 import org.flowdev.flowparser.data.PortPair;
-import org.flowdev.flowparser.rawdata.RawDataType;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class FillTemplate extends FilterOp<MainData, NoConfig> {
     @Override
     protected void filter(MainData data) {
         MustacheFactory mf = new DefaultMustacheFactory(
-                TEMPLATE_DIR + data.format);
+                TEMPLATE_DIR + data.format());
         Mustache standardTpl = mf.compile("template.mustache");
         Mustache linearTpl = null;
         try {
@@ -37,7 +36,7 @@ public class FillTemplate extends FilterOp<MainData, NoConfig> {
             }
         }
         StringBuilder fileContent = new StringBuilder(80192);
-        for (Flow flow : data.flowFile.flows()) {
+        for (Flow flow : data.flowFile().flows()) {
             StringWriter sw = new StringWriter();
             if (linearTpl != null && isLinearFlow(flow)) {
                 linearTpl.execute(sw, flow);
@@ -48,7 +47,7 @@ public class FillTemplate extends FilterOp<MainData, NoConfig> {
             fileContent.append(sw.toString());
         }
 
-        data.fileContent = fileContent.toString();
+        data.outputContent(fileContent.toString());
         outPort.send(data);
     }
 
@@ -62,7 +61,7 @@ public class FillTemplate extends FilterOp<MainData, NoConfig> {
             return false;
         }
         List<String> connectedOps = new ArrayList<>(flow.connections().size());
-        RawDataType dataType = new RawDataType();
+        Connection dataType = new Connection();
         for (Connection connection : flow.connections()) {
             if (!isLinearConnection(connection, connectedOps, dataType)) {
                 return false;
@@ -79,7 +78,7 @@ public class FillTemplate extends FilterOp<MainData, NoConfig> {
         return "in".equals(portPair.inPort()) && "out".equals(portPair.outPort());
     }
 
-    private static boolean isLinearConnection(Connection connection, List<String> connectedOps, RawDataType dataType) {
+    private static boolean isLinearConnection(Connection connection, List<String> connectedOps, Connection dataType) {
         String newOp;
         if (connectedOps.isEmpty()) {
             if (connection.fromOp() != null) {
@@ -129,12 +128,12 @@ public class FillTemplate extends FilterOp<MainData, NoConfig> {
         return true;
     }
 
-    private static boolean conform(String s, RawDataType dataType) {
+    private static boolean conform(String s, Connection dataType) {
         if (s == null) {
             return true;
-        } else if (dataType.getType() == null) {
-            dataType.setType(s);
+        } else if (dataType.dataType() == null) {
+            dataType.dataType(s);
         }
-        return s.equals(dataType.getType());
+        return s.equals(dataType.dataType());
     }
 }

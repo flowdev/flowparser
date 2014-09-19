@@ -3,8 +3,8 @@ digraph Connections1 {
   // rankdir=LR;
   node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
 
-  doThis [label="doThis\n(DoThis)|{ <in> in|<out> out }|{ <in2> in2|<o2> o2 }|{ |<err> err }"] ;
   doIt [label="doIt\n(DoIt)|{ <in> in|<out> out }|{ <i2> i2|<o1> o1 }|{ <i1> i1| }"] ;
+  doThis [label="doThis\n(DoThis)|{ <in> in|<out> out }|{ <in2> in2|<o2> o2 }|{ |<err> err }"] ;
   doThat [label="doThat\n(DoThat)|{ <in> in|<out> out }|{ <i2> i2|<o1> o1 }|{ <in2> in2| }"] ;
 
   node [shape=plaintext,style=plain,rank=same];
@@ -41,8 +41,8 @@ digraph NumberedPorts {
   // rankdir=LR;
   node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
 
-  doThis [label="doThis\n()|{ <in> in|<out> out }|{ <subIn.0> subIn.0|<subOut.0> subOut.0 }|{ <subIn.1> subIn.1|<subOut.1> subOut.1 }|{ <subIn.2> subIn.2|<subOut.2> subOut.2 }"] ;
   doIt [label="doIt\n()|{ <in> in|<out> out }|{ <subIn.0> subIn.0|<subOut.0> subOut.0 }|{ <subIn.1> subIn.1|<subOut.1> subOut.1 }|{ <subIn.2> subIn.2|<subOut.2> subOut.2 }"] ;
+  doThis [label="doThis\n()|{ <in> in|<out> out }|{ <subIn.0> subIn.0|<subOut.0> subOut.0 }|{ <subIn.1> subIn.1|<subOut.1> subOut.1 }|{ <subIn.2> subIn.2|<subOut.2> subOut.2 }"] ;
   doThat [label="doThat\n()|{ <in> in|<out> out }|{ <subIn.0> subIn.0|<subOut.0> subOut.0 }|{ <subIn.1> subIn.1|<subOut.1> subOut.1 }|{ <subIn.2> subIn.2|<subOut.2> subOut.2 }"] ;
 
   node [shape=plaintext,style=plain,rank=same];

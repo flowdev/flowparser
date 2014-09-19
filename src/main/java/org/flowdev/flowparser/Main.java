@@ -5,6 +5,8 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 import org.flowdev.flowparser.output.OutputAllFormatsConfig;
+import org.flowdev.parser.data.ParserData;
+import org.flowdev.parser.data.SourceData;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -12,10 +14,13 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-@SuppressWarnings("WeakerAccess")
 public class Main {
     private static OptionParser optParser;
-    private static IMainFlow mainFlow = new MainFlow();
+    private static IMainFlow mainFlow;
+
+    static {
+        resetMainFlow();
+    }
 
     /**
      * @param args command line arguments.
@@ -54,6 +59,10 @@ public class Main {
 
     static void resetMainFlow() {
         mainFlow = new MainFlow();
+        mainFlow.setErrorPort(err -> {
+            err.printStackTrace();
+            System.exit(1);
+        });
     }
 
     private static void compileFlows(List<String> inNames,
@@ -64,8 +73,7 @@ public class Main {
         mainFlow.getConfigPort().send(mainConfig);
 
         for (String inName : inNames) {
-            MainData mainData = new MainData();
-            mainData.fileName = inName;
+            MainData mainData = new MainData().parserData(new ParserData().source(new SourceData().name(inName)));
             System.out.println("Compiling file: " + inName);
             mainFlow.getInPort().send(mainData);
         }

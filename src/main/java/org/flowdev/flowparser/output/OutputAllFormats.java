@@ -13,7 +13,7 @@ public class OutputAllFormats extends FilterOp<MainData, OutputAllFormatsConfig>
     protected void filter(MainData data) {
         List<String> formats = getVolatileConfig().formats;
         for (String format : formats) {
-            data.format = format;
+            data.format(format);
             outPort.send(data);
         }
     }

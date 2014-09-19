@@ -23,7 +23,7 @@ public class ParseFlowTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         Flow flow = new Flow().name("Ab").operations(asList(
-                new Operation().name("bla").type("Bla").ports(asList(new PortPair().outPort("out")))
+                new Operation().name("bla").type("Bla").ports(asList(new PortPair()))
         )).connections(Collections.<Connection>emptyList());
 
         return asList(

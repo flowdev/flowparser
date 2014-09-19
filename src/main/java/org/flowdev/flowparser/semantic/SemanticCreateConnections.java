@@ -101,6 +101,8 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                     copyPortFrom2To(chainEnd);
                 }
                 conns.add(chainEnd);
+            } else {
+                lastPortPair.outPort(null).hasOutPortIndex(false).outPortIndex(0);
             }
         }
 

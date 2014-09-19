@@ -3,6 +3,8 @@ package org.flowdev.flowparser;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.PrettyPrinter;
 import org.flowdev.flowparser.output.OutputAllFormatsConfig;
+import org.flowdev.parser.data.ParserData;
+import org.flowdev.parser.data.SourceData;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,9 +51,7 @@ public class MainTest {
     }
 
     private static MainData createData(String fileName) {
-        MainData data = new MainData();
-        data.fileName = fileName;
-        return data;
+        return new MainData().parserData(new ParserData().source(new SourceData().name(fileName)));
     }
 
     private static MainConfig createConfig(String... formats) {
@@ -90,6 +90,10 @@ public class MainTest {
         @Override
         public Port<MainConfig> getConfigPort() {
             return data -> myConfig = data;
+        }
+
+        @Override
+        public void setErrorPort(Port<Throwable> port) {
         }
 
     }
