@@ -18,6 +18,7 @@ public class ParseFlow<T> implements Filter<T, NoConfig> {
     private ParseSpaceComment<T> spcComm1;
     private ParseLiteral<T> openFlow;
     private ParseSpaceComment<T> spcComm2;
+    private ParseConnections<T> connections;
     private ParseLiteral<T> closeFlow;
     private ParseSpaceComment<T> spcComm3;
 
@@ -30,6 +31,7 @@ public class ParseFlow<T> implements Filter<T, NoConfig> {
         spcComm1 = new ParseSpaceComment<>(params);
         openFlow = new ParseLiteral<>(params);
         spcComm2 = new ParseSpaceComment<>(params);
+        connections = new ParseConnections<>(params);
         closeFlow = new ParseLiteral<>(params);
         spcComm3 = new ParseSpaceComment<>(params);
 
@@ -52,9 +54,11 @@ public class ParseFlow<T> implements Filter<T, NoConfig> {
         openFlow.setOutPort(flow.getSubInPort());
         flow.setSubOutPort(5, spcComm2.getInPort());
         spcComm2.setOutPort(flow.getSubInPort());
-        flow.setSubOutPort(6, closeFlow.getInPort());
+        flow.setSubOutPort(6, connections.getInPort());
+        connections.setOutPort(flow.getSubInPort());
+        flow.setSubOutPort(7, closeFlow.getInPort());
         closeFlow.setOutPort(flow.getSubInPort());
-        flow.setSubOutPort(7, spcComm3.getInPort());
+        flow.setSubOutPort(8, spcComm3.getInPort());
         spcComm3.setOutPort(flow.getSubInPort());
     }
 
@@ -88,6 +92,7 @@ public class ParseFlow<T> implements Filter<T, NoConfig> {
         spcComm1.setErrorPort(port);
         openFlow.setErrorPort(port);
         spcComm2.setErrorPort(port);
+        connections.setErrorPort(port);
         closeFlow.setErrorPort(port);
         spcComm3.setErrorPort(port);
     }
