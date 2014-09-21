@@ -4,40 +4,26 @@ package org.flowdev.flowparser.data;
 @SuppressWarnings("UnusedDeclaration")
 public class Connection {
     private String fromOp;
-    private String fromPort;
+    private PortData fromPort;
     private String capFromPort;
-    private boolean hasFromPortIndex;
-    private int fromPortIndex;
     private String dataType;
     private boolean showDataType;
     private String toOp;
-    private String toPort;
+    private PortData toPort;
     private String capToPort;
-    private boolean hasToPortIndex;
-    private int toPortIndex;
 
     public Connection fromOp(final String fromOp) {
         this.fromOp = fromOp;
         return this;
     }
 
-    public Connection fromPort(final String fromPort) {
+    public Connection fromPort(final PortData fromPort) {
         this.fromPort = fromPort;
         return this;
     }
 
     public Connection capFromPort(final String capFromPort) {
         this.capFromPort = capFromPort;
-        return this;
-    }
-
-    public Connection hasFromPortIndex(final boolean hasFromPortIndex) {
-        this.hasFromPortIndex = hasFromPortIndex;
-        return this;
-    }
-
-    public Connection fromPortIndex(final int fromPortIndex) {
-        this.fromPortIndex = fromPortIndex;
         return this;
     }
 
@@ -56,7 +42,7 @@ public class Connection {
         return this;
     }
 
-    public Connection toPort(final String toPort) {
+    public Connection toPort(final PortData toPort) {
         this.toPort = toPort;
         return this;
     }
@@ -66,34 +52,16 @@ public class Connection {
         return this;
     }
 
-    public Connection hasToPortIndex(final boolean hasToPortIndex) {
-        this.hasToPortIndex = hasToPortIndex;
-        return this;
-    }
-
-    public Connection toPortIndex(final int toPortIndex) {
-        this.toPortIndex = toPortIndex;
-        return this;
-    }
-
     public String fromOp() {
         return fromOp;
     }
 
-    public String fromPort() {
+    public PortData fromPort() {
         return fromPort;
     }
 
     public String capFromPort() {
         return capFromPort;
-    }
-
-    public boolean hasFromPortIndex() {
-        return hasFromPortIndex;
-    }
-
-    public int fromPortIndex() {
-        return fromPortIndex;
     }
 
     public String dataType() {
@@ -108,19 +76,11 @@ public class Connection {
         return toOp;
     }
 
-    public String toPort() {
+    public PortData toPort() {
         return toPort;
     }
 
     public String capToPort() {
         return capToPort;
-    }
-
-    public boolean hasToPortIndex() {
-        return hasToPortIndex;
-    }
-
-    public int toPortIndex() {
-        return toPortIndex;
     }
 }

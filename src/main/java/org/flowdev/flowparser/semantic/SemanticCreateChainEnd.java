@@ -32,7 +32,7 @@ public class SemanticCreateChainEnd<T> extends FilterOp<T, NoConfig> {
 
         PortPair port = (PortPair) parserData.subResults().get(1).value();
         if (port != null) {
-            conn.toPort(port.inPort()).hasToPortIndex(port.hasInPortIndex()).toPortIndex(port.inPortIndex());
+            conn.toPort(port.inPort());
         }
 
         return conn;

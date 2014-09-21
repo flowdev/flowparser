@@ -17,27 +17,31 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.flowdev.base.data.PrettyPrinter.prettyPrint;
+import static org.flowdev.flowparser.util.PortUtil.emptyPort;
+import static org.flowdev.flowparser.util.PortUtil.newPort;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class ParseChainBeginTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Operation maxOpBlaNoPorts = new Operation().name("bla").type("Bla").ports(singletonList(new PortPair().inPort("in").outPort("out")));
-        Connection maxConnNoTypeNoPorts = new Connection().fromPort("in").hasFromPortIndex(false).toOp("bla").toPort("in").hasToPortIndex(false);
-        Connection maxConnTypeNoPorts = new Connection().fromPort("in").hasFromPortIndex(false)
-                .toOp("bla").toPort("in").hasToPortIndex(false).dataType("BlaFlowData").showDataType(true);
+        Operation maxOpBlaNoPorts = new Operation().name("bla").type("Bla").ports(singletonList(
+                new PortPair().inPort(newPort("in")).outPort(newPort("out"))));
+        Connection maxConnNoTypeNoPorts = new Connection().fromPort(newPort("in")).toOp("bla").toPort(newPort("in"));
+        Connection maxConnTypeNoPorts = new Connection().fromPort(newPort("in")).toOp("bla").toPort(newPort("in"))
+                .dataType("BlaFlowData").showDataType(true);
 
         Operation maxOpBluPorts = new Operation().name("bla").type("Blu").ports(singletonList(
-                new PortPair().inPort("xIn").hasInPortIndex(true).inPortIndex(1).outPort("outY").hasOutPortIndex(true).outPortIndex(123)));
-        Connection maxConnTypePorts = new Connection().fromPort("ourIn").hasFromPortIndex(false)
-                .toOp("bla").toPort("xIn").hasToPortIndex(true).toPortIndex(1).dataType("BlaFlowData").showDataType(true);
+                new PortPair().inPort(newPort("xIn", 1)).outPort(newPort("outY", 123))));
+        Connection maxConnTypePorts = new Connection().fromPort(newPort("ourIn")).toOp("bla").toPort(newPort("xIn", 1))
+                .dataType("BlaFlowData").showDataType(true);
 
-        Operation minOpBlaNoPorts = new Operation().name("bla").type("Bla").ports(singletonList(new PortPair().outPort("out")));
+        Operation minOpBlaNoPorts = new Operation().name("bla").type("Bla").ports(singletonList(
+                new PortPair().outPort(newPort("out"))));
         Operation minOpBlaPorts = new Operation().name("bla").ports(singletonList(
-                new PortPair().outPort("error").hasOutPortIndex(true).outPortIndex(3)));
+                new PortPair().inPort(emptyPort()).outPort(newPort("error", 3))));
         Operation minOpBluePorts = new Operation().name("bla").type("Blue").ports(singletonList(
-                new PortPair().outPort("error").hasOutPortIndex(true).outPortIndex(3)));
+                new PortPair().inPort(emptyPort()).outPort(newPort("error", 3))));
 
         return asList( //
                 makeTestData("no match 1", "->(B)", null),

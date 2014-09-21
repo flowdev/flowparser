@@ -16,6 +16,7 @@ import java.util.Collection;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.flowdev.base.data.PrettyPrinter.prettyPrint;
+import static org.flowdev.flowparser.util.PortUtil.newPort;
 import static org.junit.Assert.assertEquals;
 
 
@@ -30,40 +31,34 @@ import static org.junit.Assert.assertEquals;
 public class ParseConnectionsTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Flow minFlow = addConnections(createFlow(new Operation().name("bla").type("Bla").ports(asList(new PortPair()))));
+        Flow minFlow = addConnections(createFlow(new Operation().name("bla").type("Bla").ports(asList(new PortPair().isLast(true)))));
         Flow simpleFlow1 = addConnections(createFlow(
-                        new Operation().name("doIt").type("DoIt").ports(asList(new PortPair().inPort("in")))),
-                new Connection().fromPort("in").toPort("in").toOp("doIt"));
+                        new Operation().name("doIt").type("DoIt").ports(asList(new PortPair().inPort(newPort("in")).isLast(true)))),
+                new Connection().fromPort(newPort("in")).toPort(newPort("in")).toOp("doIt"));
         Flow simpleFlow2 = addConnections(createFlow(
-                        new Operation().name("bla").type("Bla").ports(asList(new PortPair().inPort("in").outPort("out"))),
-                        new Operation().name("blue").type("Blue").ports(asList(new PortPair().inPort("in").outPort("out")))
-                ), new Connection().fromPort("in").toPort("in").toOp("bla"),
-                new Connection().fromOp("bla").fromPort("out").toPort("in").toOp("blue"),
-                new Connection().fromOp("blue").fromPort("out").toPort("out"),
-                new Connection().fromPort("in2").toPort("in").toOp("blue"),
-                new Connection().fromOp("blue").fromPort("out").toPort("out2")
+                        new Operation().name("bla").type("Bla").ports(asList(new PortPair().inPort(newPort("in")).outPort(newPort("out")).isLast(true))),
+                        new Operation().name("blue").type("Blue").ports(asList(new PortPair().inPort(newPort("in")).outPort(newPort("out")).isLast(true)))
+                ), new Connection().fromPort(newPort("in")).toPort(newPort("in")).toOp("bla"),
+                new Connection().fromOp("bla").fromPort(newPort("out")).toPort(newPort("in")).toOp("blue"),
+                new Connection().fromOp("blue").fromPort(newPort("out")).toPort(newPort("out")),
+                new Connection().fromPort(newPort("in2")).toPort(newPort("in")).toOp("blue"),
+                new Connection().fromOp("blue").fromPort(newPort("out")).toPort(newPort("out2"))
         );
         Flow complexFlow = addConnections(createFlow(
                         new Operation().name("blaa").type("Bla").ports(asList(
-                                new PortPair().inPort("i").hasInPortIndex(true).inPortIndex(0)
-                                        .outPort("o").hasOutPortIndex(true).outPortIndex(0)
+                                new PortPair().inPort(newPort("i", 0)).outPort(newPort("o", 0)).isLast(true)
                         )),
                         new Operation().name("bluu").type("Blue").ports(asList(
-                                new PortPair().inPort("i").hasInPortIndex(true).inPortIndex(1)
-                                        .outPort("o").hasOutPortIndex(true).outPortIndex(3),
-                                new PortPair().inPort("in")
-                                        .outPort("o").hasOutPortIndex(true).outPortIndex(2)
+                                new PortPair().inPort(newPort("i", 1)).outPort(newPort("o", 3)),
+                                new PortPair().inPort(newPort("in")).outPort(newPort("o", 2)).isLast(true)
                         )),
-                        new Operation().name("ab").type("Ab").ports(asList(new PortPair().outPort("out")))
-                ), new Connection().fromPort("i").hasFromPortIndex(true).fromPortIndex(1)
-                        .toPort("i").hasToPortIndex(true).toPortIndex(0).toOp("blaa"),
-                new Connection().fromOp("blaa").fromPort("o").hasFromPortIndex(true).fromPortIndex(0)
-                        .toPort("i").hasToPortIndex(true).toPortIndex(1).toOp("bluu"),
-                new Connection().fromOp("bluu").fromPort("o").hasFromPortIndex(true).fromPortIndex(3)
-                        .toPort("o").hasToPortIndex(true).toPortIndex(3),
-                new Connection().fromPort("in").hasFromPortIndex(true).fromPortIndex(2).toPort("in").toOp("bluu"),
-                new Connection().fromOp("bluu").fromPort("o").hasFromPortIndex(true).fromPortIndex(2).toPort("out2"),
-                new Connection().fromOp("ab").fromPort("out").toPort("out1")
+                        new Operation().name("ab").type("Ab").ports(asList(new PortPair().outPort(newPort("out")).isLast(true)))
+                ), new Connection().fromPort(newPort("i", 1)).toPort(newPort("i", 0)).toOp("blaa"),
+                new Connection().fromOp("blaa").fromPort(newPort("o", 0)).toPort(newPort("i", 1)).toOp("bluu"),
+                new Connection().fromOp("bluu").fromPort(newPort("o", 3)).toPort(newPort("o", 3)),
+                new Connection().fromPort(newPort("in", 2)).toPort(newPort("in")).toOp("bluu"),
+                new Connection().fromOp("bluu").fromPort(newPort("o", 2)).toPort(newPort("out2")),
+                new Connection().fromOp("ab").fromPort(newPort("out")).toPort(newPort("out1"))
         );
 
         return asList(

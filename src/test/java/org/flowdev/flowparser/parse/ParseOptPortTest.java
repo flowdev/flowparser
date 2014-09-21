@@ -11,6 +11,7 @@ import org.junit.runners.Parameterized;
 import java.util.Collection;
 
 import static java.util.Arrays.asList;
+import static org.flowdev.flowparser.util.PortUtil.newPort;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
@@ -30,7 +31,7 @@ public class ParseOptPortTest extends ParseTestBase {
     }
 
     private static PortPair createPort(String name, boolean hasIndex, int index) {
-        return new PortPair().inPort(name).hasInPortIndex(hasIndex).inPortIndex(index);
+        return new PortPair().inPort(newPort(name, hasIndex, index));
     }
 
     public ParseOptPortTest(ParserData parserData, Object expectedValue) {
@@ -46,10 +47,10 @@ public class ParseOptPortTest extends ParseTestBase {
     protected void checkResultValue(Object expectedValue, Object actualValue) {
         PortPair expected = (PortPair) expectedValue;
         PortPair actual = (PortPair) actualValue;
-        assertEquals("Port name doesn't match.", expected.inPort(), actual.inPort());
-        assertEquals("Port has index doesn't match.", expected.hasInPortIndex(), actual.hasInPortIndex());
-        if (expected.hasInPortIndex()) {
-            assertEquals("Port index doesn't match.", expected.inPortIndex(), actual.inPortIndex());
+        assertEquals("Port name doesn't match.", expected.inPort().name(), actual.inPort().name());
+        assertEquals("Port has index doesn't match.", expected.inPort().hasIndex(), actual.inPort().hasIndex());
+        if (expected.inPort().hasIndex()) {
+            assertEquals("Port index doesn't match.", expected.inPort().index(), actual.inPort().index());
         }
     }
 }

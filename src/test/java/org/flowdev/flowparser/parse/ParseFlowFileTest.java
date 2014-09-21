@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import static java.util.Arrays.asList;
+import static org.flowdev.flowparser.util.PortUtil.newPort;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
@@ -33,7 +34,7 @@ public class ParseFlowFileTest extends ParseTestBase {
 
     private static FlowFile createFlowFile(String name) {
         Flow flow = new Flow().name("Acdc").operations(asList(
-                new Operation().name("bla").type("Bla").ports(asList(new PortPair().outPort("out")))
+                new Operation().name("bla").type("Bla").ports(asList(new PortPair().outPort(newPort("out"))))
         )).connections(Collections.<Connection>emptyList());
 
         return new FlowFile().fileName(name).version(new Version().political(1).major(234))

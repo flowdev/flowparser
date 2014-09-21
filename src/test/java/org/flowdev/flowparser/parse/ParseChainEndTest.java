@@ -11,6 +11,8 @@ import org.junit.runners.Parameterized;
 import java.util.Collection;
 
 import static java.util.Arrays.asList;
+import static org.flowdev.base.data.PrettyPrinter.prettyPrint;
+import static org.flowdev.flowparser.util.PortUtil.newPort;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
@@ -18,9 +20,9 @@ public class ParseChainEndTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         Connection connMin = new Connection();
-        Connection connNoPort = new Connection().dataType("Bla");
-        Connection connNoType = new Connection().toPort("outX").hasToPortIndex(true).toPortIndex(3);
-        Connection connMax = new Connection().dataType("Blu").toPort("outX").hasToPortIndex(true).toPortIndex(7);
+        Connection connNoPort = new Connection().dataType("Bla").showDataType(true);
+        Connection connNoType = new Connection().toPort(newPort("outX", 3));
+        Connection connMax = new Connection().dataType("Blu").showDataType(true).toPort(newPort("outX", 7));
         return asList( //
                 makeTestData("empty", "", null), //
                 makeTestData("no match 1", "-", null), //
@@ -43,12 +45,6 @@ public class ParseChainEndTest extends ParseTestBase {
 
     @Override
     protected void checkResultValue(Object expectedValue, Object actualValue) {
-        Connection expected = (Connection) expectedValue;
-        Connection actual = (Connection) actualValue;
-
-        assertEquals("Data type doesn't match.", expected.dataType(), actual.dataType());
-        assertEquals("Port name doesn't match.", expected.toPort(), actual.toPort());
-        assertEquals("Port hasIndex doesn't match.", expected.hasToPortIndex(), actual.hasToPortIndex());
-        assertEquals("Port index doesn't match.", expected.toPortIndex(), actual.toPortIndex());
+        assertEquals("Connection doesn't match.", prettyPrint(expectedValue), prettyPrint(actualValue));
     }
 }

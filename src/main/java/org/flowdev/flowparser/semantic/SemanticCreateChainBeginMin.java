@@ -3,6 +3,7 @@ package org.flowdev.flowparser.semantic;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.Operation;
+import org.flowdev.flowparser.data.PortData;
 import org.flowdev.flowparser.data.PortPair;
 import org.flowdev.flowparser.util.PortUtil;
 import org.flowdev.parser.data.ParserData;
@@ -37,7 +38,7 @@ public class SemanticCreateChainBeginMin<T> extends FilterOp<T, NoConfig> {
         if (port != null) {
             PortUtil.movePortIn2Out(port);  // port is an out port really
         } else {
-            port = new PortPair().outPort("out").hasOutPortIndex(false).outPortIndex(0);
+            port = new PortPair().outPort(new PortData().name("out").hasIndex(false));
         }
         op.ports(makePorts(port));
         chainBegin.add(null);

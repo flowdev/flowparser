@@ -2,6 +2,7 @@ package org.flowdev.flowparser.data;
 
 public class PortData {
     private String name;
+    private String capName;
     private boolean hasIndex;
     private int index;
 
@@ -11,6 +12,15 @@ public class PortData {
 
     public PortData name(String name) {
         this.name = name;
+        return this;
+    }
+
+    public String capName() {
+        return this.capName;
+    }
+
+    public PortData capName(final String capName) {
+        this.capName = capName;
         return this;
     }
 

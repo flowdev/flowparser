@@ -7,8 +7,7 @@ import org.flowdev.flowparser.data.PortPair;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
-import static org.flowdev.flowparser.util.PortUtil.copyPortIn2Out;
-import static org.flowdev.flowparser.util.PortUtil.makePorts;
+import static org.flowdev.flowparser.util.PortUtil.*;
 
 public class SemanticCreateConnectionPart<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
@@ -33,10 +32,10 @@ public class SemanticCreateConnectionPart<T> extends FilterOp<T, NoConfig> {
         PortPair outPort = (PortPair) parserData.subResults().get(2).value();
 
         if (inPort == null) {
-            inPort = new PortPair().inPort("in").hasInPortIndex(false);
+            inPort = new PortPair().inPort(defaultInPort());
         }
         if (outPort == null) {
-            inPort.outPort("out").hasOutPortIndex(false);
+            inPort.outPort(defaultOutPort());
         } else {
             copyPortIn2Out(outPort, inPort);
         }

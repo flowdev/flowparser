@@ -2,10 +2,7 @@ package org.flowdev.flowparser.semantic;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
-import org.flowdev.flowparser.data.Connection;
-import org.flowdev.flowparser.data.Flow;
-import org.flowdev.flowparser.data.Operation;
-import org.flowdev.flowparser.data.PortPair;
+import org.flowdev.flowparser.data.*;
 import org.flowdev.parser.data.ParseResult;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
@@ -102,7 +99,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                 }
                 conns.add(chainEnd);
             } else {
-                lastPortPair.outPort(null).hasOutPortIndex(false).outPortIndex(0);
+                lastPortPair.outPort(null);
             }
         }
 
@@ -117,60 +114,74 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
             }
             addPortPair(existingOp, op.ports().get(0), parserData);
         } else {
+            op.ports().get(0).isLast(true);
             ops.put(op.name(), op);
         }
         return op;
     }
 
     private void addPortPair(Operation op, PortPair portPair, ParserData parserData) {
-        addInPort(op, portPair, parserData);
-        addOutPort(op, portPair, parserData);
+        addInPort(op, portPair.inPort(), parserData);
+        addOutPort(op, portPair.outPort(), parserData);
+        correctIsLast(op);
     }
 
-    private void addInPort(Operation op, PortPair newPort, ParserData parserData) {
+    private void addInPort(Operation op, PortData newPort, ParserData parserData) {
+        if (newPort == null) {
+            return;
+        }
+
         for (PortPair oldPort : op.ports()) {
             if (oldPort.inPort() == null) {
-                oldPort.inPort(newPort.inPort()).hasInPortIndex(newPort.hasInPortIndex()).inPortIndex(newPort.inPortIndex());
+                oldPort.inPort(newPort);
                 return;
-            } else if (oldPort.inPort().equals(newPort.inPort())) {
-                if (oldPort.hasInPortIndex() == newPort.hasInPortIndex()) {
-                    if (oldPort.inPortIndex() == newPort.inPortIndex()) {
+            } else if (oldPort.inPort().name().equals(newPort.name())) {
+                if (oldPort.inPort().hasIndex() == newPort.hasIndex()) {
+                    if (oldPort.inPort().index() == newPort.index()) {
                         return;
                     }
                 } else {
-                    ParserUtil.addError(parserData, "The input port '" + oldPort.inPort() +
-                            "' of the operation '" + op.name() + "' is used as indexed and unindexed port in parallel!");
+                    ParserUtil.addError(parserData, "The input port '" + newPort.name() +
+                            "' of the operation '" + op.name() + "' is used as indexed and unindexed port in the same flow!");
                     return;
                 }
             }
         }
 
-        op.ports().add(new PortPair()
-                        .inPort(newPort.inPort()).hasInPortIndex(newPort.hasInPortIndex()).inPortIndex(newPort.inPortIndex())
-        );
+        op.ports().add(new PortPair().inPort(newPort));
     }
 
-    private void addOutPort(Operation op, PortPair newPort, ParserData parserData) {
+    private void addOutPort(Operation op, PortData newPort, ParserData parserData) {
+        if (newPort == null) {
+            return;
+        }
+
         for (PortPair oldPort : op.ports()) {
             if (oldPort.outPort() == null) {
-                oldPort.outPort(newPort.outPort()).hasOutPortIndex(newPort.hasOutPortIndex()).outPortIndex(newPort.outPortIndex());
+                oldPort.outPort(newPort);
                 return;
-            } else if (oldPort.outPort().equals(newPort.outPort())) {
-                if (oldPort.hasOutPortIndex() == newPort.hasOutPortIndex()) {
-                    if (oldPort.outPortIndex() == newPort.outPortIndex()) {
+            } else if (oldPort.outPort().name().equals(newPort.name())) {
+                if (oldPort.outPort().hasIndex() == newPort.hasIndex()) {
+                    if (oldPort.outPort().index() == newPort.index()) {
                         return;
                     }
                 } else {
-                    ParserUtil.addError(parserData, "The output port '" + oldPort.outPort() +
+                    ParserUtil.addError(parserData, "The output port '" + newPort.name() +
                             "' of the operation '" + op.name() + "' is used as indexed and unindexed port in parallel!");
                     return;
                 }
             }
         }
 
-        op.ports().add(new PortPair()
-                        .outPort(newPort.outPort()).hasOutPortIndex(newPort.hasOutPortIndex()).outPortIndex(newPort.outPortIndex())
-        );
+        op.ports().add(new PortPair().outPort(newPort));
+    }
+
+    private void correctIsLast(Operation op) {
+        int n = op.ports().size();
+        if (n > 1) {
+            op.ports().get(n - 2).isLast(false);
+        }
+        op.ports().get(n - 1).isLast(true);
     }
 
 }
