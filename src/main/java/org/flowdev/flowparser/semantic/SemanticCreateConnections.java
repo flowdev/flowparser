@@ -13,8 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.flowdev.flowparser.util.PortUtil.*;
-
 public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
 
@@ -80,9 +78,8 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                     Operation toOp = (Operation) chainMid.get(1);
 
                     Connection connMid = new Connection().dataType(arrowType).showDataType(arrowType != null)
-                            .fromOp(lastOp.name()).toOp(toOp.name());
-                    copyPortOut2From(fromPort, connMid);
-                    copyPortIn2To(toOp.ports().get(0), connMid);
+                            .fromOp(lastOp.name()).toOp(toOp.name())
+                            .fromPort(fromPort.outPort()).toPort(toOp.ports().get(0).inPort());
                     conns.add(connMid);
 
                     lastOp = addLastOp(ops, toOp, parserData);
@@ -92,10 +89,9 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
 
             // handle chainEnd
             if (chainEnd != null) {
-                chainEnd.fromOp(lastOp.name());
-                copyPortOut2From(lastPortPair, chainEnd);
+                chainEnd.fromOp(lastOp.name()).fromPort(lastPortPair.outPort());
                 if (chainEnd.toPort() == null) {
-                    copyPortFrom2To(chainEnd);
+                    chainEnd.toPort(chainEnd.fromPort());
                 }
                 conns.add(chainEnd);
             } else {

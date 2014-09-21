@@ -17,7 +17,6 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.flowdev.base.data.PrettyPrinter.prettyPrint;
-import static org.flowdev.flowparser.util.PortUtil.emptyPort;
 import static org.flowdev.flowparser.util.PortUtil.newPort;
 import static org.junit.Assert.assertEquals;
 
@@ -39,9 +38,9 @@ public class ParseChainBeginTest extends ParseTestBase {
         Operation minOpBlaNoPorts = new Operation().name("bla").type("Bla").ports(singletonList(
                 new PortPair().outPort(newPort("out"))));
         Operation minOpBlaPorts = new Operation().name("bla").ports(singletonList(
-                new PortPair().inPort(emptyPort()).outPort(newPort("error", 3))));
+                new PortPair().inPort(null).outPort(newPort("error", 3))));
         Operation minOpBluePorts = new Operation().name("bla").type("Blue").ports(singletonList(
-                new PortPair().inPort(emptyPort()).outPort(newPort("error", 3))));
+                new PortPair().inPort(null).outPort(newPort("error", 3))));
 
         return asList( //
                 makeTestData("no match 1", "->(B)", null),

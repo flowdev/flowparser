@@ -1,6 +1,5 @@
 package org.flowdev.flowparser.util;
 
-import org.flowdev.flowparser.data.Connection;
 import org.flowdev.flowparser.data.PortData;
 import org.flowdev.flowparser.data.PortPair;
 
@@ -13,10 +12,6 @@ public class PortUtil {
         List<PortPair> ports = new ArrayList<>();
         ports.add(port);
         return ports;
-    }
-
-    public static PortData emptyPort() {
-        return null;
     }
 
     public static PortData defaultInPort() {
@@ -39,23 +34,4 @@ public class PortUtil {
         return new PortData().name(name).hasIndex(false);
     }
 
-    public static void movePortIn2Out(PortPair port) {
-        port.outPort(port.inPort()).inPort(null);
-    }
-
-    public static void copyPortIn2Out(PortPair src, PortPair dst) {
-        dst.outPort(src.inPort());
-    }
-
-    public static void copyPortOut2From(PortPair src, Connection dst) {
-        dst.fromPort(src.outPort());
-    }
-
-    public static void copyPortIn2To(PortPair src, Connection dst) {
-        dst.toPort(src.inPort());
-    }
-
-    public static void copyPortFrom2To(Connection conn) {
-        conn.toPort(conn.fromPort());
-    }
 }
