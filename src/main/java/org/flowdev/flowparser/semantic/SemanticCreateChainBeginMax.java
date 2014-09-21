@@ -4,7 +4,7 @@ import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.Connection;
 import org.flowdev.flowparser.data.Operation;
-import org.flowdev.flowparser.data.PortPair;
+import org.flowdev.flowparser.data.PortData;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
@@ -30,19 +30,18 @@ public class SemanticCreateChainBeginMax<T> extends FilterOp<T, NoConfig> {
     @SuppressWarnings("unchecked")
     private List<Object> createChainBegin(ParserData parserData) {
         List<Object> chainBegin = new ArrayList<>(2);
-        PortPair port = (PortPair) parserData.subResults().get(0).value();
+        PortData port = (PortData) parserData.subResults().get(0).value();
         List<Object> list = (List<Object>) parserData.subResults().get(1).value();
         String dataType = (String) list.get(0);
         Operation op = (Operation) list.get(1);
         Connection conn = new Connection();
+
         if (port == null) {
-            port = op.ports().get(0);
+            port = op.ports().get(0).inPort();
         }
-        conn.fromPort(port.inPort());
-        conn.dataType(dataType).showDataType(dataType != null);
-        port = op.ports().get(0);
-        conn.toPort(port.inPort());
-        conn.toOp(op.name());
+        conn.fromPort(port).dataType(dataType).showDataType(dataType != null);
+        port = op.ports().get(0).inPort();
+        conn.toPort(port).toOp(op.name());
 
         chainBegin.add(conn);
         chainBegin.add(op);

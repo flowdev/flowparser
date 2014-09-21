@@ -3,7 +3,7 @@ package org.flowdev.flowparser.semantic;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.Connection;
-import org.flowdev.flowparser.data.PortPair;
+import org.flowdev.flowparser.data.PortData;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
@@ -30,9 +30,9 @@ public class SemanticCreateChainEnd<T> extends FilterOp<T, NoConfig> {
         String dataType = (String) parserData.subResults().get(0).value();
         conn.showDataType(dataType != null).dataType(dataType);
 
-        PortPair port = (PortPair) parserData.subResults().get(1).value();
+        PortData port = (PortData) parserData.subResults().get(1).value();
         if (port != null) {
-            conn.toPort(port.inPort());
+            conn.toPort(port);
         }
 
         return conn;

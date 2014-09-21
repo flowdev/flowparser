@@ -5,13 +5,13 @@ import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.Operation;
 import org.flowdev.flowparser.data.PortData;
 import org.flowdev.flowparser.data.PortPair;
-import org.flowdev.flowparser.util.PortUtil;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.flowdev.flowparser.util.PortUtil.defaultOutPort;
 import static org.flowdev.flowparser.util.PortUtil.makePorts;
 
 public class SemanticCreateChainBeginMin<T> extends FilterOp<T, NoConfig> {
@@ -34,13 +34,14 @@ public class SemanticCreateChainBeginMin<T> extends FilterOp<T, NoConfig> {
     private List<Object> createChainBegin(ParserData parserData) {
         List<Object> chainBegin = new ArrayList<>(2);
         Operation op = (Operation) parserData.subResults().get(0).value();
-        PortPair port = (PortPair) parserData.subResults().get(1).value();
+        PortData port = (PortData) parserData.subResults().get(1).value();
+        PortPair portPair = new PortPair();
         if (port != null) {
-            PortUtil.movePortIn2Out(port);  // port is an out port really
+            portPair.outPort(port);
         } else {
-            port = new PortPair().outPort(new PortData().name("out").hasIndex(false));
+            portPair.outPort(defaultOutPort());
         }
-        op.ports(makePorts(port));
+        op.ports(makePorts(portPair));
         chainBegin.add(null);
         chainBegin.add(op);
         return chainBegin;

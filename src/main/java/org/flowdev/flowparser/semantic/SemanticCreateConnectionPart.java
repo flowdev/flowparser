@@ -3,6 +3,7 @@ package org.flowdev.flowparser.semantic;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.Operation;
+import org.flowdev.flowparser.data.PortData;
 import org.flowdev.flowparser.data.PortPair;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
@@ -27,18 +28,23 @@ public class SemanticCreateConnectionPart<T> extends FilterOp<T, NoConfig> {
 
     @SuppressWarnings("unchecked")
     private Operation createConnectionPart(ParserData parserData) {
-        PortPair inPort = (PortPair) parserData.subResults().get(0).value();
+        PortData inPort = (PortData) parserData.subResults().get(0).value();
         Operation op = (Operation) parserData.subResults().get(1).value();
-        PortPair outPort = (PortPair) parserData.subResults().get(2).value();
+        PortData outPort = (PortData) parserData.subResults().get(2).value();
+        PortPair portPair = new PortPair();
 
         if (inPort == null) {
-            inPort = new PortPair().inPort(defaultInPort());
-        }
-        if (outPort == null) {
-            inPort.outPort(defaultOutPort());
+            portPair.inPort(defaultInPort());
         } else {
-            copyPortIn2Out(outPort, inPort);
+            portPair.inPort(inPort);
         }
-        return op.ports(makePorts(inPort));
+
+        if (outPort == null) {
+            portPair.outPort(defaultOutPort());
+        } else {
+            portPair.outPort(outPort);
+        }
+
+        return op.ports(makePorts(portPair));
     }
 }

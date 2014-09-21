@@ -3,7 +3,6 @@ package org.flowdev.flowparser.semantic;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.PortData;
-import org.flowdev.flowparser.data.PortPair;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
@@ -26,15 +25,15 @@ public class SemanticCreatePort<T> extends FilterOp<T, NoConfig> {
     }
 
     @SuppressWarnings("unchecked")
-    private PortPair createPort(ParserData parserData) {
-        PortPair portPair = new PortPair().inPort(new PortData().name(parserData.subResults().get(0).text()));
+    private PortData createPort(ParserData parserData) {
+        PortData port = new PortData().name(parserData.subResults().get(0).text());
 
         List<Object> opPortNum = (List<Object>) parserData.subResults().get(1).value();
         if (opPortNum == null) {
-            portPair.inPort().hasIndex(false);
+            port.hasIndex(false);
         } else {
-            portPair.inPort().hasIndex(true).index(((Long) opPortNum.get(1)).intValue());
+            port.hasIndex(true).index(((Long) opPortNum.get(1)).intValue());
         }
-        return portPair;
+        return port;
     }
 }
