@@ -8,12 +8,12 @@ flow Connections1 {
     doIt(DoIt)o3->o1;
     ->doIt()->;
     i2->i2 doIt() o2->o2;
-    ->doIt()o4[FlowData1]->doThis(DoThis)->doThat(DoThat);
+    ->doIt()o4[FlowData1]->doThis(DoThis)->doThat(DoesThat);
     i1->doIt()o1[FlowData2]->doThis()o1->i2 doThat(DoesThat)->o2;
     ->i2 doIt()o5->i2 doThat() o1->doThis() o2->;
     doThis() err-> err;
     i3 ->in2 doThis(DoThis);
-    i4 [FlowData]-> in2 (DoThat) o2 [FlowData2]-> o2 ;
+    i4 [FlowData]-> in2 (DoesThat) o2 [FlowData2]-> o2 ;
 }
 
 flow NumberedPorts {

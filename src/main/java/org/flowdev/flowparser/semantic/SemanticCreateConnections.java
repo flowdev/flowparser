@@ -115,6 +115,10 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
     }
 
     private void verifyFlow(Flow result, ParserData parserData) {
+        verifyOutPortsUsedOnlyOnce(result, parserData);
+    }
+
+    private void verifyOutPortsUsedOnlyOnce(Flow result, ParserData parserData) {
         // check for output ports that are connected to multiple input ports:
         Map<String, Set<String>> connMap = new HashMap<>(256);
         for (Connection conn : result.connections()) {
@@ -155,6 +159,9 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
         if (existingOp != null) {
             if (existingOp.type() == null) {
                 existingOp.type(op.type());
+            } else if (op.type() != null && !op.type().equals(existingOp.type())) {
+                ParserUtil.addError(parserData, "The operation '" + op.name() +
+                        "' has got two different types '" + op.type() + "' and '" + existingOp.type() + "'!");
             }
             addPortPair(existingOp, op.ports().get(0), parserData, result);
             result.op = existingOp;
