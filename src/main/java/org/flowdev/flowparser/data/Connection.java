@@ -1,18 +1,17 @@
 package org.flowdev.flowparser.data;
 
 
-@SuppressWarnings("UnusedDeclaration")
 public class Connection {
-    private String fromOp;
+    private Operation fromOp;
     private PortData fromPort;
     private String capFromPort;
     private String dataType;
     private boolean showDataType;
-    private String toOp;
+    private Operation toOp;
     private PortData toPort;
     private String capToPort;
 
-    public Connection fromOp(final String fromOp) {
+    public Connection fromOp(final Operation fromOp) {
         this.fromOp = fromOp;
         return this;
     }
@@ -37,7 +36,7 @@ public class Connection {
         return this;
     }
 
-    public Connection toOp(final String toOp) {
+    public Connection toOp(final Operation toOp) {
         this.toOp = toOp;
         return this;
     }
@@ -52,7 +51,7 @@ public class Connection {
         return this;
     }
 
-    public String fromOp() {
+    public Operation fromOp() {
         return fromOp;
     }
 
@@ -72,7 +71,7 @@ public class Connection {
         return showDataType;
     }
 
-    public String toOp() {
+    public Operation toOp() {
         return toOp;
     }
 

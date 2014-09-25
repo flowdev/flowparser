@@ -61,7 +61,8 @@ public class Main {
         mainFlow = new MainFlow();
         mainFlow.setErrorPort(err -> {
             err.printStackTrace();
-            System.exit(1);
+            throw new RuntimeException(err);
+//            System.exit(1);
         });
     }
 

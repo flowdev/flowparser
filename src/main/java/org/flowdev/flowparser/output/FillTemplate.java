@@ -75,7 +75,7 @@ public class FillTemplate extends FilterOp<MainData, NoConfig> {
             return false;
         }
         PortPair portPair = op.ports().get(0);
-        return "in".equals(portPair.inPort()) && "out".equals(portPair.outPort());
+        return "in".equals(portPair.inPort().name()) && "out".equals(portPair.outPort().name());
     }
 
     private static boolean isLinearConnection(Connection connection, List<String> connectedOps, Connection dataType) {
@@ -84,41 +84,41 @@ public class FillTemplate extends FilterOp<MainData, NoConfig> {
             if (connection.fromOp() != null) {
                 return false;
             }
-            if (!"in".equals(connection.fromPort())) {
+            if (!"in".equals(connection.fromPort().name())) {
                 return false;
             }
-            if (!"in".equals(connection.toPort())) {
+            if (!"in".equals(connection.toPort().name())) {
                 return false;
             }
             if (connection.toOp() == null) {
                 return false;
             }
-            newOp = connection.toOp();
+            newOp = connection.toOp().name();
         } else if (connection.toOp() == null) {
-            if (!connectedOps.get(connectedOps.size() - 1).equals(connection.fromOp())) {
+            if (!connectedOps.get(connectedOps.size() - 1).equals(connection.fromOp().name())) {
                 return false;
             }
-            if (!"out".equals(connection.fromPort())) {
+            if (!"out".equals(connection.fromPort().name())) {
                 return false;
             }
-            if (!"out".equals(connection.toPort())) {
+            if (!"out".equals(connection.toPort().name())) {
                 return false;
             }
             newOp = "<NULL>!!!";
         } else {
-            if (!connectedOps.get(connectedOps.size() - 1).equals(connection.fromOp())) {
+            if (!connectedOps.get(connectedOps.size() - 1).equals(connection.fromOp().name())) {
                 return false;
             }
-            if (!"out".equals(connection.fromPort())) {
+            if (!"out".equals(connection.fromPort().name())) {
                 return false;
             }
-            if (!"in".equals(connection.toPort())) {
+            if (!"in".equals(connection.toPort().name())) {
                 return false;
             }
-            if (connectedOps.contains(connection.toOp())) {
+            if (connectedOps.contains(connection.toOp().name())) {
                 return false;
             }
-            newOp = connection.toOp();
+            newOp = connection.toOp().name();
         }
 
         if (!conform(connection.dataType(), dataType)) {

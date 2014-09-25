@@ -12,9 +12,9 @@ digraph {{name}} {
   node [shape=plaintext,style=plain,rank=same];
 
 {{#connections}}{{#fromOp}}
-  {{fromOp}}:{{#fromPort}}{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/fromPort}}{{/fromOp}}{{^fromOp}}
+  {{fromOp.name}}:{{#fromPort}}{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/fromPort}}{{/fromOp}}{{^fromOp}}
   {{#fromPort}}"{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}"{{/fromPort}}{{/fromOp}}
- -> {{#toOp}}{{toOp}}:{{#toPort}}{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/toPort}}{{/toOp}}{{^toOp}}
+ -> {{#toOp}}{{toOp.name}}:{{#toPort}}{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/toPort}}{{/toOp}}{{^toOp}}
 {{#toPort}}"{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}"{{/toPort}}{{/toOp}}{{#showDataType}}
  [label="{{dataType}}"]{{/showDataType}} ;
 {{/connections}}

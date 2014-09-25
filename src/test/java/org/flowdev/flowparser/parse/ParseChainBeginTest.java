@@ -26,13 +26,13 @@ public class ParseChainBeginTest extends ParseTestBase {
     public static Collection<?> generateTestDatas() {
         Operation maxOpBlaNoPorts = new Operation().name("bla").type("Bla").ports(singletonList(
                 new PortPair().inPort(newPort("in")).outPort(newPort("out"))));
-        Connection maxConnNoTypeNoPorts = new Connection().fromPort(newPort("in")).toOp("bla").toPort(newPort("in"));
-        Connection maxConnTypeNoPorts = new Connection().fromPort(newPort("in")).toOp("bla").toPort(newPort("in"))
+        Connection maxConnNoTypeNoPorts = new Connection().fromPort(newPort("in")).toOp(maxOpBlaNoPorts).toPort(newPort("in"));
+        Connection maxConnTypeNoPorts = new Connection().fromPort(newPort("in")).toOp(maxOpBlaNoPorts).toPort(newPort("in"))
                 .dataType("BlaFlowData").showDataType(true);
 
         Operation maxOpBluPorts = new Operation().name("bla").type("Blu").ports(singletonList(
                 new PortPair().inPort(newPort("xIn", 1)).outPort(newPort("outY", 123))));
-        Connection maxConnTypePorts = new Connection().fromPort(newPort("ourIn")).toOp("bla").toPort(newPort("xIn", 1))
+        Connection maxConnTypePorts = new Connection().fromPort(newPort("ourIn")).toOp(maxOpBluPorts).toPort(newPort("xIn", 1))
                 .dataType("BlaFlowData").showDataType(true);
 
         Operation minOpBlaNoPorts = new Operation().name("bla").type("Bla").ports(singletonList(

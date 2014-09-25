@@ -3,9 +3,9 @@ digraph Connections1 {
   // rankdir=LR;
   node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
 
-  doIt [label="doIt\n(DoIt)|{ <in> in|<out> out }|{ <i2> i2|<o1> o1 }|{ <i1> i1| }"] ;
-  doThis [label="doThis\n(DoThis)|{ <in> in|<out> out }|{ <in2> in2|<o2> o2 }|{ |<err> err }"] ;
-  doThat [label="doThat\n(DoThat)|{ <in> in|<out> out }|{ <i2> i2|<o1> o1 }|{ <in2> in2| }"] ;
+  doIt [label="doIt\n(DoIt)|{ <in> in|<out> out }|{ <i2> i2|<o3> o3 }|{ |<o2> o2 }|{ |<o4> o4 }|{ |<o1> o1 }|{ |<o5> o5 }"] ;
+  doThis [label="doThis\n(DoThis)|{ <in> in|<out> out }|{ <in2> in2|<o1> o1 }|{ |<o2> o2 }|{ |<err> err }"] ;
+  doThat [label="doThat\n(DoThat)|{ <in> in|<out> out }|{ <i2> i2|<o1> o1 }|{ <in2> in2|<o2> o2 }"] ;
 
   node [shape=plaintext,style=plain,rank=same];
 
@@ -13,26 +13,26 @@ digraph Connections1 {
   "in" -> doIt:in [label="FlowData"] ;
   "i1" -> doIt:in ;
   doIt:out -> "out" ;
-  doIt:out -> "o1" ;
+  doIt:o3 -> "o1" ;
   "in" -> doIt:in ;
   doIt:out -> "out" ;
-  "i1" -> doIt:i2 ;
-  doIt:o1 -> "o2" ;
+  "i2" -> doIt:i2 ;
+  doIt:o2 -> "o2" ;
   "in" -> doIt:in ;
-  doIt:out -> doThis:in [label="FlowData1"] ;
+  doIt:o4 -> doThis:in [label="FlowData1"] ;
   doThis:out -> doThat:in ;
   "i1" -> doIt:in ;
   doIt:o1 -> doThis:in [label="FlowData2"] ;
-  doThis:out -> doThat:i2 ;
+  doThis:o1 -> doThat:i2 ;
   doThat:out -> "o2" ;
-  "i1" -> doIt:i1 ;
-  doIt:out -> doThat:i2 ;
+  "i2" -> doIt:i2 ;
+  doIt:o5 -> doThat:i2 ;
   doThat:o1 -> doThis:in ;
   doThis:o2 -> "o2" ;
   doThis:err -> "err" ;
-  "i1" -> doThis:in2 ;
-  "i1" -> doThat:in2 [label="FlowData"] ;
-  doThat:o1 -> "o2" [label="FlowData2"] ;
+  "i3" -> doThis:in2 ;
+  "i4" -> doThat:in2 [label="FlowData"] ;
+  doThat:o2 -> "o2" [label="FlowData2"] ;
 }
 </graphviz>
 
