@@ -9,12 +9,13 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.flowdev.flowparser.TestUtils.*;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class AllTest {
-    private static final String FLOW_DIR = "./src/test/flow/flowparser/";
-    private static final String WORK_DIR = "./src/test/result/flowparser/all/";
+    private static final String WORK_DIR = System.getProperty("java.io.tmpdir", "./");
+    private static final String FLOW_RESOURCE_DIR = "flow/flowparser/";
+    private static final String RESULT_RESOURCE_DIR = "result/flowparser/all/";
     private static final String FLOW_EXT = ".flow";
     private static final String FORMAT = "wiki";
     private static final String FORMAT_EXT = "." + FORMAT;
@@ -38,22 +39,20 @@ public class AllTest {
     public void testParser() throws IOException {
         String workFlowFile = WORK_DIR + fileName + FLOW_EXT;
         String actualFile = WORK_DIR + fileName + FORMAT_EXT;
-        String expectedResult = readFile(WORK_DIR + fileName + EXPECTED_FORMAT_EXT);
+        String expectedResult = readResource(RESULT_RESOURCE_DIR + fileName + EXPECTED_FORMAT_EXT);
+        String testFlowContent = readResource(FLOW_RESOURCE_DIR + fileName + FLOW_EXT);
 
         deleteFile(actualFile);
         deleteFile(workFlowFile);
-        copyFile(FLOW_DIR + fileName + FLOW_EXT, workFlowFile);
+        writeFile(workFlowFile, testFlowContent);
 
         Main.resetMainFlow();
         Main.main("-f", FORMAT, workFlowFile);
-
         String actualResult = readFile(actualFile);
-        if (expectedResult.equals(actualResult)) {
-            deleteFile(actualFile);
-            deleteFile(workFlowFile);
-        } else {
-            fail("AllTest failed for file '" + fileName + "'. You can find the offending output at: " + actualFile);
-        }
+
+        deleteFile(actualFile);
+        deleteFile(workFlowFile);
+        assertEquals("AllTest failed for file '" + fileName + "'.", expectedResult, actualResult);
     }
 
 }
