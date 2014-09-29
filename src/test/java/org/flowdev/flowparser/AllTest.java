@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class AllTest {
-    private static final String WORK_DIR = System.getProperty("java.io.tmpdir", "./");
+    private static final String WORK_DIR = System.getProperty("java.io.tmpdir", ".") + "/";
     private static final String FLOW_RESOURCE_DIR = "flow/flowparser/";
     private static final String RESULT_RESOURCE_DIR = "result/flowparser/all/";
     private static final String FLOW_EXT = ".flow";

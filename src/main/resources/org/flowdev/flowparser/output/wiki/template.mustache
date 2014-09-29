@@ -1,25 +1,23 @@
 <graphviz type="framed" caption="{{name}}" format="svg" location="center">
-    digraph {{name}} {
-    // rankdir=LR;
-    node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
+digraph {{name}} {
+  // rankdir=LR;
+  node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
 
-    {{#operations}}  {{name}} [label="{{name}}\n({{type}}){{#ports}}
-        |{ {{#inPort}}<{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}> {{name}}{{#hasIndex}}
-        .{{index}}{{/hasIndex}}{{/inPort}}|{{#outPort}}
-        <{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}> {{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/outPort}}
-        }{{/ports}}"{{#url}}
-        URL="{{type}}Flow"{{/url}}] ;
-    {{/operations}}
+{{#operations}}  {{name}} [label="{{name}}\n({{type}}){{#ports}}
+|{ {{#inPort}}<{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}> {{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/inPort}}|{{#outPort}}
+<{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}> {{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/outPort}} }{{/ports}}"{{#url}}
+ URL="{{type}}Flow"{{/url}}] ;
+{{/operations}}
 
-    node [shape=plaintext,style=plain,rank=same];
+  node [shape=plaintext,style=plain,rank=same];
 
-    {{#connections}}{{#fromOp}}
-        {{fromOp.name}}:{{#fromPort}}{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/fromPort}}{{/fromOp}}{{^fromOp}}
-        {{#fromPort}}"{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}"{{/fromPort}}{{/fromOp}}
-        -> {{#toOp}}{{toOp.name}}:{{#toPort}}{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/toPort}}{{/toOp}}{{^toOp}}
-            {{#toPort}}"{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}"{{/toPort}}{{/toOp}}{{#showDataType}}
-            [label="{{dataType}}"]{{/showDataType}} ;
-    {{/connections}}
-    }
+{{#connections}}{{#fromOp}}
+  {{fromOp.name}}:{{#fromPort}}{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/fromPort}}{{/fromOp}}{{^fromOp}}
+  {{#fromPort}}"{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}"{{/fromPort}}{{/fromOp}}
+ -> {{#toOp}}{{toOp.name}}:{{#toPort}}{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/toPort}}{{/toOp}}{{^toOp}}
+{{#toPort}}"{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}"{{/toPort}}{{/toOp}}{{#showDataType}}
+ [label="{{dataType}}"]{{/showDataType}} ;
+{{/connections}}
+}
 </graphviz>
 
