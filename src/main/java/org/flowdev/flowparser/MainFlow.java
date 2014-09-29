@@ -72,7 +72,7 @@ public class MainFlow implements IMainFlow {
 
     private void initConfig() {
         OutputAllFormatsConfig outputAllFormatsConfig = new OutputAllFormatsConfig();
-        outputAllFormatsConfig.formats.add("gv");
+        outputAllFormatsConfig.formats.add("adoc");
         outputAllFormatsConfig.formats.add("wiki");
         outputAllFormatsConfig.formats.add("java");
         outputAllFormats.getConfigPort().send(outputAllFormatsConfig);

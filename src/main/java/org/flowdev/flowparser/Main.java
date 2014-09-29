@@ -34,8 +34,8 @@ public class Main {
                     asList("h", "?", "help"), "show this help page").forHelp();
             OptionSpec<String> outFormats = optParser
                     .acceptsAll(asList("f", "format"), "output formats")
-                    .withRequiredArg().describedAs("gv, wiki, java")
-                    .withValuesSeparatedBy(",").defaultsTo("gv");
+                    .withRequiredArg().describedAs("adoc, wiki, java")
+                    .withValuesSeparatedBy(",").defaultsTo("adoc");
             OptionSet options = optParser.parse(args);
 
             if (options.has(help)) {

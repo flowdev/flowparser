@@ -5,8 +5,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static org.flowdev.flowparser.TestUtils.*;
 import static org.junit.Assert.assertEquals;
@@ -17,29 +18,34 @@ public class AllTest {
     private static final String FLOW_RESOURCE_DIR = "flow/flowparser/";
     private static final String RESULT_RESOURCE_DIR = "result/flowparser/all/";
     private static final String FLOW_EXT = ".flow";
-    private static final String FORMAT = "wiki";
-    private static final String FORMAT_EXT = "." + FORMAT;
-    private static final String EXPECTED_FORMAT_EXT = FORMAT_EXT + ".expected";
+    //    private static final String[] FORMATS = { "adoc", "wiki", "java" };
+    private static final String[] FORMATS = {"adoc", "wiki"};
+    private static final String[] FLOWS = {"mini", "connections"};
 
     private final String fileName;
+    private final String format;
 
-    public AllTest(String fileName) {
+    public AllTest(String fileName, String format) {
         this.fileName = fileName;
+        this.format = format;
     }
 
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        return Arrays.asList(new Object[][]{ //
-                {"mini"}, //
-                {"connections"} //
-        });
+        List<Object[]> testDatas = new ArrayList<>(3 * 2);
+        for (String fmt : FORMATS) {
+            for (String file : FLOWS) {
+                testDatas.add(new String[]{file, fmt});
+            }
+        }
+        return testDatas;
     }
 
     @Test
     public void testParser() throws IOException {
         String workFlowFile = WORK_DIR + fileName + FLOW_EXT;
-        String actualFile = WORK_DIR + fileName + FORMAT_EXT;
-        String expectedResult = readResource(RESULT_RESOURCE_DIR + fileName + EXPECTED_FORMAT_EXT);
+        String actualFile = WORK_DIR + fileName + "." + format;
+        String expectedResult = readResource(RESULT_RESOURCE_DIR + fileName + "." + format + ".expected");
         String testFlowContent = readResource(FLOW_RESOURCE_DIR + fileName + FLOW_EXT);
 
         deleteFile(actualFile);
@@ -47,12 +53,12 @@ public class AllTest {
         writeFile(workFlowFile, testFlowContent);
 
         Main.resetMainFlow();
-        Main.main("-f", FORMAT, workFlowFile);
+        Main.main("-f", format, workFlowFile);
         String actualResult = readFile(actualFile);
 
         deleteFile(actualFile);
         deleteFile(workFlowFile);
-        assertEquals("AllTest failed for file '" + fileName + "'.", expectedResult, actualResult);
+        assertEquals("AllTest failed for file '" + fileName + "' and format '" + format + "'.", expectedResult, actualResult);
     }
 
 }

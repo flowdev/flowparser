@@ -75,6 +75,9 @@ public class FillTemplate extends FilterOp<MainData, NoConfig> {
             return false;
         }
         PortPair portPair = op.ports().get(0);
+        if (portPair.inPort() == null || portPair.outPort() == null) {
+            return false;
+        }
         return "in".equals(portPair.inPort().name()) && "out".equals(portPair.outPort().name());
     }
 
