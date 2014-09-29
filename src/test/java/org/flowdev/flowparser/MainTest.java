@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class)
 public class MainTest {
 
-    private static final String FORMAT = "graphviz";
+    private static final String FORMAT = "wiki";
     private static final String MINI_FLOW = "./src/test/flow/flowparser/mini.flow";
     private TestMainFlow flow;
     private final String[] args;

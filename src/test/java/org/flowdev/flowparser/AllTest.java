@@ -16,6 +16,9 @@ public class AllTest {
     private static final String FLOW_DIR = "./src/test/flow/flowparser/";
     private static final String WORK_DIR = "./src/test/result/flowparser/all/";
     private static final String FLOW_EXT = ".flow";
+    private static final String FORMAT = "wiki";
+    private static final String FORMAT_EXT = "." + FORMAT;
+    private static final String EXPECTED_FORMAT_EXT = FORMAT_EXT + ".expected";
 
     private final String fileName;
 
@@ -34,15 +37,15 @@ public class AllTest {
     @Test
     public void testParser() throws IOException {
         String workFlowFile = WORK_DIR + fileName + FLOW_EXT;
-        String actualFile = WORK_DIR + fileName + ".graphviz";
-        String expectedResult = readFile(WORK_DIR + fileName + ".graphviz.expected");
+        String actualFile = WORK_DIR + fileName + FORMAT_EXT;
+        String expectedResult = readFile(WORK_DIR + fileName + EXPECTED_FORMAT_EXT);
 
         deleteFile(actualFile);
         deleteFile(workFlowFile);
         copyFile(FLOW_DIR + fileName + FLOW_EXT, workFlowFile);
 
         Main.resetMainFlow();
-        Main.main("-f", "graphviz", workFlowFile);
+        Main.main("-f", FORMAT, workFlowFile);
 
         String actualResult = readFile(actualFile);
         if (expectedResult.equals(actualResult)) {
