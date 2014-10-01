@@ -7,6 +7,7 @@ public class Operation {
     private String name;
     private String type;
     private List<PortPair> ports;
+    private int srcPos;
 
 
     public Operation name(final String name) {
@@ -34,5 +35,14 @@ public class Operation {
 
     public List<PortPair> ports() {
         return ports;
+    }
+
+    public int srcPos() {
+        return this.srcPos;
+    }
+
+    public Operation srcPos(final int srcPos) {
+        this.srcPos = srcPos;
+        return this;
     }
 }

@@ -160,7 +160,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
             if (existingOp.type() == null) {
                 existingOp.type(op.type());
             } else if (op.type() != null && !op.type().equals(existingOp.type())) {
-                ParserUtil.addError(parserData, "The operation '" + op.name() +
+                ParserUtil.addSemanticError(parserData, op.srcPos(), "The operation '" + op.name() +
                         "' has got two different types '" + op.type() + "' and '" + existingOp.type() + "'!");
             }
             addPortPair(existingOp, op.ports().get(0), parserData, result);
@@ -206,7 +206,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                         return;
                     }
                 } else {
-                    ParserUtil.addError(parserData, "The input port '" + newPort.name() +
+                    ParserUtil.addSemanticError(parserData, newPort.srcPos(), "The input port '" + newPort.name() +
                             "' of the operation '" + op.name() + "' is used as indexed and unindexed port in the same flow!");
                     return;
                 }
@@ -235,7 +235,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                         return;
                     }
                 } else {
-                    ParserUtil.addError(parserData, "The output port '" + newPort.name() +
+                    ParserUtil.addSemanticError(parserData, newPort.srcPos(), "The output port '" + newPort.name() +
                             "' of the operation '" + op.name() + "' is used as indexed and unindexed port in parallel!");
                     return;
                 }

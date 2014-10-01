@@ -28,8 +28,9 @@ public class SemanticCreateOperationNameParens<T> extends FilterOp<T, NoConfig> 
 
     @SuppressWarnings("unchecked")
     private Operation createOperationNameParens(ParserData parserData) {
-        Operation op = new Operation();
+        Operation op = new Operation().srcPos(parserData.source().pos());
         List<Object> opName = (List<Object>) parserData.subResults().get(0).value();
+
         if (opName != null) {
             op.name((String) opName.get(0));
         }

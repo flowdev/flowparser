@@ -5,6 +5,8 @@ public class PortData {
     private String capName;
     private boolean hasIndex;
     private int index;
+    private int srcPos;
+
 
     public String name() {
         return this.name;
@@ -41,4 +43,14 @@ public class PortData {
         this.index = index;
         return this;
     }
+
+    public int srcPos() {
+        return this.srcPos;
+    }
+
+    public PortData srcPos(final int srcPos) {
+        this.srcPos = srcPos;
+        return this;
+    }
+
 }
