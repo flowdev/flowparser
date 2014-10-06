@@ -1,0 +1,31 @@
+package ;
+
+public class Mini {
+}
+
+package ;
+
+
+public class Mini {
+    private final DoIt doIt;
+
+    public Mini() {
+        doIt = new DoIt();
+
+        createConnections();
+        initConfig();
+    }
+
+    private void createConnections() {
+    }
+
+    private void initConfig() {
+    }
+
+    public Port<> getPort() {
+    return org.flowdev.flowparser.data.Operation@7a0ac6e3.getPort();
+    }
+
+}
+
+

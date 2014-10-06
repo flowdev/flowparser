@@ -3,6 +3,7 @@ package org.flowdev.flowparser.semantic;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.Operation;
+import org.flowdev.parser.data.ParseResult;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
@@ -28,8 +29,9 @@ public class SemanticCreateOperationNameParens<T> extends FilterOp<T, NoConfig> 
 
     @SuppressWarnings("unchecked")
     private Operation createOperationNameParens(ParserData parserData) {
-        Operation op = new Operation().srcPos(parserData.source().pos());
-        List<Object> opName = (List<Object>) parserData.subResults().get(0).value();
+        ParseResult opNameResult = parserData.subResults().get(0);
+        Operation op = new Operation().srcPos(opNameResult.pos());
+        List<Object> opName = (List<Object>) opNameResult.value();
 
         if (opName != null) {
             op.name((String) opName.get(0));
