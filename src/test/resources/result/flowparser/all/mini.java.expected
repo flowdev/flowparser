@@ -17,8 +17,8 @@ public class Mini {
     private void initConfig() {
     }
 
-    public Port<> getPort() {
-        return doIt.getPort();
+    public Port<> getInPort() {
+        return doIt.getInPort();
     }
 
 }

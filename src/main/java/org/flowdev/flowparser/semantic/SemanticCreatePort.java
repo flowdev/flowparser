@@ -9,6 +9,8 @@ import org.flowdev.parser.op.ParserParams;
 
 import java.util.List;
 
+import static org.flowdev.flowparser.util.PortUtil.newPort;
+
 public class SemanticCreatePort<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
 
@@ -28,12 +30,10 @@ public class SemanticCreatePort<T> extends FilterOp<T, NoConfig> {
     @SuppressWarnings("unchecked")
     private PortData createPort(ParserData parserData) {
         ParseResult nameResult = parserData.subResults().get(0);
-        PortData port = new PortData().name(nameResult.text()).srcPos(nameResult.pos());
+        PortData port = newPort(nameResult.text()).srcPos(nameResult.pos());
 
         List<Object> opPortNum = (List<Object>) parserData.subResults().get(1).value();
-        if (opPortNum == null) {
-            port.hasIndex(false);
-        } else {
+        if (opPortNum != null) {
             port.hasIndex(true).index(((Long) opPortNum.get(1)).intValue());
         }
         return port;

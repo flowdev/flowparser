@@ -18,80 +18,80 @@ public class Connections1 {
     }
 
     private void createConnections() {
-        doIt.setPort(doThis.getPort());
-        doThis.setPort(doThat.getPort());
-        doIt.setPort(doThis.getPort());
-        doThis.setPort(doThat.getPort());
-        doIt.setPort(doThat.getPort());
-        doThat.setPort(doThis.getPort());
+        doIt.setO4Port(doThis.getInPort());
+        doThis.setOutPort(doThat.getInPort());
+        doIt.setO1Port(doThis.getInPort());
+        doThis.setO1Port(doThat.getI2Port());
+        doIt.setO5Port(doThat.getI2Port());
+        doThat.setO1Port(doThis.getInPort());
     }
 
     private void initConfig() {
     }
 
-    public Port<> getPort() {
-        return doIt.getPort();
+    public Port<> getInPort() {
+        return doIt.getInPort();
     }
 
-    public Port<> getPort() {
-        return doIt.getPort();
+    public Port<> getInPort() {
+        return doIt.getInPort();
     }
 
-    public Port<> getPort() {
-        return doIt.getPort();
+    public Port<> getI1Port() {
+        return doIt.getInPort();
     }
 
-    public Port<> getPort() {
-        return doIt.getPort();
+    public Port<> getInPort() {
+        return doIt.getInPort();
     }
 
-    public Port<> getPort() {
-        return doIt.getPort();
+    public Port<> getI2Port() {
+        return doIt.getI2Port();
     }
 
-    public Port<> getPort() {
-        return doIt.getPort();
+    public Port<> getInPort() {
+        return doIt.getInPort();
     }
 
-    public Port<> getPort() {
-        return doIt.getPort();
+    public Port<> getI1Port() {
+        return doIt.getInPort();
     }
 
-    public Port<> getPort() {
-        return doIt.getPort();
+    public Port<> getI2Port() {
+        return doIt.getI2Port();
     }
 
-    public Port<> getPort() {
-        return doThis.getPort();
+    public Port<> getI3Port() {
+        return doThis.getIn2Port();
     }
 
-    public Port<> getPort() {
-        return doesThat.getPort();
+    public Port<> getI4Port() {
+        return doesThat.getIn2Port();
     }
 
-    public void setPort(Port<> port) {
-        doIt.setPort(port);
+    public void setOutPort(Port<> port) {
+        doIt.setOutPort(port);
     }
-    public void setPort(Port<> port) {
-        doIt.setPort(port);
+    public void setO1Port(Port<> port) {
+        doIt.setO3Port(port);
     }
-    public void setPort(Port<> port) {
-        doIt.setPort(port);
+    public void setOutPort(Port<> port) {
+        doIt.setOutPort(port);
     }
-    public void setPort(Port<> port) {
-        doIt.setPort(port);
+    public void setO2Port(Port<> port) {
+        doIt.setO2Port(port);
     }
-    public void setPort(Port<> port) {
-        doThat.setPort(port);
+    public void setO2Port(Port<> port) {
+        doThat.setOutPort(port);
     }
-    public void setPort(Port<> port) {
-        doThis.setPort(port);
+    public void setO2Port(Port<> port) {
+        doThis.setO2Port(port);
     }
-    public void setPort(Port<> port) {
-        doThis.setPort(port);
+    public void setErrPort(Port<> port) {
+        doThis.setErrPort(port);
     }
-    public void setPort(Port<> port) {
-        doesThat.setPort(port);
+    public void setO2Port(Port<> port) {
+        doesThat.setO2Port(port);
     }
 }
 
@@ -113,46 +113,46 @@ public class NumberedPorts {
     }
 
     private void createConnections() {
-        doIt.setPort(doThis.getPort());
-        doThis.setPort(doThat.getPort());
-        doIt.setPort(0, doThis.getPort(0));
-        doThis.setPort(0, doThat.getPort(0));
-        doIt.setPort(1, doThis.getPort(1));
-        doThis.setPort(1, doThat.getPort(1));
-        doIt.setPort(2, doThis.getPort(2));
-        doThis.setPort(2, doThat.getPort(2));
+        doIt.setOutPort(doThis.getInPort());
+        doThis.setOutPort(doThat.getInPort());
+        doIt.setSubOutPort(0, doThis.getSubInPort(0));
+        doThis.setSubOutPort(0, doThat.getSubInPort(0));
+        doIt.setSubOutPort(1, doThis.getSubInPort(1));
+        doThis.setSubOutPort(1, doThat.getSubInPort(1));
+        doIt.setSubOutPort(2, doThis.getSubInPort(2));
+        doThis.setSubOutPort(2, doThat.getSubInPort(2));
     }
 
     private void initConfig() {
     }
 
-    public Port<> getPort() {
-        return doIt.getPort();
+    public Port<> getInPort() {
+        return doIt.getInPort();
     }
 
-    public Port<> getPort(int i) {
-        return doIt.getPort(i);
+    public Port<> getSubInPort(int i) {
+        return doIt.getSubInPort(i);
     }
 
-    public Port<> getPort(int i) {
-        return doIt.getPort(i);
+    public Port<> getSubInPort(int i) {
+        return doIt.getSubInPort(i);
     }
 
-    public Port<> getPort(int i) {
-        return doIt.getPort(i);
+    public Port<> getSubInPort(int i) {
+        return doIt.getSubInPort(i);
     }
 
-    public void setPort(Port<> port) {
-        doThat.setPort(port);
+    public void setOutPort(Port<> port) {
+        doThat.setOutPort(port);
     }
-    public void setPort(int i, Port<> port) {
-        doThat.setPort(i, port);
+    public void setSubOutPort(int i, Port<> port) {
+        doThat.setSubOutPort(i, port);
     }
-    public void setPort(int i, Port<> port) {
-        doThat.setPort(i, port);
+    public void setSubOutPort(int i, Port<> port) {
+        doThat.setSubOutPort(i, port);
     }
-    public void setPort(int i, Port<> port) {
-        doThat.setPort(i, port);
+    public void setSubOutPort(int i, Port<> port) {
+        doThat.setSubOutPort(i, port);
     }
 }
 

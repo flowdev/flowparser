@@ -23,15 +23,19 @@ public class PortUtil {
     }
 
     public static PortData newPort(String name, boolean hasIndex, int index) {
-        return new PortData().name(name).hasIndex(hasIndex).index(index);
+        PortData port = new PortData().name(name).capName(capString(name));
+        if (hasIndex) {
+            return port.hasIndex(true).index(index);
+        }
+        return port;
     }
 
     public static PortData newPort(String name, int index) {
-        return new PortData().name(name).hasIndex(true).index(index);
+        return newPort(name, true, index);
     }
 
     public static PortData newPort(String name) {
-        return new PortData().name(name).hasIndex(false);
+        return newPort(name, false, 0);
     }
 
     public static PortData copyPort(PortData srcPort, int srcPos) {
@@ -65,6 +69,13 @@ public class PortUtil {
             return true;
         }
         return port1.index() == port2.index();
+    }
+
+    private static String capString(String s) {
+        if (s == null || s.isEmpty()) {
+            return s;
+        }
+        return s.substring(0, 1).toUpperCase() + s.substring(1);
     }
 
     public static boolean equalObj(Object o1, Object o2) {
