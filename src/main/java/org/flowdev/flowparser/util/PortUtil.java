@@ -18,8 +18,8 @@ public class PortUtil {
         return newPort("in");
     }
 
-    public static PortData defaultOutPort() {
-        return newPort("out");
+    public static PortData defaultOutPort(int srcPos) {
+        return newPort("out").srcPos(srcPos);
     }
 
     public static PortData newPort(String name, boolean hasIndex, int index) {
@@ -34,4 +34,7 @@ public class PortUtil {
         return new PortData().name(name).hasIndex(false);
     }
 
+    public static PortData copyPort(PortData srcPort, int srcPos) {
+        return newPort(srcPort.name(), srcPort.hasIndex(), srcPort.index()).srcPos(srcPos);
+    }
 }

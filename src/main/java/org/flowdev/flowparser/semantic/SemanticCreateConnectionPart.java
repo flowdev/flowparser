@@ -40,7 +40,7 @@ public class SemanticCreateConnectionPart<T> extends FilterOp<T, NoConfig> {
         }
 
         if (outPort == null) {
-            portPair.outPort(defaultOutPort());
+            portPair.outPort(defaultOutPort(parserData.subResults().get(2).pos()));
         } else {
             portPair.outPort(outPort);
         }

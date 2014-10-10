@@ -3,6 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
 import org.flowdev.flowparser.data.Connection;
+import org.flowdev.flowparser.data.PortData;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 import org.junit.runner.RunWith;
@@ -19,10 +20,12 @@ import static org.junit.Assert.assertEquals;
 public class ParseChainEndTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Connection connMin = new Connection();
-        Connection connNoPort = new Connection().dataType("Bla").showDataType(true);
-        Connection connNoType = new Connection().toPort(newPort("outX", 3));
-        Connection connMax = new Connection().dataType("Blu").showDataType(true).toPort(newPort("outX", 7));
+        Connection connMin = new Connection().fromPort(newPort(null)).toPort(newPort(null).srcPos(2));
+        Connection connNoPort = new Connection().dataType("Bla").showDataType(true)
+                .fromPort(new PortData()).toPort(new PortData().srcPos(11));
+        Connection connNoType = new Connection().fromPort(newPort(null)).toPort(newPort("outX", 3).srcPos(21));
+        Connection connMax = new Connection().dataType("Blu").showDataType(true)
+                .fromPort(newPort(null)).toPort(newPort("outX", 7).srcPos(31));
         return asList( //
                 makeTestData("empty", "", null), //
                 makeTestData("no match 1", "-", null), //

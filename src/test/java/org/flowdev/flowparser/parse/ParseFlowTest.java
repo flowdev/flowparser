@@ -13,6 +13,7 @@ import org.junit.runners.Parameterized;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.flowdev.base.data.PrettyPrinter.prettyPrint;
@@ -34,12 +35,22 @@ public class ParseFlowTest extends ParseTestBase {
                 makeTestData("no match 4", "flow \t Ab {  ", null),
                 makeTestData("no match 5", "flow \n Ab { }  ", null),
                 makeTestData("no match 6", "flow Ab{}", null),
-                makeTestData("simple 1", "flow Ab{(Bla);}", flow),
-                makeTestData("simple 2", "flow \t Ab \n { \t(Bla); } \n ", flow),
-                makeTestData("simple 3", "flow  \t  Ab /* bla */ \t {(Bla);} /* blu */ \n ", flow),
-                makeTestData("simple 4", "flow   Ab // comment! \n { \t(Bla); } // comment, too!\n ", flow),
-                makeTestData("complex", "flow Ab \t /* bla\n */ \t // com!\n \t { \t (Bla);\r\n/** blu */ }", flow)
+                makeTestData("simple 1", "flow Ab{(Bla);}", copyFlow(flow, 8)),
+                makeTestData("simple 2", "flow \t Ab \n { \t(Bla); } \n ", copyFlow(flow, 15)),
+                makeTestData("simple 3", "flow  \t  Ab /* bla */ \t {(Bla);} /* blu */ \n ", copyFlow(flow, 25)),
+                makeTestData("simple 4", "flow   Ab // comment! \n { \t(Bla); } // comment, too!\n ", copyFlow(flow, 27)),
+                makeTestData("complex", "flow Ab \t /* bla\n */ \t // com!\n \t { \t (Bla);\r\n/** blu */ }", copyFlow(flow, 38))
         );
+    }
+
+    private static Flow copyFlow(Flow srcFlow, int opPos) {
+        return new Flow().name(srcFlow.name()).operations(copyOps(srcFlow.operations(), opPos)).connections(srcFlow.connections());
+    }
+    private static List<Operation> copyOps(List<Operation> ops, int opPos) {
+        return asList(copyOp(ops.get(0), opPos));
+    }
+    private static Operation copyOp(Operation op, int opPos) {
+        return new Operation().name(op.name()).type(op.type()).ports(op.ports()).srcPos(opPos);
     }
 
     public ParseFlowTest(ParserData parserData, Object expectedValue) {

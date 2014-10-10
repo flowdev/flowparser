@@ -25,29 +25,32 @@ public class ParseChainBeginTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         Operation maxOpBlaNoPorts = new Operation().name("bla").type("Bla").ports(singletonList(
-                new PortPair().inPort(newPort("in")).outPort(newPort("out"))));
+                new PortPair().inPort(newPort("in")).outPort(newPort("out").srcPos(7))));
+        Operation maxOpBlaNoPorts2 = new Operation().name("bla").type("Bla").ports(singletonList(
+                new PortPair().inPort(newPort("in")).outPort(newPort("out").srcPos(20))));
         Connection maxConnNoTypeNoPorts = new Connection().fromPort(newPort("in")).toPort(newPort("in"));
         Connection maxConnTypeNoPorts = new Connection().fromPort(newPort("in")).toPort(newPort("in"))
                 .dataType("BlaFlowData").showDataType(true);
 
         Operation maxOpBluPorts = new Operation().name("bla").type("Blu").ports(singletonList(
-                new PortPair().inPort(newPort("xIn", 1)).outPort(newPort("outY", 123))));
-        Connection maxConnTypePorts = new Connection().fromPort(newPort("ourIn")).toPort(newPort("xIn", 1))
+                new PortPair().inPort(newPort("xIn", 1).srcPos(22)).outPort(newPort("outY", 123).srcPos(38))));
+        Connection maxConnTypePorts = new Connection().fromPort(newPort("ourIn")).toPort(maxOpBluPorts.ports().get(0).inPort())
                 .dataType("BlaFlowData").showDataType(true);
 
         Operation minOpBlaNoPorts = new Operation().name("bla").type("Bla").ports(singletonList(
-                new PortPair().outPort(newPort("out"))));
+                new PortPair().outPort(newPort("out").srcPos(5))));
         Operation minOpBlaPorts = new Operation().name("bla").ports(singletonList(
-                new PortPair().inPort(null).outPort(newPort("error", 3))));
+                new PortPair().inPort(null).outPort(newPort("error", 3).srcPos(6))));
         Operation minOpBluePorts = new Operation().name("bla").type("Blue").ports(singletonList(
-                new PortPair().inPort(null).outPort(newPort("error", 3))));
+                new PortPair().inPort(null).outPort(newPort("error", 3).srcPos(10))));
 
         return asList( //
                 makeTestData("no match 1", "->(B)", null),
                 makeTestData("no match 2", "(B)", null),
                 makeTestData("simple max 1", "->(Bla)", createConnectionOperation(maxConnNoTypeNoPorts, maxOpBlaNoPorts, 2)),
-                makeTestData("simple max 2", "[BlaFlowData]->(Bla)", createConnectionOperation(maxConnTypeNoPorts, maxOpBlaNoPorts, 15)),
-                makeTestData("full max", "ourIn [BlaFlowData]-> xIn.1   bla(Blu)outY.123", createConnectionOperation(maxConnTypePorts, maxOpBluPorts, 30)),
+                makeTestData("simple max 2", "[BlaFlowData]->(Bla)", createConnectionOperation(maxConnTypeNoPorts, maxOpBlaNoPorts2, 15)),
+                makeTestData("full max", "ourIn [BlaFlowData]-> xIn.1   bla(Blu)outY.123",
+                        createConnectionOperation(maxConnTypePorts, maxOpBluPorts, 30)),
                 makeTestData("simple min 1", "(Bla)", createConnectionOperation(null, minOpBlaNoPorts, 0)),
                 makeTestData("simple min 2", "bla() error.3", createConnectionOperation(null, minOpBlaPorts, 0)),
                 makeTestData("full min", "bla(Blue) error.3", createConnectionOperation(null, minOpBluePorts, 0))

@@ -31,46 +31,50 @@ import static org.junit.Assert.assertEquals;
 public class ParseConnectionsTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Operation doIt = new Operation().name("doIt").type("DoIt").ports(asList(new PortPair().inPort(newPort("in")).isLast(true)));
+        Operation doIt = new Operation().name("doIt").type("DoIt").srcPos(2)
+                .ports(asList(new PortPair().inPort(newPort("in")).isLast(true)));
         Flow minFlow = addConnections(createFlow(new Operation().name("bla").type("Bla").ports(asList(new PortPair().isLast(true)))));
         Flow simpleFlow1 = addConnections(createFlow(doIt),
                 new Connection().fromPort(newPort("in")).toPort(newPort("in")).toOp(doIt));
 
-        Operation bla = new Operation().name("bla").type("Bla").ports(asList(new PortPair().inPort(newPort("in")).outPort(newPort("out")).isLast(true)));
-        Operation blue = new Operation().name("blue").type("Blue").ports(asList(new PortPair().inPort(newPort("in")).outPort(newPort("out")).isLast(true)));
+        Operation blue = new Operation().name("blue").type("Blue").srcPos(3)
+                .ports(asList(new PortPair().inPort(newPort("in")).outPort(newPort("out").srcPos(10)).isLast(true)));
         Flow simpleFlow2 = addConnections(createFlow(blue),
-                new Connection().fromPort(newPort("in")).toPort(newPort("in")).toOp(blue),
-                new Connection().fromOp(blue).fromPort(newPort("out")).toPort(newPort("out")),
-                new Connection().fromPort(newPort("in2")).toPort(newPort("in")).toOp(blue),
-                new Connection().fromPort(newPort("in3")).toPort(newPort("in")).toOp(blue)
+                new Connection().fromPort(newPort("in")).toPort(blue.ports().get(0).inPort()).toOp(blue),
+                new Connection().fromOp(blue).fromPort(blue.ports().get(0).outPort()).toPort(newPort("out").srcPos(13)),
+                new Connection().fromPort(newPort("in2").srcPos(15)).toPort(newPort("in")).toOp(blue),
+                new Connection().fromPort(newPort("in3").srcPos(30)).toPort(newPort("in")).toOp(blue)
         );
 
-        Operation blue2 = new Operation().name("blue").type("Blue").ports(asList(
-                new PortPair().inPort(newPort("in")).outPort(newPort("out")),
-                new PortPair().outPort(newPort("out2")).isLast(true)));
+        Operation bla = new Operation().name("bla").type("Bla").srcPos(3)
+                .ports(asList(new PortPair().inPort(newPort("in")).outPort(newPort("out").srcPos(9)).isLast(true)));
+        Operation blue2 = new Operation().name("blue").type("Blue").srcPos(12).ports(asList(
+                new PortPair().inPort(newPort("in")).outPort(newPort("out").srcPos(19)),
+                new PortPair().outPort(newPort("out2").srcPos(38)).isLast(true)));
         Flow simpleFlow3 = addConnections(createFlow(bla, blue2),
-                new Connection().fromPort(newPort("in")).toPort(newPort("in")).toOp(bla),
-                new Connection().fromOp(bla).fromPort(newPort("out")).toPort(newPort("in")).toOp(blue2),
-                new Connection().fromOp(blue2).fromPort(newPort("out")).toPort(newPort("out")),
-                new Connection().fromPort(newPort("in2")).toPort(newPort("in")).toOp(blue2),
-                new Connection().fromOp(blue2).fromPort(newPort("out2")).toPort(newPort("out2"))
+                new Connection().fromPort(newPort("in")).toPort(bla.ports().get(0).inPort()).toOp(bla),
+                new Connection().fromOp(bla).fromPort(bla.ports().get(0).outPort()).toPort(blue2.ports().get(0).inPort()).toOp(blue2),
+                new Connection().fromOp(blue2).fromPort(blue2.ports().get(0).outPort()).toPort(newPort("out").srcPos(22)),
+                new Connection().fromPort(newPort("in2").srcPos(24)).toPort(blue2.ports().get(0).inPort()).toOp(blue2),
+                new Connection().fromOp(blue2).fromPort(blue2.ports().get(1).outPort()).toPort(newPort("out2").srcPos(45))
         );
 
-        Operation blaa = new Operation().name("blaa").type("Bla").ports(asList(
-                new PortPair().inPort(newPort("i", 0)).outPort(newPort("o", 0)).isLast(true)
+        Operation blaa = new Operation().name("blaa").type("Bla").srcPos(11).ports(asList(
+                new PortPair().inPort(newPort("i", 0).srcPos(7)).outPort(newPort("o", 0).srcPos(21)).isLast(true)
         ));
-        Operation bluu = new Operation().name("bluu").type("Blue").ports(asList(
-                new PortPair().inPort(newPort("i", 1)).outPort(newPort("o", 3)),
-                new PortPair().inPort(newPort("in")).outPort(newPort("o", 2)).isLast(true)
+        Operation bluu = new Operation().name("bluu").type("Blue").srcPos(32).ports(asList(
+                new PortPair().inPort(newPort("i", 1).srcPos(28)).outPort(newPort("o", 3).srcPos(43)),
+                new PortPair().inPort(newPort("in")).outPort(newPort("o", 2).srcPos(69)).isLast(true)
         ));
-        Operation ab = new Operation().name("ab").type("Ab").ports(asList(new PortPair().outPort(newPort("out")).isLast(true)));
+        Operation ab = new Operation().name("ab").type("Ab").srcPos(84)
+                .ports(asList(new PortPair().outPort(newPort("out").srcPos(89)).isLast(true)));
         Flow complexFlow = addConnections(createFlow(blaa, bluu, ab),
-                new Connection().fromPort(newPort("i", 1)).toPort(newPort("i", 0)).toOp(blaa),
-                new Connection().fromOp(blaa).fromPort(newPort("o", 0)).toPort(newPort("i", 1)).toOp(bluu),
-                new Connection().fromOp(bluu).fromPort(newPort("o", 3)).toPort(newPort("o", 3)),
-                new Connection().fromPort(newPort("in", 2)).toPort(newPort("in")).toOp(bluu),
-                new Connection().fromOp(bluu).fromPort(newPort("o", 2)).toPort(newPort("out2")),
-                new Connection().fromOp(ab).fromPort(newPort("out")).toPort(newPort("out1"))
+                new Connection().fromPort(newPort("i", 1)).toPort(blaa.ports().get(0).inPort()).toOp(blaa),
+                new Connection().fromOp(blaa).fromPort(blaa.ports().get(0).outPort()).toPort(bluu.ports().get(0).inPort()).toOp(bluu),
+                new Connection().fromOp(bluu).fromPort(bluu.ports().get(0).outPort()).toPort(newPort("o", 3).srcPos(50)),
+                new Connection().fromPort(newPort("in", 2).srcPos(54)).toPort(bluu.ports().get(1).inPort()).toOp(bluu),
+                new Connection().fromOp(bluu).fromPort(bluu.ports().get(1).outPort()).toPort(newPort("out2").srcPos(76)),
+                new Connection().fromOp(ab).fromPort(ab.ports().get(0).outPort()).toPort(newPort("out1").srcPos(92))
         );
 
         return asList(
@@ -81,7 +85,7 @@ public class ParseConnectionsTest extends ParseTestBase {
                 makeTestData("multiple input ports flow", "-> (Blue) -> ; in2 -> (Blue); in3 -> blue();", simpleFlow2),
                 makeTestData("split out port error", "-> (Blue) -> ; in2 -> (Blue) ->out2;", null),
                 makeTestData("simple flow 3", "-> (Bla) -> (Blue) -> ; in2 -> (Blue) out2 ->out2;", simpleFlow3),
-                makeTestData("complex flow", "i.1 -> i.0 blaa(Bla) o.0 -> i.1 bluu(Blue) o.3 -> ;\n" +
+                makeTestData("complex flow", "i.1 -> i.0 blaa(Bla) o.0 -> i.1 bluu(Blue) o.3 -> ;\n"                  +
                         "  in.2 -> bluu() o.2 -> out2;\n" +
                         "  (Ab) -> out1;", complexFlow)
         );

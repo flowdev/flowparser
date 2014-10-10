@@ -4,6 +4,7 @@ import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.Connection;
 import org.flowdev.flowparser.data.PortData;
+import org.flowdev.parser.data.ParseResult;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
@@ -27,12 +28,16 @@ public class SemanticCreateChainEnd<T> extends FilterOp<T, NoConfig> {
     private Connection createChainEnd(ParserData parserData) {
         Connection conn = new Connection();
 
-        String dataType = (String) parserData.subResults().get(0).value();
-        conn.showDataType(dataType != null).dataType(dataType);
+        ParseResult arrowResult = parserData.subResults().get(0);
+        String dataType = (String) arrowResult.value();
+        conn.showDataType(dataType != null).dataType(dataType).fromPort(new PortData().srcPos(arrowResult.pos()));
 
-        PortData port = (PortData) parserData.subResults().get(1).value();
+        ParseResult portResult = parserData.subResults().get(1);
+        PortData port = (PortData) portResult.value();
         if (port != null) {
             conn.toPort(port);
+        } else {
+            conn.toPort(new PortData().srcPos(portResult.pos()));
         }
 
         return conn;

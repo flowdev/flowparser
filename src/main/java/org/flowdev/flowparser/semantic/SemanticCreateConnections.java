@@ -10,7 +10,11 @@ import org.flowdev.parser.util.ParserUtil;
 
 import java.util.*;
 
+import static java.lang.Integer.max;
+import static org.flowdev.flowparser.util.PortUtil.copyPort;
 import static org.flowdev.flowparser.util.PortUtil.defaultOutPort;
+import static org.flowdev.parser.util.ParserUtil.addSemanticError;
+import static org.flowdev.parser.util.ParserUtil.isOk;
 
 public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
@@ -24,7 +28,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
         ParserData parserData = params.getParserData.get(data);
 
         Flow flow = createFlow(parserData);
-        if (ParserUtil.matched(parserData.result())) {
+        if (isOk(parserData.result())) {
             parserData.result().value(flow);
         }
 
@@ -94,13 +98,13 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                 if (addOpResult.outPortPair != null) {
                     chainEnd.fromPort(addOpResult.outPortPair.outPort());
                 }
-                if (chainEnd.fromPort() == null && chainEnd.toPort() == null) {
-                    chainEnd.fromPort(defaultOutPort());
-                    chainEnd.toPort(chainEnd.fromPort());
-                } else if (chainEnd.toPort() == null) {
-                    chainEnd.toPort(chainEnd.fromPort());
+                if (chainEnd.fromPort().name() == null && chainEnd.toPort().name() == null) {
+                    chainEnd.fromPort(defaultOutPort(chainEnd.fromPort().srcPos()));
+                    chainEnd.toPort(copyPort(chainEnd.fromPort(), chainEnd.toPort().srcPos()));
+                } else if (chainEnd.toPort().name() == null) {
+                    chainEnd.toPort(copyPort(chainEnd.fromPort(), chainEnd.toPort().srcPos()));
                 } else if (chainEnd.fromPort() == null) {
-                    chainEnd.fromPort(chainEnd.toPort());
+                    chainEnd.fromPort(copyPort(chainEnd.toPort(), chainEnd.fromPort().srcPos()));
                     addOutPort(lastOp, chainEnd.fromPort(), parserData, addOpResult);
                 }
                 conns.add(chainEnd);
@@ -160,7 +164,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
             if (existingOp.type() == null) {
                 existingOp.type(op.type());
             } else if (op.type() != null && !op.type().equals(existingOp.type())) {
-                ParserUtil.addSemanticError(parserData, op.srcPos(), "The operation '" + op.name() +
+                addSemanticError(parserData, op.srcPos(), "The operation '" + op.name() +
                         "' has got two different types '" + op.type() + "' and '" + existingOp.type() + "'!");
             }
             addPortPair(existingOp, op.ports().get(0), parserData, result);
@@ -206,8 +210,9 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                         return;
                     }
                 } else {
-                    ParserUtil.addSemanticError(parserData, newPort.srcPos(), "The input port '" + newPort.name() +
-                            "' of the operation '" + op.name() + "' is used as indexed and unindexed port in the same flow!");
+                    addSemanticError(parserData, max(newPort.srcPos(), oldPort.inPort().srcPos()),
+                            "The input port '" + newPort.name() + "' of the operation '" + op.name()
+                                    + "' is used as indexed and unindexed port in the same flow!");
                     return;
                 }
             }
@@ -235,8 +240,9 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                         return;
                     }
                 } else {
-                    ParserUtil.addSemanticError(parserData, newPort.srcPos(), "The output port '" + newPort.name() +
-                            "' of the operation '" + op.name() + "' is used as indexed and unindexed port in parallel!");
+                    addSemanticError(parserData, max(newPort.srcPos(), oldPort.outPort().srcPos()),
+                            "The output port '" + newPort.name() + "' of the operation '" + op.name()
+                                    + "' is used as indexed and unindexed port in the same flow!");
                     return;
                 }
             }
