@@ -24,7 +24,7 @@ public class ParseChainMiddleTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         Operation opBlaNoPorts = new Operation().name("bla").type("Bla").srcPos(2).ports(singletonList(
-                new PortPair().inPort(newPort("in")).outPort(newPort("out").srcPos(7))));
+                new PortPair().inPort(newPort("in").srcPos(2)).outPort(newPort("out").srcPos(7))));
         Operation opBlaPorts = new Operation().name("bla").srcPos(10).ports(singletonList(
                 new PortPair().inPort(newPort("in", 2).srcPos(3)).outPort(newPort("error").srcPos(18))));
         Operation opBluPorts = new Operation().name("bla").type("Blu").srcPos(35).ports(singletonList(

@@ -11,8 +11,7 @@ import org.flowdev.parser.util.ParserUtil;
 import java.util.*;
 
 import static java.lang.Integer.max;
-import static org.flowdev.flowparser.util.PortUtil.copyPort;
-import static org.flowdev.flowparser.util.PortUtil.defaultOutPort;
+import static org.flowdev.flowparser.util.PortUtil.*;
 import static org.flowdev.parser.util.ParserUtil.addSemanticError;
 import static org.flowdev.parser.util.ParserUtil.isOk;
 
@@ -70,6 +69,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
             lastOp = addOpResult.op;
             if (connBeg != null) {
                 connBeg.toOp(lastOp);
+                correctToPort(connBeg, lastOp);
                 conns.add(connBeg);
             }
 
@@ -86,6 +86,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
 
                     Connection connMid = new Connection().dataType(arrowType).showDataType(arrowType != null)
                             .fromOp(lastOp).fromPort(fromPort).toOp(toOp).toPort(toPort);
+                    correctToPort(connMid, toOp);
                     conns.add(connMid);
 
                     lastOp = toOp;
@@ -107,6 +108,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                     chainEnd.fromPort(copyPort(chainEnd.toPort(), chainEnd.fromPort().srcPos()));
                     addOutPort(lastOp, chainEnd.fromPort(), parserData, addOpResult);
                 }
+                correctFromPort(chainEnd, lastOp);
                 conns.add(chainEnd);
             } else if (addOpResult.outPortAdded) {
                 addOpResult.outPortPair.outPort(null);
@@ -116,6 +118,24 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
         Flow result = new Flow().connections(new ArrayList<>(conns)).operations(new ArrayList<>(ops.values()));
         verifyFlow(result, parserData);
         return new Flow().connections(new ArrayList<>(conns)).operations(new ArrayList<>(ops.values()));
+    }
+
+    private void correctFromPort(Connection conn, Operation op) {
+        for (PortPair portPair : op.ports()) {
+            Boolean eq = equalPorts(portPair.outPort(), conn.fromPort());
+            if (eq == null || eq) {
+                conn.fromPort(portPair.outPort());
+            }
+        }
+    }
+
+    private void correctToPort(Connection conn, Operation op) {
+        for (PortPair portPair : op.ports()) {
+            Boolean eq = equalPorts(portPair.inPort(), conn.toPort());
+            if (eq == null || eq) {
+                conn.toPort(portPair.inPort());
+            }
+        }
     }
 
     private void verifyFlow(Flow result, ParserData parserData) {
@@ -196,7 +216,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
     }
 
     private void addInPort(Operation op, PortData newPort, ParserData parserData) {
-        if (newPort == null) {
+        if (newPort == null || newPort.name() == null) {
             return;
         }
 
@@ -204,17 +224,16 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
             if (oldPort.inPort() == null) {
                 oldPort.inPort(newPort);
                 return;
-            } else if (oldPort.inPort().name().equals(newPort.name())) {
-                if (oldPort.inPort().hasIndex() == newPort.hasIndex()) {
-                    if (!newPort.hasIndex() || oldPort.inPort().index() == newPort.index()) {
-                        return;
-                    }
-                } else {
-                    addSemanticError(parserData, max(newPort.srcPos(), oldPort.inPort().srcPos()),
-                            "The input port '" + newPort.name() + "' of the operation '" + op.name()
-                                    + "' is used as indexed and unindexed port in the same flow!");
-                    return;
-                }
+            }
+            Boolean eq = equalPorts(oldPort.inPort(), newPort);
+            if (eq == null) {
+                addSemanticError(parserData, max(newPort.srcPos(), oldPort.inPort().srcPos()),
+                        "The input port '" + newPort.name() + "' of the operation '" + op.name()
+                                + "' is used as indexed and unindexed port in the same flow!");
+                return;
+            }
+            if (eq) {
+                return;
             }
         }
 
@@ -233,18 +252,17 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                 result.outPortPair = oldPort;
                 result.outPortAdded = true;
                 return;
-            } else if (oldPort.outPort().name().equals(newPort.name())) {
-                if (oldPort.outPort().hasIndex() == newPort.hasIndex()) {
-                    if (!newPort.hasIndex() || oldPort.outPort().index() == newPort.index()) {
-                        result.outPortPair = oldPort;
-                        return;
-                    }
-                } else {
-                    addSemanticError(parserData, max(newPort.srcPos(), oldPort.outPort().srcPos()),
-                            "The output port '" + newPort.name() + "' of the operation '" + op.name()
-                                    + "' is used as indexed and unindexed port in the same flow!");
-                    return;
-                }
+            }
+            Boolean eq = equalPorts(oldPort.outPort(), newPort);
+            if (eq == null) {
+                addSemanticError(parserData, max(newPort.srcPos(), oldPort.outPort().srcPos()),
+                        "The output port '" + newPort.name() + "' of the operation '" + op.name()
+                                + "' is used as indexed and unindexed port in the same flow!");
+                return;
+            }
+            if (eq) {
+                result.outPortPair = oldPort;
+                return;
             }
         }
 

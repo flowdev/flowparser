@@ -32,24 +32,24 @@ public class ParseConnectionsTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         Operation doIt = new Operation().name("doIt").type("DoIt").srcPos(2)
-                .ports(asList(new PortPair().inPort(newPort("in")).isLast(true)));
+                .ports(asList(new PortPair().inPort(newPort("in").srcPos(2)).isLast(true)));
         Flow minFlow = addConnections(createFlow(new Operation().name("bla").type("Bla").ports(asList(new PortPair().isLast(true)))));
         Flow simpleFlow1 = addConnections(createFlow(doIt),
-                new Connection().fromPort(newPort("in")).toPort(newPort("in")).toOp(doIt));
+                new Connection().fromPort(newPort("in")).toPort(doIt.ports().get(0).inPort()).toOp(doIt));
 
         Operation blue = new Operation().name("blue").type("Blue").srcPos(3)
-                .ports(asList(new PortPair().inPort(newPort("in")).outPort(newPort("out").srcPos(10)).isLast(true)));
+                .ports(asList(new PortPair().inPort(newPort("in").srcPos(3)).outPort(newPort("out").srcPos(10)).isLast(true)));
         Flow simpleFlow2 = addConnections(createFlow(blue),
                 new Connection().fromPort(newPort("in")).toPort(blue.ports().get(0).inPort()).toOp(blue),
                 new Connection().fromOp(blue).fromPort(blue.ports().get(0).outPort()).toPort(newPort("out").srcPos(13)),
-                new Connection().fromPort(newPort("in2").srcPos(15)).toPort(newPort("in")).toOp(blue),
-                new Connection().fromPort(newPort("in3").srcPos(30)).toPort(newPort("in")).toOp(blue)
+                new Connection().fromPort(newPort("in2").srcPos(15)).toPort(blue.ports().get(0).inPort()).toOp(blue),
+                new Connection().fromPort(newPort("in3").srcPos(30)).toPort(blue.ports().get(0).inPort()).toOp(blue)
         );
 
         Operation bla = new Operation().name("bla").type("Bla").srcPos(3)
-                .ports(asList(new PortPair().inPort(newPort("in")).outPort(newPort("out").srcPos(9)).isLast(true)));
+                .ports(asList(new PortPair().inPort(newPort("in").srcPos(3)).outPort(newPort("out").srcPos(9)).isLast(true)));
         Operation blue2 = new Operation().name("blue").type("Blue").srcPos(12).ports(asList(
-                new PortPair().inPort(newPort("in")).outPort(newPort("out").srcPos(19)),
+                new PortPair().inPort(newPort("in").srcPos(12)).outPort(newPort("out").srcPos(19)),
                 new PortPair().outPort(newPort("out2").srcPos(38)).isLast(true)));
         Flow simpleFlow3 = addConnections(createFlow(bla, blue2),
                 new Connection().fromPort(newPort("in")).toPort(bla.ports().get(0).inPort()).toOp(bla),
@@ -64,7 +64,7 @@ public class ParseConnectionsTest extends ParseTestBase {
         ));
         Operation bluu = new Operation().name("bluu").type("Blue").srcPos(32).ports(asList(
                 new PortPair().inPort(newPort("i", 1).srcPos(28)).outPort(newPort("o", 3).srcPos(43)),
-                new PortPair().inPort(newPort("in")).outPort(newPort("o", 2).srcPos(69)).isLast(true)
+                new PortPair().inPort(newPort("in").srcPos(62)).outPort(newPort("o", 2).srcPos(69)).isLast(true)
         ));
         Operation ab = new Operation().name("ab").type("Ab").srcPos(84)
                 .ports(asList(new PortPair().outPort(newPort("out").srcPos(89)).isLast(true)));
