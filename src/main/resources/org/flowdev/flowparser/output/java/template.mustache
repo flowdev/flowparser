@@ -14,7 +14,7 @@ public class {{name}} {
     }
 
     private void createConnections() {
-{{#connections}}{{#fromOp}}{{#toOp}}        {{fromOp}}.set{{capFromPort}}Port({{#hasFromPortIndex}}{{fromPortIndex}}, {{/hasFromPortIndex}}{{toOp}}.get{{capToPort}}Port({{#hasToPortIndex}}{{toPortIndex}}{{/hasToPortIndex}}));
+{{#connections}}{{#fromOp}}{{#toOp}}        {{fromOp.name}}.set{{capFromPort}}Port({{#fromPort.hasIndex}}{{fromPort.index}}, {{/fromPort.hasIndex}}{{toOp.name}}.get{{capToPort}}Port({{#toPort.hasIndex}}{{toPort.index}}{{/toPort.hasIndex}}));
 {{/toOp}}{{/fromOp}}{{/connections}}
     }
 
@@ -28,8 +28,8 @@ public class {{name}} {
 
 {{/fromOp}}{{/connections}}
 {{#connections}}{{^toOp}}
-    public void set{{capToPort}}Port({{#hasToPortIndex}}int i, {{/hasToPortIndex}}Port<> port) {
-    {{fromOp}}.set{{capFromPort}}Port({{#hasFromPortIndex}}{{#hasToPortIndex}}i{{/hasToPortIndex}}{{^hasToPortIndex}}{{fromPortIndex}}{{/hasToPortIndex}}, {{/hasFromPortIndex}}port);
+    public void set{{capToPort}}Port({{#toPort.hasIndex}}int i, {{/toPort.hasIndex}}Port<> port) {
+    {{fromOp.name}}.set{{capFromPort}}Port({{#fromPort.hasIndex}}{{#toPort.hasIndex}}i{{/toPort.hasIndex}}{{^toPort.hasIndex}}{{fromPort.index}}{{/toPort.hasIndex}}, {{/fromPort.hasIndex}}port);
     }
 {{/toOp}}{{/connections}}
 }
