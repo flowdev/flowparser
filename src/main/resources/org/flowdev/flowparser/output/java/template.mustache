@@ -22,8 +22,8 @@ public class {{name}} {
     }
 
 {{#connections}}{{^fromOp}}
-    public Port<> get{{capFromPort}}Port({{#hasFromPortIndex}}int i{{/hasFromPortIndex}}) {
-    return {{toOp}}.get{{capToPort}}Port({{#hasToPortIndex}}{{#hasFromPortIndex}}i{{/hasFromPortIndex}}{{^hasFromPortIndex}}{{toPortIndex}}{{/hasFromPortIndex}}{{/hasToPortIndex}});
+    public Port<> get{{capFromPort}}Port({{#fromPort.hasIndex}}int i{{/fromPort.hasIndex}}) {
+        return {{toOp.name}}.get{{capToPort}}Port({{#toPort.hasIndex}}{{#fromPort.hasIndex}}i{{/fromPort.hasIndex}}{{^fromPort.hasIndex}}{{toPort.index}}{{/fromPort.hasIndex}}{{/toPort.hasIndex}});
     }
 
 {{/fromOp}}{{/connections}}

@@ -1,10 +1,5 @@
 package ;
 
-public class Mini {
-}
-
-package ;
-
 
 public class Mini {
     private final DoIt doIt;
@@ -23,9 +18,8 @@ public class Mini {
     }
 
     public Port<> getPort() {
-    return org.flowdev.flowparser.data.Operation@7a0ac6e3.getPort();
+        return doIt.getPort();
     }
 
 }
-
 

@@ -1,10 +1,158 @@
 package ;
 
-public Connections1 {
+
+public class Connections1 {
+    private final DoIt doIt;
+    private final DoThis doThis;
+    private final DoesThat doThat;
+    private final DoesThat doesThat;
+
+    public Connections1() {
+        doIt = new DoIt();
+        doThis = new DoThis();
+        doThat = new DoesThat();
+        doesThat = new DoesThat();
+
+        createConnections();
+        initConfig();
+    }
+
+    private void createConnections() {
+        org.flowdev.flowparser.data.Operation@4cb2c100.setPort(org.flowdev.flowparser.data.Operation@6fb554cc.getPort());
+        org.flowdev.flowparser.data.Operation@6fb554cc.setPort(org.flowdev.flowparser.data.Operation@614c5515.getPort());
+        org.flowdev.flowparser.data.Operation@4cb2c100.setPort(org.flowdev.flowparser.data.Operation@6fb554cc.getPort());
+        org.flowdev.flowparser.data.Operation@6fb554cc.setPort(org.flowdev.flowparser.data.Operation@614c5515.getPort());
+        org.flowdev.flowparser.data.Operation@4cb2c100.setPort(org.flowdev.flowparser.data.Operation@614c5515.getPort());
+        org.flowdev.flowparser.data.Operation@614c5515.setPort(org.flowdev.flowparser.data.Operation@6fb554cc.getPort());
+    }
+
+    private void initConfig() {
+    }
+
+    public Port<> getPort() {
+        return doIt.getPort();
+    }
+
+    public Port<> getPort() {
+        return doIt.getPort();
+    }
+
+    public Port<> getPort() {
+        return doIt.getPort();
+    }
+
+    public Port<> getPort() {
+        return doIt.getPort();
+    }
+
+    public Port<> getPort() {
+        return doIt.getPort();
+    }
+
+    public Port<> getPort() {
+        return doIt.getPort();
+    }
+
+    public Port<> getPort() {
+        return doIt.getPort();
+    }
+
+    public Port<> getPort() {
+        return doIt.getPort();
+    }
+
+    public Port<> getPort() {
+        return doThis.getPort();
+    }
+
+    public Port<> getPort() {
+        return doesThat.getPort();
+    }
+
+    public void setPort(Port<> port) {
+    org.flowdev.flowparser.data.Operation@4cb2c100.setPort(port);
+    }
+    public void setPort(Port<> port) {
+    org.flowdev.flowparser.data.Operation@4cb2c100.setPort(port);
+    }
+    public void setPort(Port<> port) {
+    org.flowdev.flowparser.data.Operation@4cb2c100.setPort(port);
+    }
+    public void setPort(Port<> port) {
+    org.flowdev.flowparser.data.Operation@4cb2c100.setPort(port);
+    }
+    public void setPort(Port<> port) {
+    org.flowdev.flowparser.data.Operation@614c5515.setPort(port);
+    }
+    public void setPort(Port<> port) {
+    org.flowdev.flowparser.data.Operation@6fb554cc.setPort(port);
+    }
+    public void setPort(Port<> port) {
+    org.flowdev.flowparser.data.Operation@6fb554cc.setPort(port);
+    }
+    public void setPort(Port<> port) {
+    org.flowdev.flowparser.data.Operation@68837a77.setPort(port);
+    }
 }
 
 package ;
 
-public NumberedPorts {
+
+public class NumberedPorts {
+    private final  doIt;
+    private final  doThis;
+    private final  doThat;
+
+    public NumberedPorts() {
+        doIt = new ();
+        doThis = new ();
+        doThat = new ();
+
+        createConnections();
+        initConfig();
+    }
+
+    private void createConnections() {
+        org.flowdev.flowparser.data.Operation@6be46e8f.setPort(org.flowdev.flowparser.data.Operation@3567135c.getPort());
+        org.flowdev.flowparser.data.Operation@3567135c.setPort(org.flowdev.flowparser.data.Operation@327471b5.getPort());
+        org.flowdev.flowparser.data.Operation@6be46e8f.setPort(org.flowdev.flowparser.data.Operation@3567135c.getPort());
+        org.flowdev.flowparser.data.Operation@3567135c.setPort(org.flowdev.flowparser.data.Operation@327471b5.getPort());
+        org.flowdev.flowparser.data.Operation@6be46e8f.setPort(org.flowdev.flowparser.data.Operation@3567135c.getPort());
+        org.flowdev.flowparser.data.Operation@3567135c.setPort(org.flowdev.flowparser.data.Operation@327471b5.getPort());
+        org.flowdev.flowparser.data.Operation@6be46e8f.setPort(org.flowdev.flowparser.data.Operation@3567135c.getPort());
+        org.flowdev.flowparser.data.Operation@3567135c.setPort(org.flowdev.flowparser.data.Operation@327471b5.getPort());
+    }
+
+    private void initConfig() {
+    }
+
+    public Port<> getPort() {
+        return doIt.getPort();
+    }
+
+    public Port<> getPort(int i) {
+        return doIt.getPort(i);
+    }
+
+    public Port<> getPort(int i) {
+        return doIt.getPort(i);
+    }
+
+    public Port<> getPort(int i) {
+        return doIt.getPort(i);
+    }
+
+    public void setPort(Port<> port) {
+    org.flowdev.flowparser.data.Operation@327471b5.setPort(port);
+    }
+    public void setPort(Port<> port) {
+    org.flowdev.flowparser.data.Operation@327471b5.setPort(port);
+    }
+    public void setPort(Port<> port) {
+    org.flowdev.flowparser.data.Operation@327471b5.setPort(port);
+    }
+    public void setPort(Port<> port) {
+    org.flowdev.flowparser.data.Operation@327471b5.setPort(port);
+    }
 }
 
