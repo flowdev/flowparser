@@ -48,6 +48,6 @@ public class SemanticCreateConnectionPart<T> extends FilterOp<T, NoConfig> {
             portPair.outPort(outPort);
         }
 
-        return op.ports(makePorts(portPair));
+        return op.portPairs(makePorts(portPair));
     }
 }

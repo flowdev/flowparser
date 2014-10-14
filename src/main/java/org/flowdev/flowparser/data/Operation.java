@@ -6,8 +6,10 @@ import java.util.List;
 public class Operation {
     private String name;
     private String type;
-    private List<PortPair> ports;
+    private List<PortData> inPorts;
+    private List<PortData> outPorts;
     private int srcPos;
+    private List<PortPair> portPairs;
 
 
     public Operation name(final String name) {
@@ -20,11 +22,6 @@ public class Operation {
         return this;
     }
 
-    public Operation ports(final List<PortPair> ports) {
-        this.ports = ports;
-        return this;
-    }
-
     public String name() {
         return name;
     }
@@ -33,8 +30,22 @@ public class Operation {
         return type;
     }
 
-    public List<PortPair> ports() {
-        return ports;
+    public List<PortData> inPorts() {
+        return this.inPorts;
+    }
+
+    public Operation inPorts(final List<PortData> inPorts) {
+        this.inPorts = inPorts;
+        return this;
+    }
+
+    public List<PortData> outPorts() {
+        return this.outPorts;
+    }
+
+    public Operation outPorts(final List<PortData> outPorts) {
+        this.outPorts = outPorts;
+        return this;
     }
 
     public int srcPos() {
@@ -45,4 +56,14 @@ public class Operation {
         this.srcPos = srcPos;
         return this;
     }
+
+    public List<PortPair> portPairs() {
+        return portPairs;
+    }
+
+    public Operation portPairs(final List<PortPair> ports) {
+        this.portPairs = ports;
+        return this;
+    }
+
 }

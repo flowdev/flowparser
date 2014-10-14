@@ -3,9 +3,9 @@ digraph {{name}} {
   // rankdir=LR;
   node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
 
-{{#operations}}  {{name}} [label="{{name}}\n({{type}}){{#ports}}
+{{#operations}}  {{name}} [label="{{name}}\n({{type}}){{#portPairs}}
 |{ {{#inPort}}<{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}> {{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/inPort}}|{{#outPort}}
-<{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}> {{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/outPort}} }{{/ports}}"{{#url}}
+<{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}> {{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/outPort}} }{{/portPairs}}"{{#url}}
  URL="{{type}}Flow"{{/url}}] ;
 {{/operations}}
 

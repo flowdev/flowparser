@@ -21,11 +21,11 @@ import static org.junit.Assert.assertEquals;
 public class ParseConnectionPartTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Operation opBlaNoPorts = new Operation().name("bla").type("Bla").srcPos(0).ports(singletonList(
+        Operation opBlaNoPorts = new Operation().name("bla").type("Bla").srcPos(0).portPairs(singletonList(
                 new PortPair().inPort(newPort("in")).outPort(newPort("out").srcPos(5))));
-        Operation opBlaPorts = new Operation().name("bla").srcPos(7).ports(singletonList(
+        Operation opBlaPorts = new Operation().name("bla").srcPos(7).portPairs(singletonList(
                 new PortPair().inPort(newPort("in", 2)).outPort(newPort("error").srcPos(15))));
-        Operation opBluPorts = new Operation().name("bla").type("Blu").srcPos(8).ports(singletonList(
+        Operation opBluPorts = new Operation().name("bla").type("Blu").srcPos(8).portPairs(singletonList(
                 new PortPair().inPort(newPort("xIn", 1)).outPort(newPort("outY", 123).srcPos(16))));
 
         return asList( //

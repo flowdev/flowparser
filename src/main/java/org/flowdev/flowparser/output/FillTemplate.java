@@ -71,10 +71,10 @@ public class FillTemplate extends FilterOp<MainData, NoConfig> {
     }
 
     private static boolean isFilterOp(Operation op) {
-        if (op.ports().size() != 1) {
+        if (op.portPairs().size() != 1) {
             return false;
         }
-        PortPair portPair = op.ports().get(0);
+        PortPair portPair = op.portPairs().get(0);
         if (portPair.inPort() == null || portPair.outPort() == null) {
             return false;
         }

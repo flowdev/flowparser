@@ -24,7 +24,7 @@ public class ParseFlowTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         Flow flow = new Flow().name("Ab").operations(asList(
-                new Operation().name("bla").type("Bla").ports(asList(new PortPair().isLast(true)))
+                new Operation().name("bla").type("Bla").portPairs(asList(new PortPair().isLast(true)))
         )).connections(Collections.<Connection>emptyList());
 
         return asList(
@@ -50,7 +50,7 @@ public class ParseFlowTest extends ParseTestBase {
         return asList(copyOp(ops.get(0), opPos));
     }
     private static Operation copyOp(Operation op, int opPos) {
-        return new Operation().name(op.name()).type(op.type()).ports(op.ports()).srcPos(opPos);
+        return new Operation().name(op.name()).type(op.type()).portPairs(op.portPairs()).srcPos(opPos);
     }
 
     public ParseFlowTest(ParserData parserData, Object expectedValue) {

@@ -24,24 +24,24 @@ import static org.junit.Assert.assertEquals;
 public class ParseChainBeginTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Operation maxOpBlaNoPorts = new Operation().name("bla").type("Bla").ports(singletonList(
+        Operation maxOpBlaNoPorts = new Operation().name("bla").type("Bla").portPairs(singletonList(
                 new PortPair().inPort(newPort("in").srcPos(2)).outPort(newPort("out").srcPos(7))));
-        Operation maxOpBlaNoPorts2 = new Operation().name("bla").type("Bla").ports(singletonList(
+        Operation maxOpBlaNoPorts2 = new Operation().name("bla").type("Bla").portPairs(singletonList(
                 new PortPair().inPort(newPort("in").srcPos(15)).outPort(newPort("out").srcPos(20))));
-        Connection maxConnNoTypeNoPorts = new Connection().fromPort(newPort("in")).toPort(maxOpBlaNoPorts.ports().get(0).inPort());
-        Connection maxConnTypeNoPorts = new Connection().fromPort(newPort("in")).toPort(maxOpBlaNoPorts2.ports().get(0).inPort())
+        Connection maxConnNoTypeNoPorts = new Connection().fromPort(newPort("in")).toPort(maxOpBlaNoPorts.portPairs().get(0).inPort());
+        Connection maxConnTypeNoPorts = new Connection().fromPort(newPort("in")).toPort(maxOpBlaNoPorts2.portPairs().get(0).inPort())
                 .dataType("BlaFlowData").showDataType(true);
 
-        Operation maxOpBluPorts = new Operation().name("bla").type("Blu").ports(singletonList(
+        Operation maxOpBluPorts = new Operation().name("bla").type("Blu").portPairs(singletonList(
                 new PortPair().inPort(newPort("xIn", 1).srcPos(22)).outPort(newPort("outY", 123).srcPos(38))));
-        Connection maxConnTypePorts = new Connection().fromPort(newPort("ourIn")).toPort(maxOpBluPorts.ports().get(0).inPort())
+        Connection maxConnTypePorts = new Connection().fromPort(newPort("ourIn")).toPort(maxOpBluPorts.portPairs().get(0).inPort())
                 .dataType("BlaFlowData").showDataType(true);
 
-        Operation minOpBlaNoPorts = new Operation().name("bla").type("Bla").ports(singletonList(
+        Operation minOpBlaNoPorts = new Operation().name("bla").type("Bla").portPairs(singletonList(
                 new PortPair().outPort(newPort("out").srcPos(5))));
-        Operation minOpBlaPorts = new Operation().name("bla").ports(singletonList(
+        Operation minOpBlaPorts = new Operation().name("bla").portPairs(singletonList(
                 new PortPair().inPort(null).outPort(newPort("error", 3).srcPos(6))));
-        Operation minOpBluePorts = new Operation().name("bla").type("Blue").ports(singletonList(
+        Operation minOpBluePorts = new Operation().name("bla").type("Blue").portPairs(singletonList(
                 new PortPair().inPort(null).outPort(newPort("error", 3).srcPos(10))));
 
         return asList( //
@@ -59,7 +59,7 @@ public class ParseChainBeginTest extends ParseTestBase {
 
     private static List<Object> createConnectionOperation(Connection conn, Operation op, int srcPos) {
         ArrayList<Object> list = new ArrayList<>(2);
-        Operation newOp = new Operation().name(op.name()).type(op.type()).srcPos(srcPos).ports(op.ports());
+        Operation newOp = new Operation().name(op.name()).type(op.type()).srcPos(srcPos).portPairs(op.portPairs());
         list.add(conn == null ? null : conn.toOp(newOp));
         list.add(newOp);
         return list;

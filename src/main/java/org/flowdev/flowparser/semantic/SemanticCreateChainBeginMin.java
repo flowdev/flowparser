@@ -43,7 +43,7 @@ public class SemanticCreateChainBeginMin<T> extends FilterOp<T, NoConfig> {
         } else {
             portPair.outPort(defaultOutPort(portResult.pos()));
         }
-        op.ports(makePorts(portPair));
+        op.portPairs(makePorts(portPair));
         chainBegin.add(null);
         chainBegin.add(op);
         return chainBegin;

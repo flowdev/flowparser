@@ -23,11 +23,11 @@ import static org.junit.Assert.assertEquals;
 public class ParseChainMiddleTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Operation opBlaNoPorts = new Operation().name("bla").type("Bla").srcPos(2).ports(singletonList(
+        Operation opBlaNoPorts = new Operation().name("bla").type("Bla").srcPos(2).portPairs(singletonList(
                 new PortPair().inPort(newPort("in").srcPos(2)).outPort(newPort("out").srcPos(7))));
-        Operation opBlaPorts = new Operation().name("bla").srcPos(10).ports(singletonList(
+        Operation opBlaPorts = new Operation().name("bla").srcPos(10).portPairs(singletonList(
                 new PortPair().inPort(newPort("in", 2).srcPos(3)).outPort(newPort("error").srcPos(18))));
-        Operation opBluPorts = new Operation().name("bla").type("Blu").srcPos(35).ports(singletonList(
+        Operation opBluPorts = new Operation().name("bla").type("Blu").srcPos(35).portPairs(singletonList(
                 new PortPair().inPort(newPort("xIn", 1).srcPos(27)).outPort(newPort("outY", 123).srcPos(43))));
 
         return asList( //

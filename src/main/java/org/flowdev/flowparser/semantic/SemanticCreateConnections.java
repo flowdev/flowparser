@@ -16,6 +16,8 @@ import static org.flowdev.parser.util.ParserUtil.addSemanticError;
 import static org.flowdev.parser.util.ParserUtil.isOk;
 
 public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
+    private static final String TYPE_OUTPUT = "output";
+
     private final ParserParams<T> params;
 
     public SemanticCreateConnections(ParserParams<T> params) {
@@ -80,7 +82,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                     String arrowType = (String) chainMid.get(0);
                     PortData fromPort = addOpResult.outPortPair.outPort();
                     Operation toOp = (Operation) chainMid.get(1);
-                    PortData toPort = toOp.ports().get(0).inPort();
+                    PortData toPort = toOp.portPairs().get(0).inPort();
                     addLastOp(ops, toOp, parserData, addOpResult);
                     toOp = addOpResult.op;
 
@@ -114,6 +116,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                 addOpResult.outPortPair.outPort(null);
             }
         }
+        parserData.result().value(null);
 
         Flow result = new Flow().connections(new ArrayList<>(conns)).operations(new ArrayList<>(ops.values()));
         verifyFlow(result, parserData);
@@ -121,7 +124,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
     }
 
     private void correctFromPort(Connection conn, Operation op) {
-        for (PortPair portPair : op.ports()) {
+        for (PortPair portPair : op.portPairs()) {
             Boolean eq = equalPorts(portPair.outPort(), conn.fromPort());
             if (eq == null || eq) {
                 conn.fromPort(portPair.outPort());
@@ -130,7 +133,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
     }
 
     private void correctToPort(Connection conn, Operation op) {
-        for (PortPair portPair : op.ports()) {
+        for (PortPair portPair : op.portPairs()) {
             Boolean eq = equalPorts(portPair.inPort(), conn.toPort());
             if (eq == null || eq) {
                 conn.toPort(portPair.inPort());
@@ -185,12 +188,12 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
                 existingOp.type(op.type());
             } else if (op.type() != null && !op.type().equals(existingOp.type())) {
                 addSemanticError(parserData, op.srcPos(), "The operation '" + op.name() +
-                        "' has got two different types '" + op.type() + "' and '" + existingOp.type() + "'!");
+                        "' has got two different types '" + existingOp.type() + "' and '" + op.type() + "'!");
             }
-            addPortPair(existingOp, op.ports().get(0), parserData, result);
+            addPortPair(existingOp, op.portPairs().get(0), parserData, result);
             result.op = existingOp;
         } else {
-            PortPair portPair = op.ports().get(0);
+            PortPair portPair = op.portPairs().get(0);
             portPair.isLast(true);
             ops.put(op.name(), op);
             result.outPortPair = portPair;
@@ -220,7 +223,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
             return;
         }
 
-        for (PortPair oldPort : op.ports()) {
+        for (PortPair oldPort : op.portPairs()) {
             if (oldPort.inPort() == null) {
                 oldPort.inPort(newPort);
                 return;
@@ -238,7 +241,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
         }
 
         PortPair newPair = new PortPair().inPort(newPort);
-        op.ports().add(newPair);
+        op.portPairs().add(newPair);
     }
 
     private void addOutPort(Operation op, PortData newPort, ParserData parserData, AddOpResult result) {
@@ -246,7 +249,7 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
             return;
         }
 
-        for (PortPair oldPort : op.ports()) {
+        for (PortPair oldPort : op.portPairs()) {
             if (oldPort.outPort() == null) {
                 oldPort.outPort(newPort);
                 result.outPortPair = oldPort;
@@ -267,17 +270,65 @@ public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
         }
 
         PortPair newPair = new PortPair().outPort(newPort);
-        op.ports().add(newPair);
+        op.portPairs().add(newPair);
         result.outPortPair = newPair;
         result.outPortAdded = true;
     }
 
-    private void correctIsLast(Operation op) {
-        int n = op.ports().size();
-        if (n > 1) {
-            op.ports().get(n - 2).isLast(false);
+    private void addPort(Operation op, PortData newPort, GetPortFromPair getPortFromPair, SetPortInPair setPortInPair, String portType, ParserData parserData, AddOpResult result) {
+        if (newPort == null) {
+            return;
         }
-        op.ports().get(n - 1).isLast(true);
+
+        for (PortPair oldPort : op.portPairs()) {
+            PortData port = getPortFromPair.getPort(oldPort);
+            if (port == null) {
+                setPortInPair.setPort(oldPort, newPort);
+                if (TYPE_OUTPUT.equals(portType)) {
+                    result.outPortPair = oldPort;
+                    result.outPortAdded = true;
+                }
+                return;
+            }
+            Boolean eq = equalPorts(port, newPort);
+            if (eq == null) {
+                addSemanticError(parserData, max(newPort.srcPos(), port.srcPos()),
+                        "The " + portType + " port '" + newPort.name() + "' of the operation '" + op.name()
+                                + "' is used as indexed and unindexed port in the same flow!");
+                return;
+            }
+            if (eq) {
+                if (TYPE_OUTPUT.equals(portType)) {
+                    result.outPortPair = oldPort;
+                }
+                return;
+            }
+        }
+
+        PortPair newPair = new PortPair();
+        setPortInPair.setPort(newPair, newPort);
+        op.portPairs().add(newPair);
+        if (TYPE_OUTPUT.equals(portType)) {
+            result.outPortPair = newPair;
+            result.outPortAdded = true;
+        }
+    }
+
+    private void correctIsLast(Operation op) {
+        int n = op.portPairs().size();
+        if (n > 1) {
+            op.portPairs().get(n - 2).isLast(false);
+        }
+        op.portPairs().get(n - 1).isLast(true);
+    }
+
+
+    private interface GetPortFromPair {
+        PortData getPort(PortPair portPair);
+    }
+
+    private interface SetPortInPair {
+        void setPort(PortPair portPair, PortData port);
     }
 
     private static class AddOpResult {
