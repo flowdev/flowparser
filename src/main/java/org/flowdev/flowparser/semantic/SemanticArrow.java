@@ -7,10 +7,10 @@ import org.flowdev.parser.op.ParserParams;
 
 import java.util.List;
 
-public class SemanticCreateArrow<T> extends FilterOp<T, NoConfig> {
+public class SemanticArrow<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
 
-    public SemanticCreateArrow(ParserParams<T> params) {
+    public SemanticArrow(ParserParams<T> params) {
         this.params = params;
     }
 

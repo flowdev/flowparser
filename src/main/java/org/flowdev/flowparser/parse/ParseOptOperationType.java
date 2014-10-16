@@ -3,7 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.flowparser.semantic.SemanticCreateOperationType;
+import org.flowdev.flowparser.semantic.SemanticOperationType;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseOptional;
 import org.flowdev.parser.op.ParserParams;
@@ -12,7 +12,7 @@ import org.flowdev.parser.op.ParserParams;
 public class ParseOptOperationType<T> implements Filter<T, NoConfig> {
     private ParseOptional<T> optOpType;
     private ParseAll<T> opType;
-    private SemanticCreateOperationType<T> semantic;
+    private SemanticOperationType<T> semantic;
     private ParseBigIdent<T> bigIdent;
     private ParseOptSpc<T> optSpc;
 
@@ -21,7 +21,7 @@ public class ParseOptOperationType<T> implements Filter<T, NoConfig> {
         bigIdent = new ParseBigIdent<>(params);
         optSpc = new ParseOptSpc<>(params);
         optOpType = new ParseOptional<>(params);
-        semantic = new SemanticCreateOperationType<>(params);
+        semantic = new SemanticOperationType<>(params);
 
         createConnections();
         initConfig();

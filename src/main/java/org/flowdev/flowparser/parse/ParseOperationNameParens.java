@@ -3,7 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.flowparser.semantic.SemanticCreateOperationNameParens;
+import org.flowdev.flowparser.semantic.SemanticOperationNameParens;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseLiteral;
 import org.flowdev.parser.op.ParseOptional;
@@ -11,7 +11,7 @@ import org.flowdev.parser.op.ParserParams;
 
 public class ParseOperationNameParens<T> implements Filter<T, NoConfig> {
     private ParseAll<T> opNameParens;
-    private SemanticCreateOperationNameParens<T> semantic;
+    private SemanticOperationNameParens<T> semantic;
     private ParseOptional<T> optOpName;
     private ParseLiteral<T> openType;
     private ParseOptSpc<T> spc1;
@@ -24,7 +24,7 @@ public class ParseOperationNameParens<T> implements Filter<T, NoConfig> {
 
     public ParseOperationNameParens(ParserParams<T> params) {
         opNameParens = new ParseAll<>(params);
-        semantic = new SemanticCreateOperationNameParens<>(params);
+        semantic = new SemanticOperationNameParens<>(params);
         optOpName = new ParseOptional<>(params);
         openType = new ParseLiteral<>(params);
         spc1 = new ParseOptSpc<>(params);

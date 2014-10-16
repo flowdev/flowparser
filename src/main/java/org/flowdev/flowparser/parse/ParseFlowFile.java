@@ -3,7 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.flowparser.semantic.SemanticCreateFlowFile;
+import org.flowdev.flowparser.semantic.SemanticFlowFile;
 import org.flowdev.parser.data.UseTextSemanticConfig;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseEof;
@@ -12,7 +12,7 @@ import org.flowdev.parser.op.ParserParams;
 
 public class ParseFlowFile<T> implements Filter<T, NoConfig> {
     private ParseAll<T> flowFile;
-    private SemanticCreateFlowFile<T> semantic;
+    private SemanticFlowFile<T> semantic;
     private ParseVersion<T> version;
     private ParseMultiple1<T> flows;
     private ParseFlow<T> flow;
@@ -20,7 +20,7 @@ public class ParseFlowFile<T> implements Filter<T, NoConfig> {
 
     public ParseFlowFile(ParserParams<T> params) {
         flowFile = new ParseAll<>(params);
-        semantic = new SemanticCreateFlowFile<>(params);
+        semantic = new SemanticFlowFile<>(params);
         version = new ParseVersion<>(params);
         flows = new ParseMultiple1<>(params);
         flow = new ParseFlow<>(params);

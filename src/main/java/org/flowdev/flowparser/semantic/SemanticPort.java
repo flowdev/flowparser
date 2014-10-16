@@ -11,10 +11,10 @@ import java.util.List;
 
 import static org.flowdev.flowparser.util.PortUtil.newPort;
 
-public class SemanticCreatePort<T> extends FilterOp<T, NoConfig> {
+public class SemanticPort<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
 
-    public SemanticCreatePort(ParserParams<T> params) {
+    public SemanticPort(ParserParams<T> params) {
         this.params = params;
     }
 

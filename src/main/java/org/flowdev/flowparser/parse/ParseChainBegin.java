@@ -3,8 +3,8 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.flowparser.semantic.SemanticCreateChainBeginMax;
-import org.flowdev.flowparser.semantic.SemanticCreateChainBeginMin;
+import org.flowdev.flowparser.semantic.SemanticChainBeginMax;
+import org.flowdev.flowparser.semantic.SemanticChainBeginMin;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseAlternatives;
 import org.flowdev.parser.op.ParserParams;
@@ -24,22 +24,22 @@ import org.flowdev.parser.op.ParserParams;
 public class ParseChainBegin<T> implements Filter<T, NoConfig> {
     private ParseAlternatives<T> chainBeg;
     private ParseAll<T> chainBegMax;
-    private SemanticCreateChainBeginMax<T> maxSemantic;
+    private SemanticChainBeginMax<T> maxSemantic;
     private ParseOptPort<T> optPortMax;
     private ParseChainMiddle<T> chainMid;
     private ParseAll<T> chainBegMin;
-    private SemanticCreateChainBeginMin<T> minSemantic;
+    private SemanticChainBeginMin<T> minSemantic;
     private ParseOperationNameParens<T> opNameParens;
     private ParseOptPort<T> optPortMin;
 
     public ParseChainBegin(ParserParams<T> params) {
         chainBeg = new ParseAlternatives<>(params);
         chainBegMax = new ParseAll<>(params);
-        maxSemantic = new SemanticCreateChainBeginMax<>(params);
+        maxSemantic = new SemanticChainBeginMax<>(params);
         optPortMax = new ParseOptPort<>(params);
         chainMid = new ParseChainMiddle<>(params);
         chainBegMin = new ParseAll<>(params);
-        minSemantic = new SemanticCreateChainBeginMin<>(params);
+        minSemantic = new SemanticChainBeginMin<>(params);
         opNameParens = new ParseOperationNameParens<>(params);
         optPortMin = new ParseOptPort<>(params);
 

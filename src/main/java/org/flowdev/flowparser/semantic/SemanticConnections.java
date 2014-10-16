@@ -18,10 +18,10 @@ import static org.flowdev.flowparser.util.PortUtil.*;
 import static org.flowdev.parser.util.ParserUtil.addSemanticError;
 import static org.flowdev.parser.util.ParserUtil.isOk;
 
-public class SemanticCreateConnections<T> extends FilterOp<T, NoConfig> {
+public class SemanticConnections<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
 
-    public SemanticCreateConnections(ParserParams<T> params) {
+    public SemanticConnections(ParserParams<T> params) {
         this.params = params;
     }
 

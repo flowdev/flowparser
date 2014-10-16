@@ -11,10 +11,10 @@ import org.flowdev.parser.op.ParserParams;
 import static org.flowdev.flowparser.util.PortUtil.defaultInPort;
 import static org.flowdev.flowparser.util.PortUtil.defaultOutPort;
 
-public class SemanticCreateConnectionPart<T> extends FilterOp<T, NoConfig> {
+public class SemanticConnectionPart<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
 
-    public SemanticCreateConnectionPart(ParserParams<T> params) {
+    public SemanticConnectionPart(ParserParams<T> params) {
         this.params = params;
     }
 

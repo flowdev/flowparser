@@ -3,7 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.flowparser.semantic.SemanticCreateConnections;
+import org.flowdev.flowparser.semantic.SemanticConnections;
 import org.flowdev.parser.op.*;
 
 /**
@@ -27,7 +27,7 @@ import org.flowdev.parser.op.*;
 @SuppressWarnings("CanBeFinal")
 public class ParseConnections<T> implements Filter<T, NoConfig> {
     private ParseMultiple1<T> connections;
-    private SemanticCreateConnections<T> semantic;
+    private SemanticConnections<T> semantic;
     private ParseAll<T> chain;
     private ParseChainBegin<T> chainBeg;
     private ParseMultiple0<T> chainMids;
@@ -38,7 +38,7 @@ public class ParseConnections<T> implements Filter<T, NoConfig> {
 
     public ParseConnections(ParserParams<T> params) {
         connections = new ParseMultiple1<>(params);
-        semantic = new SemanticCreateConnections<>(params);
+        semantic = new SemanticConnections<>(params);
         chain = new ParseAll<>(params);
         chainBeg = new ParseChainBegin<>(params);
         chainMids = new ParseMultiple0<>(params);

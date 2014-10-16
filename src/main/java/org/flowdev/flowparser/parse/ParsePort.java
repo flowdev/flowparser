@@ -3,14 +3,14 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.flowparser.semantic.SemanticCreatePort;
+import org.flowdev.flowparser.semantic.SemanticPort;
 import org.flowdev.parser.op.*;
 
 import static org.flowdev.parser.op.ParseLiteral.ParseLiteralConfig;
 
 public class ParsePort<T> implements Filter<T, NoConfig> {
     private ParseAll<T> port;
-    private SemanticCreatePort<T> semantic;
+    private SemanticPort<T> semantic;
     private ParseSmallIdent<T> portName;
     private ParseOptional<T> optPortNum;
     private ParseAll<T> portNum;
@@ -19,7 +19,7 @@ public class ParsePort<T> implements Filter<T, NoConfig> {
 
     public ParsePort(ParserParams<T> params) {
         port = new ParseAll<>(params);
-        semantic = new SemanticCreatePort<>(params);
+        semantic = new SemanticPort<>(params);
         portName = new ParseSmallIdent<>(params);
         optPortNum = new ParseOptional<>(params);
         portNum = new ParseAll<>(params);

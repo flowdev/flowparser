@@ -3,17 +3,13 @@ package org.flowdev.flowparser.semantic;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.Flow;
-import org.flowdev.flowparser.data.FlowFile;
-import org.flowdev.flowparser.data.Version;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
-import java.util.List;
-
-public class SemanticCreateFlowFile<T> extends FilterOp<T, NoConfig> {
+public class SemanticFlow<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
 
-    public SemanticCreateFlowFile(ParserParams<T> params) {
+    public SemanticFlow(ParserParams<T> params) {
         this.params = params;
     }
 
@@ -27,9 +23,8 @@ public class SemanticCreateFlowFile<T> extends FilterOp<T, NoConfig> {
     }
 
     @SuppressWarnings("unchecked")
-    private FlowFile createFlowFile(ParserData parserData) {
-        return new FlowFile().fileName(parserData.source().name())
-                .version((Version) parserData.subResults().get(0).value())
-                .flows((List<Flow>) parserData.subResults().get(1).value());
+    private Flow createFlowFile(ParserData parserData) {
+        Flow flow = (Flow) parserData.subResults().get(6).value();
+        return flow.name(parserData.subResults().get(2).text());
     }
 }

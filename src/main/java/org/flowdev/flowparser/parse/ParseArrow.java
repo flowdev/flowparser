@@ -3,7 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.flowparser.semantic.SemanticCreateArrow;
+import org.flowdev.flowparser.semantic.SemanticArrow;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseLiteral;
 import org.flowdev.parser.op.ParseOptional;
@@ -13,7 +13,7 @@ import static org.flowdev.parser.op.ParseLiteral.ParseLiteralConfig;
 
 public class ParseArrow<T> implements Filter<T, NoConfig> {
     private ParseAll<T> arrow;
-    private SemanticCreateArrow<T> semantic;
+    private SemanticArrow<T> semantic;
     private ParseSpaceComment<T> spcCom1;
     private ParseOptional<T> optType;
     private ParseLiteral<T> litArr;
@@ -27,7 +27,7 @@ public class ParseArrow<T> implements Filter<T, NoConfig> {
 
     public ParseArrow(ParserParams<T> params) {
         arrow = new ParseAll<>(params);
-        semantic = new SemanticCreateArrow<>(params);
+        semantic = new SemanticArrow<>(params);
         spcCom1 = new ParseSpaceComment<>(params);
         optType = new ParseOptional<>(params);
         litArr = new ParseLiteral<>(params);

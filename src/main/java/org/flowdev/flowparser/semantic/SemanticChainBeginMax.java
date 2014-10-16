@@ -14,10 +14,10 @@ import java.util.List;
 
 import static org.flowdev.flowparser.util.PortUtil.copyPort;
 
-public class SemanticCreateChainBeginMax<T> extends FilterOp<T, NoConfig> {
+public class SemanticChainBeginMax<T> extends FilterOp<T, NoConfig> {
     private ParserParams<T> params;
 
-    public SemanticCreateChainBeginMax(ParserParams<T> params) {
+    public SemanticChainBeginMax(ParserParams<T> params) {
         this.params = params;
     }
 

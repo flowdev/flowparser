@@ -3,7 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.flowparser.semantic.SemanticCreatePortSpc;
+import org.flowdev.flowparser.semantic.SemanticPortSpc;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseOptional;
 import org.flowdev.parser.op.ParseSpace;
@@ -13,14 +13,14 @@ import static org.flowdev.parser.op.ParseSpace.ParseSpaceConfig;
 
 public class ParseOptPortSpc<T> implements Filter<T, NoConfig> {
     private ParseOptional<T> optPortSpc;
-    private SemanticCreatePortSpc<T> semantic;
+    private SemanticPortSpc<T> semantic;
     private ParseAll<T> portSpc;
     private ParsePort<T> port;
     private ParseSpace<T> space;
 
     public ParseOptPortSpc(ParserParams<T> params) {
         optPortSpc = new ParseOptional<>(params);
-        semantic = new SemanticCreatePortSpc<>(params);
+        semantic = new SemanticPortSpc<>(params);
         portSpc = new ParseAll<>(params);
         port = new ParsePort<>(params);
         space = new ParseSpace<>(params);

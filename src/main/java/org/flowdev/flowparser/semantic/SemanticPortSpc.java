@@ -6,10 +6,10 @@ import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
 
-public class SemanticCreateOperationType<T> extends FilterOp<T, NoConfig> {
+public class SemanticPortSpc<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
 
-    public SemanticCreateOperationType(ParserParams<T> params) {
+    public SemanticPortSpc(ParserParams<T> params) {
         this.params = params;
     }
 

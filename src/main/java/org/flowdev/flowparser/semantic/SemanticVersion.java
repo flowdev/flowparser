@@ -10,10 +10,10 @@ import org.flowdev.parser.op.ParserParams;
 import java.util.List;
 
 
-public class SemanticCreateVersion<T> extends FilterOp<T, NoConfig> {
+public class SemanticVersion<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
 
-    public SemanticCreateVersion(ParserParams<T> params) {
+    public SemanticVersion(ParserParams<T> params) {
         this.params = params;
     }
 

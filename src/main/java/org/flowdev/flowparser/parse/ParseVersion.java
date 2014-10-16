@@ -3,7 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.flowparser.semantic.SemanticCreateVersion;
+import org.flowdev.flowparser.semantic.SemanticVersion;
 import org.flowdev.parser.op.*;
 
 import static org.flowdev.parser.op.ParseLiteral.ParseLiteralConfig;
@@ -12,7 +12,7 @@ import static org.flowdev.parser.op.ParseSpace.ParseSpaceConfig;
 
 public class ParseVersion<T> implements Filter<T, NoConfig> {
     private ParseAll<T> version;
-    private SemanticCreateVersion<T> semantic;
+    private SemanticVersion<T> semantic;
     private ParseSpaceComment<T> spcCommBeg;
     private ParseLiteral<T> vers;
     private ParseSpace<T> aspc;
@@ -23,7 +23,7 @@ public class ParseVersion<T> implements Filter<T, NoConfig> {
 
     public ParseVersion(ParserParams<T> params) {
         version = new ParseAll<>(params);
-        semantic = new SemanticCreateVersion<>(params);
+        semantic = new SemanticVersion<>(params);
         spcCommBeg = new ParseSpaceComment<>(params);
         vers = new ParseLiteral<>(params);
         aspc = new ParseSpace<>(params);

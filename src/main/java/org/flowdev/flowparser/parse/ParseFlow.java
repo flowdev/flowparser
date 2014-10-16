@@ -3,7 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.flowparser.semantic.SemanticCreateFlow;
+import org.flowdev.flowparser.semantic.SemanticFlow;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseLiteral;
 import org.flowdev.parser.op.ParseSpace;
@@ -11,7 +11,7 @@ import org.flowdev.parser.op.ParserParams;
 
 public class ParseFlow<T> implements Filter<T, NoConfig> {
     private ParseAll<T> flow;
-    private SemanticCreateFlow<T> semantic;
+    private SemanticFlow<T> semantic;
     private ParseLiteral<T> flowLiteral;
     private ParseSpace<T> aspc;
     private ParseBigIdent<T> name;
@@ -24,7 +24,7 @@ public class ParseFlow<T> implements Filter<T, NoConfig> {
 
     public ParseFlow(ParserParams<T> params) {
         flow = new ParseAll<>(params);
-        semantic = new SemanticCreateFlow<>(params);
+        semantic = new SemanticFlow<>(params);
         flowLiteral = new ParseLiteral<>(params);
         aspc = new ParseSpace<>(params);
         name = new ParseBigIdent<>(params);

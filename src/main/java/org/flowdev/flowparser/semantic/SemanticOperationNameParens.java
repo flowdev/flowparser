@@ -11,10 +11,10 @@ import java.util.List;
 
 import static org.flowdev.parser.util.ParserUtil.addError;
 
-public class SemanticCreateOperationNameParens<T> extends FilterOp<T, NoConfig> {
+public class SemanticOperationNameParens<T> extends FilterOp<T, NoConfig> {
     private ParserParams<T> params;
 
-    public SemanticCreateOperationNameParens(ParserParams<T> params) {
+    public SemanticOperationNameParens(ParserParams<T> params) {
         this.params = params;
     }
 
