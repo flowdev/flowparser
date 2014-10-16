@@ -3,10 +3,7 @@ package org.flowdev.flowparser;
 import org.flowdev.base.Port;
 import org.flowdev.base.op.io.ReadTextFile;
 import org.flowdev.base.op.io.WriteTextFile;
-import org.flowdev.flowparser.output.CreateOutputFileName;
-import org.flowdev.flowparser.output.FillTemplate;
-import org.flowdev.flowparser.output.OutputAllFormats;
-import org.flowdev.flowparser.output.OutputAllFormatsConfig;
+import org.flowdev.flowparser.output.*;
 import org.flowdev.flowparser.parse.HandleParserResult;
 import org.flowdev.flowparser.parse.ParseFlowFile;
 import org.flowdev.parser.op.ParserParams;
@@ -19,16 +16,12 @@ public class MainFlow implements IMainFlow {
     private ParseFlowFile<MainData> parseFlowFile;
     private HandleParserResult handleParserResult;
     private OutputAllFormats outputAllFormats;
+    private FillPortPairs fillPortPairs;
     private FillTemplate fillTemplate;
     private CreateOutputFileName createOutputFileName;
     private WriteTextFile<MainData> writeTextFile;
-    // Getting a compiler error if replacing the anonymous inner class with a lambda expression!
-    private final Port<MainConfig> configPort = new Port<MainConfig>() {
-        @Override
-        public void send(MainConfig data) {
-            outputAllFormats.getConfigPort().send(data.outputAllFormats);
-        }
-    };
+    private Port<MainConfig> configPort = data -> outputAllFormats.getConfigPort().send(data.outputAllFormats);
+
 
     public MainFlow() {
         ReadTextFile.Params<MainData, MainData> readTextFileParams = new ReadTextFile.Params<>();
@@ -48,6 +41,8 @@ public class MainFlow implements IMainFlow {
 
         outputAllFormats = new OutputAllFormats();
 
+        fillPortPairs = new FillPortPairs();
+
         fillTemplate = new FillTemplate();
 
         createOutputFileName = new CreateOutputFileName();
@@ -65,7 +60,10 @@ public class MainFlow implements IMainFlow {
         readTextFile.setOutPort(parseFlowFile.getInPort());
         parseFlowFile.setOutPort(handleParserResult.getInPort());
         handleParserResult.setOutPort(outputAllFormats.getInPort());
-        outputAllFormats.setOutPort(fillTemplate.getInPort());
+        outputAllFormats.setFormatPort(0, fillPortPairs.getInPort());
+        outputAllFormats.setFormatPort(1, fillTemplate.getInPort());
+        outputAllFormats.setFormatPort(2, fillPortPairs.getInPort());
+        fillPortPairs.setOutPort(fillTemplate.getInPort());
         fillTemplate.setOutPort(createOutputFileName.getInPort());
         createOutputFileName.setOutPort(writeTextFile.getInPort());
     }
@@ -94,6 +92,7 @@ public class MainFlow implements IMainFlow {
         parseFlowFile.setErrorPort(port);
         handleParserResult.setErrorPort(port);
         outputAllFormats.setErrorPort(port);
+        fillPortPairs.setErrorPort(port);
         fillTemplate.setErrorPort(port);
         createOutputFileName.setErrorPort(port);
         writeTextFile.setErrorPort(port);

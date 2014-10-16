@@ -5,7 +5,6 @@ import org.flowdev.base.op.Filter;
 import org.flowdev.flowparser.data.Connection;
 import org.flowdev.flowparser.data.Flow;
 import org.flowdev.flowparser.data.Operation;
-import org.flowdev.flowparser.data.PortPair;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 import org.junit.runner.RunWith;
@@ -24,7 +23,7 @@ public class ParseFlowTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         Flow flow = new Flow().name("Ab").operations(asList(
-                new Operation().name("bla").type("Bla").portPairs(asList(new PortPair().isLast(true)))
+                new Operation().name("bla").type("Bla")
         )).connections(Collections.<Connection>emptyList());
 
         return asList(
@@ -46,11 +45,13 @@ public class ParseFlowTest extends ParseTestBase {
     private static Flow copyFlow(Flow srcFlow, int opPos) {
         return new Flow().name(srcFlow.name()).operations(copyOps(srcFlow.operations(), opPos)).connections(srcFlow.connections());
     }
+
     private static List<Operation> copyOps(List<Operation> ops, int opPos) {
         return asList(copyOp(ops.get(0), opPos));
     }
+
     private static Operation copyOp(Operation op, int opPos) {
-        return new Operation().name(op.name()).type(op.type()).portPairs(op.portPairs()).srcPos(opPos);
+        return new Operation().name(op.name()).type(op.type()).srcPos(opPos);
     }
 
     public ParseFlowTest(ParserData parserData, Object expectedValue) {

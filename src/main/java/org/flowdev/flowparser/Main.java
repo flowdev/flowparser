@@ -13,6 +13,8 @@ import java.io.PrintStream;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static org.flowdev.flowparser.output.OutputAllFormats.allowedFormats;
+import static org.flowdev.flowparser.output.OutputAllFormats.formatIndex;
 
 public class Main {
     private static OptionParser optParser;
@@ -34,7 +36,7 @@ public class Main {
                     asList("h", "?", "help"), "show this help page").forHelp();
             OptionSpec<String> outFormats = optParser
                     .acceptsAll(asList("f", "format"), "output formats")
-                    .withRequiredArg().describedAs("adoc, wiki, java")
+                    .withRequiredArg().describedAs(allowedFormats())
                     .withValuesSeparatedBy(",").defaultsTo("adoc");
             OptionSet options = optParser.parse(args);
 
@@ -84,6 +86,12 @@ public class Main {
         if (formats.isEmpty()) {
             fatal("No output format selected!");
         }
+        for (String format : formats) {
+            if (formatIndex(format) < 0) {
+                fatal("Unknown output format: " + format);
+            }
+        }
+
         System.out.println("Formats: " + formats.toString());
 
         return formats;

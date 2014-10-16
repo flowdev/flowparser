@@ -34,7 +34,7 @@ public class ParseFlowFileTest extends ParseTestBase {
 
     private static FlowFile createFlowFile(String name) {
         Flow flow = new Flow().name("Acdc").operations(asList(
-                new Operation().name("bla").type("Bla").portPairs(asList(new PortPair().outPort(newPort("out"))))
+                new Operation().name("bla").type("Bla").outPorts(asList(newPort("out")))
         )).connections(Collections.<Connection>emptyList());
 
         return new FlowFile().fileName(name).version(new Version().political(1).major(234))

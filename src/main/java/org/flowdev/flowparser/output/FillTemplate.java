@@ -11,7 +11,6 @@ import org.flowdev.flowparser.MainData;
 import org.flowdev.flowparser.data.Connection;
 import org.flowdev.flowparser.data.Flow;
 import org.flowdev.flowparser.data.Operation;
-import org.flowdev.flowparser.data.PortPair;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class FillTemplate extends FilterOp<MainData, NoConfig> {
                 throw uee;
             }
         }
-        StringBuilder fileContent = new StringBuilder(80192);
+        StringBuilder fileContent = new StringBuilder(8192);
         for (Flow flow : data.flowFile().flows()) {
             StringWriter sw = new StringWriter();
             if (linearTpl != null && isLinearFlow(flow)) {
@@ -71,14 +70,10 @@ public class FillTemplate extends FilterOp<MainData, NoConfig> {
     }
 
     private static boolean isFilterOp(Operation op) {
-        if (op.portPairs().size() != 1) {
+        if (op.inPorts().size() != 1 || op.outPorts().size() != 1) {
             return false;
         }
-        PortPair portPair = op.portPairs().get(0);
-        if (portPair.inPort() == null || portPair.outPort() == null) {
-            return false;
-        }
-        return "in".equals(portPair.inPort().name()) && "out".equals(portPair.outPort().name());
+        return "in".equals(op.inPorts().get(0).name()) && "out".equals(op.outPorts().get(0).name());
     }
 
     private static boolean isLinearConnection(Connection connection, List<String> connectedOps, Connection dataType) {

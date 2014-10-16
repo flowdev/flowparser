@@ -4,12 +4,12 @@ import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.Operation;
 import org.flowdev.flowparser.data.PortData;
-import org.flowdev.flowparser.data.PortPair;
 import org.flowdev.parser.data.ParseResult;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
-import static org.flowdev.flowparser.util.PortUtil.*;
+import static org.flowdev.flowparser.util.PortUtil.defaultInPort;
+import static org.flowdev.flowparser.util.PortUtil.defaultOutPort;
 
 public class SemanticCreateConnectionPart<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
@@ -34,20 +34,19 @@ public class SemanticCreateConnectionPart<T> extends FilterOp<T, NoConfig> {
         Operation op = (Operation) parserData.subResults().get(1).value();
         ParseResult outPortResult = parserData.subResults().get(2);
         PortData outPort = (PortData) outPortResult.value();
-        PortPair portPair = new PortPair();
 
         if (inPort == null) {
-            portPair.inPort(defaultInPort(inPortResult.pos()));
+            op.inPorts().add(defaultInPort(inPortResult.pos()));
         } else {
-            portPair.inPort(inPort);
+            op.inPorts().add(inPort);
         }
 
         if (outPort == null) {
-            portPair.outPort(defaultOutPort(outPortResult.pos()));
+            op.outPorts().add(defaultOutPort(outPortResult.pos()));
         } else {
-            portPair.outPort(outPort);
+            op.outPorts().add(outPort);
         }
 
-        return op.portPairs(makePorts(portPair));
+        return op;
     }
 }

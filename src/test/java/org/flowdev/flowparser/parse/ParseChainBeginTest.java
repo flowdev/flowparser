@@ -4,7 +4,6 @@ import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
 import org.flowdev.flowparser.data.Connection;
 import org.flowdev.flowparser.data.Operation;
-import org.flowdev.flowparser.data.PortPair;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 import org.junit.runner.RunWith;
@@ -24,25 +23,25 @@ import static org.junit.Assert.assertEquals;
 public class ParseChainBeginTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Operation maxOpBlaNoPorts = new Operation().name("bla").type("Bla").portPairs(singletonList(
-                new PortPair().inPort(newPort("in").srcPos(2)).outPort(newPort("out").srcPos(7))));
-        Operation maxOpBlaNoPorts2 = new Operation().name("bla").type("Bla").portPairs(singletonList(
-                new PortPair().inPort(newPort("in").srcPos(15)).outPort(newPort("out").srcPos(20))));
-        Connection maxConnNoTypeNoPorts = new Connection().fromPort(newPort("in")).toPort(maxOpBlaNoPorts.portPairs().get(0).inPort());
-        Connection maxConnTypeNoPorts = new Connection().fromPort(newPort("in")).toPort(maxOpBlaNoPorts2.portPairs().get(0).inPort())
+        Operation maxOpBlaNoPorts = new Operation().name("bla").type("Bla")
+                .inPorts(singletonList(newPort("in").srcPos(2))).outPorts(singletonList(newPort("out").srcPos(7)));
+        Operation maxOpBlaNoPorts2 = new Operation().name("bla").type("Bla")
+                .inPorts(singletonList(newPort("in").srcPos(15))).outPorts(singletonList(newPort("out").srcPos(20)));
+        Connection maxConnNoTypeNoPorts = new Connection().fromPort(newPort("in")).toPort(maxOpBlaNoPorts.inPorts().get(0));
+        Connection maxConnTypeNoPorts = new Connection().fromPort(newPort("in")).toPort(maxOpBlaNoPorts2.inPorts().get(0))
                 .dataType("BlaFlowData").showDataType(true);
 
-        Operation maxOpBluPorts = new Operation().name("bla").type("Blu").portPairs(singletonList(
-                new PortPair().inPort(newPort("xIn", 1).srcPos(22)).outPort(newPort("outY", 123).srcPos(38))));
-        Connection maxConnTypePorts = new Connection().fromPort(newPort("ourIn")).toPort(maxOpBluPorts.portPairs().get(0).inPort())
+        Operation maxOpBluPorts = new Operation().name("bla").type("Blu")
+                .inPorts(singletonList(newPort("xIn", 1).srcPos(22))).outPorts(singletonList(newPort("outY", 123).srcPos(38)));
+        Connection maxConnTypePorts = new Connection().fromPort(newPort("ourIn")).toPort(maxOpBluPorts.inPorts().get(0))
                 .dataType("BlaFlowData").showDataType(true);
 
-        Operation minOpBlaNoPorts = new Operation().name("bla").type("Bla").portPairs(singletonList(
-                new PortPair().outPort(newPort("out").srcPos(5))));
-        Operation minOpBlaPorts = new Operation().name("bla").portPairs(singletonList(
-                new PortPair().inPort(null).outPort(newPort("error", 3).srcPos(6))));
-        Operation minOpBluePorts = new Operation().name("bla").type("Blue").portPairs(singletonList(
-                new PortPair().inPort(null).outPort(newPort("error", 3).srcPos(10))));
+        Operation minOpBlaNoPorts = new Operation().name("bla").type("Bla")
+                .outPorts(singletonList(newPort("out").srcPos(5)));
+        Operation minOpBlaPorts = new Operation().name("bla")
+                .outPorts(singletonList(newPort("error", 3).srcPos(6)));
+        Operation minOpBluePorts = new Operation().name("bla").type("Blue")
+                .outPorts(singletonList(newPort("error", 3).srcPos(10)));
 
         return asList( //
                 makeTestData("no match 1", "->(B)", null),
@@ -59,9 +58,12 @@ public class ParseChainBeginTest extends ParseTestBase {
 
     private static List<Object> createConnectionOperation(Connection conn, Operation op, int srcPos) {
         ArrayList<Object> list = new ArrayList<>(2);
-        Operation newOp = new Operation().name(op.name()).type(op.type()).srcPos(srcPos).portPairs(op.portPairs());
-        list.add(conn == null ? null : conn.toOp(newOp));
-        list.add(newOp);
+        op.srcPos(srcPos);
+        if (conn != null) {
+            conn.toOp(op);
+        }
+        list.add(conn);
+        list.add(op);
         return list;
     }
 

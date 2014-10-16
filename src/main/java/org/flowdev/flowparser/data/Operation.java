@@ -1,13 +1,14 @@
 package org.flowdev.flowparser.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Operation {
     private String name;
     private String type;
-    private List<PortData> inPorts;
-    private List<PortData> outPorts;
+    private List<PortData> inPorts = new ArrayList<>();
+    private List<PortData> outPorts = new ArrayList<>();
     private int srcPos;
     private List<PortPair> portPairs;
 

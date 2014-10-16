@@ -3,7 +3,6 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
 import org.flowdev.flowparser.data.Operation;
-import org.flowdev.flowparser.data.PortPair;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 import org.junit.runner.RunWith;
@@ -23,12 +22,12 @@ import static org.junit.Assert.assertEquals;
 public class ParseChainMiddleTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Operation opBlaNoPorts = new Operation().name("bla").type("Bla").srcPos(2).portPairs(singletonList(
-                new PortPair().inPort(newPort("in").srcPos(2)).outPort(newPort("out").srcPos(7))));
-        Operation opBlaPorts = new Operation().name("bla").srcPos(10).portPairs(singletonList(
-                new PortPair().inPort(newPort("in", 2).srcPos(3)).outPort(newPort("error").srcPos(18))));
-        Operation opBluPorts = new Operation().name("bla").type("Blu").srcPos(35).portPairs(singletonList(
-                new PortPair().inPort(newPort("xIn", 1).srcPos(27)).outPort(newPort("outY", 123).srcPos(43))));
+        Operation opBlaNoPorts = new Operation().name("bla").type("Bla").srcPos(2)
+                .inPorts(singletonList(newPort("in").srcPos(2))).outPorts(singletonList(newPort("out").srcPos(7)));
+        Operation opBlaPorts = new Operation().name("bla").srcPos(10)
+                .inPorts(singletonList(newPort("in", 2).srcPos(3))).outPorts(singletonList(newPort("error").srcPos(18)));
+        Operation opBluPorts = new Operation().name("bla").type("Blu").srcPos(35)
+                .inPorts(singletonList(newPort("xIn", 1).srcPos(27))).outPorts(singletonList(newPort("outY", 123).srcPos(43)));
 
         return asList( //
                 makeTestData("no match 1", "->(B)", null), //
