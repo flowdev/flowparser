@@ -30,7 +30,7 @@ public class SemanticCreatePort<T> extends FilterOp<T, NoConfig> {
     @SuppressWarnings("unchecked")
     private PortData createPort(ParserData parserData) {
         ParseResult nameResult = parserData.subResults().get(0);
-        PortData port = newPort(nameResult.text()).srcPos(nameResult.pos());
+        PortData port = newPort(nameResult.pos(), nameResult.text());
 
         List<Object> opPortNum = (List<Object>) parserData.subResults().get(1).value();
         if (opPortNum != null) {

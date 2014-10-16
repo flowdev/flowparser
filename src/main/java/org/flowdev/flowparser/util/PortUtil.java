@@ -1,45 +1,35 @@
 package org.flowdev.flowparser.util;
 
 import org.flowdev.flowparser.data.PortData;
-import org.flowdev.flowparser.data.PortPair;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PortUtil {
 
-    public static List<PortPair> makePorts(PortPair port) {
-        List<PortPair> ports = new ArrayList<>();
-        ports.add(port);
-        return ports;
-    }
-
     public static PortData defaultInPort(int srcPos) {
-        return newPort("in").srcPos(srcPos);
+        return newPort(srcPos, "in");
     }
 
     public static PortData defaultOutPort(int srcPos) {
-        return newPort("out").srcPos(srcPos);
+        return newPort(srcPos, "out");
     }
 
-    public static PortData newPort(String name, boolean hasIndex, int index) {
-        PortData port = new PortData().name(name).capName(capString(name));
+    public static PortData newPort(int srcPos, String name, boolean hasIndex, int index) {
+        PortData port = new PortData().srcPos(srcPos).name(name).capName(capString(name));
         if (hasIndex) {
             return port.hasIndex(true).index(index);
         }
         return port;
     }
 
-    public static PortData newPort(String name, int index) {
-        return newPort(name, true, index);
+    public static PortData newPort(int srcPos, String name, int index) {
+        return newPort(srcPos, name, true, index);
     }
 
-    public static PortData newPort(String name) {
-        return newPort(name, false, 0);
+    public static PortData newPort(int srcPos, String name) {
+        return newPort(srcPos, name, false, 0);
     }
 
     public static PortData copyPort(PortData srcPort, int srcPos) {
-        return newPort(srcPort.name(), srcPort.hasIndex(), srcPort.index()).srcPos(srcPos);
+        return newPort(srcPos, srcPort.name(), srcPort.hasIndex(), srcPort.index());
     }
 
     /**

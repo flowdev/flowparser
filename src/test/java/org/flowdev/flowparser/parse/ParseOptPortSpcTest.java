@@ -22,10 +22,10 @@ public class ParseOptPortSpcTest extends ParseTestBase {
                 makeTestData("empty", "", Void.TYPE), //
                 makeTestData("no match 1", "p.1", Void.TYPE), //
                 makeTestData("no match 3", "pt. ", Void.TYPE), //
-                makeTestData("simple 1", "p ", newPort("p")), //
-                makeTestData("simple 2", "pt.0\t", newPort("pt", 0)), //
-                makeTestData("simple 3", "looooongPortName  \t   ", newPort("looooongPortName")), //
-                makeTestData("simple 4", "port.123 \t ", newPort("port", 123))  //
+                makeTestData("simple 1", "p ", newPort(0, "p")), //
+                makeTestData("simple 2", "pt.0\t", newPort(0, "pt", 0)), //
+                makeTestData("simple 3", "looooongPortName  \t   ", newPort(0, "looooongPortName")), //
+                makeTestData("simple 4", "port.123 \t ", newPort(0, "port", 123))  //
         );
     }
 

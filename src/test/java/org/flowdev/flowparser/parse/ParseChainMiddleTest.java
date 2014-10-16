@@ -23,11 +23,11 @@ public class ParseChainMiddleTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
         Operation opBlaNoPorts = new Operation().name("bla").type("Bla").srcPos(2)
-                .inPorts(singletonList(newPort("in").srcPos(2))).outPorts(singletonList(newPort("out").srcPos(7)));
+                .inPorts(singletonList(newPort(2, "in"))).outPorts(singletonList(newPort(7, "out")));
         Operation opBlaPorts = new Operation().name("bla").srcPos(10)
-                .inPorts(singletonList(newPort("in", 2).srcPos(3))).outPorts(singletonList(newPort("error").srcPos(18)));
+                .inPorts(singletonList(newPort(3, "in", 2))).outPorts(singletonList(newPort(18, "error")));
         Operation opBluPorts = new Operation().name("bla").type("Blu").srcPos(35)
-                .inPorts(singletonList(newPort("xIn", 1).srcPos(27))).outPorts(singletonList(newPort("outY", 123).srcPos(43)));
+                .inPorts(singletonList(newPort(27, "xIn", 1))).outPorts(singletonList(newPort(43, "outY", 123)));
 
         return asList( //
                 makeTestData("no match 1", "->(B)", null), //

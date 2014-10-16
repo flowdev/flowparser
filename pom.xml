@@ -25,18 +25,8 @@
         </dependency>
 
 
-        <!-- Parser alternatives start:
-        First alternative is Mouse, a nice little PEG parser generator.
-        Negative points: It isn't modular and it has to generate Java source code.
-         -->
-        <dependency>
-            <groupId>se.romanredz.mouse</groupId>
-            <artifactId>mouse-runtime</artifactId>
-            <version>1.5.1</version>
-        </dependency>
-
         <!--
-        Second alternative is our own modular parser library.
+        This is our own modular parser library.
         No need to generate any source code since it is a normal library, yeah!
         Otherwise it works like a PEG parser.
          -->
@@ -45,24 +35,8 @@
             <artifactId>parser</artifactId>
             <version>0.0.2-SNAPSHOT</version>
         </dependency>
-        <!-- Parser alternatives end! -->
 
         <!-- Not needed during runtime: -->
-        <dependency>
-            <!--  This is needed for generating the Java parser from the PEG file.
-              It can be run as a normal Java application like:
-              java mouse.Generate -G src/main/peg/flowdsl.peg \
-                -D "src/main/java/org/flowdev/flowparser" \
-                -p org.flowdev.flowparser \
-                -P FlowParser -S FlowParserSemantics
-
-              In eclipse you have to check the box 'Include system libraries when searching for a main class'.
-             -->
-            <groupId>se.romanredz.mouse</groupId>
-            <artifactId>mouse</artifactId>
-            <version>1.5.1</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

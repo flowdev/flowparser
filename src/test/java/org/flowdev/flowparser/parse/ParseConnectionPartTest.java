@@ -20,12 +20,12 @@ import static org.junit.Assert.assertEquals;
 public class ParseConnectionPartTest extends ParseTestBase {
     @Parameterized.Parameters
     public static Collection<?> generateTestDatas() {
-        Operation opBlaNoPorts = new Operation().name("bla").type("Bla").srcPos(0).inPorts(singletonList(newPort("in")))
-                .outPorts(singletonList(newPort("out").srcPos(5)));
-        Operation opBlaPorts = new Operation().name("bla").srcPos(7).inPorts(singletonList(newPort("in", 2)))
-                .outPorts(singletonList(newPort("error").srcPos(15)));
-        Operation opBluPorts = new Operation().name("bla").type("Blu").srcPos(8).inPorts(singletonList(newPort("xIn", 1)))
-                .outPorts(singletonList(newPort("outY", 123).srcPos(16)));
+        Operation opBlaNoPorts = new Operation().name("bla").type("Bla").srcPos(0).inPorts(singletonList(newPort(0, "in")))
+                .outPorts(singletonList(newPort(5, "out")));
+        Operation opBlaPorts = new Operation().name("bla").srcPos(7).inPorts(singletonList(newPort(0, "in", 2)))
+                .outPorts(singletonList(newPort(15, "error")));
+        Operation opBluPorts = new Operation().name("bla").type("Blu").srcPos(8).inPorts(singletonList(newPort(0, "xIn", 1)))
+                .outPorts(singletonList(newPort(16, "outY", 123)));
 
         return asList( //
                 makeTestData("empty", "", null), //

@@ -21,12 +21,12 @@ public class ParsePortTest extends ParseTestBase {
         return asList( //
                 makeTestData("empty", "", null), //
                 makeTestData("no match 1", ".1", null), //
-                makeTestData("half match 1", "pt.", newPort("pt")), //
-                makeTestData("half match 2", "pt_1", newPort("pt")), //
-                makeTestData("simple 1", "p", newPort("p")), //
-                makeTestData("simple 2", "pt.0", newPort("pt", 0)), //
-                makeTestData("simple 3", "looooongPortName", newPort("looooongPortName")), //
-                makeTestData("simple 4", "port.123", newPort("port", 123))  //
+                makeTestData("half match 1", "pt.", newPort(0, "pt")), //
+                makeTestData("half match 2", "pt_1", newPort(0, "pt")), //
+                makeTestData("simple 1", "p", newPort(0, "p")), //
+                makeTestData("simple 2", "pt.0", newPort(0, "pt", 0)), //
+                makeTestData("simple 3", "looooongPortName", newPort(0, "looooongPortName")), //
+                makeTestData("simple 4", "port.123", newPort(0, "port", 123))  //
         );
     }
 
