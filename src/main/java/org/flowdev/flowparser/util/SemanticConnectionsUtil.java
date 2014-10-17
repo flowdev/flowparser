@@ -13,6 +13,8 @@ import static org.flowdev.flowparser.util.PortUtil.equalPorts;
 import static org.flowdev.parser.util.ParserUtil.addSemanticError;
 
 public abstract class SemanticConnectionsUtil {
+    public static final String TYPE_OUTPUT = "output";
+
     public static void correctFromPort(Connection conn, Operation op) {
         for (PortData port : op.outPorts()) {
             Boolean eq = equalPorts(port, conn.fromPort());

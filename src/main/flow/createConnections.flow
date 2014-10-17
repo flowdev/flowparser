@@ -4,42 +4,8 @@ flow SemanticConnections {
   [ParserData]-> createConns(CreateConnections) -> verifyOutPorts(VerifyOutPortsUsedOnlyOnce) -> ;
   createConns() chainOut [ParserData]-> (HandleChainBeg) -> (HandleChainMid) -> (HandleChainEnd) -> chainIn createConns() ;
 
-  handleChainBeg() correctPortOut [ParserData]-> (CorrectToPort) -> correctPortIn handleChainBeg() ;
-  handleChainBeg() addOpOut [ParserData]-> (AddLastOp) -> addOpIn handleChainBeg() ;
+  handleChainBeg() addOpOut [ParserData]-> begAddLastOp(AddLastOp) -> addOpIn handleChainBeg() ;
 
-  handleChainMid() correctPortOut [ParserData]-> (CorrectToPort) -> correctPortIn handleChainMid() ;
-  handleChainMid() addOpOut [ParserData]-> (AddLastOp) -> addOpIn handleChainMid() ;
-
-  handleChainEnd() correctPortOut [ParserData]-> (CorrectFromPort) -> correctPortIn handleChainEnd() ;
+  handleChainMid() addOpOut [ParserData]-> midAddLastOp(AddLastOp) -> addOpIn handleChainMid() ;
 }
 
-flow AddLastOp {
-  [ParserData]-> chainBeg(ParseAlternatives) -> ;
-
-  chainBeg() subOut.0 [ParserData]-> chainBegMax(ParseAll) -> subIn chainBeg() ;
-  chainBeg() subOut.1 [ParserData]-> chainBegMin(ParseAll) -> subIn chainBeg() ;
-
-  chainBegMax() semOut [ParserData]-> maxSemantic(SemanticCreateChainBegMax) -> semIn chainBegMax() ;
-  chainBegMax() subOut.0 [ParserData]-> optPortMax(ParseOptPort) -> subIn chainBegMax() ;
-  chainBegMax() subOut.1 [ParserData]-> chainMid(ParseChainMiddle) -> subIn chainBegMax() ;
-
-  chainBegMin() semOut [ParserData]-> minSemantic(SemanticCreateChainBegMin) -> semIn chainBegMin() ;
-  chainBegMin() subOut.0 [ParserData]-> opNameParens(ParseOperationNameParens) -> subIn chainBegMin() ;
-  chainBegMin() subOut.1 [ParserData]-> optPortMin(ParseOptPort) -> subIn chainBegMin() ;
-}
-
-flow ParseChainMiddle {
-  [ParserData]-> chainMid(ParseAll) -> ;
-  chainMid() semOut [ParserData]-> semantic(SemanticCreateChainMiddle) -> semIn chainMid() ;
-
-  chainMid() subOut.0 [ParserData]-> arrow(ParseArrow) -> subIn chainMid() ;
-  chainMid() subOut.1 [ParserData]-> connPart(ParseConnectionPart) -> subIn chainMid() ;
-}
-
-flow ParseChainEnd {
-  [ParserData]-> chainEnd(ParseAll) -> ;
-  chainEnd() semOut [ParserData]-> semantic(SemanticCreateChainEnd) -> semIn chainEnd() ;
-
-  chainEnd() subOut.0 [ParserData]-> arrow(ParseArrow) -> subIn chainEnd() ;
-  chainEnd() subOut.1 [ParserData]-> optPort(ParseOptPort) -> subIn chainEnd() ;
-}

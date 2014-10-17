@@ -16,6 +16,8 @@ import java.util.*;
 
 import static org.flowdev.flowparser.util.PortUtil.copyPort;
 import static org.flowdev.flowparser.util.PortUtil.defaultOutPort;
+import static org.flowdev.flowparser.util.SemanticConnectionsUtil.TYPE_OUTPUT;
+import static org.flowdev.flowparser.util.SemanticConnectionsUtil.addPort;
 import static org.flowdev.parser.util.ParserUtil.addSemanticError;
 import static org.flowdev.parser.util.ParserUtil.isOk;
 
@@ -110,7 +112,7 @@ public class SemanticConnections<T> extends FilterOp<T, NoConfig> {
                     chainEnd.toPort(copyPort(chainEnd.fromPort(), chainEnd.toPort().srcPos()));
                 } else if (chainEnd.fromPort() == null) {
                     chainEnd.fromPort(defaultOutPort(chainEnd.fromPort().srcPos()));
-                    SemanticConnectionsUtil.addPort(lastOp, chainEnd.fromPort(), "output", parserData, addOpResult);
+                    addPort(lastOp, chainEnd.fromPort(), TYPE_OUTPUT, parserData, addOpResult);
                 }
                 SemanticConnectionsUtil.correctFromPort(chainEnd, lastOp);
                 conns.add(chainEnd);
@@ -175,10 +177,10 @@ public class SemanticConnections<T> extends FilterOp<T, NoConfig> {
                         "' has got two different types '" + existingOp.type() + "' and '" + op.type() + "'!");
             }
             if (op.inPorts().size() > 0) {
-                SemanticConnectionsUtil.addPort(existingOp, op.inPorts().get(0), "input", parserData, null);
+                addPort(existingOp, op.inPorts().get(0), "input", parserData, null);
             }
             if (op.outPorts().size() > 0) {
-                SemanticConnectionsUtil.addPort(existingOp, op.outPorts().get(0), "output", parserData, result);
+                addPort(existingOp, op.outPorts().get(0), TYPE_OUTPUT, parserData, result);
             }
             result.op(existingOp);
         } else {
