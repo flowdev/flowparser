@@ -3,10 +3,16 @@ package org.flowdev.flowparser;
 import org.flowdev.base.Port;
 import org.flowdev.base.op.io.ReadTextFile;
 import org.flowdev.base.op.io.WriteTextFile;
-import org.flowdev.flowparser.output.*;
+import org.flowdev.flowparser.output.CreateOutputFileName;
+import org.flowdev.flowparser.output.FillPortPairs;
+import org.flowdev.flowparser.output.FillTemplate;
+import org.flowdev.flowparser.output.OutputAllFormats;
 import org.flowdev.flowparser.parse.HandleParserResult;
 import org.flowdev.flowparser.parse.ParseFlowFile;
 import org.flowdev.parser.op.ParserParams;
+
+import static org.flowdev.flowparser.output.OutputAllFormats.OutputAllFormatsConfig;
+import static org.flowdev.flowparser.util.FormatUtil.formatsAsList;
 
 /**
  * This flow parses a flow file and creates one ore more output files.
@@ -20,7 +26,7 @@ public class MainFlow implements IMainFlow {
     private FillTemplate fillTemplate;
     private CreateOutputFileName createOutputFileName;
     private WriteTextFile<MainData> writeTextFile;
-    private Port<MainConfig> configPort = data -> outputAllFormats.getConfigPort().send(data.outputAllFormats);
+    private Port<MainFlowConfig> configPort = data -> outputAllFormats.getConfigPort().send(data.outputAllFormats());
 
 
     public MainFlow() {
@@ -69,11 +75,7 @@ public class MainFlow implements IMainFlow {
     }
 
     private void initConfig() {
-        OutputAllFormatsConfig outputAllFormatsConfig = new OutputAllFormatsConfig();
-        outputAllFormatsConfig.formats.add("adoc");
-        outputAllFormatsConfig.formats.add("wiki");
-        outputAllFormatsConfig.formats.add("java");
-        outputAllFormats.getConfigPort().send(outputAllFormatsConfig);
+        outputAllFormats.getConfigPort().send(new OutputAllFormatsConfig().formats(formatsAsList()));
     }
 
     @Override
@@ -82,7 +84,7 @@ public class MainFlow implements IMainFlow {
     }
 
     @Override
-    public Port<MainConfig> getConfigPort() {
+    public Port<MainFlowConfig> getConfigPort() {
         return configPort;
     }
 
@@ -96,5 +98,18 @@ public class MainFlow implements IMainFlow {
         fillTemplate.setErrorPort(port);
         createOutputFileName.setErrorPort(port);
         writeTextFile.setErrorPort(port);
+    }
+
+    public static class MainFlowConfig {
+        private OutputAllFormatsConfig outputAllFormats;
+
+        public OutputAllFormatsConfig outputAllFormats() {
+            return this.outputAllFormats;
+        }
+
+        public MainFlowConfig outputAllFormats(final OutputAllFormatsConfig outputAllFormats) {
+            this.outputAllFormats = outputAllFormats;
+            return this;
+        }
     }
 }

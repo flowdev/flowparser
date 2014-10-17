@@ -13,7 +13,7 @@ import static org.flowdev.flowparser.util.FormatUtil.formatIndex;
 /**
  * Iterate over all requested formats and output them all.
  */
-public class OutputAllFormats extends BaseOp<OutputAllFormatsConfig> {
+public class OutputAllFormats extends BaseOp<OutputAllFormats.OutputAllFormatsConfig> {
     protected List<Port<MainData>> formatPorts = new ArrayList<>(formatCount());
     protected Port<MainData> inPort = this::outputFormats;
 
@@ -43,4 +43,16 @@ public class OutputAllFormats extends BaseOp<OutputAllFormatsConfig> {
         }
     }
 
+    public static class OutputAllFormatsConfig {
+        public List<String> formats;
+
+        public List<String> formats() {
+            return this.formats;
+        }
+
+        public OutputAllFormatsConfig formats(final List<String> formats) {
+            this.formats = formats;
+            return this;
+        }
+    }
 }

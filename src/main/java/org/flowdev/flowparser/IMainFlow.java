@@ -5,7 +5,7 @@ import org.flowdev.base.Port;
 public interface IMainFlow {
     Port<MainData> getInPort();
 
-    Port<MainConfig> getConfigPort();
+    Port<MainFlow.MainFlowConfig> getConfigPort();
 
     void setErrorPort(Port<Throwable> port);
 }

@@ -2,7 +2,6 @@ package org.flowdev.flowparser;
 
 import org.flowdev.base.Port;
 import org.flowdev.base.data.PrettyPrinter;
-import org.flowdev.flowparser.output.OutputAllFormatsConfig;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.data.SourceData;
 import org.junit.Before;
@@ -16,20 +15,22 @@ import java.util.Collection;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static org.flowdev.flowparser.MainFlow.MainFlowConfig;
+import static org.flowdev.flowparser.output.OutputAllFormats.OutputAllFormatsConfig;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class MainTest {
 
-    private static final String FORMAT = "wiki";
+    private static final String FORMAT = "adoc";
     private static final String MINI_FLOW = "./src/test/flow/flowparser/mini.flow";
     private TestMainFlow flow;
     private final String[] args;
     private final MainData expectedData;
-    private final MainConfig expectedConfig;
+    private final MainFlowConfig expectedConfig;
 
     public MainTest(String[] args, MainData expectedData,
-                    MainConfig expectedConfig) {
+                    MainFlowConfig expectedConfig) {
         this.args = args;
         this.expectedData = expectedData;
         this.expectedConfig = expectedConfig;
@@ -42,7 +43,7 @@ public class MainTest {
         params.add(new String[]{MINI_FLOW});
 
         MainData data = createData(MINI_FLOW);
-        MainConfig config = createConfig(FORMAT);
+        MainFlowConfig config = createConfig(FORMAT);
         params.add(data);
         params.add(config);
         paramsList.add(params.toArray());
@@ -54,11 +55,8 @@ public class MainTest {
         return new MainData().parserData(new ParserData().source(new SourceData().name(fileName)));
     }
 
-    private static MainConfig createConfig(String... formats) {
-        MainConfig config = new MainConfig();
-        config.outputAllFormats = new OutputAllFormatsConfig();
-        config.outputAllFormats.formats = asList(formats);
-        return config;
+    private static MainFlowConfig createConfig(String... formats) {
+        return new MainFlowConfig().outputAllFormats(new OutputAllFormatsConfig().formats(asList(formats)));
     }
 
     @Before
@@ -80,7 +78,7 @@ public class MainTest {
 
     private static class TestMainFlow implements IMainFlow {
         MainData myData;
-        MainConfig myConfig;
+        MainFlowConfig myConfig;
 
         @Override
         public Port<MainData> getInPort() {
@@ -88,7 +86,7 @@ public class MainTest {
         }
 
         @Override
-        public Port<MainConfig> getConfigPort() {
+        public Port<MainFlowConfig> getConfigPort() {
             return data -> myConfig = data;
         }
 
