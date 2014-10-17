@@ -2,6 +2,7 @@ package org.flowdev.flowparser;
 
 import org.flowdev.base.Port;
 import org.flowdev.base.data.PrettyPrinter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.data.SourceData;
 import org.junit.Before;

@@ -2,7 +2,7 @@ package org.flowdev.flowparser.output;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
-import org.flowdev.flowparser.MainData;
+import org.flowdev.flowparser.data.MainData;
 
 public class CreateOutputFileName extends FilterOp<MainData, NoConfig> {
     @Override

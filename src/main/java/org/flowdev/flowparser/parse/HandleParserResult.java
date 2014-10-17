@@ -3,8 +3,8 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.data.Feedback;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
-import org.flowdev.flowparser.MainData;
 import org.flowdev.flowparser.data.FlowFile;
+import org.flowdev.flowparser.data.MainData;
 
 import java.io.PrintStream;
 import java.util.List;

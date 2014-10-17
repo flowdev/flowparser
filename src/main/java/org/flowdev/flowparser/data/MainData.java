@@ -1,6 +1,5 @@
-package org.flowdev.flowparser;
+package org.flowdev.flowparser.data;
 
-import org.flowdev.flowparser.data.FlowFile;
 import org.flowdev.parser.data.ParserData;
 
 public class MainData {

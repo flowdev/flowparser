@@ -2,8 +2,8 @@ package org.flowdev.flowparser.output;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
-import org.flowdev.flowparser.MainData;
 import org.flowdev.flowparser.data.Flow;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.data.Operation;
 import org.flowdev.flowparser.data.PortPair;
 

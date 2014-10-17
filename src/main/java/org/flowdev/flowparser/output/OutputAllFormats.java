@@ -2,7 +2,7 @@ package org.flowdev.flowparser.output;
 
 import org.flowdev.base.Port;
 import org.flowdev.base.op.BaseOp;
-import org.flowdev.flowparser.MainData;
+import org.flowdev.flowparser.data.MainData;
 
 import java.util.ArrayList;
 import java.util.List;
