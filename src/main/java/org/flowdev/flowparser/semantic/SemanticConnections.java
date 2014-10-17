@@ -6,6 +6,7 @@ import org.flowdev.flowparser.data.Connection;
 import org.flowdev.flowparser.data.Flow;
 import org.flowdev.flowparser.data.Operation;
 import org.flowdev.flowparser.data.PortData;
+import org.flowdev.flowparser.util.SemanticConnectionsUtil;
 import org.flowdev.parser.data.ParseResult;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
@@ -13,8 +14,8 @@ import org.flowdev.parser.util.ParserUtil;
 
 import java.util.*;
 
-import static java.lang.Integer.max;
-import static org.flowdev.flowparser.util.PortUtil.*;
+import static org.flowdev.flowparser.util.PortUtil.copyPort;
+import static org.flowdev.flowparser.util.PortUtil.defaultOutPort;
 import static org.flowdev.parser.util.ParserUtil.addSemanticError;
 import static org.flowdev.parser.util.ParserUtil.isOk;
 
@@ -69,10 +70,10 @@ public class SemanticConnections<T> extends FilterOp<T, NoConfig> {
             // handle chainBeg
             Connection connBeg = (Connection) chainBeg.get(0);
             addLastOp(ops, (Operation) chainBeg.get(1), parserData, addOpResult);
-            lastOp = addOpResult.op;
+            lastOp = addOpResult.op();
             if (connBeg != null) {
                 connBeg.toOp(lastOp);
-                correctToPort(connBeg, lastOp);
+                SemanticConnectionsUtil.correctToPort(connBeg, lastOp);
                 conns.add(connBeg);
             }
 
@@ -81,15 +82,15 @@ public class SemanticConnections<T> extends FilterOp<T, NoConfig> {
                 for (Object chainMidObj : chainMids) {
                     List<Object> chainMid = (List<Object>) chainMidObj;
                     String arrowType = (String) chainMid.get(0);
-                    PortData fromPort = addOpResult.outPort;
+                    PortData fromPort = addOpResult.outPort();
                     Operation toOp = (Operation) chainMid.get(1);
                     PortData toPort = toOp.inPorts().get(0);
                     addLastOp(ops, toOp, parserData, addOpResult);
-                    toOp = addOpResult.op;
+                    toOp = addOpResult.op();
 
                     Connection connMid = new Connection().dataType(arrowType).showDataType(arrowType != null)
                             .fromOp(lastOp).fromPort(fromPort).toOp(toOp).toPort(toPort);
-                    correctToPort(connMid, toOp);
+                    SemanticConnectionsUtil.correctToPort(connMid, toOp);
                     conns.add(connMid);
 
                     lastOp = toOp;
@@ -99,8 +100,8 @@ public class SemanticConnections<T> extends FilterOp<T, NoConfig> {
             // handle chainEnd
             if (chainEnd != null) {
                 chainEnd.fromOp(lastOp);
-                if (addOpResult.outPort != null) {
-                    chainEnd.fromPort(addOpResult.outPort);
+                if (addOpResult.outPort() != null) {
+                    chainEnd.fromPort(addOpResult.outPort());
                 }
                 if (chainEnd.fromPort().name() == null && chainEnd.toPort().name() == null) {
                     chainEnd.fromPort(defaultOutPort(chainEnd.fromPort().srcPos()));
@@ -109,12 +110,12 @@ public class SemanticConnections<T> extends FilterOp<T, NoConfig> {
                     chainEnd.toPort(copyPort(chainEnd.fromPort(), chainEnd.toPort().srcPos()));
                 } else if (chainEnd.fromPort() == null) {
                     chainEnd.fromPort(defaultOutPort(chainEnd.fromPort().srcPos()));
-                    addPort(lastOp, chainEnd.fromPort(), "output", parserData, addOpResult);
+                    SemanticConnectionsUtil.addPort(lastOp, chainEnd.fromPort(), "output", parserData, addOpResult);
                 }
-                correctFromPort(chainEnd, lastOp);
+                SemanticConnectionsUtil.correctFromPort(chainEnd, lastOp);
                 conns.add(chainEnd);
-            } else if (addOpResult.outPortAdded) {
-                addOpResult.op.outPorts().remove(addOpResult.op.outPorts().size() - 1);
+            } else if (addOpResult.outPortAdded()) {
+                addOpResult.op().outPorts().remove(addOpResult.op().outPorts().size() - 1);
             }
         }
         parserData.result().value(null);
@@ -122,24 +123,6 @@ public class SemanticConnections<T> extends FilterOp<T, NoConfig> {
         Flow result = new Flow().connections(new ArrayList<>(conns)).operations(new ArrayList<>(ops.values()));
         verifyFlow(result, parserData);
         return new Flow().connections(new ArrayList<>(conns)).operations(new ArrayList<>(ops.values()));
-    }
-
-    private void correctFromPort(Connection conn, Operation op) {
-        for (PortData port : op.outPorts()) {
-            Boolean eq = equalPorts(port, conn.fromPort());
-            if (eq == null || eq) {
-                conn.fromPort(port);
-            }
-        }
-    }
-
-    private void correctToPort(Connection conn, Operation op) {
-        for (PortData port : op.inPorts()) {
-            Boolean eq = equalPorts(port, conn.toPort());
-            if (eq == null || eq) {
-                conn.toPort(port);
-            }
-        }
     }
 
     private void verifyFlow(Flow result, ParserData parserData) {
@@ -192,51 +175,19 @@ public class SemanticConnections<T> extends FilterOp<T, NoConfig> {
                         "' has got two different types '" + existingOp.type() + "' and '" + op.type() + "'!");
             }
             if (op.inPorts().size() > 0) {
-                addPort(existingOp, op.inPorts().get(0), "input", parserData, null);
+                SemanticConnectionsUtil.addPort(existingOp, op.inPorts().get(0), "input", parserData, null);
             }
             if (op.outPorts().size() > 0) {
-                addPort(existingOp, op.outPorts().get(0), "output", parserData, result);
+                SemanticConnectionsUtil.addPort(existingOp, op.outPorts().get(0), "output", parserData, result);
             }
-            result.op = existingOp;
+            result.op(existingOp);
         } else {
             ops.put(op.name(), op);
             if (op.outPorts().size() > 0) {
-                result.outPort = op.outPorts().get(0);
-                result.outPortAdded = true;
+                result.outPort(op.outPorts().get(0)).outPortAdded(true);
             }
-            result.op = op;
+            result.op(op);
         }
     }
 
-    private void addPort(Operation op, PortData newPort, String portType, ParserData parserData, AddOpResult result) {
-        List<PortData> ports = (result == null) ? op.inPorts() : op.outPorts();
-        for (PortData oldPort : ports) {
-            Boolean eq = equalPorts(oldPort, newPort);
-            if (eq == null) {
-                addSemanticError(parserData, max(newPort.srcPos(), oldPort.srcPos()),
-                        "The " + portType + " port '" + newPort.name() + "' of the operation '" + op.name()
-                                + "' is used as indexed and unindexed port in the same flow!");
-                return;
-            }
-            if (eq) {
-                if (result != null) {
-                    result.outPort = oldPort;
-                    result.outPortAdded = false;
-                }
-                return;
-            }
-        }
-
-        ports.add(newPort);
-        if (result != null) {
-            result.outPort = newPort;
-            result.outPortAdded = true;
-        }
-    }
-
-    private static class AddOpResult {
-        private Operation op;
-        private PortData outPort;
-        private boolean outPortAdded;
-    }
 }
