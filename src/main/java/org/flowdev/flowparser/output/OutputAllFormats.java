@@ -7,13 +7,15 @@ import org.flowdev.flowparser.MainData;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.flowdev.flowparser.util.FormatUtil.formatCount;
+import static org.flowdev.flowparser.util.FormatUtil.formatIndex;
+
 /**
  * Iterate over all requested formats and output them all.
  */
 public class OutputAllFormats extends BaseOp<OutputAllFormatsConfig> {
-    public static final String[] ALLOWED_FORMATS = {"adoc", "java", "wiki"};
-    protected List<Port<MainData>> formatPorts = new ArrayList<>(ALLOWED_FORMATS.length);
-    protected Port<MainData> inPort = (data) -> outputFormats(data);
+    protected List<Port<MainData>> formatPorts = new ArrayList<>(formatCount());
+    protected Port<MainData> inPort = this::outputFormats;
 
 
     protected void outputFormats(MainData data) {
@@ -27,30 +29,6 @@ public class OutputAllFormats extends BaseOp<OutputAllFormatsConfig> {
                 System.err.println("ERROR: Unable to ouput unknown format: " + format);
             }
         }
-    }
-
-    /**
-     * This method is intentionally public static so it can be used by the main class.
-     *
-     * @param format the format to look for in the ALLOWED_FORMATS array.
-     * @return the index of the given format in the ALLOWED_FORMATS array.
-     */
-    public static int formatIndex(String format) {
-        for (int i = 0; i < ALLOWED_FORMATS.length; i++) {
-            if (ALLOWED_FORMATS[i].equals(format)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * This method is intentionally public static so it can be used by the main class.
-     *
-     * @return the allowed output formats as a nicely formatted string.
-     */
-    public static String allowedFormats() {
-        return String.join(", ", ALLOWED_FORMATS);
     }
 
     public Port<MainData> getInPort() {

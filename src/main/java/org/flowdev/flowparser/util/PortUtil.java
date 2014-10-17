@@ -2,7 +2,7 @@ package org.flowdev.flowparser.util;
 
 import org.flowdev.flowparser.data.PortData;
 
-public class PortUtil {
+public abstract class PortUtil {
 
     public static PortData defaultInPort(int srcPos) {
         return newPort(srcPos, "in");

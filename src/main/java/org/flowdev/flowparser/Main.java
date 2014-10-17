@@ -13,8 +13,8 @@ import java.io.PrintStream;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.flowdev.flowparser.output.OutputAllFormats.allowedFormats;
-import static org.flowdev.flowparser.output.OutputAllFormats.formatIndex;
+import static org.flowdev.flowparser.util.FormatUtil.allowedFormats;
+import static org.flowdev.flowparser.util.FormatUtil.formatIndex;
 
 public class Main {
     private static OptionParser optParser;
