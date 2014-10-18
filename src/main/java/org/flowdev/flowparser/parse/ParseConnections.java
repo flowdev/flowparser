@@ -3,7 +3,8 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
-import org.flowdev.flowparser.semantic.SemanticConnections;
+import org.flowdev.flowparser.data.MainData;
+import org.flowdev.flowparser.semantic.connections.SemanticConnections;
 import org.flowdev.parser.op.*;
 
 /**
@@ -21,24 +22,24 @@ import org.flowdev.parser.op.*;
  * <p>
  * semantic result:
  * Flow
- *
- * @param <T> the type of the data moving through the flow.
  */
 @SuppressWarnings("CanBeFinal")
-public class ParseConnections<T> implements Filter<T, NoConfig> {
-    private ParseMultiple1<T> connections;
-    private SemanticConnections<T> semantic;
-    private ParseAll<T> chain;
-    private ParseChainBegin<T> chainBeg;
-    private ParseMultiple0<T> chainMids;
-    private ParseOptional<T> optChainEnd;
-    private ParseStatementEnd<T> statementEnd;
-    private ParseChainMiddle<T> chainMid;
-    private ParseChainEnd<T> chainEnd;
+public class ParseConnections implements Filter<MainData, NoConfig> {
+    private ParseMultiple1<MainData> connections;
+    //    private SemanticConnections<T> semantic;
+    private SemanticConnections semantic;
+    private ParseAll<MainData> chain;
+    private ParseChainBegin<MainData> chainBeg;
+    private ParseMultiple0<MainData> chainMids;
+    private ParseOptional<MainData> optChainEnd;
+    private ParseStatementEnd<MainData> statementEnd;
+    private ParseChainMiddle<MainData> chainMid;
+    private ParseChainEnd<MainData> chainEnd;
 
-    public ParseConnections(ParserParams<T> params) {
+    public ParseConnections(ParserParams<MainData> params) {
         connections = new ParseMultiple1<>(params);
-        semantic = new SemanticConnections<>(params);
+//        semantic = new SemanticConnections<>(params);
+        semantic = new SemanticConnections();
         chain = new ParseAll<>(params);
         chainBeg = new ParseChainBegin<>(params);
         chainMids = new ParseMultiple0<>(params);
@@ -69,11 +70,11 @@ public class ParseConnections<T> implements Filter<T, NoConfig> {
         chainEnd.setOutPort(optChainEnd.getSubInPort());
     }
 
-    public Port<T> getInPort() {
+    public Port<MainData> getInPort() {
         return connections.getInPort();
     }
 
-    public void setOutPort(Port<T> port) {
+    public void setOutPort(Port<MainData> port) {
         connections.setOutPort(port);
     }
 

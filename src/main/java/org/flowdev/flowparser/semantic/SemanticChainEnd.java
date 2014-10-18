@@ -8,6 +8,8 @@ import org.flowdev.parser.data.ParseResult;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
+import static org.flowdev.flowparser.util.PortUtil.newPort;
+
 public class SemanticChainEnd<T> extends FilterOp<T, NoConfig> {
     private final ParserParams<T> params;
 
@@ -30,14 +32,14 @@ public class SemanticChainEnd<T> extends FilterOp<T, NoConfig> {
 
         ParseResult arrowResult = parserData.subResults().get(0);
         String dataType = (String) arrowResult.value();
-        conn.showDataType(dataType != null).dataType(dataType).fromPort(new PortData().srcPos(arrowResult.pos()));
+        conn.showDataType(dataType != null).dataType(dataType).fromPort(newPort(arrowResult.pos(), null));
 
         ParseResult portResult = parserData.subResults().get(1);
         PortData port = (PortData) portResult.value();
         if (port != null) {
             conn.toPort(port);
         } else {
-            conn.toPort(new PortData().srcPos(portResult.pos()));
+            conn.toPort(newPort(portResult.pos(), null));
         }
 
         return conn;

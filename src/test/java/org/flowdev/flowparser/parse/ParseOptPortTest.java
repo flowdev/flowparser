@@ -2,6 +2,7 @@ package org.flowdev.flowparser.parse;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.data.PortData;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
@@ -35,7 +36,7 @@ public class ParseOptPortTest extends ParseTestBase {
     }
 
     @Override
-    protected Filter<ParserData, NoConfig> makeParser(ParserParams<ParserData> params) {
+    protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
         return new ParseOptPort<>(params);
     }
 

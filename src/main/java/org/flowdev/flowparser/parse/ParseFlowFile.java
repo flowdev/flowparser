@@ -3,6 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.semantic.SemanticFlowFile;
 import org.flowdev.parser.data.UseTextSemanticConfig;
 import org.flowdev.parser.op.ParseAll;
@@ -10,20 +11,20 @@ import org.flowdev.parser.op.ParseEof;
 import org.flowdev.parser.op.ParseMultiple1;
 import org.flowdev.parser.op.ParserParams;
 
-public class ParseFlowFile<T> implements Filter<T, NoConfig> {
-    private ParseAll<T> flowFile;
-    private SemanticFlowFile<T> semantic;
-    private ParseVersion<T> version;
-    private ParseMultiple1<T> flows;
-    private ParseFlow<T> flow;
-    private ParseEof<T> eof;
+public class ParseFlowFile implements Filter<MainData, NoConfig> {
+    private ParseAll<MainData> flowFile;
+    private SemanticFlowFile<MainData> semantic;
+    private ParseVersion<MainData> version;
+    private ParseMultiple1<MainData> flows;
+    private ParseFlow flow;
+    private ParseEof<MainData> eof;
 
-    public ParseFlowFile(ParserParams<T> params) {
+    public ParseFlowFile(ParserParams<MainData> params) {
         flowFile = new ParseAll<>(params);
         semantic = new SemanticFlowFile<>(params);
         version = new ParseVersion<>(params);
         flows = new ParseMultiple1<>(params);
-        flow = new ParseFlow<>(params);
+        flow = new ParseFlow(params);
         eof = new ParseEof<>(params);
 
         createConnections();
@@ -49,11 +50,11 @@ public class ParseFlowFile<T> implements Filter<T, NoConfig> {
         flows.getConfigPort().send(new UseTextSemanticConfig().useTextSemantic(false));
     }
 
-    public Port<T> getInPort() {
+    public Port<MainData> getInPort() {
         return flowFile.getInPort();
     }
 
-    public void setOutPort(Port<T> port) {
+    public void setOutPort(Port<MainData> port) {
         flowFile.setOutPort(port);
     }
 

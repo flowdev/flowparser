@@ -4,6 +4,7 @@ import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
 import org.flowdev.flowparser.data.Connection;
 import org.flowdev.flowparser.data.Flow;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.data.Operation;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
@@ -98,8 +99,8 @@ public class ParseConnectionsTest extends ParseTestBase {
     }
 
     @Override
-    protected Filter<ParserData, NoConfig> makeParser(ParserParams<ParserData> params) {
-        return new ParseConnections<>(params);
+    protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
+        return new ParseConnections(params);
     }
 
     @Override

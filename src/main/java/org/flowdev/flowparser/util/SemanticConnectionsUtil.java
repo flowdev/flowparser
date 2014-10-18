@@ -3,7 +3,7 @@ package org.flowdev.flowparser.util;
 import org.flowdev.flowparser.data.Connection;
 import org.flowdev.flowparser.data.Operation;
 import org.flowdev.flowparser.data.PortData;
-import org.flowdev.flowparser.semantic.AddOpResult;
+import org.flowdev.flowparser.semantic.connections.AddOpResult;
 import org.flowdev.parser.data.ParserData;
 
 import java.util.List;

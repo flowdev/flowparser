@@ -20,7 +20,7 @@ import static org.flowdev.flowparser.util.FormatUtil.formatsAsList;
  */
 public class MainFlow implements IMainFlow {
     private ReadTextFile<MainData, MainData> readTextFile;
-    private ParseFlowFile<MainData> parseFlowFile;
+    private ParseFlowFile parseFlowFile;
     private HandleParserResult handleParserResult;
     private OutputAllFormats outputAllFormats;
     private FillPortPairs fillPortPairs;
@@ -42,7 +42,7 @@ public class MainFlow implements IMainFlow {
         ParserParams<MainData> parserParams = new ParserParams<>();
         parserParams.getParserData = MainData::parserData;
         parserParams.setParserData = MainData::parserData;
-        parseFlowFile = new ParseFlowFile<>(parserParams);
+        parseFlowFile = new ParseFlowFile(parserParams);
 
         handleParserResult = new HandleParserResult();
 

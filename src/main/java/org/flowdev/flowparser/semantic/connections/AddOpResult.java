@@ -1,4 +1,4 @@
-package org.flowdev.flowparser.semantic;
+package org.flowdev.flowparser.semantic.connections;
 
 import org.flowdev.flowparser.data.Operation;
 import org.flowdev.flowparser.data.PortData;

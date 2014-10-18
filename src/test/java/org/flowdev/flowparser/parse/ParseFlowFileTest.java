@@ -46,8 +46,8 @@ public class ParseFlowFileTest extends ParseTestBase {
     }
 
     @Override
-    protected Filter<ParserData, NoConfig> makeParser(ParserParams<ParserData> params) {
-        return new ParseFlowFile<>(params);
+    protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
+        return new ParseFlowFile(params);
     }
 
     @Override

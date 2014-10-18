@@ -1,4 +1,4 @@
-package org.flowdev.flowparser.semantic;
+package org.flowdev.flowparser.semantic.connections;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
@@ -15,16 +15,14 @@ import static org.flowdev.parser.util.ParserUtil.addSemanticError;
 public class AddLastOp extends FilterOp<SemanticConnectionsData, NoConfig> {
     @Override
     protected void filter(SemanticConnectionsData data) {
-        Map<String, Operation> ops = data.ops();
         Operation newOp = data.newOp();
-        ParserData parserData = data.mainData().parserData();
         AddOpResult result = data.addOpResult();
 
-        Operation existingOp = ops.get(newOp.name());
+        Operation existingOp = data.ops().get(newOp.name());
         if (existingOp != null) {
-            updateExistingOp(existingOp, newOp, parserData, result);
+            updateExistingOp(existingOp, newOp, data.mainData().parserData(), result);
         } else {
-            addNewOp(ops, newOp, result);
+            addNewOp(data.ops(), newOp, result);
         }
 
         outPort.send(data);
@@ -37,6 +35,7 @@ public class AddLastOp extends FilterOp<SemanticConnectionsData, NoConfig> {
             addSemanticError(parserData, newOp.srcPos(), "The operation '" + newOp.name() +
                     "' has got two different types '" + existingOp.type() + "' and '" + newOp.type() + "'!");
         }
+        result.outPort(null).outPortAdded(false);  // initialize values!
         if (newOp.inPorts().size() > 0) {
             addPort(existingOp, newOp.inPorts().get(0), "input", parserData, null);
         }

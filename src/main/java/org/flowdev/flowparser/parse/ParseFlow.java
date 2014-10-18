@@ -3,26 +3,27 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.semantic.SemanticFlow;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseLiteral;
 import org.flowdev.parser.op.ParseSpace;
 import org.flowdev.parser.op.ParserParams;
 
-public class ParseFlow<T> implements Filter<T, NoConfig> {
-    private ParseAll<T> flow;
-    private SemanticFlow<T> semantic;
-    private ParseLiteral<T> flowLiteral;
-    private ParseSpace<T> aspc;
-    private ParseBigIdent<T> name;
-    private ParseSpaceComment<T> spcComm1;
-    private ParseLiteral<T> openFlow;
-    private ParseSpaceComment<T> spcComm2;
-    private ParseConnections<T> connections;
-    private ParseLiteral<T> closeFlow;
-    private ParseSpaceComment<T> spcComm3;
+public class ParseFlow implements Filter<MainData, NoConfig> {
+    private ParseAll<MainData> flow;
+    private SemanticFlow<MainData> semantic;
+    private ParseLiteral<MainData> flowLiteral;
+    private ParseSpace<MainData> aspc;
+    private ParseBigIdent<MainData> name;
+    private ParseSpaceComment<MainData> spcComm1;
+    private ParseLiteral<MainData> openFlow;
+    private ParseSpaceComment<MainData> spcComm2;
+    private ParseConnections connections;
+    private ParseLiteral<MainData> closeFlow;
+    private ParseSpaceComment<MainData> spcComm3;
 
-    public ParseFlow(ParserParams<T> params) {
+    public ParseFlow(ParserParams<MainData> params) {
         flow = new ParseAll<>(params);
         semantic = new SemanticFlow<>(params);
         flowLiteral = new ParseLiteral<>(params);
@@ -31,7 +32,7 @@ public class ParseFlow<T> implements Filter<T, NoConfig> {
         spcComm1 = new ParseSpaceComment<>(params);
         openFlow = new ParseLiteral<>(params);
         spcComm2 = new ParseSpaceComment<>(params);
-        connections = new ParseConnections<>(params);
+        connections = new ParseConnections(params);
         closeFlow = new ParseLiteral<>(params);
         spcComm3 = new ParseSpaceComment<>(params);
 
@@ -69,11 +70,11 @@ public class ParseFlow<T> implements Filter<T, NoConfig> {
         closeFlow.getConfigPort().send(new ParseLiteral.ParseLiteralConfig().literal("}"));
     }
 
-    public Port<T> getInPort() {
+    public Port<MainData> getInPort() {
         return flow.getInPort();
     }
 
-    public void setOutPort(Port<T> port) {
+    public void setOutPort(Port<MainData> port) {
         flow.setOutPort(port);
     }
 

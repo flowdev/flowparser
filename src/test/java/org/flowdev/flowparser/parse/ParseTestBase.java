@@ -2,6 +2,7 @@ package org.flowdev.flowparser.parse;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.data.SourceData;
 import org.flowdev.parser.op.ParserParams;
@@ -14,18 +15,18 @@ import static org.junit.Assert.*;
 public abstract class ParseTestBase {
     final ParserData parserData;
     private final Object expectedValue;
-    private final Filter<ParserData, NoConfig> parser;
+    private final Filter<MainData, NoConfig> parser;
     private ParserData actualResultParserData;
 
     public ParseTestBase(ParserData parserData, Object expectedValue) {
         this.parserData = parserData;
         this.expectedValue = expectedValue;
 
-        ParserParams<ParserData> params = new ParserParams<>();
-        params.getParserData = data -> data;
-        params.setParserData = (data, subdata) -> {
-            data = subdata;
-            return subdata;
+        ParserParams<MainData> params = new ParserParams<>();
+        params.getParserData = dat -> dat.parserData();
+        params.setParserData = (dat, subdata) -> {
+            dat.parserData(subdata);
+            return dat;
         };
         this.parser = makeParser(params);
         this.parser.setErrorPort(e -> {
@@ -33,16 +34,16 @@ public abstract class ParseTestBase {
             throw new RuntimeException(e);
 //            fail(e.getMessage());
         });
-        this.parser.setOutPort(data -> this.actualResultParserData = data);
+        this.parser.setOutPort(dat -> this.actualResultParserData = dat.parserData());
     }
 
-    protected abstract Filter<ParserData, NoConfig> makeParser(ParserParams<ParserData> params);
+    protected abstract Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params);
 
     protected abstract void checkResultValue(Object expectedValue, Object actualValue);
 
     @Test
     public void testParser() {
-        parser.getInPort().send(parserData);
+        parser.getInPort().send(new MainData().parserData(parserData));
         Object actualValue = actualResultParserData.result().value();
 
         if (expectedValue == null || expectedValue == Void.TYPE) {
@@ -71,8 +72,7 @@ public abstract class ParseTestBase {
     }
 
     public static Object[] makeTestData(String srcName, String srcContent, Object expectedValue) {
-        ParserData parserData = new ParserData();
-        parserData.source(new SourceData().name(srcName).pos(0).content(srcContent));
+        ParserData parserData = new ParserData().source(new SourceData().name(srcName).pos(0).content(srcContent));
 
         return new Object[]{parserData, expectedValue};
     }
