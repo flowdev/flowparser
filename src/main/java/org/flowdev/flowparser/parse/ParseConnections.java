@@ -26,7 +26,6 @@ import org.flowdev.parser.op.*;
 @SuppressWarnings("CanBeFinal")
 public class ParseConnections implements Filter<MainData, NoConfig> {
     private ParseMultiple1<MainData> connections;
-    //    private SemanticConnections<T> semantic;
     private SemanticConnections semantic;
     private ParseAll<MainData> chain;
     private ParseChainBegin<MainData> chainBeg;
@@ -38,7 +37,6 @@ public class ParseConnections implements Filter<MainData, NoConfig> {
 
     public ParseConnections(ParserParams<MainData> params) {
         connections = new ParseMultiple1<>(params);
-//        semantic = new SemanticConnections<>(params);
         semantic = new SemanticConnections();
         chain = new ParseAll<>(params);
         chainBeg = new ParseChainBegin<>(params);
