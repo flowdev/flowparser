@@ -12,29 +12,29 @@ import org.flowdev.parser.op.ParserParams;
 
 public class ParseFlow implements Filter<MainData, NoConfig> {
     private ParseAll<MainData> flow;
-    private SemanticFlow<MainData> semantic;
+    private SemanticFlow semantic;
     private ParseLiteral<MainData> flowLiteral;
     private ParseSpace<MainData> aspc;
-    private ParseBigIdent<MainData> name;
-    private ParseSpaceComment<MainData> spcComm1;
+    private ParseBigIdent name;
+    private ParseSpaceComment spcComm1;
     private ParseLiteral<MainData> openFlow;
-    private ParseSpaceComment<MainData> spcComm2;
+    private ParseSpaceComment spcComm2;
     private ParseConnections connections;
     private ParseLiteral<MainData> closeFlow;
-    private ParseSpaceComment<MainData> spcComm3;
+    private ParseSpaceComment spcComm3;
 
     public ParseFlow(ParserParams<MainData> params) {
         flow = new ParseAll<>(params);
-        semantic = new SemanticFlow<>(params);
+        semantic = new SemanticFlow(params);
         flowLiteral = new ParseLiteral<>(params);
         aspc = new ParseSpace<>(params);
-        name = new ParseBigIdent<>(params);
-        spcComm1 = new ParseSpaceComment<>(params);
+        name = new ParseBigIdent(params);
+        spcComm1 = new ParseSpaceComment(params);
         openFlow = new ParseLiteral<>(params);
-        spcComm2 = new ParseSpaceComment<>(params);
+        spcComm2 = new ParseSpaceComment(params);
         connections = new ParseConnections(params);
         closeFlow = new ParseLiteral<>(params);
-        spcComm3 = new ParseSpaceComment<>(params);
+        spcComm3 = new ParseSpaceComment(params);
 
         createConnections();
         initConfig();

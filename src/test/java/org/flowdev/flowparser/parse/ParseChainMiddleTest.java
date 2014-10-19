@@ -53,7 +53,7 @@ public class ParseChainMiddleTest extends ParseTestBase {
 
     @Override
     protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
-        return new ParseChainMiddle<>(params);
+        return new ParseChainMiddle(params);
     }
 
     @Override

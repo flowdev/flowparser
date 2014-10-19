@@ -3,6 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.semantic.SemanticChainBeginMax;
 import org.flowdev.flowparser.semantic.SemanticChainBeginMin;
 import org.flowdev.parser.op.ParseAll;
@@ -18,30 +19,28 @@ import org.flowdev.parser.op.ParserParams;
  * minimum case:
  * input:  opName(OpType) optOutPort
  * result: List[ null, Operation ]
- *
- * @param <T> the type of the data moving through the flow.
  */
-public class ParseChainBegin<T> implements Filter<T, NoConfig> {
-    private ParseAlternatives<T> chainBeg;
-    private ParseAll<T> chainBegMax;
-    private SemanticChainBeginMax<T> maxSemantic;
-    private ParseOptPort<T> optPortMax;
-    private ParseChainMiddle<T> chainMid;
-    private ParseAll<T> chainBegMin;
-    private SemanticChainBeginMin<T> minSemantic;
-    private ParseOperationNameParens<T> opNameParens;
-    private ParseOptPort<T> optPortMin;
+public class ParseChainBegin implements Filter<MainData, NoConfig> {
+    private ParseAlternatives<MainData> chainBeg;
+    private ParseAll<MainData> chainBegMax;
+    private SemanticChainBeginMax maxSemantic;
+    private ParseOptPort optPortMax;
+    private ParseChainMiddle chainMid;
+    private ParseAll<MainData> chainBegMin;
+    private SemanticChainBeginMin minSemantic;
+    private ParseOperationNameParens opNameParens;
+    private ParseOptPort optPortMin;
 
-    public ParseChainBegin(ParserParams<T> params) {
+    public ParseChainBegin(ParserParams<MainData> params) {
         chainBeg = new ParseAlternatives<>(params);
         chainBegMax = new ParseAll<>(params);
-        maxSemantic = new SemanticChainBeginMax<>(params);
-        optPortMax = new ParseOptPort<>(params);
-        chainMid = new ParseChainMiddle<>(params);
+        maxSemantic = new SemanticChainBeginMax(params);
+        optPortMax = new ParseOptPort(params);
+        chainMid = new ParseChainMiddle(params);
         chainBegMin = new ParseAll<>(params);
-        minSemantic = new SemanticChainBeginMin<>(params);
-        opNameParens = new ParseOperationNameParens<>(params);
-        optPortMin = new ParseOptPort<>(params);
+        minSemantic = new SemanticChainBeginMin(params);
+        opNameParens = new ParseOperationNameParens(params);
+        optPortMin = new ParseOptPort(params);
 
         createConnections();
         initConfig();
@@ -69,11 +68,11 @@ public class ParseChainBegin<T> implements Filter<T, NoConfig> {
     private void initConfig() {
     }
 
-    public Port<T> getInPort() {
+    public Port<MainData> getInPort() {
         return chainBeg.getInPort();
     }
 
-    public void setOutPort(Port<T> port) {
+    public void setOutPort(Port<MainData> port) {
         chainBeg.setOutPort(port);
     }
 

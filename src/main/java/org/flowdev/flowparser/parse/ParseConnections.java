@@ -28,23 +28,23 @@ public class ParseConnections implements Filter<MainData, NoConfig> {
     private ParseMultiple1<MainData> connections;
     private SemanticConnections semantic;
     private ParseAll<MainData> chain;
-    private ParseChainBegin<MainData> chainBeg;
+    private ParseChainBegin chainBeg;
     private ParseMultiple0<MainData> chainMids;
     private ParseOptional<MainData> optChainEnd;
-    private ParseStatementEnd<MainData> statementEnd;
-    private ParseChainMiddle<MainData> chainMid;
-    private ParseChainEnd<MainData> chainEnd;
+    private ParseStatementEnd statementEnd;
+    private ParseChainMiddle chainMid;
+    private ParseChainEnd chainEnd;
 
     public ParseConnections(ParserParams<MainData> params) {
         connections = new ParseMultiple1<>(params);
         semantic = new SemanticConnections();
         chain = new ParseAll<>(params);
-        chainBeg = new ParseChainBegin<>(params);
+        chainBeg = new ParseChainBegin(params);
         chainMids = new ParseMultiple0<>(params);
         optChainEnd = new ParseOptional<>(params);
-        statementEnd = new ParseStatementEnd<>(params);
-        chainMid = new ParseChainMiddle<>(params);
-        chainEnd = new ParseChainEnd<>(params);
+        statementEnd = new ParseStatementEnd(params);
+        chainMid = new ParseChainMiddle(params);
+        chainEnd = new ParseChainEnd(params);
 
         createConnections();
     }

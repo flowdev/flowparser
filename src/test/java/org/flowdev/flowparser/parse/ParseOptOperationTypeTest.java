@@ -34,7 +34,7 @@ public class ParseOptOperationTypeTest extends ParseTestBase {
 
     @Override
     protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
-        return new ParseOptOperationType<>(params);
+        return new ParseOptOperationType(params);
     }
 
     @Override

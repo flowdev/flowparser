@@ -36,7 +36,7 @@ public class ParseStatementEndTest extends ParseTestBase {
 
     @Override
     protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
-        return new ParseStatementEnd<>(params);
+        return new ParseStatementEnd(params);
     }
 
     @Override

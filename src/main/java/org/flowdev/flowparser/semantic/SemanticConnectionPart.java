@@ -2,6 +2,7 @@ package org.flowdev.flowparser.semantic;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.data.Operation;
 import org.flowdev.flowparser.data.PortData;
 import org.flowdev.parser.data.ParseResult;
@@ -11,15 +12,15 @@ import org.flowdev.parser.op.ParserParams;
 import static org.flowdev.flowparser.util.PortUtil.defaultInPort;
 import static org.flowdev.flowparser.util.PortUtil.defaultOutPort;
 
-public class SemanticConnectionPart<T> extends FilterOp<T, NoConfig> {
-    private final ParserParams<T> params;
+public class SemanticConnectionPart extends FilterOp<MainData, NoConfig> {
+    private final ParserParams<MainData> params;
 
-    public SemanticConnectionPart(ParserParams<T> params) {
+    public SemanticConnectionPart(ParserParams<MainData> params) {
         this.params = params;
     }
 
     @Override
-    protected void filter(T data) {
+    protected void filter(MainData data) {
         ParserData parserData = params.getParserData.get(data);
 
         parserData.result().value(createConnectionPart(parserData));

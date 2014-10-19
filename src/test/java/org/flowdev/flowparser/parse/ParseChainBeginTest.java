@@ -74,7 +74,7 @@ public class ParseChainBeginTest extends ParseTestBase {
 
     @Override
     protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
-        return new ParseChainBegin<>(params);
+        return new ParseChainBegin(params);
     }
 
     @Override

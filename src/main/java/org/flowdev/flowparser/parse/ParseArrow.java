@@ -3,6 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.semantic.SemanticArrow;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseLiteral;
@@ -11,32 +12,32 @@ import org.flowdev.parser.op.ParserParams;
 
 import static org.flowdev.parser.op.ParseLiteral.ParseLiteralConfig;
 
-public class ParseArrow<T> implements Filter<T, NoConfig> {
-    private ParseAll<T> arrow;
-    private SemanticArrow<T> semantic;
-    private ParseSpaceComment<T> spcCom1;
-    private ParseOptional<T> optType;
-    private ParseLiteral<T> litArr;
-    private ParseSpaceComment<T> spcCom2;
-    private ParseAll<T> type;
-    private ParseLiteral<T> openType;
-    private ParseOptSpc<T> spc1;
-    private ParseBigIdent<T> typeName;
-    private ParseOptSpc<T> spc2;
-    private ParseLiteral<T> closeType;
+public class ParseArrow implements Filter<MainData, NoConfig> {
+    private ParseAll<MainData> arrow;
+    private SemanticArrow semantic;
+    private ParseSpaceComment spcCom1;
+    private ParseOptional<MainData> optType;
+    private ParseLiteral<MainData> litArr;
+    private ParseSpaceComment spcCom2;
+    private ParseAll<MainData> type;
+    private ParseLiteral<MainData> openType;
+    private ParseOptSpc spc1;
+    private ParseBigIdent typeName;
+    private ParseOptSpc spc2;
+    private ParseLiteral<MainData> closeType;
 
-    public ParseArrow(ParserParams<T> params) {
+    public ParseArrow(ParserParams<MainData> params) {
         arrow = new ParseAll<>(params);
-        semantic = new SemanticArrow<>(params);
-        spcCom1 = new ParseSpaceComment<>(params);
+        semantic = new SemanticArrow(params);
+        spcCom1 = new ParseSpaceComment(params);
         optType = new ParseOptional<>(params);
         litArr = new ParseLiteral<>(params);
-        spcCom2 = new ParseSpaceComment<>(params);
+        spcCom2 = new ParseSpaceComment(params);
         type = new ParseAll<>(params);
         openType = new ParseLiteral<>(params);
-        spc1 = new ParseOptSpc<>(params);
-        typeName = new ParseBigIdent<>(params);
-        spc2 = new ParseOptSpc<>(params);
+        spc1 = new ParseOptSpc(params);
+        typeName = new ParseBigIdent(params);
+        spc2 = new ParseOptSpc(params);
         closeType = new ParseLiteral<>(params);
 
         createConnections();
@@ -74,11 +75,11 @@ public class ParseArrow<T> implements Filter<T, NoConfig> {
         closeType.getConfigPort().send(new ParseLiteralConfig().literal("]"));
     }
 
-    public Port<T> getInPort() {
+    public Port<MainData> getInPort() {
         return arrow.getInPort();
     }
 
-    public void setOutPort(Port<T> port) {
+    public void setOutPort(Port<MainData> port) {
         arrow.setOutPort(port);
     }
 

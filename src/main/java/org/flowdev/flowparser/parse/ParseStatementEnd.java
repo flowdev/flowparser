@@ -3,6 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.parser.data.UseTextSemanticConfig;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseLiteral;
@@ -10,17 +11,17 @@ import org.flowdev.parser.op.ParserParams;
 
 import static org.flowdev.parser.op.ParseLiteral.ParseLiteralConfig;
 
-public class ParseStatementEnd<T> implements Filter<T, NoConfig> {
-    private ParseAll<T> stmtEnd;
-    private ParseSpaceComment<T> spaceCommentBeg;
-    private ParseLiteral<T> semicolon;
-    private ParseSpaceComment<T> spaceCommentEnd;
+public class ParseStatementEnd implements Filter<MainData, NoConfig> {
+    private ParseAll<MainData> stmtEnd;
+    private ParseSpaceComment spaceCommentBeg;
+    private ParseLiteral<MainData> semicolon;
+    private ParseSpaceComment spaceCommentEnd;
 
-    public ParseStatementEnd(ParserParams<T> params) {
+    public ParseStatementEnd(ParserParams<MainData> params) {
         stmtEnd = new ParseAll<>(params);
-        spaceCommentBeg = new ParseSpaceComment<>(params);
+        spaceCommentBeg = new ParseSpaceComment(params);
         semicolon = new ParseLiteral<>(params);
-        spaceCommentEnd = new ParseSpaceComment<>(params);
+        spaceCommentEnd = new ParseSpaceComment(params);
 
         createConnections();
         initConfig();
@@ -40,11 +41,11 @@ public class ParseStatementEnd<T> implements Filter<T, NoConfig> {
         semicolon.getConfigPort().send(new ParseLiteralConfig().literal(";"));
     }
 
-    public Port<T> getInPort() {
+    public Port<MainData> getInPort() {
         return stmtEnd.getInPort();
     }
 
-    public void setOutPort(Port<T> port) {
+    public void setOutPort(Port<MainData> port) {
         stmtEnd.setOutPort(port);
     }
 

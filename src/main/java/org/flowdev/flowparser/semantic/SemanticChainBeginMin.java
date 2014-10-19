@@ -2,6 +2,7 @@ package org.flowdev.flowparser.semantic;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.data.Operation;
 import org.flowdev.flowparser.data.PortData;
 import org.flowdev.parser.data.ParseResult;
@@ -13,15 +14,15 @@ import java.util.List;
 
 import static org.flowdev.flowparser.util.PortUtil.defaultOutPort;
 
-public class SemanticChainBeginMin<T> extends FilterOp<T, NoConfig> {
-    private final ParserParams<T> params;
+public class SemanticChainBeginMin extends FilterOp<MainData, NoConfig> {
+    private final ParserParams<MainData> params;
 
-    public SemanticChainBeginMin(ParserParams<T> params) {
+    public SemanticChainBeginMin(ParserParams<MainData> params) {
         this.params = params;
     }
 
     @Override
-    protected void filter(T data) {
+    protected void filter(MainData data) {
         ParserData parserData = params.getParserData.get(data);
 
         parserData.result().value(createChainBegin(parserData));

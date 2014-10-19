@@ -3,37 +3,38 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.semantic.SemanticOperationNameParens;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseLiteral;
 import org.flowdev.parser.op.ParseOptional;
 import org.flowdev.parser.op.ParserParams;
 
-public class ParseOperationNameParens<T> implements Filter<T, NoConfig> {
-    private ParseAll<T> opNameParens;
-    private SemanticOperationNameParens<T> semantic;
-    private ParseOptional<T> optOpName;
-    private ParseLiteral<T> openType;
-    private ParseOptSpc<T> spc1;
-    private ParseOptOperationType<T> optOpType;
-    private ParseLiteral<T> closeType;
-    private ParseOptSpc<T> spc2;
-    private ParseAll<T> opName;
-    private ParseSmallIdent<T> smallIdent;
-    private ParseOptSpc<T> spc3;
+public class ParseOperationNameParens implements Filter<MainData, NoConfig> {
+    private ParseAll<MainData> opNameParens;
+    private SemanticOperationNameParens semantic;
+    private ParseOptional<MainData> optOpName;
+    private ParseLiteral<MainData> openType;
+    private ParseOptSpc spc1;
+    private ParseOptOperationType optOpType;
+    private ParseLiteral<MainData> closeType;
+    private ParseOptSpc spc2;
+    private ParseAll<MainData> opName;
+    private ParseSmallIdent smallIdent;
+    private ParseOptSpc spc3;
 
-    public ParseOperationNameParens(ParserParams<T> params) {
+    public ParseOperationNameParens(ParserParams<MainData> params) {
         opNameParens = new ParseAll<>(params);
-        semantic = new SemanticOperationNameParens<>(params);
+        semantic = new SemanticOperationNameParens(params);
         optOpName = new ParseOptional<>(params);
         openType = new ParseLiteral<>(params);
-        spc1 = new ParseOptSpc<>(params);
-        optOpType = new ParseOptOperationType<>(params);
+        spc1 = new ParseOptSpc(params);
+        optOpType = new ParseOptOperationType(params);
         closeType = new ParseLiteral<>(params);
-        spc2 = new ParseOptSpc<>(params);
+        spc2 = new ParseOptSpc(params);
         opName = new ParseAll<>(params);
-        smallIdent = new ParseSmallIdent<>(params);
-        spc3 = new ParseOptSpc<>(params);
+        smallIdent = new ParseSmallIdent(params);
+        spc3 = new ParseOptSpc(params);
 
         createConnections();
         initConfig();
@@ -67,11 +68,11 @@ public class ParseOperationNameParens<T> implements Filter<T, NoConfig> {
         closeType.getConfigPort().send(new ParseLiteral.ParseLiteralConfig().literal(")"));
     }
 
-    public Port<T> getInPort() {
+    public Port<MainData> getInPort() {
         return opNameParens.getInPort();
     }
 
-    public void setOutPort(Port<T> port) {
+    public void setOutPort(Port<MainData> port) {
         opNameParens.setOutPort(port);
     }
 

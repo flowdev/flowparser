@@ -37,7 +37,7 @@ public class ParsePortTest extends ParseTestBase {
 
     @Override
     protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
-        return new ParsePort<>(params);
+        return new ParsePort(params);
     }
 
     @Override

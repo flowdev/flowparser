@@ -13,16 +13,16 @@ import org.flowdev.parser.op.ParserParams;
 
 public class ParseFlowFile implements Filter<MainData, NoConfig> {
     private ParseAll<MainData> flowFile;
-    private SemanticFlowFile<MainData> semantic;
-    private ParseVersion<MainData> version;
+    private SemanticFlowFile semantic;
+    private ParseVersion version;
     private ParseMultiple1<MainData> flows;
     private ParseFlow flow;
     private ParseEof<MainData> eof;
 
     public ParseFlowFile(ParserParams<MainData> params) {
         flowFile = new ParseAll<>(params);
-        semantic = new SemanticFlowFile<>(params);
-        version = new ParseVersion<>(params);
+        semantic = new SemanticFlowFile(params);
+        version = new ParseVersion(params);
         flows = new ParseMultiple1<>(params);
         flow = new ParseFlow(params);
         eof = new ParseEof<>(params);

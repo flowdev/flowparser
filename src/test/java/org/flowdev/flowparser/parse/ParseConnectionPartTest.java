@@ -45,7 +45,7 @@ public class ParseConnectionPartTest extends ParseTestBase {
 
     @Override
     protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
-        return new ParseConnectionPart<>(params);
+        return new ParseConnectionPart(params);
     }
 
     @Override

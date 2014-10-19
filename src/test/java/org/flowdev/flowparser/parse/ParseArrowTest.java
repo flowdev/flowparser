@@ -34,7 +34,7 @@ public class ParseArrowTest extends ParseTestBase {
 
     @Override
     protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
-        return new ParseArrow<>(params);
+        return new ParseArrow(params);
     }
 
     @Override

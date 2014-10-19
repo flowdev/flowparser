@@ -36,7 +36,7 @@ public class ParseOptPortSpcTest extends ParseTestBase {
 
     @Override
     protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
-        return new ParseOptPortSpc<>(params);
+        return new ParseOptPortSpc(params);
     }
 
     @Override

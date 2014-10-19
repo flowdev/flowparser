@@ -3,6 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.parser.data.UseTextSemanticConfig;
 import org.flowdev.parser.op.*;
 
@@ -10,14 +11,14 @@ import static org.flowdev.parser.op.ParseBlockComment.ParseBlockCommentConfig;
 import static org.flowdev.parser.op.ParseLineComment.ParseLineCommentConfig;
 import static org.flowdev.parser.op.ParseSpace.ParseSpaceConfig;
 
-public class ParseSpaceComment<T> implements Filter<T, NoConfig> {
-    private ParseMultiple0<T> spcComs;
-    private ParseAlternatives<T> spcOrCom;
-    private ParseSpace<T> space;
-    private ParseLineComment<T> lineComment;
-    private ParseBlockComment<T> blockComment;
+public class ParseSpaceComment implements Filter<MainData, NoConfig> {
+    private ParseMultiple0<MainData> spcComs;
+    private ParseAlternatives<MainData> spcOrCom;
+    private ParseSpace<MainData> space;
+    private ParseLineComment<MainData> lineComment;
+    private ParseBlockComment<MainData> blockComment;
 
-    public ParseSpaceComment(ParserParams<T> params) {
+    public ParseSpaceComment(ParserParams<MainData> params) {
         spcComs = new ParseMultiple0<>(params);
         spcOrCom = new ParseAlternatives<>(params);
         space = new ParseSpace<>(params);
@@ -47,11 +48,11 @@ public class ParseSpaceComment<T> implements Filter<T, NoConfig> {
         blockComment.getConfigPort().send(new ParseBlockCommentConfig().commentStart("/*").commentEnd("*/"));
     }
 
-    public Port<T> getInPort() {
+    public Port<MainData> getInPort() {
         return spcComs.getInPort();
     }
 
-    public void setOutPort(Port<T> port) {
+    public void setOutPort(Port<MainData> port) {
         spcComs.setOutPort(port);
     }
 

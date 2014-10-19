@@ -3,16 +3,17 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.parser.op.ParseRegex;
 import org.flowdev.parser.op.ParserParams;
 
 import static org.flowdev.parser.op.ParseRegex.ParseRegexConfig;
 
 
-public class ParseSmallIdent<T> implements Filter<T, NoConfig> {
-    private final ParseRegex<T> smallIdent;
+public class ParseSmallIdent implements Filter<MainData, NoConfig> {
+    private final ParseRegex<MainData> smallIdent;
 
-    public ParseSmallIdent(ParserParams<T> params) {
+    public ParseSmallIdent(ParserParams<MainData> params) {
         smallIdent = new ParseRegex<>(params);
 
         initConfig();
@@ -22,11 +23,11 @@ public class ParseSmallIdent<T> implements Filter<T, NoConfig> {
         smallIdent.getConfigPort().send(new ParseRegexConfig().regex("[a-z][a-zA-Z0-9]*"));
     }
 
-    public Port<T> getInPort() {
+    public Port<MainData> getInPort() {
         return smallIdent.getInPort();
     }
 
-    public void setOutPort(Port<T> port) {
+    public void setOutPort(Port<MainData> port) {
         smallIdent.setOutPort(port);
     }
 

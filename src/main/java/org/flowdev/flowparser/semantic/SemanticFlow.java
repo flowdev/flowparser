@@ -3,18 +3,19 @@ package org.flowdev.flowparser.semantic;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.Flow;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
-public class SemanticFlow<T> extends FilterOp<T, NoConfig> {
-    private final ParserParams<T> params;
+public class SemanticFlow extends FilterOp<MainData, NoConfig> {
+    private final ParserParams<MainData> params;
 
-    public SemanticFlow(ParserParams<T> params) {
+    public SemanticFlow(ParserParams<MainData> params) {
         this.params = params;
     }
 
     @Override
-    protected void filter(T data) {
+    protected void filter(MainData data) {
         ParserData parserData = params.getParserData.get(data);
 
         parserData.result().value(createFlowFile(parserData));

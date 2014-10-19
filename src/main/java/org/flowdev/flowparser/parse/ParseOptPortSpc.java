@@ -3,6 +3,7 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.semantic.SemanticPortSpc;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParseOptional;
@@ -11,18 +12,18 @@ import org.flowdev.parser.op.ParserParams;
 
 import static org.flowdev.parser.op.ParseSpace.ParseSpaceConfig;
 
-public class ParseOptPortSpc<T> implements Filter<T, NoConfig> {
-    private ParseOptional<T> optPortSpc;
-    private SemanticPortSpc<T> semantic;
-    private ParseAll<T> portSpc;
-    private ParsePort<T> port;
-    private ParseSpace<T> space;
+public class ParseOptPortSpc implements Filter<MainData, NoConfig> {
+    private ParseOptional<MainData> optPortSpc;
+    private SemanticPortSpc semantic;
+    private ParseAll<MainData> portSpc;
+    private ParsePort port;
+    private ParseSpace<MainData> space;
 
-    public ParseOptPortSpc(ParserParams<T> params) {
+    public ParseOptPortSpc(ParserParams<MainData> params) {
         optPortSpc = new ParseOptional<>(params);
-        semantic = new SemanticPortSpc<>(params);
+        semantic = new SemanticPortSpc(params);
         portSpc = new ParseAll<>(params);
-        port = new ParsePort<>(params);
+        port = new ParsePort(params);
         space = new ParseSpace<>(params);
 
         createConnections();
@@ -44,11 +45,11 @@ public class ParseOptPortSpc<T> implements Filter<T, NoConfig> {
         space.getConfigPort().send(new ParseSpaceConfig().acceptNewline(false));
     }
 
-    public Port<T> getInPort() {
+    public Port<MainData> getInPort() {
         return optPortSpc.getInPort();
     }
 
-    public void setOutPort(Port<T> port) {
+    public void setOutPort(Port<MainData> port) {
         optPortSpc.setOutPort(port);
     }
 

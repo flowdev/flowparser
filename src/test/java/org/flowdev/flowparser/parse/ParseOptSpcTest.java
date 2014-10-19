@@ -33,7 +33,7 @@ public class ParseOptSpcTest extends ParseTestBase {
 
     @Override
     protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
-        return new ParseOptSpc<>(params);
+        return new ParseOptSpc(params);
     }
 
     @Override

@@ -3,18 +3,19 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParserParams;
 
-public class ParseChainMiddle<T> implements Filter<T, NoConfig> {
-    private ParseAll<T> chainMid;
-    private ParseArrow<T> arrow;
-    private ParseConnectionPart<T> connPart;
+public class ParseChainMiddle implements Filter<MainData, NoConfig> {
+    private ParseAll<MainData> chainMid;
+    private ParseArrow arrow;
+    private ParseConnectionPart connPart;
 
-    public ParseChainMiddle(ParserParams<T> params) {
+    public ParseChainMiddle(ParserParams<MainData> params) {
         chainMid = new ParseAll<>(params);
-        arrow = new ParseArrow<>(params);
-        connPart = new ParseConnectionPart<>(params);
+        arrow = new ParseArrow(params);
+        connPart = new ParseConnectionPart(params);
 
         createConnections();
         initConfig();
@@ -30,11 +31,11 @@ public class ParseChainMiddle<T> implements Filter<T, NoConfig> {
     private void initConfig() {
     }
 
-    public Port<T> getInPort() {
+    public Port<MainData> getInPort() {
         return chainMid.getInPort();
     }
 
-    public void setOutPort(Port<T> port) {
+    public void setOutPort(Port<MainData> port) {
         chainMid.setOutPort(port);
     }
 

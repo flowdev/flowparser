@@ -36,7 +36,7 @@ public class ParseOperationNameParensTest extends ParseTestBase {
 
     @Override
     protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
-        return new ParseOperationNameParens<>(params);
+        return new ParseOperationNameParens(params);
     }
 
     @Override

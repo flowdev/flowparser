@@ -35,7 +35,7 @@ public class ParseSpaceCommentTest extends ParseTestBase {
 
     @Override
     protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
-        return new ParseSpaceComment<>(params);
+        return new ParseSpaceComment(params);
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.flowdev.flowparser.semantic;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.data.Version;
 import org.flowdev.parser.data.ParseResult;
 import org.flowdev.parser.data.ParserData;
@@ -10,15 +11,15 @@ import org.flowdev.parser.op.ParserParams;
 import java.util.List;
 
 
-public class SemanticVersion<T> extends FilterOp<T, NoConfig> {
-    private final ParserParams<T> params;
+public class SemanticVersion extends FilterOp<MainData, NoConfig> {
+    private final ParserParams<MainData> params;
 
-    public SemanticVersion(ParserParams<T> params) {
+    public SemanticVersion(ParserParams<MainData> params) {
         this.params = params;
     }
 
     @Override
-    protected void filter(T data) {
+    protected void filter(MainData data) {
         ParserData parserData = params.getParserData.get(data);
 
         parserData.result().value(createVersion(parserData.subResults()));

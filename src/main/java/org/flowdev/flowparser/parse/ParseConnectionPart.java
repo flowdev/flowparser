@@ -3,23 +3,24 @@ package org.flowdev.flowparser.parse;
 import org.flowdev.base.Port;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.semantic.SemanticConnectionPart;
 import org.flowdev.parser.op.ParseAll;
 import org.flowdev.parser.op.ParserParams;
 
-public class ParseConnectionPart<T> implements Filter<T, NoConfig> {
-    private ParseAll<T> connPart;
-    private SemanticConnectionPart<T> semantic;
-    private ParseOptPortSpc<T> optInPort;
-    private ParseOperationNameParens<T> opNameParens;
-    private ParseOptPort<T> optOutPort;
+public class ParseConnectionPart implements Filter<MainData, NoConfig> {
+    private ParseAll<MainData> connPart;
+    private SemanticConnectionPart semantic;
+    private ParseOptPortSpc optInPort;
+    private ParseOperationNameParens opNameParens;
+    private ParseOptPort optOutPort;
 
-    public ParseConnectionPart(ParserParams<T> params) {
-        optOutPort = new ParseOptPort<>(params);
-        optInPort = new ParseOptPortSpc<>(params);
-        semantic = new SemanticConnectionPart<>(params);
-        opNameParens = new ParseOperationNameParens<>(params);
+    public ParseConnectionPart(ParserParams<MainData> params) {
         connPart = new ParseAll<>(params);
+        semantic = new SemanticConnectionPart(params);
+        optInPort = new ParseOptPortSpc(params);
+        opNameParens = new ParseOperationNameParens(params);
+        optOutPort = new ParseOptPort(params);
 
         createConnections();
         initConfig();
@@ -39,11 +40,11 @@ public class ParseConnectionPart<T> implements Filter<T, NoConfig> {
     private void initConfig() {
     }
 
-    public Port<T> getInPort() {
+    public Port<MainData> getInPort() {
         return connPart.getInPort();
     }
 
-    public void setOutPort(Port<T> port) {
+    public void setOutPort(Port<MainData> port) {
         connPart.setOutPort(port);
     }
 

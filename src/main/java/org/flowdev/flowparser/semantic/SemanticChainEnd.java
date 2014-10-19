@@ -3,6 +3,7 @@ package org.flowdev.flowparser.semantic;
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
 import org.flowdev.flowparser.data.Connection;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.data.PortData;
 import org.flowdev.parser.data.ParseResult;
 import org.flowdev.parser.data.ParserData;
@@ -10,15 +11,15 @@ import org.flowdev.parser.op.ParserParams;
 
 import static org.flowdev.flowparser.util.PortUtil.newPort;
 
-public class SemanticChainEnd<T> extends FilterOp<T, NoConfig> {
-    private final ParserParams<T> params;
+public class SemanticChainEnd extends FilterOp<MainData, NoConfig> {
+    private final ParserParams<MainData> params;
 
-    public SemanticChainEnd(ParserParams<T> params) {
+    public SemanticChainEnd(ParserParams<MainData> params) {
         this.params = params;
     }
 
     @Override
-    protected void filter(T data) {
+    protected void filter(MainData data) {
         ParserData parserData = params.getParserData.get(data);
 
         parserData.result().value(createChainEnd(parserData));

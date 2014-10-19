@@ -2,19 +2,20 @@ package org.flowdev.flowparser.semantic;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.op.ParserParams;
 
 
-public class SemanticPortSpc<T> extends FilterOp<T, NoConfig> {
-    private final ParserParams<T> params;
+public class SemanticPortSpc extends FilterOp<MainData, NoConfig> {
+    private final ParserParams<MainData> params;
 
-    public SemanticPortSpc(ParserParams<T> params) {
+    public SemanticPortSpc(ParserParams<MainData> params) {
         this.params = params;
     }
 
     @Override
-    protected void filter(T data) {
+    protected void filter(MainData data) {
         ParserData parserData = params.getParserData.get(data);
 
         parserData.result().value(parserData.subResults().get(0).value());

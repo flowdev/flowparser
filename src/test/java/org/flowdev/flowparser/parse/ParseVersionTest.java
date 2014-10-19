@@ -40,7 +40,7 @@ public class ParseVersionTest extends ParseTestBase {
 
     @Override
     protected Filter<MainData, NoConfig> makeParser(ParserParams<MainData> params) {
-        return new ParseVersion<>(params);
+        return new ParseVersion(params);
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.flowdev.flowparser.semantic;
 
 import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.FilterOp;
+import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.data.Operation;
 import org.flowdev.parser.data.ParseResult;
 import org.flowdev.parser.data.ParserData;
@@ -11,15 +12,15 @@ import java.util.List;
 
 import static org.flowdev.parser.util.ParserUtil.addError;
 
-public class SemanticOperationNameParens<T> extends FilterOp<T, NoConfig> {
-    private ParserParams<T> params;
+public class SemanticOperationNameParens extends FilterOp<MainData, NoConfig> {
+    private ParserParams<MainData> params;
 
-    public SemanticOperationNameParens(ParserParams<T> params) {
+    public SemanticOperationNameParens(ParserParams<MainData> params) {
         this.params = params;
     }
 
     @Override
-    protected void filter(T data) {
+    protected void filter(MainData data) {
         ParserData parserData = params.getParserData.get(data);
 
         parserData.result().value(createOperationNameParens(parserData));
