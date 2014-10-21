@@ -49,4 +49,14 @@ public class SemanticConnections extends BaseOp<NoConfig> {
     public void setOutPort(Port<MainData> port) {
         verifyOutPorts.setOutPort(port);
     }
+
+    public void setErrorPort(Port<Throwable> port) {
+        createConns.setErrorPort(port);
+        verifyOutPorts.setErrorPort(port);
+        handleChainBeg.setErrorPort(port);
+        handleChainMids.setErrorPort(port);
+        handleChainEnd.setErrorPort(port);
+        begAddLastOp.setErrorPort(port);
+        midAddLastOp.setErrorPort(port);
+    }
 }

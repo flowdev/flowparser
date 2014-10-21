@@ -16,9 +16,7 @@ public class FillPortPairs extends FilterOp<MainData, NoConfig> {
     @Override
     protected void filter(MainData data) {
         for (Flow flow : data.flowFile().flows()) {
-            for (Operation op : flow.operations()) {
-                fillPortPairs4Op(op);
-            }
+            flow.operations().forEach(this::fillPortPairs4Op);
         }
         outPort.send(data);
     }

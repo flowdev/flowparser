@@ -64,8 +64,16 @@ public class Main {
     static void resetMainFlow() {
         mainFlow = new MainFlow();
         mainFlow.setErrorPort(err -> {
-            err.printStackTrace();
-            throw new RuntimeException(err);
+            if (err == null) {
+                String msg = "Unknown error occured. Exception is null.";
+                System.err.println(msg);
+                throw new RuntimeException(msg);
+            } else {
+                System.err.println("The flow parser caught a runtime error:");
+                err.fillInStackTrace();
+                err.printStackTrace();
+                throw new RuntimeException(err);
+            }
 //            System.exit(1);
         });
     }

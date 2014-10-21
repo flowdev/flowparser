@@ -35,9 +35,7 @@ public class HandleParserResult extends FilterOp<MainData, NoConfig> {
     private static void outputFeedback(List<String> feedback, String title, PrintStream oStream) {
         if (!feedback.isEmpty()) {
             oStream.println(title + ":");
-            for (String entry : feedback) {
-                oStream.println(entry);
-            }
+            feedback.forEach(oStream::println);
         }
     }
 }

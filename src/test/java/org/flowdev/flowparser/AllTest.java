@@ -19,7 +19,6 @@ public class AllTest {
     private static final String RESULT_RESOURCE_DIR = "result/flowparser/all/";
     private static final String FLOW_EXT = ".flow";
     private static final String[] FORMATS = {"adoc", "wiki", "java"};
-    //    private static final String[] FORMATS = {"adoc", "wiki"};
     private static final String[] FLOWS = {"mini", "connections"};
 
     private final String fileName;

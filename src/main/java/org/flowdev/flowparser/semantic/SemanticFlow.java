@@ -28,4 +28,5 @@ public class SemanticFlow extends FilterOp<MainData, NoConfig> {
         Flow flow = (Flow) parserData.subResults().get(6).value();
         return flow.name(parserData.subResults().get(2).text());
     }
+
 }
