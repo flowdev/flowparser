@@ -7,11 +7,16 @@
     <name>flowparser</name>
     <description>parser for the flow DSL</description>
 
+    <properties>
+        <flowdev.version>0.0.2-SNAPSHOT</flowdev.version>
+        <asciidoctor.version>1.5.1</asciidoctor.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.flowdev</groupId>
             <artifactId>base</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>${flowdev.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.jopt-simple</groupId>
@@ -33,7 +38,7 @@
         <dependency>
             <groupId>org.flowdev</groupId>
             <artifactId>parser</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>${flowdev.version}</version>
         </dependency>
 
         <!-- Not needed during runtime: -->
@@ -76,6 +81,48 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <source>1.8</source>
+                    <doclet>org.asciidoctor.Asciidoclet</doclet>
+                    <docletArtifact>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoclet</artifactId>
+                        <version>${asciidoctor.version}</version>
+                    </docletArtifact>
+                    <overview>src/main/java/overview.adoc</overview>
+                    <additionalparam>
+                        --base-dir ${project.basedir}
+                        --attribute "name=${project.name}"
+                        --attribute "version=${project.version}"
+                        --attribute "title-link=http://flowdev.org[${project.name} ${project.version}]"
+                    </additionalparam>
+                </configuration>
             </plugin>
         </plugins>
     </build>

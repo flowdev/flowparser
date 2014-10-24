@@ -1,0 +1,6 @@
+= Flow Parser
+
+A parser for generating documentation and source skeletons out of a flow DSL.
+
+@see https://github.com/flowdev/flowparser[Flow parser on Github^]
+@see http://flowdev.org[Flowdev Project^]
