@@ -1,5 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.flowdev</groupId>
     <artifactId>flowparser</artifactId>
@@ -10,7 +11,18 @@
     <properties>
         <flowdev.version>0.0.2-SNAPSHOT</flowdev.version>
         <asciidoctor.version>1.5.1</asciidoctor.version>
+        <gem-maven-plugin.version>1.0.6</gem-maven-plugin.version>
+
+        <gem.path>${project.basedir}/target/rubygems-test</gem.path>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>rubygems-release</id>
+            <url>http://rubygems-proxy.torquebox.org/releases</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -18,6 +30,12 @@
             <artifactId>base</artifactId>
             <version>${flowdev.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.flowdev</groupId>
+            <artifactId>parser</artifactId>
+            <version>${flowdev.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>net.sf.jopt-simple</groupId>
             <artifactId>jopt-simple</artifactId>
@@ -30,22 +48,18 @@
         </dependency>
 
 
-        <!--
-        This is our own modular parser library.
-        No need to generate any source code since it is a normal library, yeah!
-        Otherwise it works like a PEG parser.
-         -->
-        <dependency>
-            <groupId>org.flowdev</groupId>
-            <artifactId>parser</artifactId>
-            <version>${flowdev.version}</version>
-        </dependency>
-
         <!-- Not needed during runtime: -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>rubygems</groupId>
+            <artifactId>asciidoctor-diagram</artifactId>
+            <version>1.2.1</version>
+            <type>gem</type>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -96,6 +110,19 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>de.saumya.mojo</groupId>
+                <artifactId>gem-maven-plugin</artifactId>
+                <version>${gem-maven-plugin.version}</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>initialize</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.9</version>
@@ -118,6 +145,9 @@
                     <overview>src/main/java/overview.adoc</overview>
                     <additionalparam>
                         --base-dir ${project.basedir}
+                        --require asciidoctor-diagram
+                        --gem-path ${gem.path}
+                        --attribute data-uri
                         --attribute "name=${project.name}"
                         --attribute "version=${project.version}"
                         --attribute "title-link=http://flowdev.org[${project.name} ${project.version}]"

@@ -17,6 +17,33 @@ import static org.flowdev.flowparser.util.FormatUtil.formatsAsList;
 
 /**
  * This flow parses a flow file and creates one ore more output files.
+ *
+ * [plantuml]
+ * ....
+ * Alice -> Bob: Authentication Request
+ * Bob --> Alice: Authentication Response
+ *
+ * Alice -> Bob: Another authentication Request
+ * Alice <-- Bob: another authentication Response
+ * ....
+ *
+ * Bla ...
+ *
+ * [graphviz, Mini, svg]
+ * ....
+ * digraph Mini {
+ * // rankdir=LR;
+ * node [shape=Mrecord,style=filled,fillcolor="#00CC00",rank=same];
+ *
+ * doIt [label="doIt\n(DoIt)|{ <in> in| }"] ;
+ *
+ * node [shape=plaintext,style=plain,rank=same];
+ *
+ * "in" -> doIt:in ;
+ * }
+ * ....
+ *
+ * Blue ...
  */
 public class MainFlow implements IMainFlow {
     private ReadTextFile<MainData, MainData> readTextFile;
