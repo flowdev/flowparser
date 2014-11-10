@@ -56,7 +56,13 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>rubygems</groupId>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctorj</artifactId>
+            <version>${asciidoctor.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+        <groupId>rubygems</groupId>
             <artifactId>asciidoctor-diagram</artifactId>
             <version>1.2.1</version>
             <type>gem</type>
