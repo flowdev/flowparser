@@ -14,12 +14,12 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class AllTest {
-    private static final String WORK_DIR = System.getProperty("java.io.tmpdir", ".") + "/";
-    private static final String FLOW_RESOURCE_DIR = "flow/flowparser/";
-    private static final String RESULT_RESOURCE_DIR = "result/flowparser/all/";
-    private static final String FLOW_EXT = ".flow";
+    public static final String WORK_DIR = System.getProperty("java.io.tmpdir", ".") + "/";
+    public static final String FLOW_RESOURCE_DIR = "flow/flowparser/";
+    public static final String RESULT_RESOURCE_DIR = "result/flowparser/all/";
+    public static final String FLOW_EXT = ".flow";
     private static final String[] FORMATS = {"adoc", "wiki", "java"};
-    private static final String[] FLOWS = {"mini", "connections"};
+    public static final String[] FLOWS = {"mini", "connections"};
 
     private final String fileName;
     private final String format;

@@ -2,6 +2,7 @@ package org.flowdev.flowparser;
 
 import org.flowdev.base.Port;
 import org.flowdev.base.data.PrettyPrinter;
+import org.flowdev.flowparser.CoreFlow.CoreFlowConfig;
 import org.flowdev.flowparser.data.MainData;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.data.SourceData;
@@ -16,7 +17,6 @@ import java.util.Collection;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.flowdev.flowparser.MainFlow.MainFlowConfig;
 import static org.flowdev.flowparser.output.OutputAllFormats.OutputAllFormatsConfig;
 import static org.junit.Assert.assertEquals;
 
@@ -28,10 +28,10 @@ public class MainTest {
     private TestMainFlow flow;
     private final String[] args;
     private final MainData expectedData;
-    private final MainFlowConfig expectedConfig;
+    private final CoreFlowConfig expectedConfig;
 
     public MainTest(String[] args, MainData expectedData,
-                    MainFlowConfig expectedConfig) {
+                    CoreFlowConfig expectedConfig) {
         this.args = args;
         this.expectedData = expectedData;
         this.expectedConfig = expectedConfig;
@@ -44,7 +44,7 @@ public class MainTest {
         params.add(new String[]{MINI_FLOW});
 
         MainData data = createData(MINI_FLOW);
-        MainFlowConfig config = createConfig(FORMAT);
+        CoreFlowConfig config = createConfig(FORMAT);
         params.add(data);
         params.add(config);
         paramsList.add(params.toArray());
@@ -56,8 +56,8 @@ public class MainTest {
         return new MainData().parserData(new ParserData().source(new SourceData().name(fileName)));
     }
 
-    private static MainFlowConfig createConfig(String... formats) {
-        return new MainFlowConfig().outputAllFormats(new OutputAllFormatsConfig().formats(asList(formats)));
+    private static CoreFlowConfig createConfig(String... formats) {
+        return new CoreFlowConfig().outputAllFormats(new OutputAllFormatsConfig().formats(asList(formats)));
     }
 
     @Before
@@ -79,7 +79,7 @@ public class MainTest {
 
     private static class TestMainFlow implements IMainFlow {
         MainData myData;
-        MainFlowConfig myConfig;
+        CoreFlowConfig myConfig;
 
         @Override
         public Port<MainData> getInPort() {
@@ -87,7 +87,7 @@ public class MainTest {
         }
 
         @Override
-        public Port<MainFlowConfig> getConfigPort() {
+        public Port<CoreFlowConfig> getConfigPort() {
             return data -> myConfig = data;
         }
 

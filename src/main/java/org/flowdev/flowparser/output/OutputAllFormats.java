@@ -19,7 +19,7 @@ public class OutputAllFormats extends BaseOp<OutputAllFormats.OutputAllFormatsCo
 
 
     protected void outputFormats(MainData data) {
-        List<String> formats = getVolatileConfig().formats;
+        List<String> formats = getVolatileConfig().formats();
         for (String format : formats) {
             int idx = formatIndex(format);
             if (idx >= 0) {

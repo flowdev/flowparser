@@ -4,6 +4,7 @@ import joptsimple.OptionException;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
+import org.flowdev.flowparser.CoreFlow.CoreFlowConfig;
 import org.flowdev.flowparser.data.MainData;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.data.SourceData;
@@ -13,7 +14,6 @@ import java.io.PrintStream;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.flowdev.flowparser.MainFlow.MainFlowConfig;
 import static org.flowdev.flowparser.output.OutputAllFormats.OutputAllFormatsConfig;
 import static org.flowdev.flowparser.util.FormatUtil.formatIndex;
 import static org.flowdev.flowparser.util.FormatUtil.formatsAsString;
@@ -80,7 +80,7 @@ public class Main {
 
     private static void compileFlows(List<String> inNames,
                                      List<String> formats) {
-        MainFlowConfig mainFlowConfig = new MainFlowConfig().outputAllFormats(new OutputAllFormatsConfig().formats(formats));
+        CoreFlowConfig mainFlowConfig = new CoreFlowConfig().outputAllFormats(new OutputAllFormatsConfig().formats(formats));
         mainFlow.getConfigPort().send(mainFlowConfig);
 
         for (String inName : inNames) {
