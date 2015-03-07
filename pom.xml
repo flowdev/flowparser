@@ -10,8 +10,6 @@
 
     <properties>
         <flowdev.version>0.0.2-SNAPSHOT</flowdev.version>
-        <asciidoctor.version>1.5.1</asciidoctor.version>
-        <gem-maven-plugin.version>1.0.6</gem-maven-plugin.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
