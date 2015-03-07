@@ -42,11 +42,15 @@ flow ParseArrow {
 
   arrow() subOut.0 [ParserData]-> spcCom1(ParseSpaceComment) -> subIn arrow() ;
   arrow() subOut.1 [ParserData]-> optType(ParseOptional) -> subIn arrow() ;
+  arrow() subOut.2 [ParserData]-> optCall(ParseOptional) -> subIn arrow() ;
   // config: literal = "->"
-  arrow() subOut.2 [ParserData]-> litArr(ParseLiteral) -> subIn arrow() ;
-  arrow() subOut.3 [ParserData]-> spcCom2(ParseSpaceComment) -> subIn arrow() ;
+  arrow() subOut.3 [ParserData]-> litArr(ParseLiteral) -> subIn arrow() ;
+  arrow() subOut.4 [ParserData]-> spcCom2(ParseSpaceComment) -> subIn arrow() ;
 
   optType() subOut [ParserData]-> type(ParseAll) -> subIn optType() ;
+
+  // config: regex = "[saip]"
+  optCall() subOut [ParserData]-> call(ParseRegex) -> subIn optCall() ;
 
   // config: literal = "["
   type() subOut.0 [ParserData]-> openType(ParseLiteral) -> subIn type() ;
