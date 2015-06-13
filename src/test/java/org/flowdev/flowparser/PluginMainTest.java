@@ -33,7 +33,7 @@ public class PluginMainTest {
         String expectedResult = readResource(AllTest.RESULT_RESOURCE_DIR + fileName + ".adoc" + ".expected");
         String testFlowContent = readResource(AllTest.FLOW_RESOURCE_DIR + fileName + AllTest.FLOW_EXT);
 
-        String actualResult = PluginMain.compileFlowToAdoc(testFlowContent);
+        String actualResult = PluginMain.compileFlowToAdoc(testFlowContent, true);
 
         assertEquals("PluginMainTest failed for file '" + fileName + "' and format 'adoc'.", expectedResult, actualResult);
     }

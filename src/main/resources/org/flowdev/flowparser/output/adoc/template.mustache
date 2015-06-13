@@ -1,7 +1,7 @@
-[graphviz, {{name}}, svg]
+{{#flow}}[graphviz, {{name}}, svg]
 ....
 digraph {{name}} {
-  // rankdir=LR;
+{{#horizontal}}  rankdir=LR;{{/horizontal}}
 node [shape=Mrecord,style=filled,fillcolor="#428bca",rank=same];
 
 {{#operations}}  {{name}} [label="{{name}}\n({{type}}){{#portPairs}}
@@ -22,3 +22,4 @@ node [shape=Mrecord,style=filled,fillcolor="#428bca",rank=same];
 }
 ....
 
+{{/flow}}

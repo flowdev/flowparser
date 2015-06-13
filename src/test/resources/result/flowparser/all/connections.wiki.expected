@@ -1,6 +1,6 @@
 <graphviz type="framed" caption="Connections1" format="svg" location="center">
 digraph Connections1 {
-  // rankdir=LR;
+  rankdir=LR;
   node [shape=Mrecord,style=filled,fillcolor="#428bca",rank=same];
 
   doIt [label="doIt\n(DoIt)|{ <in> in|<out> out }|{ <i2> i2|<o3> o3 }|{ |<o2> o2 }|{ |<o4> o4 }|{ |<o1> o1 }|{ |<o5> o5 }"] ;
@@ -39,7 +39,7 @@ digraph Connections1 {
 
 <graphviz type="framed" caption="NumberedPorts" format="svg" location="center">
 digraph NumberedPorts {
-  // rankdir=LR;
+  rankdir=LR;
   node [shape=Mrecord,style=filled,fillcolor="#428bca",rank=same];
 
   doIt [label="doIt\n()|{ <in> in|<out> out }|{ <subIn.0> subIn.0|<subOut.0> subOut.0 }|{ <subIn.1> subIn.1|<subOut.1> subOut.1 }|{ <subIn.2> subIn.2|<subOut.2> subOut.2 }"] ;

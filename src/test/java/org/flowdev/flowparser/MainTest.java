@@ -4,6 +4,7 @@ import org.flowdev.base.Port;
 import org.flowdev.base.data.PrettyPrinter;
 import org.flowdev.flowparser.CoreFlow.CoreFlowConfig;
 import org.flowdev.flowparser.data.MainData;
+import org.flowdev.flowparser.output.FillTemplate;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.data.SourceData;
 import org.junit.Before;
@@ -24,6 +25,7 @@ import static org.junit.Assert.assertEquals;
 public class MainTest {
 
     private static final String FORMAT = "adoc";
+    private static final String HORIZONTAL = "--horizontal";
     private static final String MINI_FLOW = "./src/test/flow/flowparser/mini.flow";
     private TestMainFlow flow;
     private final String[] args;
@@ -44,7 +46,16 @@ public class MainTest {
         params.add(new String[]{MINI_FLOW});
 
         MainData data = createData(MINI_FLOW);
-        CoreFlowConfig config = createConfig(FORMAT);
+        CoreFlowConfig config = createConfig(false, FORMAT);
+        params.add(data);
+        params.add(config);
+        paramsList.add(params.toArray());
+
+        params = new ArrayList<>();
+        params.add(new String[]{HORIZONTAL, MINI_FLOW});
+
+        data = createData(MINI_FLOW);
+        config = createConfig(true, FORMAT);
         params.add(data);
         params.add(config);
         paramsList.add(params.toArray());
@@ -56,8 +67,9 @@ public class MainTest {
         return new MainData().parserData(new ParserData().source(new SourceData().name(fileName)));
     }
 
-    private static CoreFlowConfig createConfig(String... formats) {
-        return new CoreFlowConfig().outputAllFormats(new OutputAllFormatsConfig().formats(asList(formats)));
+    private static CoreFlowConfig createConfig(boolean horizontal, String... formats) {
+        return new CoreFlowConfig().fillTemplate(new FillTemplate.FillTemplateConfig().horizontal(horizontal))
+                .outputAllFormats(new OutputAllFormatsConfig().formats(asList(formats)));
     }
 
     @Before

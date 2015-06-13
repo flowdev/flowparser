@@ -6,6 +6,7 @@ import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 import org.flowdev.flowparser.CoreFlow.CoreFlowConfig;
 import org.flowdev.flowparser.data.MainData;
+import org.flowdev.flowparser.output.FillTemplate;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.data.SourceData;
 
@@ -31,6 +32,7 @@ public class Main {
      * @throws IOException if something terrible happens.
      */
     public static void main(String... args) throws IOException {
+        boolean horizontal = false;
         optParser = new OptionParser();
         optParser.posixlyCorrect(true);
         try {
@@ -40,10 +42,14 @@ public class Main {
                     .acceptsAll(asList("f", "format"), "output formats")
                     .withRequiredArg().describedAs(formatsAsString())
                     .withValuesSeparatedBy(",").defaultsTo("adoc");
+            optParser.accepts("horizontal", "format flows horizontaly");
             OptionSet options = optParser.parse(args);
 
             if (options.has(help)) {
                 help();
+            }
+            if (options.has("horizontal")) {
+                horizontal = true;
             }
             List<String> inNames = options.nonOptionArguments();
             if (inNames.isEmpty()) {
@@ -51,7 +57,7 @@ public class Main {
             }
 
             List<String> formats = convertFormats(outFormats.values(options));
-            compileFlows(inNames, formats);
+            compileFlows(inNames, formats, horizontal);
         } catch (OptionException oe) {
             fatal(oe.getLocalizedMessage());
         }
@@ -78,9 +84,9 @@ public class Main {
         });
     }
 
-    private static void compileFlows(List<String> inNames,
-                                     List<String> formats) {
-        CoreFlowConfig mainFlowConfig = new CoreFlowConfig().outputAllFormats(new OutputAllFormatsConfig().formats(formats));
+    private static void compileFlows(List<String> inNames, List<String> formats, boolean horizontal) {
+        CoreFlowConfig mainFlowConfig = new CoreFlowConfig().outputAllFormats(new OutputAllFormatsConfig().formats(formats)) //
+                .fillTemplate(new FillTemplate.FillTemplateConfig().horizontal(horizontal));
         mainFlow.getConfigPort().send(mainFlowConfig);
 
         for (String inName : inNames) {

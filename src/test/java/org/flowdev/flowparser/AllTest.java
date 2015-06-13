@@ -52,7 +52,7 @@ public class AllTest {
         writeFile(workFlowFile, testFlowContent);
 
         Main.resetMainFlow();
-        Main.main("-f", format, workFlowFile);
+        Main.main("--horizontal", "-f", format, workFlowFile);
         String actualResult = readFile(actualFile);
 
         deleteFile(actualFile);

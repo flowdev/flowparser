@@ -1,7 +1,7 @@
 package ;
 
 
-public class {{name}} {
+{{#flow}}public class {{name}} {
 {{#operations}}    private final {{type}} {{name}};
 {{/operations}}
 
@@ -34,3 +34,4 @@ public class {{name}} {
 {{/toOp}}{{/connections}}
 }
 
+{{/flow}}

@@ -1,7 +1,7 @@
 [graphviz, Mini, svg]
 ....
 digraph Mini {
-  // rankdir=LR;
+  rankdir=LR;
   node [shape=Mrecord,style=filled,fillcolor="#428bca",rank=same];
 
   doIt [label="doIt\n(DoIt)|{ <in> in| }"] ;

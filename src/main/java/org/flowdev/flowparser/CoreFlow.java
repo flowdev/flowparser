@@ -4,6 +4,7 @@ import org.flowdev.base.Port;
 import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.output.FillPortPairs;
 import org.flowdev.flowparser.output.FillTemplate;
+import org.flowdev.flowparser.output.FillTemplate.FillTemplateConfig;
 import org.flowdev.flowparser.output.OutputAllFormats;
 import org.flowdev.flowparser.parse.HandleParserResult;
 import org.flowdev.flowparser.parse.ParseFlowFile;
@@ -21,7 +22,10 @@ public class CoreFlow {
     private OutputAllFormats outputAllFormats;
     private FillPortPairs fillPortPairs;
     private FillTemplate fillTemplate;
-    private Port<CoreFlowConfig> configPort = data -> outputAllFormats.getConfigPort().send(data.outputAllFormats());
+    private Port<CoreFlowConfig> configPort = data -> {
+        outputAllFormats.getConfigPort().send(data.outputAllFormats());
+        fillTemplate.getConfigPort().send(data.fillTemplate());
+    };
 
 
     public CoreFlow() {
@@ -77,6 +81,7 @@ public class CoreFlow {
 
     public static class CoreFlowConfig {
         private OutputAllFormatsConfig outputAllFormats;
+        private FillTemplateConfig fillTemplate;
 
         public OutputAllFormatsConfig outputAllFormats() {
             return this.outputAllFormats;
@@ -84,6 +89,15 @@ public class CoreFlow {
 
         public CoreFlowConfig outputAllFormats(final OutputAllFormatsConfig outputAllFormats) {
             this.outputAllFormats = outputAllFormats;
+            return this;
+        }
+
+        public FillTemplateConfig fillTemplate() {
+            return this.fillTemplate;
+        }
+
+        public CoreFlowConfig fillTemplate(final FillTemplateConfig fillTemplate) {
+            this.fillTemplate = fillTemplate;
             return this;
         }
     }

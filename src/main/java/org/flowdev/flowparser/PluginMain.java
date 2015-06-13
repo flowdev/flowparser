@@ -4,6 +4,7 @@ import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Consumer;
 import org.flowdev.flowparser.CoreFlow.CoreFlowConfig;
 import org.flowdev.flowparser.data.MainData;
+import org.flowdev.flowparser.output.FillTemplate.FillTemplateConfig;
 import org.flowdev.flowparser.output.OutputAllFormats;
 import org.flowdev.parser.data.ParserData;
 import org.flowdev.parser.data.SourceData;
@@ -16,12 +17,13 @@ import static java.util.Arrays.asList;
 public class PluginMain {
 
     /**
-     * Compile a flowdev DSL flow into a Asciidoctor diagram.
+     * Compile a flowdev DSL flow into an Asciidoctor diagram.
      *
-     * @param flow
-     * @return
+     * @param flow the flow in DSL form as a string.
+     * @param horizontal true if the flow should be formatted horizontaly.
+     * @return the flow compiled to an Asciidoctor graphviz diagram.
      */
-    public static String compileFlowToAdoc(String flow) {
+    public static String compileFlowToAdoc(String flow, boolean horizontal) {
         CoreFlow coreFlow = new CoreFlow();
         coreFlow.setErrorPort(err -> {
             if (err == null) {
@@ -37,7 +39,8 @@ public class PluginMain {
 //            System.exit(1);
         });
 
-        CoreFlowConfig mainFlowConfig = new CoreFlowConfig().outputAllFormats(new OutputAllFormats.OutputAllFormatsConfig().formats(asList("adoc")));
+        CoreFlowConfig mainFlowConfig = new CoreFlowConfig().outputAllFormats(new OutputAllFormats.OutputAllFormatsConfig().formats(asList("adoc"))) //
+                .fillTemplate(new FillTemplateConfig().horizontal(horizontal));
         coreFlow.getConfigPort().send(mainFlowConfig);
 
         ResultRecipient resultRecipient = new ResultRecipient();

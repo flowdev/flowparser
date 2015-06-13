@@ -1,7 +1,8 @@
-<graphviz type="framed" caption="{{name}}" format="svg" location="center">
+{{#flow}}
+    <graphviz type="framed" caption="{{name}}" format="svg" location="center">
 digraph {{name}} {
-  // rankdir=LR;
-    node [shape=Mrecord,style=filled,fillcolor="#428bca",rank=same];
+        {{#horizontal}}  rankdir=LR;{{/horizontal}}
+        node [shape=Mrecord,style=filled,fillcolor="#428bca",rank=same];
 
 {{#operations}}  {{name}} [label="{{name}}\n({{type}}){{#portPairs}}
 |{ {{#inPort}}<{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}> {{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/inPort}}|{{#outPort}}
@@ -21,3 +22,4 @@ digraph {{name}} {
 }
 </graphviz>
 
+{{/flow}}
