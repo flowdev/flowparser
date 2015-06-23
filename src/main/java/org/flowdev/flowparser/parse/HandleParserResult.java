@@ -16,18 +16,18 @@ public class HandleParserResult extends FilterOp<MainData, NoConfig> {
     protected void filter(MainData data) {
         Feedback feedback = data.parserData().result().feedback();
 
-        if (feedback == null || feedback.errors().isEmpty()) {
+        if (feedback == null || feedback.getErrors().isEmpty()) {
             if (feedback != null) {
-                outputFeedback(feedback.infos(), "Information", System.out);
-                outputFeedback(feedback.warnings(), "Warnings", System.out);
-                outputFeedback(feedback.errors(), "ERRORS", System.out);
+                outputFeedback(feedback.getInfos(), "Information", System.out);
+                outputFeedback(feedback.getWarnings(), "Warnings", System.out);
+                outputFeedback(feedback.getErrors(), "ERRORS", System.out);
             }
             data.flowFile((FlowFile) data.parserData().result().value());
             outPort.send(data);
         } else {
-            outputFeedback(feedback.infos(), "Information", System.err);
-            outputFeedback(feedback.warnings(), "Warnings", System.err);
-            outputFeedback(feedback.errors(), "ERRORS", System.err);
+            outputFeedback(feedback.getInfos(), "Information", System.err);
+            outputFeedback(feedback.getWarnings(), "Warnings", System.err);
+            outputFeedback(feedback.getErrors(), "ERRORS", System.err);
             sendError(new Exception("Errors occured while parsing. Please see the log for details."));
         }
     }

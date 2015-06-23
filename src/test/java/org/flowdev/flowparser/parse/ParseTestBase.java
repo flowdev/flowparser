@@ -54,17 +54,17 @@ public abstract class ParseTestBase {
 
             if (expectedValue == null) {
                 assertNotNull(actualResultParserData.result().feedback());
-                assertNotNull(actualResultParserData.result().feedback().errors());
-                assertNotSame(0, actualResultParserData.result().feedback().errors().size());
-                System.out.println("Expected errors: " + actualResultParserData.result().feedback().errors());
+                assertNotNull(actualResultParserData.result().feedback().getErrors());
+                assertNotSame(0, actualResultParserData.result().feedback().getErrors().size());
+                System.out.println("Expected getErrors: " + actualResultParserData.result().feedback().getErrors());
             }
         } else {
 //            assertEquals("Expected and actual value don't have the same class.", expectedValue.getClass(), actualValue.getClass());
             if (actualResultParserData.result().feedback() != null) {
-                if (!actualResultParserData.result().feedback().errors().isEmpty()) {
-                    System.err.println("Unexpected errors: " + actualResultParserData.result().feedback().errors());
+                if (!actualResultParserData.result().feedback().getErrors().isEmpty()) {
+                    System.err.println("Unexpected getErrors: " + actualResultParserData.result().feedback().getErrors());
                 }
-                assertTrue("No errors expected.", actualResultParserData.result().feedback().errors().isEmpty());
+                assertTrue("No getErrors expected.", actualResultParserData.result().feedback().getErrors().isEmpty());
             }
 
             checkResultValue(expectedValue, actualValue);

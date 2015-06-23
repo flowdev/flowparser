@@ -1,7 +1,7 @@
 package org.flowdev.flowparser;
 
 import org.flowdev.base.data.NoConfig;
-import org.flowdev.base.op.Consumer;
+import org.flowdev.base.op.Consume;
 import org.flowdev.flowparser.CoreFlow.CoreFlowConfig;
 import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.output.FillTemplate.FillTemplateConfig;
@@ -52,7 +52,7 @@ public class PluginMain {
         return resultRecipient.result().outputContent();
     }
 
-    public static class ResultRecipient extends Consumer<MainData, NoConfig> {
+    public static class ResultRecipient extends Consume<MainData, NoConfig> {
         private MainData result;
 
         @Override
