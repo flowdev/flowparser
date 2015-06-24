@@ -2,7 +2,7 @@
 ....
 digraph {{name}} {
 {{#horizontal}}  rankdir=LR;{{/horizontal}}
-node [shape=Mrecord,style=filled,fillcolor="#428bca",rank=same];
+  node [shape=Mrecord,style=filled,fillcolor="#428bca",rank=same];
 
 {{#operations}}  {{name}} [label="{{name}}\n({{type}}){{#portPairs}}
 |{ {{#inPort}}<{{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}> {{name}}{{#hasIndex}}.{{index}}{{/hasIndex}}{{/inPort}}|{{#outPort}}
