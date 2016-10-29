@@ -5,7 +5,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 public abstract class FormatUtil {
-    private static final String[] ALLOWED_FORMATS = {"adoc", "java", "wiki"};
+    private static final String[] ALLOWED_FORMATS = {"adoc", "java", "wiki", "go"};
 
     /**
      * @param format the format to look for in the ALLOWED_FORMATS array.

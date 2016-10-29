@@ -1,0 +1,29 @@
+package main
+
+
+{{#flow}}type {{name}} struct {
+{{#operations}} {{name}} *{{type}}
+{{/operations}}
+{{#connections}}{{^fromOp}}	{{fromPort.capName}}Port func({{dataType}})
+{{/fromOp}}{{/connections}}
+}
+
+func New{{name}}() *{{name}} {
+    f := &{{name}}{}
+{{#operations}} f.{{name}} = New{{type}}()
+{{/operations}}
+
+{{#connections}}{{#fromOp}}{{#toOp}}    f.{{fromOp.name}}.Set{{fromPort.capName}}Port({{#fromPort.hasIndex}}{{fromPort.index}}, {{/fromPort.hasIndex}}f.{{toOp.name}}.{{toPort.capName}}Port{{#toPort.hasIndex}}[{{toPort.index}}]{{/toPort.hasIndex}})
+{{/toOp}}{{/fromOp}}{{/connections}}
+
+{{#connections}}{{^fromOp}}	f.{{fromPort.capName}}Port = f.{{toOp.name}}.{{toPort.capName}}Port
+{{/fromOp}}{{/connections}}
+
+    return f
+}
+{{#connections}}{{^toOp}}func (f *{{flow.name}}) Set{{toPort.capName}}Port(port func({{dataType}})) {
+	f.{{fromOp.name}}.Set{{fromPort.capName}}Port(port)
+}
+{{/toOp}}{{/connections}}
+
+{{/flow}}

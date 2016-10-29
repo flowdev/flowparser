@@ -52,6 +52,7 @@ public class CoreFlow {
         outputAllFormats.setFormatPort(0, fillPortPairs.getInPort());
         outputAllFormats.setFormatPort(1, fillTemplate.getInPort());
         outputAllFormats.setFormatPort(2, fillPortPairs.getInPort());
+        outputAllFormats.setFormatPort(3, fillTemplate.getInPort());
         fillPortPairs.setOutPort(fillTemplate.getInPort());
     }
 

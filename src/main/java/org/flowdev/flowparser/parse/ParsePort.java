@@ -5,7 +5,11 @@ import org.flowdev.base.data.NoConfig;
 import org.flowdev.base.op.Filter;
 import org.flowdev.flowparser.data.MainData;
 import org.flowdev.flowparser.semantic.SemanticPort;
-import org.flowdev.parser.op.*;
+import org.flowdev.parser.op.ParseAll;
+import org.flowdev.parser.op.ParseLiteral;
+import org.flowdev.parser.op.ParseNatural;
+import org.flowdev.parser.op.ParseOptional;
+import org.flowdev.parser.op.ParserParams;
 
 import static org.flowdev.parser.op.ParseLiteral.ParseLiteralConfig;
 
